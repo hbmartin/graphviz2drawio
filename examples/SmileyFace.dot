@@ -1,0 +1,49 @@
+strict digraph "" {
+	node [label="\N"];
+	SmileyFaceExperiments	 [label="{SmileyFaceExperiments|- abTestUtility: AbTestUtility\l|+ isSomeSmileyStuffEnabled: isSomeSmileyStuffEnabled\l+ isMoreSmileysWanted: \
+isMoreSmileysWanted\l}",
+		shape=record];
+	SmileyFaceApiClient	 [label="{SmileyFaceApiClient|- tinderApi: TinderApi\l|+ loadSmileyFaceAction(): Single\<SmileyFaceResponse\>\l+ saveSmileyFaceJws(SmileyFaceRequestBody): \
+Completable\l}",
+		shape=record];
+	AddDeviceCheckSdkResultEvent	 [label="{AddDeviceCheckSdkResultEvent||+ invoke(DeviceCheckSdkResultRequest)\l}",
+		shape=record];
+	dataFrownie	 [label="{FrownieDataRepository||\l}",
+		shape=record];
+	FrownieRepository	 [label="{ \<\<interface\>\>\nFrownieRepository|+ loadSafetyNetJwsResult(\lnonce: String\l): Single\<String\>\l}",
+		shape=record];
+	FrownieRepository -> dataFrownie	 [arrowtail=onormal,
+		dir=back,
+		style=dashed];
+	dataSmileyFace	 [label="{SmileyFaceDataRepository|- smileyFaceApiClient: SmileyFaceApiClient|\l}",
+		shape=record];
+	dataSmileyFace -> SmileyFaceApiClient	 [arrowtail=odiamond,
+		dir=back];
+	SmileyFaceRepository	 [label="{ \<\<interface\>\>\nSmileyFaceRepository|+ loadSmileyFace(): Single\<SmileyFaceAction\>\l+ saveSmileyFace(\ljws: String,\lversion: \
+Int\l): Completable\l}",
+		shape=record];
+	SmileyFaceRepository -> dataSmileyFace	 [arrowtail=onormal,
+		dir=back,
+		style=dashed];
+	GetSafetyNetFrownie	 [label="{GetSafetyNetFrownie|- frownieRepository: FrownieRepository\l- addDeviceCheckSdkResultEvent: AddDeviceCheckSdkResultEvent|+ invoke(\lnonce: \
+String\l): Single\<String\>\l}",
+		shape=record];
+	GetSafetyNetFrownie -> AddDeviceCheckSdkResultEvent	 [arrowtail=odiamond,
+		dir=back];
+	GetSafetyNetFrownie -> FrownieRepository	 [arrowtail=odiamond,
+		dir=back];
+	GetAndSaveSafetyNetFrownie	 [label="{GetAndSaveSafetyNetFrownie|- smileyFaceRepository: SmileyFaceRepository\l- getSafetyNetFrownie: GetSafetyNetFrownie|+ invoke(): \
+Completable\l}",
+		shape=record];
+	GetAndSaveSafetyNetFrownie -> SmileyFaceRepository	 [arrowtail=odiamond,
+		dir=back];
+	GetAndSaveSafetyNetFrownie -> GetSafetyNetFrownie	 [arrowtail=odiamond,
+		dir=back];
+	LearnMore	 [label="{LearnMorePresenter|- target: LearnMoreTarget\l- getAndSaveSafetyNetFrownie: GetAndSaveSafetyNetFrownie\l- smileyFaceExperiments: \
+SmileyFaceExperiments|+ drop()\l}",
+		shape=record];
+	LearnMore -> SmileyFaceExperiments	 [arrowtail=odiamond,
+		dir=back];
+	LearnMore -> GetAndSaveSafetyNetFrownie	 [arrowtail=odiamond,
+		dir=back];
+}
