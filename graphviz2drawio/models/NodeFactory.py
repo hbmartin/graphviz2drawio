@@ -44,5 +44,17 @@ class NodeFactory:
         if current_text is not None:
             texts.append(current_text)
         rect = self.rect_from_svg_points(SVG.get_first(g, "polygon").attrib["points"])
-        # TODO: what does draw.io do if no rect is specified?
-        return Node(sid=g.attrib["id"], gid=SVG.get_title(g), rect=rect, texts=texts)
+        stroke = None
+        if "stroke" in g.attrib:
+            stroke = g.attrib["stroke"]
+        fill = None
+        if "fill" in g.attrib:
+            fill = g.attrib["fill"]
+        return Node(
+            sid=g.attrib["id"],
+            gid=SVG.get_title(g),
+            rect=rect,
+            texts=texts,
+            fill=fill,
+            stroke=stroke,
+        )

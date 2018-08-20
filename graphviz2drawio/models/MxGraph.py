@@ -1,6 +1,7 @@
 from xml.etree import ElementTree as ET
 
-from graphviz2drawio.models.Stroke import Stroke
+from graphviz2drawio.models import DotAttr
+from graphviz2drawio.models import MxConst
 from graphviz2drawio.models.Styles import Styles
 
 
@@ -8,10 +9,10 @@ class MxGraph:
     def __init__(self, nodes, edges):
         self.nodes = nodes
         self.edges = edges
-        self.graph = ET.Element("mxGraphModel")
-        self.root = ET.SubElement(self.graph, "root")
-        ET.SubElement(self.root, "mxCell", id="0")
-        ET.SubElement(self.root, "mxCell", id="1", parent="0")
+        self.graph = ET.Element(MxConst.GRAPH)
+        self.root = ET.SubElement(self.graph, MxConst.ROOT)
+        ET.SubElement(self.root, MxConst.CELL, id="0")
+        ET.SubElement(self.root, MxConst.CELL, id="1", parent="0")
 
         for node in nodes.values():
             self.add_node(node)
@@ -20,19 +21,25 @@ class MxGraph:
             self.add_edge(edge)
 
     def add_edge(self, edge):
-        end_arrow = "block"
+        end_arrow = MxConst.BLOCK
         end_fill = 1
-        dashed = 1 if edge.style == Stroke.DASHED.value else 0
+        dashed = 1 if edge.style == DotAttr.DASHED else 0
         if edge.arrowtail is not None:
             tail = edge.arrowtail
-            if edge.arrowtail[0] == "o":
+            if edge.arrowtail[0] == DotAttr.NO_FILL:
                 end_fill = 0
                 tail = edge.arrowtail[1:]
-            if tail == "diamond":
-                end_arrow = "diamond"
+            if tail == DotAttr.DIAMOND:
+                end_arrow = MxConst.DIAMOND
+        if edge.dir == DotAttr.BACK:
+            source = self.nodes[edge.to].sid
+            target = self.nodes[edge.fr].sid
+        else:
+            target = self.nodes[edge.to].sid
+            source = self.nodes[edge.fr].sid
         edge_element = ET.SubElement(
             self.root,
-            "mxCell",
+            MxConst.CELL,
             id=edge.sid,
             style=Styles.EDGE.format(
                 entry_x=self.edge_reposition_x[edge.sid],
@@ -42,8 +49,8 @@ class MxGraph:
             ),
             parent="1",
             edge="1",
-            source=self.nodes[edge.fr].sid,
-            target=self.nodes[edge.to].sid,
+            source=source,
+            target=target,
         )
         self.add_mx_geo(edge_element)
 
@@ -70,28 +77,18 @@ class MxGraph:
         return reposition_x
 
     def add_node(self, node):
-        value = ""
-        last_text = len(node.texts) - 1
-        for i, t in enumerate(node.texts):
-            align = "center" if t.anchor == "middle" else "start"
-            margin = "margin-top:4px;" if t.anchor == "middle" else "margin-left:4px;"
-            value += (
-                "<p style='margin:0px;text-align:"
-                + align
-                + ";"
-                + margin
-                + "'>"
-                + t.text
-                + "</p>"
-            )
-            if i != last_text:
-                value += "<hr size='1'/>"
+        fill = (
+            node.fill
+            if (node.fill is not None and node.fill != "none")
+            else MxConst.DEFAUT_FILL
+        )
+        stroke = node.stroke if node.stroke is not None else MxConst.DEFAUT_STROKE
         node_element = ET.SubElement(
             self.root,
-            "mxCell",
+            MxConst.CELL,
             id=node.sid,
-            value=value,
-            style=Styles.NODE.value,
+            value=node.text_to_mx_value(),
+            style=Styles.NODE.format(fill=fill, stroke=stroke),
             parent="1",
             vertex="1",
         )
@@ -100,12 +97,11 @@ class MxGraph:
     @staticmethod
     def add_mx_geo(element, rect=None):
         if rect is None:
-            ET.SubElement(element, "mxGeometry", {"as": "geometry"}, relative="1")
+            ET.SubElement(element, MxConst.GEO, {"as": "geometry"}, relative="1")
         else:
             attributes = rect.to_dict_int()
             attributes["as"] = "geometry"
-            ET.SubElement(element, "mxGeometry", attributes)
+            ET.SubElement(element, MxConst.GEO, attributes)
 
     def value(self):
-        declaration = '<?xml version="1.0"?>'
-        return declaration + ET.tostring(self.graph, encoding="unicode")
+        return MxConst.DECLARATION + ET.tostring(self.graph, encoding="unicode")
