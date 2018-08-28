@@ -1,8 +1,8 @@
 from xml.etree import ElementTree
 
-from .NodeFactory import NodeFactory
+from graphviz2drawio.mx.NodeFactory import NodeFactory
 from .CoordsTranslate import CoordsTranslate
-from .Edge import Edge
+from graphviz2drawio.mx.Edge import Edge
 
 
 def parse(svg_data):
@@ -34,3 +34,7 @@ def get_title(g):
 
 def is_tag(g, tag):
     return g.tag == "{http://www.w3.org/2000/svg}" + tag
+
+
+def has(g, tag):
+    return len(g.findall("./{http://www.w3.org/2000/svg}" + tag)) > 0

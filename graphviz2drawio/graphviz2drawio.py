@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
 from pygraphviz import AGraph
-from .models import SVG, MxGraph
+from .models import SVG
+from .mx.MxGraph import MxGraph
 
 
 def convert(graph_to_convert, layout_prog="dot"):

@@ -1,4 +1,5 @@
-from . import DotAttr, MxConst
+from graphviz2drawio.models import DotAttr
+from graphviz2drawio.mx import MxConst
 from .Styles import Styles
 
 

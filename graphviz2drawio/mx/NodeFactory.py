@@ -1,6 +1,7 @@
-from . import SVG
+from graphviz2drawio.models import SVG
+from graphviz2drawio.models.Rect import Rect
+from graphviz2drawio.mx.Shape import Shape
 from .Node import Node
-from .Rect import Rect
 from .Text import Text
 
 
@@ -29,6 +30,14 @@ class NodeFactory:
                 height = test_height
         return Rect(x=min_x, y=min_y, width=width, height=height)
 
+    def rect_from_ellipse_svg(self, attrib):
+        cx = int(attrib["cx"])
+        cy = int(attrib["cy"])
+        rx = int(attrib["rx"])
+        ry = int(attrib["ry"])
+        x, y = self.coords.translate(cx, cy)
+        return Rect(x=x - rx, y=y - ry, width=rx * 2, height=rx * 2)
+
     def from_svg(self, g):
         texts = []
         current_text = None
@@ -43,7 +52,13 @@ class NodeFactory:
                 current_text = None
         if current_text is not None:
             texts.append(current_text)
-        rect = self.rect_from_svg_points(SVG.get_first(g, "polygon").attrib["points"])
+        shape = None
+        if SVG.has(g, "polygon"):
+            rect = self.rect_from_svg_points(SVG.get_first(g, "polygon").attrib["points"])
+            shape = Shape.RECT
+        else:
+            rect = self.rect_from_ellipse_svg(SVG.get_first(g, "ellipse").attrib)
+            shape = Shape.ELLIPSE
         stroke = None
         if "stroke" in g.attrib:
             stroke = g.attrib["stroke"]
@@ -57,4 +72,5 @@ class NodeFactory:
             texts=texts,
             fill=fill,
             stroke=stroke,
+            shape=shape,
         )

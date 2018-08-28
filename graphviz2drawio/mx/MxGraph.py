@@ -1,8 +1,9 @@
 from xml.etree import ElementTree as ET
 
 from graphviz2drawio.models import DotAttr
-from graphviz2drawio.models import MxConst
-from graphviz2drawio.models.Styles import Styles
+from graphviz2drawio.mx import MxConst
+from graphviz2drawio.mx.Shape import Shape
+from graphviz2drawio.mx.Styles import Styles
 
 
 class MxGraph:
@@ -83,12 +84,15 @@ class MxGraph:
             else MxConst.DEFAUT_FILL
         )
         stroke = node.stroke if node.stroke is not None else MxConst.DEFAUT_STROKE
+        style = Styles.NODE.format(fill=fill, stroke=stroke)
+        if node.shape == Shape.ELLIPSE:
+            style = Shape.ELLIPSE.value + ";" + style
         node_element = ET.SubElement(
             self.root,
             MxConst.CELL,
             id=node.sid,
             value=node.text_to_mx_value(),
-            style=Styles.NODE.format(fill=fill, stroke=stroke),
+            style=style,
             parent="1",
             vertex="1",
         )

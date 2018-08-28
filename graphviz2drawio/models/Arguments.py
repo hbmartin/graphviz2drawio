@@ -11,4 +11,9 @@ class Arguments(ArgumentParser):
             action="version",
             version="%(prog)s {version}".format(version=version),
         )
-        # TODO: prog
+        self.add_argument(
+            "-p",
+            "--program",
+            help="layout program (defaults to dot), may be one of: neato, dot, twopi, circo, fdp, nop",
+            default="dot",
+        )

@@ -1,4 +1,4 @@
-from . import SVG
+from graphviz2drawio.models import SVG
 from .GraphObj import GraphObj
 
 
@@ -13,6 +13,7 @@ class Edge(GraphObj):
 
     @staticmethod
     def from_svg(g):
-        gid = SVG.get_title(g)
+        gid = SVG.get_title(g).replace("--", "->")
+        print(gid)
         fr, to = gid.split("->")
         return Edge(sid=g.attrib["id"], gid=gid, fr=fr, to=to)
