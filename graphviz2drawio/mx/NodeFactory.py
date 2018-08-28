@@ -36,7 +36,7 @@ class NodeFactory:
         rx = int(attrib["rx"])
         ry = int(attrib["ry"])
         x, y = self.coords.translate(cx, cy)
-        return Rect(x=x - rx, y=y - ry, width=rx * 2, height=rx * 2)
+        return Rect(x=x - rx, y=y - ry, width=rx * 2, height=ry * 2)
 
     def from_svg(self, g):
         texts = []
@@ -52,13 +52,16 @@ class NodeFactory:
                 current_text = None
         if current_text is not None:
             texts.append(current_text)
-        shape = None
+
         if SVG.has(g, "polygon"):
-            rect = self.rect_from_svg_points(SVG.get_first(g, "polygon").attrib["points"])
+            rect = self.rect_from_svg_points(
+                SVG.get_first(g, "polygon").attrib["points"]
+            )
             shape = Shape.RECT
         else:
             rect = self.rect_from_ellipse_svg(SVG.get_first(g, "ellipse").attrib)
             shape = Shape.ELLIPSE
+
         stroke = None
         if "stroke" in g.attrib:
             stroke = g.attrib["stroke"]

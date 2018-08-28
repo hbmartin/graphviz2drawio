@@ -22,10 +22,11 @@ class MxGraph:
             self.add_edge(edge)
 
     def add_edge(self, edge):
-        end_arrow = MxConst.BLOCK
+        end_arrow = MxConst.NONE
         end_fill = 1
         dashed = 1 if edge.style == DotAttr.DASHED else 0
         if edge.arrowtail is not None:
+            end_arrow = MxConst.BLOCK
             tail = edge.arrowtail
             if edge.arrowtail[0] == DotAttr.NO_FILL:
                 end_fill = 0

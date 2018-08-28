@@ -16,3 +16,5 @@ CELL = "mxCell"
 GEO = "mxGeometry"
 GRAPH = "mxGraphModel"
 ROOT = "root"
+
+NONE = "none"

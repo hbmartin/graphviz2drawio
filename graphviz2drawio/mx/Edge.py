@@ -14,6 +14,5 @@ class Edge(GraphObj):
     @staticmethod
     def from_svg(g):
         gid = SVG.get_title(g).replace("--", "->")
-        print(gid)
         fr, to = gid.split("->")
         return Edge(sid=g.attrib["id"], gid=gid, fr=fr, to=to)
