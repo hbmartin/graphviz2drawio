@@ -31,10 +31,10 @@ class NodeFactory:
         return Rect(x=min_x, y=min_y, width=width, height=height)
 
     def rect_from_ellipse_svg(self, attrib):
-        cx = int(attrib["cx"])
-        cy = int(attrib["cy"])
-        rx = int(attrib["rx"])
-        ry = int(attrib["ry"])
+        cx = float(attrib["cx"])
+        cy = float(attrib["cy"])
+        rx = float(attrib["rx"])
+        ry = float(attrib["ry"])
         x, y = self.coords.translate(cx, cy)
         return Rect(x=x - rx, y=y - ry, width=rx * 2, height=ry * 2)
 
