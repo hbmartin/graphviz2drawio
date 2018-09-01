@@ -4,6 +4,8 @@ class Rect:
         self.y = y
         self.width = width
         self.height = height
+        self.bottom = y + height
+        self.right = x + width
 
     def to_dict_int(self):
         return {

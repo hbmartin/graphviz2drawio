@@ -36,15 +36,26 @@ class MxGraph:
         if edge.dir == DotAttr.BACK:
             source = self.nodes[edge.to].sid
             target = self.nodes[edge.fr].sid
+            exit_x = 0.5
+            exit_y = 0
+            entry_x = self.edge_reposition_x[edge.sid]
+            entry_y = 1
         else:
             target = self.nodes[edge.to].sid
             source = self.nodes[edge.fr].sid
+            exit_x = 0.5
+            exit_y = 1
+            entry_x = self.edge_reposition_x[edge.sid]
+            entry_y = 0
         edge_element = ET.SubElement(
             self.root,
             MxConst.CELL,
             id=edge.sid,
             style=Styles.EDGE.format(
-                entry_x=self.edge_reposition_x[edge.sid],
+                entry_x=entry_x,
+                entry_y=entry_y,
+                exit_x=exit_x,
+                exit_y=exit_y,
                 end_arrow=end_arrow,
                 dashed=dashed,
                 end_fill=end_fill,
