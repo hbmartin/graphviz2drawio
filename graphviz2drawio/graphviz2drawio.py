@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from pygraphviz import AGraph
-from .models import SVG
+from .models import SvgParser
 from .mx.MxGraph import MxGraph
 
 
@@ -23,7 +23,7 @@ def convert(graph_to_convert, layout_prog="dot"):
     graph_nodes = {n: list37(n.attr.iteritems()) for n in list37(graph.nodes_iter())}
 
     svg_graph = graph.draw(prog=layout_prog, format="svg")
-    nodes, edges = SVG.parse(svg_graph)
+    nodes, edges = SvgParser(svg_graph).get_nodes_and_edges()
     [e.enrich_from_graph(graph_edges[e.gid]) for e in edges]
     [n.enrich_from_graph(graph_nodes[n.gid]) for n in nodes.values()]
 
