@@ -14,22 +14,26 @@ def check_xml_top(root):
     assert graph.tag == 'mxGraphModel'
     return graph.findall('./root/*')
 
+
 def check_style(e, check):
     assert check in e.attrib['style']
+
 
 def check_value(e, check):
     value = e.attrib['value']
     match = re.match(r'<p.*>%s</p>' % check, html.unescape(value))
     assert match, 'no match found for %s' % value
 
+
 def check_edge(e, source, target):
     assert e.attrib.get('edge')
     assert e.attrib['source'] == source.attrib['id']
     assert e.attrib['target'] == target.attrib['id']
 
+
 def check_edge_dir(e, dx, dy):
     style = [e.split('=') for e in e.attrib['style'].split(';')][:-1]
-    style = {e[0]:e[1] for e in style if e}
+    style = {e[0]: e[1] for e in style if e}
     x2 = float(style['exitX'])
     x1 = float(style['entryX'])
     y2 = float(style['exitY'])
