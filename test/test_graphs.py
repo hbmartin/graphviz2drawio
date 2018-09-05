@@ -27,6 +27,17 @@ def check_edge(e, source, target):
     assert e.attrib['source'] == source.attrib['id']
     assert e.attrib['target'] == target.attrib['id']
 
+def check_edge_dir(e, dx, dy):
+    style = [e.split('=') for e in e.attrib['style'].split(';')][:-1]
+    style = {e[0]:e[1] for e in style if e}
+    x2 = float(style['exitX'])
+    x1 = float(style['entryX'])
+    y2 = float(style['exitY'])
+    y1 = float(style['entryY'])
+
+    assert (x2 - x1) == dx
+    assert (y2 - y1) == dy
+
 
 def test_hello():
     file = './directed/hello.gv.txt'
@@ -45,3 +56,4 @@ def test_hello():
     check_value(world, 'World')
     edge = elements[4]
     check_edge(edge, hello, world)
+    check_edge_dir(edge, dx=0, dy=1)
