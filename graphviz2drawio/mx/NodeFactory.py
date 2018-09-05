@@ -63,14 +63,12 @@ class NodeFactory:
             polygon = SVG.get_first(g, "polygon")
             if "stroke" in polygon.attrib:
                 stroke = polygon.attrib["stroke"]
-        fill = None
-        if "fill" in g.attrib:
-            fill = g.attrib["fill"]
+
         return Node(
             sid=g.attrib["id"],
             gid=SVG.get_title(g),
             rect=rect,
             texts=texts,
-            fill=fill,
+            fill=g.attrib.get("fill", None),
             stroke=stroke,
         )

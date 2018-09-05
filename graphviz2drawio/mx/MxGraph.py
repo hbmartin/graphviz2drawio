@@ -91,14 +91,11 @@ class MxGraph:
         fill = (
             node.fill
             if (node.fill is not None and node.fill != "none")
-            else MxConst.DEFAUT_FILL
+            else MxConst.DEFAULT_FILL
         )
-        stroke = node.stroke if node.stroke is not None else MxConst.DEFAUT_STROKE
+        stroke = node.stroke if node.stroke is not None else MxConst.DEFAULT_STROKE
 
-        if node.shape is not None:
-            style = Styles.get_for_shape(node.shape).format(fill=fill, stroke=stroke)
-        else:
-            style = Styles.NODE.format(fill=fill, stroke=stroke)
+        style = Styles.get_for_shape(node.shape).format(fill=fill, stroke=stroke)
 
         node_element = ET.SubElement(
             self.root,

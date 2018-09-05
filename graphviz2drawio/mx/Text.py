@@ -13,10 +13,11 @@ class Text:
 
     def get_mx_style(self):
         align = MxConst.CENTER if self.anchor == DotAttr.MIDDLE else MxConst.START
+        # TODO: add right
         margin = (
             "margin-top:4px;" if self.anchor == DotAttr.MIDDLE else "margin-left:4px;"
         )
-        rescaled_size = 10 * ((self.size or MxConst.DEFAULT_TEXT_SIZE) / 14)
+        rescaled_size = 10.0 * (self.size / 14.0)
         return Styles.TEXT.format(
             align=align,
             margin=margin,
@@ -29,8 +30,8 @@ class Text:
     def from_svg(t):
         return Text(
             text=t.text.replace("<", "&lt;").replace(">", "&gt;"),
-            anchor=t.attrib["text-anchor"],
-            family=t.attrib["font-family"],
-            size=float(t.attrib["font-size"]),
-            color=t.attrib["fill"] or None,
+            anchor=t.attrib.get("text-anchor", None),
+            family=t.attrib.get("font-family", MxConst.DEFAULT_FONT_FAMILY),
+            size=float(t.attrib.get("font-size", MxConst.DEFAULT_TEXT_SIZE)),
+            color=t.attrib.get("fill", None),
         )

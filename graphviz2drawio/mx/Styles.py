@@ -71,7 +71,8 @@ class Styles(Enum):
         if dot_shape == Shape.ELLIPSE or dot_shape == Shape.OVAL:
             return Styles.ELLIPSE
         elif (
-            dot_shape == Shape.BOX
+            dot_shape is None
+            or dot_shape == Shape.BOX
             or dot_shape == Shape.RECT
             or dot_shape == Shape.RECTANGLE
         ):
