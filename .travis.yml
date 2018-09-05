@@ -15,4 +15,5 @@ script:
     - pip install .
     - cd test
     - pip install -r requirements.txt
+    - if [[ $TRAVIS_PYTHON_VERSION == '3.6' ]]; then pip install black; black --check . ../graphviz2drawio; fi
     - pytest -v test_graphs.py
