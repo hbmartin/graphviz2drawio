@@ -13,4 +13,6 @@ install:
 
 script:
     - pip install .
-    - graphviz2drawio test/directed/hello.gv.txt
+    - cd test
+    - pip install -r requirements.txt
+    - pytest -v test_graphs.py
