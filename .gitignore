@@ -134,7 +134,7 @@ Temporary Items
 .dropbox
 
 # Generated
-examples/*.xml
+test/**/*.xml
 
 # PyCharm
 .idea/workspace.xml
