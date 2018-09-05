@@ -1,5 +1,8 @@
 # graphviz2drawio
 
+[![Build Status](https://travis-ci.com/hbmartin/graphviz2drawio.svg?branch=master)](https://travis-ci.com/hbmartin/graphviz2drawio)
+
+
 Convert graphviz (dot) files into draw.io (mxGraph) format
 
 ## Getting Started

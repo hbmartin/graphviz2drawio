@@ -1,0 +1,16 @@
+language: python
+
+notifications:
+      email: false
+
+python:
+    - "3.4"
+    - "3.5"
+    - "3.6"
+
+install:
+    - sudo apt install graphviz graphviz-dev
+
+script:
+    - pip install .
+    - graphviz2drawio test/directed/hello.gv.txt
