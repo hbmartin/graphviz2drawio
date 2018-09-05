@@ -45,7 +45,6 @@ setup(
     },
     project_urls={
         "Bug Reports": "https://github.com/hbmartin/graphviz2drawio/issues",
-        "Say Thanks!": "http://saythanks.io/hbmartin/graphviz2drawio",
         "Source": "https://github.com/hbmartin/graphviz2drawio/",
     },
 )
