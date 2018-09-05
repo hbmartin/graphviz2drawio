@@ -2,7 +2,6 @@ from xml.etree import ElementTree as ET
 
 from graphviz2drawio.models import DotAttr
 from graphviz2drawio.mx import MxConst
-from graphviz2drawio.mx.Shape import Shape
 from graphviz2drawio.mx.Styles import Styles
 
 
@@ -22,11 +21,10 @@ class MxGraph:
             self.add_edge(edge)
 
     def add_edge(self, edge):
-        end_arrow = MxConst.NONE
+        end_arrow = MxConst.BLOCK
         end_fill = 1
         dashed = 1 if edge.style == DotAttr.DASHED else 0
         if edge.arrowtail is not None:
-            end_arrow = MxConst.BLOCK
             tail = edge.arrowtail
             if edge.arrowtail[0] == DotAttr.NO_FILL:
                 end_fill = 0
@@ -68,7 +66,7 @@ class MxGraph:
         self.add_mx_geo(edge_element)
 
     def edge_reposition(self, edges):
-        # TODO: this needs to be smarter
+        # TODO: https://github.com/hbmartin/graphviz2drawio/issues/7
         edge_to = {}
         for edge in edges:
             if edge.to not in edge_to:
@@ -96,9 +94,12 @@ class MxGraph:
             else MxConst.DEFAUT_FILL
         )
         stroke = node.stroke if node.stroke is not None else MxConst.DEFAUT_STROKE
-        style = Styles.NODE.format(fill=fill, stroke=stroke)
-        if node.shape == Shape.ELLIPSE:
-            style = Shape.ELLIPSE.value + ";" + style
+
+        if node.shape is not None:
+            style = Styles.get_for_shape(node.shape).format(fill=fill, stroke=stroke)
+        else:
+            style = Styles.NODE.format(fill=fill, stroke=stroke)
+
         node_element = ET.SubElement(
             self.root,
             MxConst.CELL,

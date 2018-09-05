@@ -22,7 +22,7 @@ class Text:
             margin=margin,
             size=rescaled_size,
             family=self.family or MxConst.DEFAULT_FONT_FAMILY,
-            color=self.color,
+            color=self.color or MxConst.DEFAULT_FONT_COLOR,
         )
 
     @staticmethod
@@ -32,5 +32,5 @@ class Text:
             anchor=t.attrib["text-anchor"],
             family=t.attrib["font-family"],
             size=float(t.attrib["font-size"]),
-            color=t.attrib["fill"],
+            color=t.attrib["fill"] or None,
         )

@@ -1,6 +1,5 @@
 from graphviz2drawio.models import SVG
 from graphviz2drawio.models.Rect import Rect
-from graphviz2drawio.mx.Shape import Shape
 from .Node import Node
 from .Text import Text
 
@@ -11,7 +10,6 @@ class NodeFactory:
 
     def rect_from_svg_points(self, svg):
         points = svg.split(" ")
-        assert len(points) == 5
         points = [self.coords.translate(*p.split(",")) for p in points]
         min_x, min_y = points[0]
         width = 0
@@ -57,14 +55,14 @@ class NodeFactory:
             rect = self.rect_from_svg_points(
                 SVG.get_first(g, "polygon").attrib["points"]
             )
-            shape = Shape.RECT
         else:
             rect = self.rect_from_ellipse_svg(SVG.get_first(g, "ellipse").attrib)
-            shape = Shape.ELLIPSE
 
         stroke = None
-        if "stroke" in g.attrib:
-            stroke = g.attrib["stroke"]
+        if SVG.has(g, "polygon"):
+            polygon = SVG.get_first(g, "polygon")
+            if "stroke" in polygon.attrib:
+                stroke = polygon.attrib["stroke"]
         fill = None
         if "fill" in g.attrib:
             fill = g.attrib["fill"]
@@ -75,5 +73,4 @@ class NodeFactory:
             texts=texts,
             fill=fill,
             stroke=stroke,
-            shape=shape,
         )
