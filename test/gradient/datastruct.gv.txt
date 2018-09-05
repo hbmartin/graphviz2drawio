@@ -1,0 +1,140 @@
+digraph g {
+graph [
+rankdir = "LR"
+bgcolor = "white:lightblue"
+style="filled"
+gradientangle = 270];
+node [
+fontsize = "16"
+shape = "ellipse"
+style="filled"
+gradientangle=90
+];
+edge [
+];
+"node0" [
+label = "<f0> 0x10ba8| <f1>"
+shape = "record"
+gradientangle="90"
+fillcolor = "yellow:blue"
+];
+"node1" [
+label = "<f0> 0xf7fc4380| <f1> | <f2> |-1"
+shape = "record"
+fillcolor = "blue:red"
+gradientangle = 0
+];
+"node2" [
+label = "<f0> 0xf7fc44b8| | |2"
+shape = "record"
+fillcolor = "brown:yellow"
+gradientangle = 90
+];
+"node3" [
+label = "<f0> 3.43322790286038071e-06|44.79998779296875|0 | <f1>"
+shape = "record"
+fillcolor = "green:red"
+gradientangle = 90
+];
+"node4" [
+label = "<f0> 0xf7fc4380| <f1> | <f2> |2"
+shape = "record"
+fillcolor = "red:green"
+gradientangle = 0
+];
+"node5" [
+label = "<f0> (nil)| | |-1"
+shape = "record"
+fillcolor = "red:red"
+gradientangle = 90
+];
+"node6" [
+label = "<f0> 0xf7fc4380| <f1> | <f2> |1"
+shape = "record"
+fillcolor = "orange:green"
+];
+"node7" [
+label = "<f0> 0xf7fc4380| <f1> | <f2> |2"
+shape = "record"
+fillcolor = "cyan:green"
+];
+"node8" [
+label = "<f0> (nil)| | |-1"
+shape = "record"
+fillcolor = "cyan:cyan"
+];
+"node9" [
+label = "<f0> (nil)| | |-1"
+shape = "record"
+fillcolor = "orange:orange"
+gradientangle = 90
+];
+"node10" [
+label = "<f0> (nil)| <f1> | <f2> |-1"
+shape = "record"
+fillcolor = "magenta:green"
+];
+"node11" [
+label = "<f0> (nil)| <f1> | <f2> |-1"
+shape = "record"
+fillcolor = "red:green"
+];
+"node12" [
+label = "<f0> 0xf7fc43e0| | |1"
+shape = "record"
+fillcolor = "magenta:magenta"
+];
+"node0":f0 -> "node1":f0 [
+id = 0
+];
+"node0":f1 -> "node2":f0 [
+id = 1
+];
+"node1":f0 -> "node3":f0 [
+id = 2
+];
+"node1":f1 -> "node4":f0 [
+id = 3
+];
+"node1":f2 -> "node5":f0 [
+id = 4
+];
+"node4":f0 -> "node3":f1 [
+id = 5
+];
+"node4":f1 -> "node6":f0 [
+id = 6
+];
+"node4":f2 -> "node10":f0 [
+id = 7
+];
+"node6":f0 -> "node3":f1 [
+id = 8
+];
+"node6":f1 -> "node7":f0 [
+id = 9
+];
+"node6":f2 -> "node9":f0 [
+id = 10
+];
+"node7":f0 -> "node3":f1 [
+id = 11
+];
+"node7":f1 -> "node1":f0 [
+id = 12
+];
+"node7":f2 -> "node8":f0 [
+id = 13
+];
+"node10":f1 -> "node11":f0 [
+id = 14
+];
+"node10":f2 -> "node12":f0 [
+id = 15
+];
+"node11":f2 -> "node1":f0 [
+id = 16
+];
+}
+
+
