@@ -40,6 +40,7 @@ setup(
     keywords="graphviz graph agraph dot convert conversion draw drawio mxgraph xml",
     packages=find_packages(exclude=["contrib", "docs", "tests"]),
     install_requires=["pygraphviz", "raven"],
+    tests_require=["pytest"],
     entry_points={
         "console_scripts": ["graphviz2drawio=graphviz2drawio.__main__:main"]
     },
