@@ -5,6 +5,7 @@ from graphviz2drawio.mx.Edge import Edge
 from graphviz2drawio.mx.NodeFactory import NodeFactory
 from collections import OrderedDict
 
+
 class SvgParser:
     def __init__(self, svg_data):
         super(SvgParser, self).__init__()
