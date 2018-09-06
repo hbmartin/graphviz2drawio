@@ -16,8 +16,10 @@ def main():
         pass
 
     args = Arguments(__version__).parse_args()
-    stderr.write("This is alpha software, please report issues to:\n")
-    stderr.write("https://github.com/hbmartin/graphviz2drawio/issues\n")
+    
+    if not args.stdout:
+        stderr.write("This is beta software, please report issues to:\n")
+        stderr.write("https://github.com/hbmartin/graphviz2drawio/issues\n")
 
     try:
         output = convert(args.to_convert, args.program)
