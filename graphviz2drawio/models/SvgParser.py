@@ -3,7 +3,7 @@ from . import SVG
 from .CoordsTranslate import CoordsTranslate
 from graphviz2drawio.mx.Edge import Edge
 from graphviz2drawio.mx.NodeFactory import NodeFactory
-
+from collections import OrderedDict
 
 class SvgParser:
     def __init__(self, svg_data):
@@ -15,7 +15,7 @@ class SvgParser:
 
         coords = CoordsTranslate.from_svg_transform(root.attrib["transform"])
         node_factory = NodeFactory(coords)
-        nodes = {}
+        nodes = OrderedDict()
         edges = []
 
         for g in root:
