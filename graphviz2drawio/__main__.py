@@ -27,6 +27,10 @@ def main():
             client.captureException()
         raise
 
+    if args.stdout:
+        print(output)
+        return
+
     if args.outfile is not None:
         outfile = args.outfile
     else:
