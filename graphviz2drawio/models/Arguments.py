@@ -6,6 +6,7 @@ class Arguments(ArgumentParser):
         super(Arguments, self).__init__(prog="graphviz2drawio")
         self.add_argument("to_convert", metavar="file.dot", help="graphviz file")
         self.add_argument("outfile", help="output file", nargs="?", default=None)
+        self.add_argument("--stdout", action="store_true", help="print xml to stdout")
         self.add_argument(
             "--version",
             action="version",
