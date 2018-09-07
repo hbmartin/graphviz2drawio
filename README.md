@@ -51,6 +51,10 @@ Current alpha release may not correctly convert all dot commands. PLEASE [open a
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
+### Code Formatting
+
+This project makes strict use of Black for code formatting. See the [Black page](https://github.com/ambv/black) for details.
+
 
 ## Authors
 
