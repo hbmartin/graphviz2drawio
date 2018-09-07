@@ -16,33 +16,39 @@ def main():
     except BaseException:
         pass
 
-    args = Arguments(__version__).parse_args()
+    from pycallgraph import PyCallGraph
+    from pycallgraph.output import GraphvizOutput
+    graphviz = GraphvizOutput()
+    calls = PyCallGraph(output=graphviz)
+    with calls:
 
-    if not args.stdout:
-        stderr.write("This is beta software, please report issues to:\n")
-        stderr.write("https://github.com/hbmartin/graphviz2drawio/issues\n")
+        args = Arguments(__version__).parse_args()
 
-    try:
-        output = convert(args.to_convert, args.program)
-    except BaseException:
-        stderr.write("Something went wrong, please report\n")
-        if client is not None:
-            client.captureException()
-        raise
+        if not args.stdout:
+            stderr.write("This is beta software, please report issues to:\n")
+            stderr.write("https://github.com/hbmartin/graphviz2drawio/issues\n")
 
-    if args.stdout:
-        print(output)
-        return
+        try:
+            output = convert(args.to_convert, args.program)
+        except BaseException:
+            stderr.write("Something went wrong, please report\n")
+            if client is not None:
+                client.captureException()
+            raise
 
-    if args.outfile is not None:
-        outfile = args.outfile
-    else:
-        base = args.to_convert.split(".")
-        outfile = ".".join(base[:-1] + ["xml"])
-    with open(outfile, "w") as fd:
-        fd.write(output)
-    stderr.write("Converted file: " + outfile + "\n")
+        if args.stdout:
+            print(output)
+            return
 
+        if args.outfile is not None:
+            outfile = args.outfile
+        else:
+            base = args.to_convert.split(".")
+            outfile = ".".join(base[:-1] + ["xml"])
+        with open(outfile, "w") as fd:
+            fd.write(output)
+        stderr.write("Converted file: " + outfile + "\n")
+    calls.done()
 
 if __name__ == "__main__":
     main()
