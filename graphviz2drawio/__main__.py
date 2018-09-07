@@ -11,7 +11,7 @@ def main():
 
         client = Client(
             dsn="https://f1fce21b51864819a26ea116ff4e5b7f:9f61501e4891465ea53e0416e5f402b1@sentry.io/1266157",
-            release=__version__
+            release=__version__,
         )
     except BaseException:
         pass
