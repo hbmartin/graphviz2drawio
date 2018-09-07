@@ -21,7 +21,7 @@ setup(
     author="Harold Martin",
     author_email="harold.martin@gmail.com",
     classifiers=[
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
         "Intended Audience :: End Users/Desktop",
         "Intended Audience :: Information Technology",
@@ -39,7 +39,7 @@ setup(
     ],
     keywords="graphviz graph agraph dot convert conversion draw drawio mxgraph xml",
     packages=find_packages(exclude=["contrib", "docs", "tests"]),
-    install_requires=["pygraphviz", "raven"],
+    install_requires=["pygraphviz", "raven", "svg.path"],
     tests_require=["pytest"],
     entry_points={
         "console_scripts": ["graphviz2drawio=graphviz2drawio.__main__:main"]

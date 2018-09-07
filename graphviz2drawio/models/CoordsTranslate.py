@@ -3,6 +3,9 @@ class CoordsTranslate:
         self.x = x
         self.y = y
 
+    def complex_translate(self, cnum):
+        return complex(cnum.real + self.x, cnum.imag + self.y)
+
     def translate(self, x, y):
         return float(x) + self.x, float(y) + self.y
 

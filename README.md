@@ -11,16 +11,21 @@ Convert graphviz (dot) files into draw.io (mxGraph) format
 
 graphviz2drawio requires [Python 3](https://www.python.org/downloads/) and [Graphviz](https://www.graphviz.org/download/)
 
-On Mac OS these can be installed with [Homebrew](https://brew.sh/):
+* On Mac OS these can be installed with [Homebrew](https://brew.sh/):
 
 ```
 brew update; brew install python3 graphviz
 ```
-
-### Installation
+* On Ubuntu / Debian based Linux, install graphviz using:
 
 ```
-pip3 install graphviz2drawio
+sudo apt install graphviz graphviz-dev
+```
+
+### Installation / Upgrade
+
+```
+pip3 install graphviz2drawio --upgrade
 ```
 ## Usage
 Run the conversion app on your graphviz file
@@ -37,10 +42,10 @@ from graphviz2drawio import graphviz2drawio
 xml = graphviz2drawio.convert(graph_to_convert)
 print(xml)
 ```
-graph_to_convert can be any of a file path, file handle, string of dot language, or PyGraphviz.AGraph object
+where `graph_to_convert` can be any of a file path, file handle, string of dot language, or PyGraphviz.AGraph object
 
 ## Limitations
-Current alpha release may not correctly convert all dot commands. PLEASE [open an issue](https://github.com/hbmartin/graphviz2drawio/issues) with your dot file to report conversion problems or visual errors.
+Please [open an issue](https://github.com/hbmartin/graphviz2drawio/issues) with your dot file to report crashes or incorrectect conversions.
 
 ## Built With
 
@@ -59,6 +64,7 @@ This project makes strict use of Black for code formatting. See the [Black page]
 ## Authors
 
 * [Harold Martin](https://www.linkedin.com/in/harold-martin-98526971/) - harold.martin at gmail
+* Jonah Caplan
 
 ## License
 

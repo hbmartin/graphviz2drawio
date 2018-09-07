@@ -135,6 +135,9 @@ Temporary Items
 
 # Generated
 test/**/*.xml
+/*.gv
+/*.dot
+/*.xml
 
 # PyCharm
 .idea/workspace.xml
