@@ -1,6 +1,7 @@
 # graphviz2drawio
 
 [![Build Status](https://travis-ci.com/hbmartin/graphviz2drawio.svg?branch=master)](https://travis-ci.com/hbmartin/graphviz2drawio)
+[![codecov.io](https://codecov.io/github/hbmartin/graphviz2drawio/coverage.svg?branch=master)](https://codecov.io/github/hbmartin/graphviz2drawio?branch=master)
 
 
 Convert graphviz (dot) files into draw.io (mxGraph) format

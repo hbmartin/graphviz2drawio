@@ -1,0 +1,4 @@
+[run]
+source = graphviz2drawio
+parallel = 1
+branch = 1
