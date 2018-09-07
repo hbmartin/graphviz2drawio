@@ -15,6 +15,7 @@ setup(
     # project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
     version=__version__,
+    description="Convert graphviz (dot) files into draw.io (mxGraph) format",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/hbmartin/graphviz2drawio/",
@@ -37,6 +38,7 @@ setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
     ],
+    license="GPLv3",
     keywords="graphviz graph agraph dot convert conversion draw drawio mxgraph xml",
     packages=find_packages(exclude=["contrib", "docs", "tests"]),
     install_requires=["pygraphviz", "raven", "svg.path"],
