@@ -13,9 +13,13 @@ DEFAULT_FONT_COLOR = "#000000"
 DEFAULT_STROKE = "#000000"
 DEFAULT_FILL = "#ffffff"
 
+ARRAY = "Array"
 CELL = "mxCell"
 GEO = "mxGeometry"
 GRAPH = "mxGraphModel"
+POINT = "mxPoint"
 ROOT = "root"
+
+CURVE_INTERVALS = [0.25, 0.5, 0.75]
 
 NONE = "none"

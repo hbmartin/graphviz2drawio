@@ -1,7 +1,7 @@
 from xml.etree import ElementTree
 from . import SVG
 from .CoordsTranslate import CoordsTranslate
-from graphviz2drawio.mx.Edge import Edge
+from graphviz2drawio.mx.EdgeFactory import EdgeFactory
 from graphviz2drawio.mx.NodeFactory import NodeFactory
 from collections import OrderedDict
 
@@ -16,6 +16,8 @@ class SvgParser:
 
         coords = CoordsTranslate.from_svg_transform(root.attrib["transform"])
         node_factory = NodeFactory(coords)
+        edge_factory = EdgeFactory(coords)
+
         nodes = OrderedDict()
         edges = []
 
@@ -25,6 +27,6 @@ class SvgParser:
                 if g.attrib["class"] == "node":
                     nodes[title] = node_factory.from_svg(g)
                 elif g.attrib["class"] == "edge":
-                    edges.append(Edge.from_svg(g))
+                    edges.append(edge_factory.from_svg(g))
 
         return nodes, edges
