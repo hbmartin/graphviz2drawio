@@ -14,7 +14,7 @@ class Rect:
             return 1
         else:
             ratio = (search - self.x) / self.width
-            return self._approx_(ratio, 0.5, 0.1)
+            return self._approx(ratio, 0.5, 0.1)
 
     def y_ratio(self, search):
         if search < self.y:
@@ -23,10 +23,10 @@ class Rect:
             return 1
         else:
             ratio = (search - self.y) / self.height
-            return self._approx_(ratio, 0.5, 0.1)
+            return self._approx(ratio, 0.5, 0.1)
 
     @staticmethod
-    def _approx_(value, center, delta):
+    def _approx(value, center, delta):
         if abs(value - center) < delta:
             return center
         return value
