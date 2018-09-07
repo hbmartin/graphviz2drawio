@@ -8,7 +8,6 @@ from collections import OrderedDict
 
 class SvgParser:
     def __init__(self, svg_data):
-        super(SvgParser, self).__init__()
         self.svg_data = svg_data
 
     def get_nodes_and_edges(self):

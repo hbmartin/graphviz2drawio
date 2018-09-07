@@ -6,7 +6,6 @@ linear_min_r2 = 0.9
 class Curve:
     def __init__(self, start, end, cb):
         """Takes complex numbers for start, end, and list of 4 Bezier control points"""
-        super(Curve, self).__init__()
         self.start = start
         self.end = end
         assert cb is None or len(cb) == 4
