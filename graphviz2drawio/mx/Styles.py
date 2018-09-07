@@ -68,15 +68,11 @@ class Styles(Enum):
 
     @staticmethod
     def get_for_shape(dot_shape):
-        if dot_shape is None or dot_shape == Shape.ELLIPSE or dot_shape == Shape.OVAL:
+        if dot_shape in (None, Shape.ELLIPSE, Shape.OVAL):
             return Styles.ELLIPSE
-        elif (
-            dot_shape == Shape.BOX
-            or dot_shape == Shape.RECT
-            or dot_shape == Shape.RECTANGLE
-        ):
+        elif dot_shape in (Shape.BOX, Shape.RECT, Shape.RECTANGLE):
             return Styles.NODE
-        elif dot_shape == Shape.HEXAGON or dot_shape == Shape.POLYGON:
+        elif dot_shape in (Shape.HEXAGON, Shape.POLYGON):
             return Styles.HEXAGON
         elif dot_shape == Shape.CIRCLE:
             return Styles.CIRCLE
@@ -126,7 +122,7 @@ class Styles(Enum):
             return Styles.CUBE
         elif dot_shape == Shape.COMPONENT:
             return Styles.COMPONENT
-        elif dot_shape == Shape.PROMOTER or dot_shape == Shape.RPROMOTER:
+        elif dot_shape in (Shape.PROMOTER, Shape.RPROMOTER):
             return Styles.RPROMOTER
         elif dot_shape == Shape.LPROMOTER:
             return Styles.LPROMOTER

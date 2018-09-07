@@ -8,7 +8,7 @@ class Curve:
         """Takes complex numbers for start, end, and list of 4 Bezier control points"""
         self.start = start
         self.end = end
-        assert cb is None or len(cb) == 4
+        assert cb is None or len(cb) == 4  # TODO: emit value error instead
         self.cb = cb
 
     def __str__(self):
@@ -47,7 +47,7 @@ class Curve:
 
         implements explicit form of https://en.wikipedia.org/wiki/B%C3%A9zier_curve#Cubic_B%C3%A9zier_curves
         """
-        assert 0 <= t <= 1
+        assert 0 <= t <= 1  # TODO: emit value error instead
         return (
             (((1.0 - t) ** 3) * p[0])
             + (3.0 * t * ((1.0 - t) ** 2) * p[1])

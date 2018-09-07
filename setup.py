@@ -11,9 +11,6 @@ with open(path.join(here, "graphviz2drawio", "version.py")) as fp:
 
 setup(
     name="graphviz2drawio",
-    # For a discussion on single-sourcing the version across setup.py and the
-    # project code, see
-    # https://packaging.python.org/en/latest/single_source_version.html
     version=__version__,
     description="Convert graphviz (dot) files into draw.io (mxGraph) format",
     long_description=long_description,

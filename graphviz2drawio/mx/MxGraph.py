@@ -20,6 +20,30 @@ class MxGraph:
             self.add_node(node)
 
     def add_edge(self, edge):
+        source, target = self.get_edge_source_target(edge)
+        style = self.get_edge_style(edge, source, target)
+        edge_element = ET.SubElement(
+            self.root,
+            MxConst.CELL,
+            id=edge.sid,
+            style=style,
+            parent="1",
+            edge="1",
+            source=source.sid,
+            target=target.sid,
+        )
+        if edge.curve.cb is None:
+            self.add_mx_geo(edge_element)
+        else:
+            self.add_mx_geo_with_points(edge_element, edge.curve)
+
+    def get_edge_source_target(self, edge):
+        if edge.dir == DotAttr.BACK:
+            return self.nodes[edge.to], self.nodes[edge.fr]
+        else:
+            return self.nodes[edge.fr], self.nodes[edge.to]
+
+    def get_edge_style(self, edge, source_node, target_node):
         end_arrow = MxConst.BLOCK
         end_fill = 1
         dashed = 1 if edge.style == DotAttr.DASHED else 0
@@ -31,29 +55,13 @@ class MxGraph:
             if tail == DotAttr.DIAMOND:
                 end_arrow = MxConst.DIAMOND
 
-        if edge.dir == DotAttr.BACK:
-            source_node = self.nodes[edge.to]
-            target_node = self.nodes[edge.fr]
-            start_curve = edge.curve.end
-            end_curve = edge.curve.start
-        else:
-            source_node = self.nodes[edge.fr]
-            target_node = self.nodes[edge.to]
-            start_curve = edge.curve.start
-            end_curve = edge.curve.end
-
-        source = source_node.sid
-        target = target_node.sid
-        exit_x = source_node.rect.x_ratio(start_curve.real)
-        exit_y = source_node.rect.y_ratio(start_curve.imag)
-        entry_x = target_node.rect.x_ratio(end_curve.real)
-        entry_y = target_node.rect.y_ratio(end_curve.imag)
+        start_curve, end_curve = edge.curve_start_end()
 
         style = Styles.EDGE.format(
-            entry_x=entry_x,
-            entry_y=entry_y,
-            exit_x=exit_x,
-            exit_y=exit_y,
+            entry_x=target_node.rect.x_ratio(end_curve.real),
+            entry_y=target_node.rect.y_ratio(end_curve.imag),
+            exit_x=source_node.rect.x_ratio(start_curve.real),
+            exit_y=source_node.rect.y_ratio(start_curve.imag),
             end_arrow=end_arrow,
             dashed=dashed,
             end_fill=end_fill,
@@ -61,20 +69,7 @@ class MxGraph:
         if edge.curve.cb is not None:
             style = "edgeStyle=orthogonalEdgeStyle;curved=1;" + style
 
-        edge_element = ET.SubElement(
-            self.root,
-            MxConst.CELL,
-            id=edge.sid,
-            style=style,
-            parent="1",
-            edge="1",
-            source=source,
-            target=target,
-        )
-        if edge.curve.cb is None:
-            self.add_mx_geo(edge_element)
-        else:
-            self.add_mx_geo_with_points(edge_element, edge.curve)
+        return style
 
     def add_node(self, node):
         fill = (

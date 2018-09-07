@@ -1,9 +1,9 @@
+from collections import OrderedDict
 from xml.etree import ElementTree
-from . import SVG
-from .CoordsTranslate import CoordsTranslate
 from graphviz2drawio.mx.EdgeFactory import EdgeFactory
 from graphviz2drawio.mx.NodeFactory import NodeFactory
-from collections import OrderedDict
+from . import SVG
+from .CoordsTranslate import CoordsTranslate
 
 
 class SvgParser:

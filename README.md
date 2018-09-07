@@ -59,7 +59,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 ### Code Formatting
 
-This project makes strict use of Black for code formatting. See the [Black page](https://github.com/ambv/black) for details.
+This project is linted with [pyflakes](https://github.com/PyCQA/pyflakes) and makes strict use of [Black](https://github.com/ambv/black) for code formatting.
 
 
 ## Authors
@@ -69,5 +69,5 @@ This project makes strict use of Black for code formatting. See the [Black page]
 
 ## License
 
-[GPL](LICENSE.md)
+[GPLv3](LICENSE.md)
 
