@@ -9,3 +9,4 @@ class GraphObj(ABC):
     def enrich_from_graph(self, attrs):
         for e in attrs:
             self.__setattr__(e[0], e[1])
+        return self

@@ -1,9 +1,9 @@
-from xml.etree import ElementTree
-from . import SVG
-from .CoordsTranslate import CoordsTranslate
-from graphviz2drawio.mx.EdgeFactory import EdgeFactory
-from graphviz2drawio.mx.NodeFactory import NodeFactory
 from collections import OrderedDict
+from xml.etree import ElementTree
+from . import SvgUtils
+from .CoordsTranslate import CoordsTranslate
+from .factory import EdgeFactory
+from .factory import NodeFactory
 
 
 class SvgParser:
@@ -21,8 +21,8 @@ class SvgParser:
         edges = []
 
         for g in root:
-            if SVG.is_tag(g, "g"):
-                title = SVG.get_title(g)
+            if SvgUtils.is_tag(g, "g"):
+                title = SvgUtils.get_title(g)
                 if g.attrib["class"] == "node":
                     nodes[title] = node_factory.from_svg(g)
                 elif g.attrib["class"] == "edge":

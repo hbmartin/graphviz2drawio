@@ -1,5 +1,5 @@
 from enum import Enum
-from . import Shape
+from graphviz2drawio.gv import GvShape
 
 
 class Styles(Enum):
@@ -68,73 +68,73 @@ class Styles(Enum):
 
     @staticmethod
     def get_for_shape(dot_shape):
-        if dot_shape is None or dot_shape == Shape.ELLIPSE or dot_shape == Shape.OVAL:
+        if dot_shape is None or dot_shape == GvShape.ELLIPSE or dot_shape == GvShape.OVAL:
             return Styles.ELLIPSE
         elif (
-            dot_shape == Shape.BOX
-            or dot_shape == Shape.RECT
-            or dot_shape == Shape.RECTANGLE
+                dot_shape == GvShape.BOX
+                or dot_shape == GvShape.RECT
+                or dot_shape == GvShape.RECTANGLE
         ):
             return Styles.NODE
-        elif dot_shape == Shape.HEXAGON or dot_shape == Shape.POLYGON:
+        elif dot_shape == GvShape.HEXAGON or dot_shape == GvShape.POLYGON:
             return Styles.HEXAGON
-        elif dot_shape == Shape.CIRCLE:
+        elif dot_shape == GvShape.CIRCLE:
             return Styles.CIRCLE
-        elif dot_shape == Shape.EGG:
+        elif dot_shape == GvShape.EGG:
             return Styles.EGG
-        elif dot_shape == Shape.TRIANGLE:
+        elif dot_shape == GvShape.TRIANGLE:
             return Styles.TRIANGLE
-        elif dot_shape == Shape.PLAIN:
+        elif dot_shape == GvShape.PLAIN:
             return Styles.LINE
-        elif dot_shape == Shape.DIAMOND:
+        elif dot_shape == GvShape.DIAMOND:
             return Styles.DIAMOND
-        elif dot_shape == Shape.TRAPEZIUM:
+        elif dot_shape == GvShape.TRAPEZIUM:
             return Styles.TRAPEZOID
-        elif dot_shape == Shape.PARALLELOGRAM:
+        elif dot_shape == GvShape.PARALLELOGRAM:
             return Styles.PARALLELOGRAM
-        elif dot_shape == Shape.HOUSE:
+        elif dot_shape == GvShape.HOUSE:
             return Styles.HOUSE
-        elif dot_shape == Shape.PENTAGON:
+        elif dot_shape == GvShape.PENTAGON:
             return Styles.PENTAGON
-        elif dot_shape == Shape.OCTAGON:
+        elif dot_shape == GvShape.OCTAGON:
             return Styles.OCTAGON
-        elif dot_shape == Shape.DOUBLE_CIRCLE:
+        elif dot_shape == GvShape.DOUBLE_CIRCLE:
             return Styles.DOUBLE_CIRCLE
-        elif dot_shape == Shape.DOUBLE_OCTAGON:
+        elif dot_shape == GvShape.DOUBLE_OCTAGON:
             return Styles.DOUBLE_OCTAGON
-        elif dot_shape == Shape.INV_TRIANGLE:
+        elif dot_shape == GvShape.INV_TRIANGLE:
             return Styles.INV_TRIANGLE
-        elif dot_shape == Shape.INV_TRAPEZIUM:
+        elif dot_shape == GvShape.INV_TRAPEZIUM:
             return Styles.INV_TRAPEZOID
-        elif dot_shape == Shape.INV_HOUSE:
+        elif dot_shape == GvShape.INV_HOUSE:
             return Styles.INV_HOUSE
-        elif dot_shape == Shape.SQUARE:
+        elif dot_shape == GvShape.SQUARE:
             return Styles.SQUARE
-        elif dot_shape == Shape.STAR:
+        elif dot_shape == GvShape.STAR:
             return Styles.STAR
-        elif dot_shape == Shape.UNDERLINE:
+        elif dot_shape == GvShape.UNDERLINE:
             return Styles.UNDERLINE
-        elif dot_shape == Shape.CYLINDER:
+        elif dot_shape == GvShape.CYLINDER:
             return Styles.CYLINDER
-        elif dot_shape == Shape.NOTE:
+        elif dot_shape == GvShape.NOTE:
             return Styles.NODE
-        elif dot_shape == Shape.TAB:
+        elif dot_shape == GvShape.TAB:
             return Styles.TAB
-        elif dot_shape == Shape.FOLDER:
+        elif dot_shape == GvShape.FOLDER:
             return Styles.FOLDER
-        elif dot_shape == Shape.BOX_3D:
+        elif dot_shape == GvShape.BOX_3D:
             return Styles.CUBE
-        elif dot_shape == Shape.COMPONENT:
+        elif dot_shape == GvShape.COMPONENT:
             return Styles.COMPONENT
-        elif dot_shape == Shape.PROMOTER or dot_shape == Shape.RPROMOTER:
+        elif dot_shape == GvShape.PROMOTER or dot_shape == GvShape.RPROMOTER:
             return Styles.RPROMOTER
-        elif dot_shape == Shape.LPROMOTER:
+        elif dot_shape == GvShape.LPROMOTER:
             return Styles.LPROMOTER
-        elif dot_shape == Shape.CDS:
+        elif dot_shape == GvShape.CDS:
             return Styles.CDS
-        elif dot_shape == Shape.RARROW:
+        elif dot_shape == GvShape.RARROW:
             return Styles.RARROW
-        elif dot_shape == Shape.LARROW:
+        elif dot_shape == GvShape.LARROW:
             return Styles.LARROW
         else:
             return Styles.NODE
