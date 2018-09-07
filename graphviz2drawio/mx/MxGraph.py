@@ -1,6 +1,6 @@
 from xml.etree import ElementTree as ET
 
-from graphviz2drawio.models import DotAttr
+from graphviz2drawio.gv import GvAttr
 from graphviz2drawio.mx import MxConst
 from graphviz2drawio.mx.Styles import Styles
 
@@ -22,16 +22,16 @@ class MxGraph:
     def add_edge(self, edge):
         end_arrow = MxConst.BLOCK
         end_fill = 1
-        dashed = 1 if edge.style == DotAttr.DASHED else 0
+        dashed = 1 if edge.style == GvAttr.DASHED else 0
         if edge.arrowtail is not None:
             tail = edge.arrowtail
-            if edge.arrowtail[0] == DotAttr.NO_FILL:
+            if edge.arrowtail[0] == GvAttr.NO_FILL:
                 end_fill = 0
                 tail = edge.arrowtail[1:]
-            if tail == DotAttr.DIAMOND:
+            if tail == GvAttr.DIAMOND:
                 end_arrow = MxConst.DIAMOND
 
-        if edge.dir == DotAttr.BACK:
+        if edge.dir == GvAttr.BACK:
             source_node = self.nodes[edge.to]
             target_node = self.nodes[edge.fr]
             start_curve = edge.curve.end

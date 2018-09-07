@@ -1,6 +1,6 @@
-from graphviz2drawio.models import DotAttr
+from graphviz2drawio.gv import GvAttr
 from graphviz2drawio.mx import MxConst
-from .Styles import Styles
+from graphviz2drawio.mx.Styles import Styles
 
 
 class Text:
@@ -12,10 +12,10 @@ class Text:
         self.color = color
 
     def get_mx_style(self):
-        align = MxConst.CENTER if self.anchor == DotAttr.MIDDLE else MxConst.START
+        align = MxConst.CENTER if self.anchor == GvAttr.MIDDLE else MxConst.START
         # TODO: add right
         margin = (
-            "margin-top:4px;" if self.anchor == DotAttr.MIDDLE else "margin-left:4px;"
+            "margin-top:4px;" if self.anchor == GvAttr.MIDDLE else "margin-left:4px;"
         )
         rescaled_size = 10.0 * (self.size / 14.0)
         return Styles.TEXT.format(
@@ -24,14 +24,4 @@ class Text:
             size=rescaled_size,
             family=self.family or MxConst.DEFAULT_FONT_FAMILY,
             color=self.color or MxConst.DEFAULT_FONT_COLOR,
-        )
-
-    @staticmethod
-    def from_svg(t):
-        return Text(
-            text=t.text.replace("<", "&lt;").replace(">", "&gt;"),
-            anchor=t.attrib.get("text-anchor", None),
-            family=t.attrib.get("font-family", MxConst.DEFAULT_FONT_FAMILY),
-            size=float(t.attrib.get("font-size", MxConst.DEFAULT_TEXT_SIZE)),
-            color=t.attrib.get("fill", None),
         )

@@ -1,3 +1,5 @@
-from .Arguments import Arguments
+from .Curve import Curve
+from .Edge import Edge
+from .Node import Node
 from .Rect import Rect
-from .SvgParser import SvgParser
+from .Text import Text

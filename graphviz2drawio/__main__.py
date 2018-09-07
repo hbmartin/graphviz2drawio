@@ -1,6 +1,6 @@
 from sys import stderr
 from .graphviz2drawio import convert
-from .models import Arguments
+from .Arguments import Arguments
 from .version import __version__
 
 
