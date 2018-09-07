@@ -51,13 +51,13 @@ def test_hello():
     root = ET.fromstring(xml)
     elements = check_xml_top(root)
 
-    hello = elements[2]
+    hello = elements[3]
     check_style(hello, "ellipse")
     check_value(hello, "Hello")
 
-    world = elements[3]
+    world = elements[4]
     check_style(world, "ellipse")
     check_value(world, "World")
-    edge = elements[4]
+    edge = elements[2]
     check_edge(edge, hello, world)
     check_edge_dir(edge, dx=0, dy=1)
