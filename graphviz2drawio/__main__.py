@@ -10,13 +10,14 @@ def main():
         from raven import Client
 
         client = Client(
-            "https://f1fce21b51864819a26ea116ff4e5b7f:9f61501e4891465ea53e0416e5f402b1@sentry.io/1266157"
+            dsn="https://f1fce21b51864819a26ea116ff4e5b7f:9f61501e4891465ea53e0416e5f402b1@sentry.io/1266157",
+            release=__version__
         )
     except BaseException:
         pass
 
     args = Arguments(__version__).parse_args()
-    
+
     if not args.stdout:
         stderr.write("This is beta software, please report issues to:\n")
         stderr.write("https://github.com/hbmartin/graphviz2drawio/issues\n")
