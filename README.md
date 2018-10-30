@@ -20,7 +20,7 @@ brew update; brew install python3 graphviz
 * On Ubuntu / Debian based Linux, install graphviz using:
 
 ```
-sudo apt install graphviz graphviz-dev
+sudo apt install python3-pip graphviz graphviz-dev
 ```
 
 ### Installation / Upgrade
