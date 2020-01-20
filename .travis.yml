@@ -9,7 +9,7 @@ python:
     - "3.6"
 
 install:
-    - sudo apt install graphviz graphviz-dev
+    - sudo apt install libgraphviz-dev
 
 script:
     - pip install .
