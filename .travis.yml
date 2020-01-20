@@ -1,4 +1,5 @@
 language: python
+dist: bionic
 
 notifications:
       email: false
@@ -9,7 +10,7 @@ python:
     - "3.6"
 
 install:
-    - sudo apt install libgraphviz-dev
+    - sudo apt install graphviz libgraphviz-dev
 
 script:
     - pip install .
