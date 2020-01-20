@@ -16,8 +16,7 @@ class CurveFactory:
         cbset = []
         if isinstance(path[1], CubicBezier):
             # TODO: needs to account for multiple bezier in path
-            points = [path[1].start, path[1].control1,
-                      path[1].control2, path[1].end]
+            points = [path[1].start, path[1].control1, path[1].control2, path[1].end]
             if not Curve.is_linear(points):
                 cb = [self.coords.complex_translate(p) for p in points]
 
@@ -26,9 +25,9 @@ class CurveFactory:
                     cbset.append(
                         (
                             self.coords.translate(
-                                path[r].start.real, path[r].start.imag),
-                            self.coords.translate(
-                                path[r].end.real, path[r].end.imag)
+                                path[r].start.real, path[r].start.imag
+                            ),
+                            self.coords.translate(path[r].end.real, path[r].end.imag),
                         )
                     )
         return Curve(start=start, end=end, cb=cb, cbset=cbset)

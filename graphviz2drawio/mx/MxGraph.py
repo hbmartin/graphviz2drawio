@@ -32,7 +32,7 @@ class MxGraph:
             source=source.sid,
             target=target.sid,
         )
-        if edge.curve.cb is None and len(edge.curve.cbset)==0:
+        if edge.curve.cb is None and len(edge.curve.cbset) == 0:
             self.add_mx_geo(edge_element)
         else:
             self.add_mx_geo_with_points(edge_element, edge.curve)
@@ -110,11 +110,10 @@ class MxGraph:
         geo = ET.SubElement(element, MxConst.GEO, {"as": "geometry"}, relative="1")
 
         # cbset
-        if len(curve.cbset)>0:
+        if len(curve.cbset) > 0:
             array = ET.SubElement(geo, MxConst.ARRAY, {"as": "points"})
         for cb in curve.cbset:
             ET.SubElement(array, MxConst.POINT, x=str(cb[0][0]), y=str(cb[0][1]))
-
 
         # TODO: needs to account for multiple bezier in path
         # array = ET.SubElement(geo, MxConst.ARRAY, {"as": "points"})
