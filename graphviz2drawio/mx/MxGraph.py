@@ -114,6 +114,8 @@ class MxGraph:
             array = ET.SubElement(geo, MxConst.ARRAY, {"as": "points"})
         for cb in curve.cbset:
             ET.SubElement(array, MxConst.POINT, x=str(cb[0][0]), y=str(cb[0][1]))
+        if cb:
+            ET.SubElement(array, MxConst.POINT, x=str(cb[1][0]), y=str(cb[1][1]))
 
         # TODO: needs to account for multiple bezier in path
         # array = ET.SubElement(geo, MxConst.ARRAY, {"as": "points"})

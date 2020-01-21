@@ -22,7 +22,7 @@ class CurveFactory:
             if not Curve.is_linear(points):
                 cb = [self.coords.complex_translate(p) for p in points]
 
-            if len(path) > 2:  # set of curves/points
+            if len(path) > 1:  # set of curves/points
                 for r in range(0, len(path)):
                     cbset.append(
                         (
