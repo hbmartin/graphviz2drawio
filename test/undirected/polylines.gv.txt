@@ -1,0 +1,38 @@
+graph g0 {
+
+    graph [rankdir=LR,concentrate=true, ranksep="2", esep="2", overlap = false, splines = polyline];
+    node [shape=box,];
+    edge [dir=none];
+
+    {
+        rank = same;
+        A
+        B
+    }
+    {
+        rank = same;
+        C
+        D
+        E
+        F
+        G
+    }
+
+    A -- B
+
+    A -- C
+    A -- D
+    A -- E
+    A -- F
+    A -- G
+
+    B -- C
+    B -- D
+    B -- E
+    B -- F
+    B -- G
+
+    G -- C
+    G -- E
+    G -- F
+}

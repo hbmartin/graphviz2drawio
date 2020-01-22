@@ -2,6 +2,7 @@ import pytest
 from graphviz2drawio import graphviz2drawio
 import xml.etree.ElementTree as ET
 import re
+import os
 import html
 
 num_cells_offset = 2
@@ -61,3 +62,18 @@ def test_hello():
     edge = elements[2]
     check_edge(edge, hello, world)
     check_edge_dir(edge, dx=0, dy=1)
+
+
+def test_polylines():
+    file = "./undirected/polylines.gv.txt"
+    xml = graphviz2drawio.convert(file)
+    print(xml)
+
+    root = ET.fromstring(xml)
+    elements = check_xml_top(root)
+
+
+# def test_runAll():
+#    for f in os.listdir('undirected'):
+#        xml = graphviz2drawio.convert(f)
+#        print(xml)

@@ -32,7 +32,7 @@ class MxGraph:
             source=source.sid,
             target=target.sid,
         )
-        if edge.curve.cb is None:
+        if edge.curve.cb is None and len(edge.curve.cbset) == 0:
             self.add_mx_geo(edge_element)
         else:
             self.add_mx_geo_with_points(edge_element, edge.curve)
@@ -57,6 +57,11 @@ class MxGraph:
 
         start_curve, end_curve = edge.curve_start_end()
 
+        if edge.curve.cb is not None:
+            curved = 1
+        else:
+            curved = 0
+
         style = Styles.EDGE.format(
             entry_x=target_node.rect.x_ratio(end_curve.real),
             entry_y=target_node.rect.y_ratio(end_curve.imag),
@@ -65,9 +70,8 @@ class MxGraph:
             end_arrow=end_arrow,
             dashed=dashed,
             end_fill=end_fill,
+            curved=curved,
         )
-        if edge.curve.cb is not None:
-            style = "edgeStyle=orthogonalEdgeStyle;curved=1;" + style
 
         return style
 
@@ -104,6 +108,15 @@ class MxGraph:
     @staticmethod
     def add_mx_geo_with_points(element, curve):
         geo = ET.SubElement(element, MxConst.GEO, {"as": "geometry"}, relative="1")
+
+        # cbset
+        if len(curve.cbset) > 0:
+            array = ET.SubElement(geo, MxConst.ARRAY, {"as": "points"})
+        for cb in curve.cbset:
+            ET.SubElement(array, MxConst.POINT, x=str(cb[0][0]), y=str(cb[0][1]))
+        if cb:
+            ET.SubElement(array, MxConst.POINT, x=str(cb[1][0]), y=str(cb[1][1]))
+
         # TODO: needs to account for multiple bezier in path
         # array = ET.SubElement(geo, MxConst.ARRAY, {"as": "points"})
         # for i in MxConst.CURVE_INTERVALS:

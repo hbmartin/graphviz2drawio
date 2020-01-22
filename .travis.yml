@@ -1,22 +1,24 @@
 language: python
+dist: bionic
 
 notifications:
       email: false
 
 python:
-    - "3.4"
     - "3.5"
     - "3.6"
+    - "3.7"
 
 install:
-    - sudo apt install graphviz graphviz-dev
+    - sudo apt update
+    - sudo apt install graphviz libgraphviz-dev
 
 script:
     - pip install .
     - cd test
     - pip install -r requirements.txt
-    - if [[ $TRAVIS_PYTHON_VERSION == '3.6' ]]; then pip install black; black --check . ../graphviz2drawio; fi
+    - if [[ $TRAVIS_PYTHON_VERSION == '3.7' ]]; then pip install black; black --check . ../graphviz2drawio; fi
     - pytest --cov=graphviz2drawio -v test_graphs.py
 
 after_success:
-    -  if [[ $TRAVIS_PYTHON_VERSION == '3.6' ]]; then pip install codecov; codecov; fi
+    -  if [[ $TRAVIS_PYTHON_VERSION == '3.7' ]]; then pip install codecov; codecov; fi
