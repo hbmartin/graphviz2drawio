@@ -1,8 +1,6 @@
-import pytest
 from graphviz2drawio import graphviz2drawio
 import xml.etree.ElementTree as ET
 import re
-import os
 import html
 
 num_cells_offset = 2
@@ -70,7 +68,7 @@ def test_polylines():
     print(xml)
 
     root = ET.fromstring(xml)
-    elements = check_xml_top(root)
+    check_xml_top(root)
 
 
 # def test_runAll():

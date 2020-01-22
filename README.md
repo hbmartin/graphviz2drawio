@@ -1,7 +1,10 @@
 # graphviz2drawio
 
+<a href="https://pypi.org/project/graphviz2drawio/"><img src="https://img.shields.io/pypi/v/graphviz2drawio.svg" alt="pypi"></a>
+<a href="https://pypi.python.org/pypi/graphviz2drawio/"><img src="https://img.shields.io/pypi/pyversions/graphviz2drawio.svg" /></a>
 [![Build Status](https://travis-ci.com/hbmartin/graphviz2drawio.svg?branch=master)](https://travis-ci.com/hbmartin/graphviz2drawio)
 [![codecov.io](https://codecov.io/github/hbmartin/graphviz2drawio/coverage.svg?branch=master)](https://codecov.io/github/hbmartin/graphviz2drawio?branch=master)
+<a href="https://github.com/ambv/black"><img src="https://img.shields.io/badge/code%20style-black-000000.svg" /></a>
 
 
 Convert graphviz (dot) files into draw.io (mxGraph) format
@@ -16,12 +19,15 @@ graphviz2drawio requires [Python 3](https://www.python.org/downloads/) and [Grap
 
 ```
 brew update; brew install python3 graphviz
+pip3 install pygraphviz --install-option="--include-path=/usr/local/include/graphviz" --install-option="--library-path=/usr/local/lib/graphviz/"
 ```
 * On Ubuntu / Debian based Linux, install graphviz using:
 
 ```
 sudo apt install python3-pip graphviz graphviz-dev
 ```
+
+If you encounter installation errors you may need to manually install pygraphviz with links to the graphviz libraries
 
 ### Installation / Upgrade
 

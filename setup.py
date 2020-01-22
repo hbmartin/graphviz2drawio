@@ -11,7 +11,7 @@ with open(path.join(here, "graphviz2drawio", "version.py")) as fp:
 
 setup(
     name="graphviz2drawio",
-    version=__version__,
+    version=__version__,  # noqa: F821
     description="Convert graphviz (dot) files into draw.io (mxGraph) format",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -30,10 +30,10 @@ setup(
         "Topic :: Scientific/Engineering :: Visualization",
         "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
     ],
     license="GPLv3",
     keywords="graphviz graph agraph dot convert conversion draw drawio mxgraph xml",
