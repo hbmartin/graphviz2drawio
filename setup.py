@@ -47,4 +47,5 @@ setup(
         "Bug Reports": "https://github.com/hbmartin/graphviz2drawio/issues",
         "Source": "https://github.com/hbmartin/graphviz2drawio/",
     },
+    include_package_data=True,
 )
