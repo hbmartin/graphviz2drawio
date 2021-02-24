@@ -38,6 +38,7 @@ setup(
     license="GPLv3",
     keywords="graphviz graph agraph dot convert conversion draw drawio mxgraph xml",
     packages=find_packages(exclude=["contrib", "docs", "tests"]),
+    python_requires=">=3.5",
     install_requires=["pygraphviz", "raven", "svg.path"],
     tests_require=["pytest"],
     entry_points={
