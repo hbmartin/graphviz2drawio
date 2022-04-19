@@ -65,11 +65,17 @@ class NodeFactory:
             if "stroke" in polygon.attrib:
                 stroke = polygon.attrib["stroke"]
 
+        fill = None
+        if SVG.has(g, "ellipse"):
+            ellipse = SVG.get_first(g, "ellipse")
+            if "fill" in ellipse.attrib:
+                fill = ellipse.attrib["fill"]
+
         return Node(
             sid=g.attrib["id"],
             gid=SVG.get_title(g),
             rect=rect,
             texts=texts,
-            fill=g.attrib.get("fill", None),
+            fill=fill,
             stroke=stroke,
         )
