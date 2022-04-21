@@ -45,7 +45,7 @@ class NodeFactory:
                 if current_text is None:
                     current_text = Text.from_svg(t)
                 else:
-                    current_text.text += "<br/>" + t.text
+                    current_text.text += f"<br/>{t.text}"
             elif current_text is not None:
                 texts.append(current_text)
                 current_text = None
@@ -65,11 +65,17 @@ class NodeFactory:
             if "stroke" in polygon.attrib:
                 stroke = polygon.attrib["stroke"]
 
+        fill = None
+        if SVG.has(g, "ellipse"):
+            ellipse = SVG.get_first(g, "ellipse")
+            if "fill" in ellipse.attrib:
+                fill = ellipse.attrib["fill"]
+
         return Node(
             sid=g.attrib["id"],
             gid=SVG.get_title(g),
             rect=rect,
             texts=texts,
-            fill=g.attrib.get("fill", None),
+            fill=fill,
             stroke=stroke,
         )
