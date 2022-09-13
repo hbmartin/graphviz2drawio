@@ -1,5 +1,15 @@
+def svg_tag(tag):
+    return "{http://www.w3.org/2000/svg}" + tag
+
+
 def get_first(g, tag):
-    return g.findall("./{http://www.w3.org/2000/svg}" + tag)[0]
+    target = svg_tag(tag)
+    for i in g.iter():
+        if i.tag == target:
+            return i
+    raise RuntimeError(
+        f"Failed to find tag ({tag}) in {g}, contains {[i for i in g.iter()]}"
+    )
 
 
 def get_title(g):
@@ -7,8 +17,13 @@ def get_title(g):
 
 
 def is_tag(g, tag):
-    return g.tag == "{http://www.w3.org/2000/svg}" + tag
+    return g.tag == svg_tag(tag)
 
 
 def has(g, tag):
-    return len(g.findall("./{http://www.w3.org/2000/svg}" + tag)) > 0
+    try:
+        get_first(g, tag)
+    except RuntimeError:
+        return False
+    else:
+        return True
