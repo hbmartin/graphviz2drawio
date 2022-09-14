@@ -31,10 +31,12 @@ class NodeFactory:
 
     @staticmethod
     def rect_from_image(attrib):
-        filtered = dict()
-        for k, v in attrib.items():
-            if k in ["x", "y", "width", "height"]:
-                filtered[k] = float(v.strip("px"))
+        filtered = {
+            k: float(v.strip("px"))
+            for k, v in attrib.items()
+            if k in ["x", "y", "width", "height"]
+        }
+
         return Rect(**filtered)
 
     def rect_from_ellipse_svg(self, attrib):
@@ -53,7 +55,7 @@ class NodeFactory:
                 if current_text is None:
                     current_text = Text.from_svg(t)
                 else:
-                    current_text.text += "<br/>" + t.text
+                    current_text.text += f"<br/>{t.text}"
             elif current_text is not None:
                 texts.append(current_text)
                 current_text = None

@@ -8,7 +8,7 @@ def get_first(g, tag):
         if i.tag == target:
             return i
     raise RuntimeError(
-        f"Failed to find tag ({tag}) in {g}, contains {[i for i in g.iter()]}"
+        f"Failed to find tag ({tag}) in {g}, contains {list(g.iter())}"
     )
 
 
