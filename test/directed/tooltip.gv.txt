@@ -1,0 +1,5 @@
+digraph {
+  Hello
+  World [tooltip=PIZZA]
+  Hello -> { World }
+}
