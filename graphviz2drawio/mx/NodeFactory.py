@@ -29,6 +29,16 @@ class NodeFactory:
                 height = test_height
         return Rect(x=min_x, y=min_y, width=width, height=height)
 
+    @staticmethod
+    def rect_from_image(attrib):
+        filtered = {
+            k: float(v.strip("px"))
+            for k, v in attrib.items()
+            if k in ["x", "y", "width", "height"]
+        }
+
+        return Rect(**filtered)
+
     def rect_from_ellipse_svg(self, attrib):
         cx = float(attrib["cx"])
         cy = float(attrib["cy"])
@@ -45,7 +55,7 @@ class NodeFactory:
                 if current_text is None:
                     current_text = Text.from_svg(t)
                 else:
-                    current_text.text += "<br/>" + t.text
+                    current_text.text += f"<br/>{t.text}"
             elif current_text is not None:
                 texts.append(current_text)
                 current_text = None
@@ -56,6 +66,8 @@ class NodeFactory:
             rect = self.rect_from_svg_points(
                 SVG.get_first(g, "polygon").attrib["points"]
             )
+        elif SVG.has(g, "image"):
+            rect = self.rect_from_image(SVG.get_first(g, "image").attrib)
         else:
             rect = self.rect_from_ellipse_svg(SVG.get_first(g, "ellipse").attrib)
 
