@@ -21,6 +21,17 @@ graphviz2drawio requires [Python 3](https://www.python.org/downloads/) and [Grap
 brew update; brew install python3 graphviz
 pip3 install pygraphviz --install-option="--include-path=/usr/local/include/graphviz" --install-option="--library-path=/usr/local/lib/graphviz/"
 ```
+
+**For M1:**
+```
+brew install graphviz
+python -m pip install \
+    --global-option=build_ext \
+    --global-option="-I$(brew --prefix graphviz)/include/" \
+    --global-option="-L$(brew --prefix graphviz)/lib/" \
+    pygraphviz
+    
+```
 * On Ubuntu / Debian based Linux, install graphviz using:
 
 ```
