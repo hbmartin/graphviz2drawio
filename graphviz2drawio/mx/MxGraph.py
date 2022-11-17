@@ -57,11 +57,7 @@ class MxGraph:
 
         start_curve, end_curve = edge.curve_start_end()
 
-        if edge.curve.cb is not None:
-            curved = 1
-        else:
-            curved = 0
-
+        curved = 1 if edge.curve.cb is not None else 0
         style = Styles.EDGE.format(
             entry_x=target_node.rect.x_ratio(end_curve.real),
             entry_y=target_node.rect.y_ratio(end_curve.imag),
@@ -114,8 +110,8 @@ class MxGraph:
             array = ET.SubElement(geo, MxConst.ARRAY, {"as": "points"})
         for cb in curve.cbset:
             ET.SubElement(array, MxConst.POINT, x=str(cb[0][0]), y=str(cb[0][1]))
-        if cb:
-            ET.SubElement(array, MxConst.POINT, x=str(cb[1][0]), y=str(cb[1][1]))
+            if cb:
+                ET.SubElement(array, MxConst.POINT, x=str(cb[1][0]), y=str(cb[1][1]))
 
         # TODO: needs to account for multiple bezier in path
         # array = ET.SubElement(geo, MxConst.ARRAY, {"as": "points"})
