@@ -20,8 +20,8 @@ def check_style(e, check):
 
 def check_value(e, check):
     value = e.attrib["value"]
-    match = re.match(r"<p.*>%s</p>" % check, html.unescape(value))
-    assert match, "no match found for %s" % value
+    match = re.match(f"<p.*>{check}</p>", html.unescape(value))
+    assert match, f"no match found for {value}"
 
 
 def check_edge(e, source, target):
@@ -60,6 +60,22 @@ def test_hello():
     edge = elements[2]
     check_edge(edge, hello, world)
     check_edge_dir(edge, dx=0, dy=1)
+
+def test_hello_rect():
+    file = "./directed/hello_rect.gv.txt"
+    xml = graphviz2drawio.convert(file)
+    print(xml)
+
+    root = ET.fromstring(xml)
+    elements = check_xml_top(root)
+
+    hello = elements[3]
+    check_value(hello, "Hello")
+    assert "ellipse" not in hello.attrib["style"]
+
+    world = elements[4]
+    check_value(world, "World")
+    assert "ellipse" not in world.attrib["style"]
 
 
 def test_polylines():
