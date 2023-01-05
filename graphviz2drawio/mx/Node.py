@@ -16,7 +16,7 @@ class Node(GraphObj):
         last_text = len(self.texts) - 1
         for i, t in enumerate(self.texts):
             style = t.get_mx_style()
-            value += "<p style='" + style + "'>" + t.text + "</p>"
+            value += f"<p style='{style}'>{t.text}</p>"
             if i != last_text:
                 value += "<hr size='1'/>"
         return value

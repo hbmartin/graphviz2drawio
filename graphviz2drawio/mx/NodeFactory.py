@@ -46,7 +46,7 @@ class NodeFactory:
                 if current_text is None:
                     current_text = Text.from_svg(t)
                 else:
-                    current_text.text += "<br/>" + t.text
+                    current_text.text += f"<br/>{t.text}"
             elif current_text is not None:
                 texts.append(current_text)
                 current_text = None
