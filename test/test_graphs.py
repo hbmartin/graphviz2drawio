@@ -20,8 +20,8 @@ def check_style(e, check):
 
 def check_value(e, check):
     value = e.attrib["value"]
-    match = re.match(r"<p.*>%s</p>" % check, html.unescape(value))
-    assert match, "no match found for %s" % value
+    match = re.match(f"<p.*>{check}</p>", html.unescape(value))
+    assert match, f"no match found for {value}"
 
 
 def check_edge(e, source, target):

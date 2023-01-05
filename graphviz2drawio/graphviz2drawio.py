@@ -17,7 +17,7 @@ def convert(graph_to_convert, layout_prog="dot"):
             ) from e
 
     graph_edges = {
-        e[0] + "->" + e[1]: list37(e.attr.iteritems())
+        f"{e[0]}->{e[1]}": list37(e.attr.iteritems())
         for e in list37(graph.edges_iter())
     }
     graph_nodes = {n: list37(n.attr.iteritems()) for n in list37(graph.nodes_iter())}
@@ -30,7 +30,7 @@ def convert(graph_to_convert, layout_prog="dot"):
     # Put clusters first, so that nodes are drawn in front
     nodes_and_clusters = clusters
     nodes_and_clusters.update(nodes)
-    
+
     mx_graph = MxGraph(nodes_and_clusters, edges)
     return mx_graph.value()
 
@@ -40,8 +40,7 @@ def convert(graph_to_convert, layout_prog="dot"):
 def list37(iterator):
     rv = []
     try:
-        for i in iterator:
-            rv.append(i)
+        rv.extend(iter(iterator))
     except RuntimeError:
         pass
     return rv
