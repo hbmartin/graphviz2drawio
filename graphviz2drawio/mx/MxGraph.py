@@ -14,10 +14,11 @@ class MxGraph:
         ET.SubElement(self.root, MxConst.CELL, id="0")
         ET.SubElement(self.root, MxConst.CELL, id="1", parent="0")
 
-        for edge in edges:
-            self.add_edge(edge)
+        # Add nodes first so edges are drawn on top
         for node in nodes.values():
             self.add_node(node)
+        for edge in edges:
+            self.add_edge(edge)
 
     def add_edge(self, edge):
         source, target = self.get_edge_source_target(edge)
@@ -57,11 +58,7 @@ class MxGraph:
 
         start_curve, end_curve = edge.curve_start_end()
 
-        if edge.curve.cb is not None:
-            curved = 1
-        else:
-            curved = 0
-
+        curved = 1 if edge.curve.cb is not None else 0
         style = Styles.EDGE.format(
             entry_x=target_node.rect.x_ratio(end_curve.real),
             entry_y=target_node.rect.y_ratio(end_curve.imag),

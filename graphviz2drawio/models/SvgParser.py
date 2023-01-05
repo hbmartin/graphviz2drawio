@@ -10,7 +10,7 @@ class SvgParser:
     def __init__(self, svg_data):
         self.svg_data = svg_data
 
-    def get_nodes_and_edges(self):
+    def get_elements(self):
         root = ElementTree.fromstring(self.svg_data)[0]
 
         coords = CoordsTranslate.from_svg_transform(root.attrib["transform"])
@@ -19,6 +19,7 @@ class SvgParser:
 
         nodes = OrderedDict()
         edges = []
+        clusters = OrderedDict()
 
         for g in root:
             if SVG.is_tag(g, "g"):
@@ -27,5 +28,7 @@ class SvgParser:
                     nodes[title] = node_factory.from_svg(g)
                 elif g.attrib["class"] == "edge":
                     edges.append(edge_factory.from_svg(g))
+                elif g.attrib["class"] == "cluster":
+                    clusters[title] = node_factory.from_svg(g)
 
-        return nodes, edges
+        return nodes, edges, clusters
