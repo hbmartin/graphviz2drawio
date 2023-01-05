@@ -2,14 +2,14 @@ from .GraphObj import GraphObj
 
 
 class Node(GraphObj):
-    def __init__(self, sid, gid, rect, texts, fill, stroke):
+    def __init__(self, sid, gid, rect, texts, fill, stroke, shape):
         super(Node, self).__init__(sid, gid)
         self.rect = rect
         self.texts = texts
         self.fill = fill
         self.stroke = stroke
         self.label = None
-        self.shape = None
+        self.shape = shape
 
     def text_to_mx_value(self):
         value = ""
