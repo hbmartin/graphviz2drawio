@@ -14,10 +14,11 @@ class MxGraph:
         ET.SubElement(self.root, MxConst.CELL, id="0")
         ET.SubElement(self.root, MxConst.CELL, id="1", parent="0")
 
-        for edge in edges:
-            self.add_edge(edge)
+        # Add nodes first so edges are drawn on top
         for node in nodes.values():
             self.add_node(node)
+        for edge in edges:
+            self.add_edge(edge)
 
     def add_edge(self, edge):
         source, target = self.get_edge_source_target(edge)

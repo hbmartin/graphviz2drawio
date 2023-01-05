@@ -50,14 +50,14 @@ def test_hello():
     root = ET.fromstring(xml)
     elements = check_xml_top(root)
 
-    hello = elements[3]
+    hello = elements[2]
     check_style(hello, "ellipse")
     check_value(hello, "Hello")
 
-    world = elements[4]
+    world = elements[3]
     check_style(world, "ellipse")
     check_value(world, "World")
-    edge = elements[2]
+    edge = elements[4]
     check_edge(edge, hello, world)
     check_edge_dir(edge, dx=0, dy=1)
 
@@ -69,6 +69,20 @@ def test_polylines():
 
     root = ET.fromstring(xml)
     check_xml_top(root)
+
+def test_cluster():
+    file = "./directed/cluster.gv.txt"
+    xml = graphviz2drawio.convert(file)
+    print(xml)
+
+    root = ET.fromstring(xml) 
+
+    elements = check_xml_top(root)
+    contains_cluster = False
+    for el in elements:
+        if "process" in el.attrib.get("value", ""):
+            contains_cluster = True
+    assert contains_cluster
 
 
 # def test_runAll():

@@ -23,11 +23,15 @@ def convert(graph_to_convert, layout_prog="dot"):
     graph_nodes = {n: list37(n.attr.iteritems()) for n in list37(graph.nodes_iter())}
 
     svg_graph = graph.draw(prog=layout_prog, format="svg")
-    nodes, edges = SvgParser(svg_graph).get_nodes_and_edges()
+    nodes, edges, clusters = SvgParser(svg_graph).get_elements()
     [e.enrich_from_graph(graph_edges[e.gid]) for e in edges]
     [n.enrich_from_graph(graph_nodes[n.gid]) for n in nodes.values()]
 
-    mx_graph = MxGraph(nodes, edges)
+    # Put clusters first, so that nodes are drawn in front
+    nodes_and_clusters = clusters
+    nodes_and_clusters.update(nodes)
+    
+    mx_graph = MxGraph(nodes_and_clusters, edges)
     return mx_graph.value()
 
 
