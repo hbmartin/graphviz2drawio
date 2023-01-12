@@ -26,6 +26,7 @@ class MxGraph:
             self.root,
             MxConst.CELL,
             id=edge.sid,
+            value=edge.text_to_mx_value(),
             style=style,
             parent="1",
             edge="1",
@@ -57,11 +58,7 @@ class MxGraph:
 
         start_curve, end_curve = edge.curve_start_end()
 
-        if edge.curve.cb is not None:
-            curved = 1
-        else:
-            curved = 0
-
+        curved = 1 if edge.curve.cb is not None else 0
         style = Styles.EDGE.format(
             entry_x=target_node.rect.x_ratio(end_curve.real),
             entry_y=target_node.rect.y_ratio(end_curve.imag),
