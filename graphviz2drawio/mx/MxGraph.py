@@ -26,6 +26,7 @@ class MxGraph:
             self.root,
             MxConst.CELL,
             id=edge.sid,
+            value=edge.text_to_mx_value(),
             style=style,
             parent="1",
             edge="1",

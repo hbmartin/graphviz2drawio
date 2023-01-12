@@ -6,8 +6,12 @@ __pycache__/
 # C extensions
 *.so
 
+# VSCode config
+.vscode
+
 # Distribution / packaging
 .Python
+Pipfile.lock
 build/
 develop-eggs/
 dist/
@@ -110,7 +114,8 @@ venv.bak/
 
 # Icon must end with two \r
 Icon?
-Icon
+Icon
+
 
 # Thumbnails
 ._*
