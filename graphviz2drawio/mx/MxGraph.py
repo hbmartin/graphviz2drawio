@@ -112,6 +112,7 @@ class MxGraph:
         # cbset
         if len(curve.cbset) > 0:
             array = ET.SubElement(geo, MxConst.ARRAY, {"as": "points"})
+        cb = None
         for cb in curve.cbset:
             ET.SubElement(array, MxConst.POINT, x=str(cb[0][0]), y=str(cb[0][1]))
         if cb:
