@@ -82,8 +82,17 @@ class MxGraph:
             else MxConst.DEFAULT_FILL
         )
         stroke = node.stroke if node.stroke is not None else MxConst.DEFAULT_STROKE
+        style = Styles.get_for_shape(node.shape)
 
-        style = Styles.get_for_shape(node.shape).format(fill=fill, stroke=stroke)
+        attributes = dict(fill=fill, stroke=stroke)
+        if style == Styles.IMAGE:
+            import base64
+
+            with open(node.image, "rb") as image_file:
+                encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
+            attributes['image'] = f'data:image/png,{encoded_string}'
+
+        style = style.format(**attributes)
 
         node_element = ET.SubElement(
             self.root,

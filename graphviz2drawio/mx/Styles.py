@@ -13,8 +13,8 @@ class Styles(Enum):
     EGG = "shape=mxgraph.flowchart.display;direction=south;" + NODE
     TRIANGLE = "triangle;direction=north;" + NODE
     LINE = (
-        "line;strokeWidth=2;verticalAlign=bottom;labelPosition=center;verticalLabelPosition=top;align=center;"
-        + NODE
+            "line;strokeWidth=2;verticalAlign=bottom;labelPosition=center;verticalLabelPosition=top;align=center;"
+            + NODE
     )
     DIAMOND = "rhombus;" + NODE
     TRAPEZOID = "shape=trapezoid;perimeter=trapezoidPerimeter;" + NODE
@@ -22,49 +22,53 @@ class Styles(Enum):
     HOUSE = "shape=offPageConnector;direction=west;" + NODE
     PENTAGON = "shape=mxgraph.basic.pentagon;" + NODE
     OCTAGON = (
-        "shape=mxgraph.basic.octagon2;align=center;verticalAlign=middle;dx=15;" + NODE
+            "shape=mxgraph.basic.octagon2;align=center;verticalAlign=middle;dx=15;" + NODE
     )
     DOUBLE_CIRCLE = "ellipse;shape=doubleEllipse;aspect=fixed;" + NODE
     DOUBLE_OCTAGON = (
-        "shape=image;html=1;verticalAlign=middle;verticalLabelPosition=middle;imageAspect=0;aspect=fixed;image=https://cdn4.iconfinder.com/data/icons/feather/24/octagon-128.png;labelPosition=center;align=center;"
-        + NODE
+            "shape=image;html=1;verticalAlign=middle;verticalLabelPosition=middle;imageAspect=0;aspect=fixed;image=https://cdn4.iconfinder.com/data/icons/feather/24/octagon-128.png;labelPosition=center;align=center;"
+            + NODE
     )
     INV_TRIANGLE = "triangle;direction=south;" + NODE
     INV_TRAPEZOID = (
-        "shape=trapezoid;perimeter=trapezoidPerimeter;direction=west;" + NODE
+            "shape=trapezoid;perimeter=trapezoidPerimeter;direction=west;" + NODE
     )
     INV_HOUSE = "shape=offPageConnector;direction=east;" + NODE
     SQUARE = "aspect=fixed;" + NODE
     STAR = (
-        "shape=mxgraph.basic.star;labelPosition=center;align=center;verticalLabelPosition=middle;verticalAlign=middle;"
-        + NODE
+            "shape=mxgraph.basic.star;labelPosition=center;align=center;verticalLabelPosition=middle;verticalAlign=middle;"
+            + NODE
     )
     UNDERLINE = "line;strokeWidth=2;verticalAlign=bottom;labelPosition=center;verticalLabelPosition=top;align=center;"
     CYLINDER = "shape=cylinder;boundedLbl=1;backgroundOutline=1;" + NODE
     NOTE = "shape=note;backgroundOutline=1;" + NODE
     TAB = "shape=folder;tabWidth=40;tabHeight=14;tabPosition=left;" + NODE
     FOLDER = (
-        "shape=mxgraph.office.concepts.folder;outlineConnect=0;align=center;verticalLabelPosition=middle;verticalAlign=middle;labelPosition=center;shadow=0;dashed=0;"
-        + NODE
+            "shape=mxgraph.office.concepts.folder;outlineConnect=0;align=center;verticalLabelPosition=middle;verticalAlign=middle;labelPosition=center;shadow=0;dashed=0;"
+            + NODE
     )
     CUBE = "shape=cube;boundedLbl=1;backgroundOutline=1;" + NODE
     COMPONENT = (
-        "shape=component;align=center;spacingLeft=36;verticalAlign=bottom;" + NODE
+            "shape=component;align=center;spacingLeft=36;verticalAlign=bottom;" + NODE
     )
     RPROMOTER = (
-        "shape=mxgraph.arrows2.bendArrow;dy=15;dx=38;notch=0;arrowHead=55;rounded=0;shadow=0;dashed=0;align=center;verticalAlign=middle;"
-        + NODE
+            "shape=mxgraph.arrows2.bendArrow;dy=15;dx=38;notch=0;arrowHead=55;rounded=0;shadow=0;dashed=0;align=center;verticalAlign=middle;"
+            + NODE
     )
     LPROMOTER = "flipH=1;" + RPROMOTER
     CDS = (
-        "shape=mxgraph.arrows2.arrow;dy=0;dx=10;notch=0;shadow=0;dashed=0;align=center;verticalAlign=middle;"
-        + NODE
+            "shape=mxgraph.arrows2.arrow;dy=0;dx=10;notch=0;shadow=0;dashed=0;align=center;verticalAlign=middle;"
+            + NODE
     )
     RARROW = (
-        "shape=mxgraph.arrows2.arrow;dy=0.6;dx=40;align=center;labelPosition=center;notch=0;strokeWidth=2;verticalLabelPosition=middle;verticalAlign=middle;"
-        + NODE
+            "shape=mxgraph.arrows2.arrow;dy=0.6;dx=40;align=center;labelPosition=center;notch=0;strokeWidth=2;verticalLabelPosition=middle;verticalAlign=middle;"
+            + NODE
     )
     LARROW = "flipH=1;" + RARROW
+    IMAGE = (
+            "shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image={image};"
+            + NODE
+    )
 
     @staticmethod
     def get_for_shape(dot_shape):
@@ -132,6 +136,8 @@ class Styles(Enum):
             return Styles.RARROW
         elif dot_shape == Shape.LARROW:
             return Styles.LARROW
+        elif dot_shape == Shape.IMAGE:
+            return Styles.IMAGE
         else:
             return Styles.NODE
 
