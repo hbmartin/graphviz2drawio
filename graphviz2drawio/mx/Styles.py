@@ -69,6 +69,10 @@ class Styles(Enum):
         + NODE
     )
     LARROW = "flipH=1;" + RARROW
+    IMAGE = (
+        "shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image={image};"
+        + NODE
+    )
 
     @staticmethod
     def get_for_shape(dot_shape):
@@ -136,7 +140,10 @@ class Styles(Enum):
             return Styles.RARROW
         if dot_shape == Shape.LARROW:
             return Styles.LARROW
-        return Styles.NODE
+        elif dot_shape == Shape.IMAGE:
+            return Styles.IMAGE
+        else:
+            return Styles.NODE
 
     def format(self, **values):
         return self.value.format(**values)
