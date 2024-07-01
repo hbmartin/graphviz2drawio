@@ -43,7 +43,7 @@ def check_edge_dir(e, dx, dy):
 
 
 def test_hello():
-    file = "./directed/hello.gv.txt"
+    file = "test/directed/hello.gv.txt"
     xml = graphviz2drawio.convert(file)
     print(xml)
 
@@ -63,7 +63,7 @@ def test_hello():
 
 
 def test_polylines():
-    file = "./undirected/polylines.gv.txt"
+    file = "test/undirected/polylines.gv.txt"
     xml = graphviz2drawio.convert(file)
     print(xml)
 

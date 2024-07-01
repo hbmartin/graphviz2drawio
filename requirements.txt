@@ -1,0 +1,2 @@
+pygraphviz==1.13
+svg.path==4.1
