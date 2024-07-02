@@ -9,7 +9,7 @@
 [![twitter](https://img.shields.io/badge/@hmartin-00aced.svg?logo=twitter&logoColor=black)](https://twitter.com/hmartin)
 
 
-Convert graphviz (dot) files into draw.io (mxGraph) format
+Convert graphviz (dot) files into draw.io (mxGraph) format.
 
 ## Roadmap for 0.3 release (as of July 2, 2024)
 
@@ -102,6 +102,9 @@ python -m graphviz2drawio test/directed/hello.gv.txt
 ## Roadmap to 1.0 release
 - [ ] Complete test suite for official graphviz examples
 - [ ] Migrate to uv/hatch for packaging and dep mgmt
+- [ ] Bezier curve support
+- [ ] Port layout
+- [ ] Implementation for other outstanding TODOs
 
 ## License
 

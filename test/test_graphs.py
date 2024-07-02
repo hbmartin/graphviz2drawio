@@ -24,10 +24,10 @@ def check_value(e, check):
     assert match, "no match found for %s" % value
 
 
-def check_edge(e, source, target):
-    assert e.attrib.get("edge")
-    assert e.attrib["source"] == source.attrib["id"]
-    assert e.attrib["target"] == target.attrib["id"]
+def check_edge(edge, source, target):
+    assert edge.attrib.get("edge")
+    assert edge.attrib["source"] == source.attrib["id"]
+    assert edge.attrib["target"] == target.attrib["id"]
 
 
 def check_edge_dir(e, dx, dy):
@@ -63,11 +63,11 @@ def test_hello():
 
 
 def test_port():
-    file = "./directed/port.gv.txt"
+    file = "test/directed/port.gv.txt"
     xml = graphviz2drawio.convert(file)
     root = ET.fromstring(xml)
     elements = check_xml_top(root)
-    check_edge(elements[2], elements[4], elements[5])
+    check_edge(elements[6], elements[2], elements[3])
 
 
 def test_polylines():

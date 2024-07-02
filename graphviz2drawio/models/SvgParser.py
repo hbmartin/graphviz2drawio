@@ -10,16 +10,16 @@ from ..mx.Node import Node
 
 def parse_nodes_edges_clusters(
     svg_data: bytes,
-) -> tuple[dict[str, Node], list[Edge], dict[str, Node]]:
+) -> tuple[OrderedDict[str, Node], list[Edge], OrderedDict[str, Node]]:
     root = ElementTree.fromstring(svg_data)[0]
 
-    coords: CoordsTranslate = CoordsTranslate.from_svg_transform(root.attrib["transform"])
+    coords = CoordsTranslate.from_svg_transform(root.attrib["transform"])
     node_factory = NodeFactory(coords)
     edge_factory = EdgeFactory(coords)
 
-    nodes: dict[str, Node] = OrderedDict()
+    nodes: OrderedDict[str, Node] = OrderedDict()
     edges: list[Edge] = []
-    clusters: dict[str, Node] = OrderedDict()
+    clusters: OrderedDict[str, Node] = OrderedDict()
 
     for g in root:
         if SVG.is_tag(g, "g"):

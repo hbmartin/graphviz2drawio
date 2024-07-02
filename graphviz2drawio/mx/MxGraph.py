@@ -133,5 +133,6 @@ class MxGraph:
     def x_y_strs(point):
         return str(int(point.real)), str(int(point.imag))
 
-    def value(self):
-        return MxConst.DECLARATION + ET.tostring(self.graph, encoding="unicode")
+    def value(self) -> str:
+        ET.indent(self.graph)
+        return ET.tostring(self.graph, encoding="unicode", xml_declaration=True)
