@@ -8,7 +8,7 @@ class EdgeFactory:
         super(EdgeFactory, self).__init__()
         self.curve_factory = CurveFactory(coords)
 
-    def from_svg(self, g):
+    def from_svg(self, g) -> Edge:
         gid = SVG.get_title(g).replace("--", "->")
         fr, to = gid.split("->")
         curve = None

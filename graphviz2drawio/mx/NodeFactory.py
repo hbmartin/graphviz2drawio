@@ -37,7 +37,7 @@ class NodeFactory:
         x, y = self.coords.translate(cx, cy)
         return Rect(x=x - rx, y=y - ry, width=rx * 2, height=ry * 2)
 
-    def from_svg(self, g):
+    def from_svg(self, g) -> Node:
         texts = []
         current_text = None
         for t in g:

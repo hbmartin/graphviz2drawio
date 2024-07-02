@@ -70,12 +70,13 @@ def test_polylines():
     root = ET.fromstring(xml)
     check_xml_top(root)
 
+
 def test_cluster():
-    file = "./directed/cluster.gv.txt"
+    file = "test/directed/cluster.gv.txt"
     xml = graphviz2drawio.convert(file)
     print(xml)
 
-    root = ET.fromstring(xml) 
+    root = ET.fromstring(xml)
 
     elements = check_xml_top(root)
     contains_cluster = False
