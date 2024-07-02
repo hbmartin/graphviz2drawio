@@ -11,10 +11,8 @@ class MxGraph:
         self.edges = edges
         self.graph = ET.Element(MxConst.GRAPH)
         self.root = ET.SubElement(self.graph, MxConst.ROOT)
-        ET.SubElement(parent=self.root, tag=MxConst.CELL, attrib={"id": "0"})
-        ET.SubElement(
-            parent=self.root, tag=MxConst.CELL, attrib={"id": "1", "parent": "0"}
-        )
+        ET.SubElement(self.root, MxConst.CELL, attrib={"id": "0"})
+        ET.SubElement(self.root, MxConst.CELL, attrib={"id": "1", "parent": "0"})
 
         for edge in edges:
             self.add_edge(edge)
@@ -25,8 +23,8 @@ class MxGraph:
         source, target = self.get_edge_source_target(edge)
         style = self.get_edge_style(edge, source, target)
         edge_element = ET.SubElement(
-            parent=self.root,
-            tag=MxConst.CELL,
+            self.root,
+            MxConst.CELL,
             attrib={
                 "id": edge.sid,
                 "style": style,
@@ -90,8 +88,8 @@ class MxGraph:
         style = Styles.get_for_shape(node.shape).format(fill=fill, stroke=stroke)
 
         node_element = ET.SubElement(
-            parent=self.root,
-            tag=MxConst.CELL,
+            self.root,
+            MxConst.CELL,
             attrib={
                 "id": node.sid,
                 "value": node.text_to_mx_value(),
