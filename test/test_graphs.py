@@ -61,19 +61,20 @@ def test_hello():
     check_edge(edge, hello, world)
     check_edge_dir(edge, dx=0, dy=1)
 
+
 def test_hello_rect():
-    file = "./directed/hello_rect.gv.txt"
+    file = "test/directed/hello_rect.gv.txt"
     xml = graphviz2drawio.convert(file)
     print(xml)
 
     root = ET.fromstring(xml)
     elements = check_xml_top(root)
 
-    hello = elements[3]
+    hello = elements[2]
     check_value(hello, "Hello")
     assert "ellipse" not in hello.attrib["style"]
 
-    world = elements[4]
+    world = elements[3]
     check_value(world, "World")
     assert "ellipse" not in world.attrib["style"]
 
@@ -142,6 +143,27 @@ def test_datastruct():
 
     assert elements[-1].attrib["source"] == "node12"
     assert elements[-1].attrib["target"] == "node2"
+
+
+# TODO: https://github.com/hbmartin/graphviz2drawio/issues/33
+# def test_subgraph():
+#     file = "test/directed/subgraph.gv.txt"
+#     xml = graphviz2drawio.convert(file)
+#     print(xml)
+#
+#     root = ET.fromstring(xml)
+#     elements = check_xml_top(root)
+
+
+def test_compound():
+    file = "test/directed/compound.gv.txt"
+    xml = graphviz2drawio.convert(file)
+    print(xml)
+
+    root = ET.fromstring(xml)
+    elements = check_xml_top(root)
+    assert elements[-1].attrib["target"] == "node2"
+
 
 # def test_runAll():
 #    for f in os.listdir('undirected'):

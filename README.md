@@ -25,6 +25,7 @@ Convert graphviz (dot) files into draw.io (mxGraph) format.
 - [ ] Add tests for all new features
 - [ ] Reformat for most recent black style
 - [ ] Publish release docs to GH pages
+- [ ] Remove this section before release!
 
 ## Getting Started
 
@@ -105,6 +106,8 @@ python -m graphviz2drawio test/directed/hello.gv.txt
 - [ ] Migrate to uv/hatch for packaging and dep mgmt
 - [ ] Bezier curve support
 - [ ] Port layout
+- [ ] Subgraph support
+- [ ] Fix text alignment inside of shape
 - [ ] Implementation for other outstanding TODOs
 
 ## License

@@ -29,7 +29,7 @@ def convert(graph_to_convert, layout_prog="dot"):
     [n.enrich_from_graph(graph_nodes[n.gid]) for n in nodes.values()]
 
     # Put clusters first, so that nodes are drawn in front
-    mx_graph = MxGraph(nodes | clusters, edges)
+    mx_graph = MxGraph(clusters | nodes, edges)
     return mx_graph.value()
 
 
