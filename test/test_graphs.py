@@ -61,6 +61,22 @@ def test_hello():
     check_edge(edge, hello, world)
     check_edge_dir(edge, dx=0, dy=1)
 
+def test_hello_rect():
+    file = "./directed/hello_rect.gv.txt"
+    xml = graphviz2drawio.convert(file)
+    print(xml)
+
+    root = ET.fromstring(xml)
+    elements = check_xml_top(root)
+
+    hello = elements[3]
+    check_value(hello, "Hello")
+    assert "ellipse" not in hello.attrib["style"]
+
+    world = elements[4]
+    check_value(world, "World")
+    assert "ellipse" not in world.attrib["style"]
+
 
 def test_port():
     file = "test/directed/port.gv.txt"

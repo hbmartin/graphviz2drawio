@@ -2,6 +2,7 @@ from graphviz2drawio.models import SVG
 from graphviz2drawio.models.Rect import Rect
 from .Node import Node
 from .Text import Text
+from . import Shape
 
 
 class NodeFactory:
@@ -56,8 +57,10 @@ class NodeFactory:
             rect = self.rect_from_svg_points(
                 SVG.get_first(g, "polygon").attrib["points"]
             )
+            shape = Shape.RECT
         else:
             rect = self.rect_from_ellipse_svg(SVG.get_first(g, "ellipse").attrib)
+            shape = Shape.ELLIPSE
 
         stroke = None
         if SVG.has(g, "polygon"):
@@ -78,4 +81,5 @@ class NodeFactory:
             texts=texts,
             fill=fill,
             stroke=stroke,
+            shape=shape
         )
