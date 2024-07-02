@@ -11,6 +11,14 @@ class EdgeFactory:
     def from_svg(self, g) -> Edge:
         gid = SVG.get_title(g).replace("--", "->")
         fr, to = gid.split("->")
+        gid_template = "{}->{}"
+        sp_fr = fr.split(":")
+        sp_to = to.split(":")
+        if len(sp_fr) == 2:
+            fr = sp_fr[0]
+        if len(sp_to) == 2:
+            to = sp_to[0]
+        gid = gid_template.format(fr, to)
         curve = None
         if SVG.has(g, "path"):
             path = SVG.get_first(g, "path")

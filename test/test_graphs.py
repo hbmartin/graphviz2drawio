@@ -62,6 +62,14 @@ def test_hello():
     check_edge_dir(edge, dx=0, dy=1)
 
 
+def test_port():
+    file = "./directed/port.gv.txt"
+    xml = graphviz2drawio.convert(file)
+    root = ET.fromstring(xml)
+    elements = check_xml_top(root)
+    check_edge(elements[2], elements[4], elements[5])
+
+
 def test_polylines():
     file = "test/undirected/polylines.gv.txt"
     xml = graphviz2drawio.convert(file)
