@@ -12,13 +12,13 @@ def parse_nodes_edges_clusters(
 ) -> tuple[dict[str, Node], list[Edge], dict[str, Node]]:
     root = ElementTree.fromstring(svg_data)[0]
 
-    coords = CoordsTranslate.from_svg_transform(root.attrib["transform"])
+    coords: CoordsTranslate = CoordsTranslate.from_svg_transform(root.attrib["transform"])
     node_factory = NodeFactory(coords)
     edge_factory = EdgeFactory(coords)
 
-    nodes = OrderedDict()
-    edges = []
-    clusters = OrderedDict()
+    nodes: dict[str, Node] = OrderedDict()
+    edges: list[Edge] = []
+    clusters: dict[str, Node] = OrderedDict()
 
     for g in root:
         if SVG.is_tag(g, "g"):

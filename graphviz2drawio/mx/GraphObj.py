@@ -1,7 +1,4 @@
-from abc import ABC
-
-
-class GraphObj(ABC):
+class GraphObj:
     def __init__(self, sid, gid):
         self.sid = sid
         self.gid = gid
