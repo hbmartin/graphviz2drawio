@@ -3,6 +3,7 @@ from xml.etree import ElementTree as ET
 from graphviz2drawio.models import DotAttr
 from graphviz2drawio.mx import MxConst
 from graphviz2drawio.mx.Styles import Styles
+import uuid
 
 
 class MxGraph:
@@ -35,6 +36,20 @@ class MxGraph:
                 "target": target.sid,
             },
         )
+
+        if edge.label:
+            edge_label_element = ET.SubElement(
+                self.root,
+                MxConst.CELL,
+                id=uuid.uuid4().hex,
+                style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];",
+                parent=edge.sid,
+                value=edge.label,
+                vertex="1",
+                connectable="0",
+            )
+            self.add_mx_geo(edge_label_element)
+
         if edge.curve.cb is None and len(edge.curve.cbset) == 0:
             self.add_mx_geo(edge_element)
         else:

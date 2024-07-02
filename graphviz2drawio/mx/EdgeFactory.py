@@ -20,8 +20,9 @@ class EdgeFactory:
             to = sp_to[0]
         gid = gid_template.format(fr, to)
         curve = None
+        label = SVG.get_text(g)
         if SVG.has(g, "path"):
             path = SVG.get_first(g, "path")
             if "d" in path.attrib:
                 curve = self.curve_factory.from_svg(path.attrib["d"])
-        return Edge(sid=g.attrib["id"], gid=gid, fr=fr, to=to, curve=curve)
+        return Edge(sid=g.attrib["id"], gid=gid, fr=fr, to=to, curve=curve, label=label)
