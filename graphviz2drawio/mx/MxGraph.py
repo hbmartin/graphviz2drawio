@@ -25,14 +25,16 @@ class MxGraph:
         source, target = self.get_edge_source_target(edge)
         style = self.get_edge_style(edge, source, target)
         edge_element = ET.SubElement(
-            self.root,
-            MxConst.CELL,
-            id=edge.sid,
-            style=style,
-            parent="1",
-            edge="1",
-            source=source.sid,
-            target=target.sid,
+            parent=self.root,
+            tag=MxConst.CELL,
+            attrib={
+                "id": edge.sid,
+                "style": style,
+                "parent": "1",
+                "edge": "1",
+                "source": source.sid,
+                "target": target.sid,
+            },
         )
         if edge.curve.cb is None and len(edge.curve.cbset) == 0:
             self.add_mx_geo(edge_element)
@@ -88,13 +90,15 @@ class MxGraph:
         style = Styles.get_for_shape(node.shape).format(fill=fill, stroke=stroke)
 
         node_element = ET.SubElement(
-            self.root,
-            MxConst.CELL,
-            id=node.sid,
-            value=node.text_to_mx_value(),
-            style=style,
-            parent="1",
-            vertex="1",
+            parent=self.root,
+            tag=MxConst.CELL,
+            attrib={
+                "id": node.sid,
+                "value": node.text_to_mx_value(),
+                "style": style,
+                "parent": "1",
+                "vertex": "1",
+            },
         )
         self.add_mx_geo(node_element, node.rect)
 
