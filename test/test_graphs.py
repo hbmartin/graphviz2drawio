@@ -94,6 +94,27 @@ def test_cluster():
     assert contains_cluster
 
 
+def test_convnet():
+    file = "test/directed/convnet.gv.txt"
+    xml = graphviz2drawio.convert(file)
+    print(xml)
+
+    root = ET.fromstring(xml)
+    elements = check_xml_top(root)
+
+    assert elements[-1].attrib["value"] == "$$l_t$$"
+
+def test_multilabel():
+    file = "test/directed/multilabel.gv.txt"
+    xml = graphviz2drawio.convert(file)
+    print(xml)
+
+    root = ET.fromstring(xml)
+    elements = check_xml_top(root)
+
+    assert elements[-1].attrib["value"] == "c<div>b</div><div>a</div>"
+
+
 # def test_runAll():
 #    for f in os.listdir('undirected'):
 #        xml = graphviz2drawio.convert(f)

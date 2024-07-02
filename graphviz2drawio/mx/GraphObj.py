@@ -4,5 +4,7 @@ class GraphObj:
         self.gid = gid
 
     def enrich_from_graph(self, attrs):
-        for e in attrs:
-            self.__setattr__(e[0], e[1])
+        for k, v in attrs:
+            if k in self.__dict__ and self.__dict__[k] is not None:
+                continue
+            self.__setattr__(k, v)

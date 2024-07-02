@@ -8,7 +8,7 @@ class CurveFactory:
         super(CurveFactory, self).__init__()
         self.coords = coords
 
-    def from_svg(self, svg_path):
+    def from_svg(self, svg_path) -> Curve:
         path = parse_path(svg_path)
         start = self.coords.complex_translate(path[0].start)
         end = self.coords.complex_translate(path[len(path) - 1].end)

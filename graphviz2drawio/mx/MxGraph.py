@@ -41,12 +41,14 @@ class MxGraph:
             edge_label_element = ET.SubElement(
                 self.root,
                 MxConst.CELL,
-                id=uuid.uuid4().hex,
-                style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];",
-                parent=edge.sid,
-                value=edge.label,
-                vertex="1",
-                connectable="0",
+                attrib={
+                    "id": uuid.uuid4().hex,
+                    "style": "edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];",
+                    "parent": edge.sid,
+                    "value": edge.label,
+                    "vertex": "1",
+                    "connectable": "0",
+                },
             )
             self.add_mx_geo(edge_label_element)
 

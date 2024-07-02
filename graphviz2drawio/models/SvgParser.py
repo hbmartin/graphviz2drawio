@@ -18,7 +18,7 @@ def parse_nodes_edges_clusters(
     edge_factory = EdgeFactory(coords)
 
     nodes: OrderedDict[str, Node] = OrderedDict()
-    edges: list[Edge] = []
+    edges: OrderedDict[str, Edge] = OrderedDict()
     clusters: OrderedDict[str, Node] = OrderedDict()
 
     for g in root:
@@ -27,8 +27,12 @@ def parse_nodes_edges_clusters(
             if g.attrib["class"] == "node":
                 nodes[title] = node_factory.from_svg(g)
             elif g.attrib["class"] == "edge":
-                edges.append(edge_factory.from_svg(g))
+                edge = edge_factory.from_svg(g)
+                if existing_edge := edges.get(edge.key_for_label):
+                    existing_edge.label += f"<div>{edge.label}</div>"
+                else:
+                    edges[edge.key_for_label] = edge
             elif g.attrib["class"] == "cluster":
                 clusters[title] = node_factory.from_svg(g)
 
-    return nodes, edges, clusters
+    return nodes, list(edges.values()), clusters
