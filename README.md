@@ -17,6 +17,7 @@ Convert graphviz (dot) files into draw.io (mxGraph) format.
 - [ ] Migrate from Make to GHA for release
 - [ ] Fix "cb" bug
 - [x] Add support for clusters
+- [x] Add support for edge labels
 - [ ] Address or triage all open issues
 - [ ] Merge or close all outstanding PRs
 - [x] Upgrade to latest pygraphviz

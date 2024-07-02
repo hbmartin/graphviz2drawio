@@ -120,6 +120,7 @@ def test_convnet():
 
     assert elements[-1].attrib["value"] == "$$l_t$$"
 
+
 def test_multilabel():
     file = "test/directed/multilabel.gv.txt"
     xml = graphviz2drawio.convert(file)
@@ -130,6 +131,17 @@ def test_multilabel():
 
     assert elements[-1].attrib["value"] == "c<div>b</div><div>a</div>"
 
+
+def test_datastruct():
+    file = "test/directed/datastruct.gv.txt"
+    xml = graphviz2drawio.convert(file)
+    print(xml)
+
+    root = ET.fromstring(xml)
+    elements = check_xml_top(root)
+
+    assert elements[-1].attrib["source"] == "node12"
+    assert elements[-1].attrib["target"] == "node2"
 
 # def test_runAll():
 #    for f in os.listdir('undirected'):

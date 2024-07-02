@@ -68,11 +68,13 @@ class NodeFactory:
             if "stroke" in polygon.attrib:
                 stroke = polygon.attrib["stroke"]
 
-        fill = None
-        if SVG.has(g, "ellipse"):
+        fill = g.attrib.get("fill", None)
+        try:
             ellipse = SVG.get_first(g, "ellipse")
-            if "fill" in ellipse.attrib:
-                fill = ellipse.attrib["fill"]
+            if ellipse_fill := ellipse.attrib.get("fill"):
+                fill = ellipse_fill
+        except IndexError:
+            pass
 
         return Node(
             sid=g.attrib["id"],
