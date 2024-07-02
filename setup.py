@@ -30,19 +30,15 @@ setup(
         "Topic :: Scientific/Engineering :: Visualization",
         "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.5",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
     ],
     license="GPLv3",
     keywords="graphviz graph agraph dot convert conversion draw drawio mxgraph xml",
     packages=find_packages(exclude=["contrib", "docs", "tests"]),
     install_requires=["pygraphviz", "raven", "svg.path"],
     tests_require=["pytest"],
-    entry_points={
-        "console_scripts": ["graphviz2drawio=graphviz2drawio.__main__:main"]
-    },
+    entry_points={"console_scripts": ["graphviz2drawio=graphviz2drawio.__main__:main"]},
     project_urls={
         "Bug Reports": "https://github.com/hbmartin/graphviz2drawio/issues",
         "Source": "https://github.com/hbmartin/graphviz2drawio/",

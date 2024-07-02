@@ -2,7 +2,7 @@
 
 <a href="https://pypi.org/project/graphviz2drawio/"><img src="https://img.shields.io/pypi/v/graphviz2drawio.svg" alt="pypi"></a>
 <a href="https://pypi.python.org/pypi/graphviz2drawio/"><img src="https://img.shields.io/pypi/pyversions/graphviz2drawio.svg" /></a>
-[![Build Status](https://travis-ci.com/hbmartin/graphviz2drawio.svg?branch=master)](https://travis-ci.com/hbmartin/graphviz2drawio)
+[![Lint and Test](https://github.com/hbmartin/graphviz2drawio/actions/workflows/lint.yml/badge.svg)](https://github.com/hbmartin/graphviz2drawio/actions/workflows/lint.yml)
 [![codecov.io](https://codecov.io/github/hbmartin/graphviz2drawio/coverage.svg?branch=master)](https://codecov.io/github/hbmartin/graphviz2drawio?branch=master)
 <a href="https://github.com/ambv/black"><img src="https://img.shields.io/badge/code%20style-black-000000.svg" /></a>
 
@@ -15,12 +15,20 @@ Convert graphviz (dot) files into draw.io (mxGraph) format
 
 graphviz2drawio requires [Python 3](https://www.python.org/downloads/) and [Graphviz](https://www.graphviz.org/download/)
 
-* On Mac OS these can be installed with [Homebrew](https://brew.sh/):
+* On mac OS you MUST install and configure the graphviz binary. This can be installed with [Homebrew](https://brew.sh/):
 
 ```
 brew update; brew install python3 graphviz
-pip3 install pygraphviz --install-option="--include-path=/usr/local/include/graphviz" --install-option="--library-path=/usr/local/lib/graphviz/"
+pip3 install pygraphviz
 ```
+
+If you encounter build errors you may need to point pygraphviz with links to the graphviz libraries
+
+```
+export CFLAGS="-I$(brew --prefix graphviz)/include/"                                                   
+export LDFLAGS="-L$(brew --prefix graphviz)/lib/"
+```
+
 * On Ubuntu / Debian based Linux, install graphviz using:
 
 ```
@@ -66,6 +74,18 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 ### Code Formatting
 
 This project is linted with [pyflakes](https://github.com/PyCQA/pyflakes) and makes strict use of [Black](https://github.com/ambv/black) for code formatting.
+
+## Developing
+
+```bash
+git clone git@github.com:hbmartin/graphviz2drawio.git
+cd graphviz2drawio
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+# Replace with the actual path to your dot files
+python -m graphviz2drawio test/directed/hello.gv.txt
+```
 
 
 ## Authors

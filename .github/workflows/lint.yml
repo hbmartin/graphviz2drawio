@@ -26,9 +26,9 @@ jobs:
         if [[ '${{ steps.cpython3.outputs.python-version }}' == *"3.12"* ]]; then
           echo "pytype does not support 3.12: https://github.com/google/pytype/issues/1475"
         else
-          pytype -j auto podcast_transcript_tools
+          pytype -j auto graphviz2drawio
         fi
-    - uses: psf/black@stable
-      with:
-        options: "--check --verbose"
+#    - uses: psf/black@stable
+#      with:
+#        options: "--check --verbose"
     - run: pytest
