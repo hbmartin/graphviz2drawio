@@ -4,7 +4,8 @@ from graphviz2drawio.mx.EdgeFactory import EdgeFactory
 from graphviz2drawio.mx.NodeFactory import NodeFactory
 from . import SVG
 from .CoordsTranslate import CoordsTranslate
-from ..mx import Node, Edge
+from ..mx.Edge import Edge
+from ..mx.Node import Node
 
 
 def parse_nodes_edges_clusters(
