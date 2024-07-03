@@ -4,8 +4,10 @@ linear_min_r2 = 0.9
 
 
 class Curve:
-    def __init__(self, start, end, cb, cbset=[]):
+    def __init__(self, start, end, cb, cbset=None):
         """Takes complex numbers for start, end, and list of 4 Bezier control points"""
+        if cbset is None:
+            cbset = []
         self.start = start
         self.end = end
         assert cb is None or len(cb) == 4  # TODO: emit value error instead
