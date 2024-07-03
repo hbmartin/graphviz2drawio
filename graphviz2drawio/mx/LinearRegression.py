@@ -26,8 +26,7 @@ def determination(points, y_mean, b0, b1):
         sst.append(diff**2)
     if sum(sst) == 0:
         return 1  # Horizontal line
-    else:
-        return 1 - (sum(sse) / sum(sst))
+    return 1 - (sum(sse) / sum(sst))
 
 
 def coefficients(points):
@@ -40,5 +39,4 @@ def coefficients(points):
         b0 = m.imag - b1 * m.real
         r2 = determination(points, m.imag, b0, b1)
         return [b0, b1, r2]
-    else:
-        return [0, 0, 1]  # Vertical line
+    return [0, 0, 1]  # Vertical line

@@ -60,8 +60,7 @@ class MxGraph:
     def get_edge_source_target(self, edge):
         if edge.dir == DotAttr.BACK:
             return self.nodes[edge.to], self.nodes[edge.fr]
-        else:
-            return self.nodes[edge.fr], self.nodes[edge.to]
+        return self.nodes[edge.fr], self.nodes[edge.to]
 
     def get_edge_style(self, edge, source_node, target_node):
         end_arrow = MxConst.BLOCK
