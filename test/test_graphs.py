@@ -173,6 +173,16 @@ def test_subgraph_and_colors():
     assert "clust2" in xml
 
 
+def test_invisible():
+    file = "test/directed/invisible.gv.txt"
+    xml = graphviz2drawio.convert(file)
+    print(xml)
+
+    root = ElementTree.fromstring(xml)
+    elements = check_xml_top(root)
+    assert elements[-1].attrib["target"] == "node7"
+
+
 # NOTE: this test cannot be run in prod because of image paths
 # def test_aws_diagram_with_images() -> None:
 #     file = "test/directed/grouped_workers.dot"

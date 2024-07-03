@@ -10,6 +10,8 @@ class Styles(Enum):
     EDGE_LABEL = (
         "edgeLabel;html=1;align=center;verticalAlign=bottom;resizable=0;points=[];"
     )
+    EDGE_INVIS = "rounded=1;html=1;exitX={exit_x:.3g};exitY={exit_y:.3g};jettySize=auto;curved={curved};endArrow={end_arrow};dashed={dashed};endFill={end_fill};"
+
     TEXT = "margin:0px;text-align:{align};{margin};font-size:{size}px;font-family:{family};color:{color};"
 
     ELLIPSE = "ellipse;" + NODE
