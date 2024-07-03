@@ -3,26 +3,11 @@
 <a href="https://pypi.org/project/graphviz2drawio/"><img src="https://img.shields.io/pypi/v/graphviz2drawio.svg" alt="pypi"></a>
 <a href="https://pypi.python.org/pypi/graphviz2drawio/"><img src="https://img.shields.io/pypi/pyversions/graphviz2drawio.svg" /></a>
 [![Lint and Test](https://github.com/hbmartin/graphviz2drawio/actions/workflows/lint.yml/badge.svg)](https://github.com/hbmartin/graphviz2drawio/actions/workflows/lint.yml)
-[![codecov.io](https://codecov.io/github/hbmartin/graphviz2drawio/coverage.svg?branch=master)](https://codecov.io/github/hbmartin/graphviz2drawio?branch=master)
 [![Code style: black](https://img.shields.io/badge/🐧️-black-000000.svg)](https://github.com/psf/black)
-[![Checked with pytype](https://img.shields.io/badge/🦆-pytype-437f30.svg)](https://google.github.io/pytype/)
 [![twitter](https://img.shields.io/badge/@hmartin-00aced.svg?logo=twitter&logoColor=black)](https://twitter.com/hmartin)
 
 
 Convert graphviz (dot) files into draw.io (mxGraph) format.
-
-## Roadmap for 0.3 release (as of July 2, 2024)
-
-- [x] Migrate from Travis to GHA for CI
-- [ ] Migrate from Make to GHA for release
-- [x] Fix "cb" bug
-- [x] Add support for clusters
-- [x] Add support for edge labels
-- [x] Upgrade to latest pygraphviz
-- [x] Upgrade to latest svg.path
-- [x] Reformat for most recent black style
-- [ ] Publish api docs to GH pages
-- [ ] Remove this section before release! (move to release notes)
 
 ## Prerequisites
 
@@ -45,7 +30,7 @@ export LDFLAGS="-L$(brew --prefix graphviz)/lib/"
 sudo apt install python3-pip graphviz graphviz-dev
 ```
 
-## CLI Installation
+## Installation
 
 It is recommended to use [pipx](https://pipx.pypa.io/stable/) to install and run the CLI tool. If you wish to use the library, you can install with `pip` instead.
 
@@ -57,10 +42,10 @@ pipx install -U graphviz2drawio
 ## Usage
 Run the conversion app on your graphviz file
 
-```
+```bash
 graphviz2drawio example.dot
 ```
-You can them import the output XML file into draw.io
+You can then import the output XML file into draw.io
 
 ## Library Usage
 ```python
@@ -71,9 +56,6 @@ print(xml)
 ```
 where `graph_to_convert` can be any of a file path, file handle, string of dot language, or PyGraphviz.AGraph object
 
-## Limitations
-Please [open an issue](https://github.com/hbmartin/graphviz2drawio/issues) with your dot file to report crashes or incorrect conversions.
-
 ## Built With
 
 * [PyGraphviz](http://pygraphviz.github.io/documentation/pygraphviz-1.4rc1/reference/index.html) - Python interface to Graphviz
@@ -82,9 +64,9 @@ Please [open an issue](https://github.com/hbmartin/graphviz2drawio/issues) with 
 
 ## Contributing
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+Pull requests and issue reports are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-## Developing
+### Development Setup
 
 ```bash
 git clone git@github.com:hbmartin/graphviz2drawio.git
@@ -97,23 +79,25 @@ python -m graphviz2drawio test/directed/hello.gv.txt
 ```
 
 ## Roadmap to [0.4](https://github.com/hbmartin/graphviz2drawio/milestone/2)
-- [ ] Bezier curve support
+- [ ] Improved Bezier curve support
 - [ ] Subgraph conversion #33
 - [ ] Invisible node handling for edges #67
 - [ ] Implementation for outstanding TODOs in code
 - [ ] Image / tooltip support #49
 - [ ] Text on edge alignment #59 
+- [ ] Text alignment inside of shape
 - [ ] Support for node with `path` shape #47
 - [ ] Run ruff in CI
+- [ ] Publish api docs to GH pages
+- [ ] Restore codecov to test GHA
 
 ## Roadmap to 1.0
-- [ ] Complete test suite for official graphviz examples
+- [ ] Complete test suite for all graphviz examples
 - [ ] Migrate to uv/hatch for packaging and dep mgmt
 - [ ] Port layout/orientation
-- [ ] Fix text alignment inside of shape
 - [ ] Possible to screenshot test with [maxGraph](https://github.com/maxGraph/maxGraph?tab=readme-ov-file) ?
 
 ## License
 
-[GPLv3](LICENSE.md)
+© [Harold Martin](https://www.linkedin.com/in/harold-martin-98526971/) - released under [GPLv3](LICENSE.md)
 
