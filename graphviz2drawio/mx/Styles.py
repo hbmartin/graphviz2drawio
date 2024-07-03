@@ -72,70 +72,69 @@ class Styles(Enum):
     def get_for_shape(dot_shape):
         if dot_shape in (None, Shape.ELLIPSE, Shape.OVAL):
             return Styles.ELLIPSE
-        elif dot_shape in (Shape.BOX, Shape.RECT, Shape.RECTANGLE):
+        if dot_shape in (Shape.BOX, Shape.RECT, Shape.RECTANGLE):
             return Styles.NODE
-        elif dot_shape in (Shape.HEXAGON, Shape.POLYGON):
+        if dot_shape in (Shape.HEXAGON, Shape.POLYGON):
             return Styles.HEXAGON
-        elif dot_shape == Shape.CIRCLE:
+        if dot_shape == Shape.CIRCLE:
             return Styles.CIRCLE
-        elif dot_shape == Shape.EGG:
+        if dot_shape == Shape.EGG:
             return Styles.EGG
-        elif dot_shape == Shape.TRIANGLE:
+        if dot_shape == Shape.TRIANGLE:
             return Styles.TRIANGLE
-        elif dot_shape == Shape.PLAIN:
+        if dot_shape == Shape.PLAIN:
             return Styles.LINE
-        elif dot_shape == Shape.DIAMOND:
+        if dot_shape == Shape.DIAMOND:
             return Styles.DIAMOND
-        elif dot_shape == Shape.TRAPEZIUM:
+        if dot_shape == Shape.TRAPEZIUM:
             return Styles.TRAPEZOID
-        elif dot_shape == Shape.PARALLELOGRAM:
+        if dot_shape == Shape.PARALLELOGRAM:
             return Styles.PARALLELOGRAM
-        elif dot_shape == Shape.HOUSE:
+        if dot_shape == Shape.HOUSE:
             return Styles.HOUSE
-        elif dot_shape == Shape.PENTAGON:
+        if dot_shape == Shape.PENTAGON:
             return Styles.PENTAGON
-        elif dot_shape == Shape.OCTAGON:
+        if dot_shape == Shape.OCTAGON:
             return Styles.OCTAGON
-        elif dot_shape == Shape.DOUBLE_CIRCLE:
+        if dot_shape == Shape.DOUBLE_CIRCLE:
             return Styles.DOUBLE_CIRCLE
-        elif dot_shape == Shape.DOUBLE_OCTAGON:
+        if dot_shape == Shape.DOUBLE_OCTAGON:
             return Styles.DOUBLE_OCTAGON
-        elif dot_shape == Shape.INV_TRIANGLE:
+        if dot_shape == Shape.INV_TRIANGLE:
             return Styles.INV_TRIANGLE
-        elif dot_shape == Shape.INV_TRAPEZIUM:
+        if dot_shape == Shape.INV_TRAPEZIUM:
             return Styles.INV_TRAPEZOID
-        elif dot_shape == Shape.INV_HOUSE:
+        if dot_shape == Shape.INV_HOUSE:
             return Styles.INV_HOUSE
-        elif dot_shape == Shape.SQUARE:
+        if dot_shape == Shape.SQUARE:
             return Styles.SQUARE
-        elif dot_shape == Shape.STAR:
+        if dot_shape == Shape.STAR:
             return Styles.STAR
-        elif dot_shape == Shape.UNDERLINE:
+        if dot_shape == Shape.UNDERLINE:
             return Styles.UNDERLINE
-        elif dot_shape == Shape.CYLINDER:
+        if dot_shape == Shape.CYLINDER:
             return Styles.CYLINDER
-        elif dot_shape == Shape.NOTE:
+        if dot_shape == Shape.NOTE:
             return Styles.NODE
-        elif dot_shape == Shape.TAB:
+        if dot_shape == Shape.TAB:
             return Styles.TAB
-        elif dot_shape == Shape.FOLDER:
+        if dot_shape == Shape.FOLDER:
             return Styles.FOLDER
-        elif dot_shape == Shape.BOX_3D:
+        if dot_shape == Shape.BOX_3D:
             return Styles.CUBE
-        elif dot_shape == Shape.COMPONENT:
+        if dot_shape == Shape.COMPONENT:
             return Styles.COMPONENT
-        elif dot_shape in (Shape.PROMOTER, Shape.RPROMOTER):
+        if dot_shape in (Shape.PROMOTER, Shape.RPROMOTER):
             return Styles.RPROMOTER
-        elif dot_shape == Shape.LPROMOTER:
+        if dot_shape == Shape.LPROMOTER:
             return Styles.LPROMOTER
-        elif dot_shape == Shape.CDS:
+        if dot_shape == Shape.CDS:
             return Styles.CDS
-        elif dot_shape == Shape.RARROW:
+        if dot_shape == Shape.RARROW:
             return Styles.RARROW
-        elif dot_shape == Shape.LARROW:
+        if dot_shape == Shape.LARROW:
             return Styles.LARROW
-        else:
-            return Styles.NODE
+        return Styles.NODE
 
     def format(self, **values):
         return self.value.format(**values)

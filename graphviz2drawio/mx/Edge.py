@@ -26,8 +26,7 @@ class Edge(GraphObj):
     def curve_start_end(self):
         if self.dir == DotAttr.BACK:
             return self.curve.end, self.curve.start
-        else:
-            return self.curve.start, self.curve.end
+        return self.curve.start, self.curve.end
 
     @property
     def key_for_label(self) -> str:
