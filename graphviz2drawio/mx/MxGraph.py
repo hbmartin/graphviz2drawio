@@ -63,7 +63,8 @@ class MxGraph:
         else:
             return self.nodes[edge.fr], self.nodes[edge.to]
 
-    def get_edge_style(self, edge, source_node, target_node):
+    @staticmethod
+    def get_edge_style(edge, source_node, target_node):
         end_arrow = MxConst.BLOCK
         end_fill = 1
         dashed = 1 if edge.style == DotAttr.DASHED else 0
