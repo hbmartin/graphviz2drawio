@@ -22,7 +22,7 @@ Convert graphviz (dot) files into draw.io (mxGraph) format.
 - [x] Upgrade to latest svg.path
 - [x] Reformat for most recent black style
 - [ ] Publish api docs to GH pages
-- [ ] Remove this section before release!
+- [ ] Remove this section before release! (move to release notes)
 
 ## Getting Started
 

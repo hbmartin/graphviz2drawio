@@ -90,7 +90,6 @@ class MxGraph:
             curved=curved,
         )
 
-
     def add_node(self, node) -> None:
         fill = (
             node.fill

@@ -5,7 +5,9 @@ from .GraphObj import GraphObj
 
 
 class Edge(GraphObj):
-    def __init__(self, sid: str, gid: str, fr: str, to: str, curve: Curve, label: str) -> None:
+    def __init__(
+        self, sid: str, gid: str, fr: str, to: str, curve: Curve, label: str
+    ) -> None:
         super().__init__(sid, gid)
         self.fr = fr
         self.to = to
