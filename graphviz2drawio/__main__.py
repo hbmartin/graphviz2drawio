@@ -1,3 +1,4 @@
+import pathlib
 from sys import stderr
 
 from .graphviz2drawio import convert
@@ -38,9 +39,9 @@ def main() -> None:
         outfile = args.outfile
     else:
         base = args.to_convert.split(".")
-        outfile = ".".join(base[:-1] + ["xml"])
-    with open(outfile, "w") as fd:
-        fd.write(output)
+        outfile = ".".join(base[:-1]) + ".xml"
+
+    pathlib.Path(outfile).write_text(output)
     stderr.write("Converted file: " + outfile + "\n")
 
 

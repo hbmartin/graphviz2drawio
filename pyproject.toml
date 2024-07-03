@@ -35,7 +35,7 @@ line-length = 88
 indent-width = 4
 
 lint.select = ["ALL"]
-lint.ignore = ["ANN001", "ANN101", "ANN201", "ANN202", "ANN205", "D100", "D101", "D102", "D103", "D104", "D105", "D107", "D203", "D213", "PLR0913", "S314", "TD002", "N999"]
+lint.ignore = ["ANN001", "ANN003", "ANN101", "ANN201", "ANN202", "ANN205", "D100", "D101", "D102", "D103", "D104", "D105", "D107", "D203", "D213", "PLR0913", "S314", "TD002", "N999"]
 target-version = "py312"
 
 [tool.ruff.format]
@@ -55,7 +55,7 @@ line-ending = "auto"
 "test/*" = ["ANN201", "E501", "ERA001", "FIX002", "INP001", "PLR2004", "PT011", "S101", "TD003"]
 "graphviz2drawio/__main__.py" = ["T201"]
 "graphviz2drawio/version.py" = ["T201"]
-"doc/source/conf.py" = ["ERA001", "INP001"]
+"doc/source/conf.py" = ["A001", "ERA001", "INP001"]
 "graphviz2drawio/mx/Styles.py" = ["C901", "E501", "PLR0911", "PLR0912"]
 
 [tool.pytest.ini_options]

@@ -40,20 +40,7 @@ class NodeFactory:
         return Rect(x=x - rx, y=y - ry, width=rx * 2, height=ry * 2)
 
     def from_svg(self, g) -> Node:
-        texts = []
-        current_text = None
-        # TODO: refactor this as comprehension
-        for t in g:
-            if SVG.is_tag(t, "text"):
-                if current_text is None:
-                    current_text = Text.from_svg(t)
-                else:
-                    current_text.text += f"<br/>{t.text}"
-            elif current_text is not None:
-                texts.append(current_text)
-                current_text = None
-        if current_text is not None:
-            texts.append(current_text)
+        texts = self._extract_texts(g)
 
         if SVG.has(g, "polygon"):
             rect = self.rect_from_svg_points(
@@ -87,3 +74,20 @@ class NodeFactory:
             stroke=stroke,
             shape=shape,
         )
+
+    @staticmethod
+    def _extract_texts(g):
+        texts = []
+        current_text = None
+        for t in g:
+            if SVG.is_tag(t, "text"):
+                if current_text is None:
+                    current_text = Text.from_svg(t)
+                else:
+                    current_text.text += f"<br/>{t.text}"
+            elif current_text is not None:
+                texts.append(current_text)
+                current_text = None
+        if current_text is not None:
+            texts.append(current_text)
+        return texts
