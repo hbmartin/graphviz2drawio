@@ -35,6 +35,7 @@ line-length = 88
 indent-width = 4
 
 lint.select = ["ALL"]
+lint.ignore = ["ANN001", "ANN101", "ANN201", "ANN202", "ANN205", "D100", "D101", "D102", "D103", "D104", "D107", "D203", "D213", "S314", "TD002", "N999"]
 target-version = "py312"
 
 [tool.ruff.format]
@@ -51,7 +52,9 @@ skip-magic-trailing-comma = false
 line-ending = "auto"
 
 [tool.ruff.lint.per-file-ignores]
-"tests/*" = ["ANN201", "E501", "PLR2004", "PT011", "S101"]
+"test/*" = ["ANN201", "E501", "ERA001", "PLR2004", "PT011", "S101"]
+"graphviz2drawio/__main__.py" = ["T201"]
+"graphviz2drawio/version.py" = ["T201"]
 
 [tool.pytest.ini_options]
 pythonpath = ". venv/lib/python3.12/site-packages"

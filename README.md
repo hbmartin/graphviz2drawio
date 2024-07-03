@@ -24,9 +24,7 @@ Convert graphviz (dot) files into draw.io (mxGraph) format.
 - [ ] Publish api docs to GH pages
 - [ ] Remove this section before release! (move to release notes)
 
-## Getting Started
-
-### Prerequisites
+## Prerequisites
 
 The graphviz library is required before installing this package.
 
@@ -106,6 +104,7 @@ python -m graphviz2drawio test/directed/hello.gv.txt
 - [ ] Image / tooltip support #49
 - [ ] Text on edge alignment #59 
 - [ ] Support for node with `path` shape #47
+- [ ] Run ruff in CI
 
 ## Roadmap to 1.0
 - [ ] Complete test suite for official graphviz examples
