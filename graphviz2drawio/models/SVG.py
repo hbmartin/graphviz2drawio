@@ -12,9 +12,10 @@ def get_title(g: Element) -> str:
 def get_text(g: Element) -> str | None:
     try:
         text_el = get_first(g, "text")
-        return text_el.text
     except IndexError:
         return None
+    else:
+        return text_el.text
 
 
 def is_tag(g: Element, tag: str) -> bool:

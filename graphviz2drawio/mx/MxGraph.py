@@ -1,5 +1,5 @@
 import uuid
-from xml.etree import ElementTree as ET
+from xml.etree.ElementTree import Element, SubElement, tostring, indent
 
 from graphviz2drawio.models import DotAttr
 from graphviz2drawio.mx import MxConst
@@ -10,10 +10,10 @@ class MxGraph:
     def __init__(self, nodes, edges) -> None:
         self.nodes = nodes
         self.edges = edges
-        self.graph = ET.Element(MxConst.GRAPH)
-        self.root = ET.SubElement(self.graph, MxConst.ROOT)
-        ET.SubElement(self.root, MxConst.CELL, attrib={"id": "0"})
-        ET.SubElement(self.root, MxConst.CELL, attrib={"id": "1", "parent": "0"})
+        self.graph = Element(MxConst.GRAPH)
+        self.root = SubElement(self.graph, MxConst.ROOT)
+        SubElement(self.root, MxConst.CELL, attrib={"id": "0"})
+        SubElement(self.root, MxConst.CELL, attrib={"id": "1", "parent": "0"})
 
         # Add nodes first so edges are drawn on top
         for node in nodes.values():
@@ -24,7 +24,7 @@ class MxGraph:
     def add_edge(self, edge) -> None:
         source, target = self.get_edge_source_target(edge)
         style = self.get_edge_style(edge, source, target)
-        edge_element = ET.SubElement(
+        edge_element = SubElement(
             self.root,
             MxConst.CELL,
             attrib={
@@ -38,12 +38,12 @@ class MxGraph:
         )
 
         if edge.label:
-            edge_label_element = ET.SubElement(
+            edge_label_element = SubElement(
                 self.root,
                 MxConst.CELL,
                 attrib={
                     "id": uuid.uuid4().hex,
-                    "style": Styles.EDGE_LABEL,
+                    "style": str(Styles.EDGE_LABEL),
                     "parent": edge.sid,
                     "value": edge.label,
                     "vertex": "1",
@@ -99,7 +99,7 @@ class MxGraph:
 
         style = Styles.get_for_shape(node.shape).format(fill=fill, stroke=stroke)
 
-        node_element = ET.SubElement(
+        node_element = SubElement(
             self.root,
             MxConst.CELL,
             attrib={
@@ -115,22 +115,22 @@ class MxGraph:
     @staticmethod
     def add_mx_geo(element, rect=None) -> None:
         if rect is None:
-            ET.SubElement(element, MxConst.GEO, {"as": "geometry"}, relative="1")
+            SubElement(element, MxConst.GEO, {"as": "geometry"}, relative="1")
         else:
             attributes = rect.to_dict_str()
             attributes["as"] = "geometry"
-            ET.SubElement(element, MxConst.GEO, attributes)
+            SubElement(element, MxConst.GEO, attributes)
 
     @staticmethod
     def add_mx_geo_with_points(element, curve) -> None:
-        geo = ET.SubElement(element, MxConst.GEO, {"as": "geometry"}, relative="1")
+        geo = SubElement(element, MxConst.GEO, {"as": "geometry"}, relative="1")
 
         if len(curve.cbset) > 0:
-            array = ET.SubElement(geo, MxConst.ARRAY, {"as": "points"})
+            array = SubElement(geo, MxConst.ARRAY, {"as": "points"})
             for cb in curve.cbset:
-                ET.SubElement(array, MxConst.POINT, x=str(cb[0][0]), y=str(cb[0][1]))
+                SubElement(array, MxConst.POINT, x=str(cb[0][0]), y=str(cb[0][1]))
                 if cb:
-                    ET.SubElement(
+                    SubElement(
                         array,
                         MxConst.POINT,
                         x=str(cb[1][0]),
@@ -149,5 +149,5 @@ class MxGraph:
         return str(int(point.real)), str(int(point.imag))
 
     def value(self) -> str:
-        ET.indent(self.graph)
-        return ET.tostring(self.graph, encoding="unicode", xml_declaration=True)
+        indent(self.graph)
+        return tostring(self.graph, encoding="unicode", xml_declaration=True)

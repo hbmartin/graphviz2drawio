@@ -42,6 +42,7 @@ class NodeFactory:
     def from_svg(self, g) -> Node:
         texts = []
         current_text = None
+        # TODO: refactor this as comprehension
         for t in g:
             if SVG.is_tag(t, "text"):
                 if current_text is None:

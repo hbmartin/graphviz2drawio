@@ -8,13 +8,12 @@ class Edge(GraphObj):
     def __init__(
         self,
         sid: str,
-        gid: str,
         fr: str,
         to: str,
         curve: Curve,
         label: str,
     ) -> None:
-        super().__init__(sid, gid)
+        super().__init__(sid=sid, gid=f"{fr}->{to}")
         self.fr = fr
         self.to = to
         self.curve = curve

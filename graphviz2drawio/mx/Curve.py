@@ -5,7 +5,7 @@ linear_min_r2 = 0.9
 
 class Curve:
     def __init__(self, start, end, cb, cbset=None) -> None:
-        """Takes complex numbers for start, end, and list of 4 Bezier control points."""
+        """Complex numbers for start, end, and list of 4 Bezier control points."""
         if cbset is None:
             cbset = []
         self.start = start
@@ -19,8 +19,8 @@ class Curve:
         return f"{self.start} , {control}, {self.end}"
 
     @staticmethod
-    def is_linear(points: list, threshold: float = linear_min_r2):
-        """Returns a boolean indicating whether a list of complex points is linear.
+    def is_linear(points: list, threshold: float = linear_min_r2) -> bool:
+        """Determine the linearity of complex points for a given threshold.
 
         Takes a list of complex points and optional minimum R**2 threshold.
         Threshold defaults to 0.9.
@@ -28,8 +28,8 @@ class Curve:
         r2 = LinearRegression.coefficients(points)[2]
         return r2 > threshold
 
-    def cubic_bezier_coordinates(self, t):
-        """Returns a complex number representing the point along the cubic Bézier curve.
+    def cubic_bezier_coordinates(self, t: float) -> complex:
+        """Calculate a complex number representing a point along the cubic Bézier curve.
 
         Takes parametric parameter t where 0 <= t <= 1
         """
