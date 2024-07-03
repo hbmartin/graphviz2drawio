@@ -5,8 +5,8 @@ from .Edge import Edge
 
 
 class EdgeFactory:
-    def __init__(self, coords):
-        super(EdgeFactory, self).__init__()
+    def __init__(self, coords) -> None:
+        super().__init__()
         self.curve_factory = CurveFactory(coords)
 
     def from_svg(self, g) -> Edge:

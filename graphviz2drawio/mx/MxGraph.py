@@ -7,7 +7,7 @@ from graphviz2drawio.mx.Styles import Styles
 
 
 class MxGraph:
-    def __init__(self, nodes, edges):
+    def __init__(self, nodes, edges) -> None:
         self.nodes = nodes
         self.edges = edges
         self.graph = ET.Element(MxConst.GRAPH)
@@ -21,7 +21,7 @@ class MxGraph:
         for edge in edges:
             self.add_edge(edge)
 
-    def add_edge(self, edge):
+    def add_edge(self, edge) -> None:
         source, target = self.get_edge_source_target(edge)
         style = self.get_edge_style(edge, source, target)
         edge_element = ET.SubElement(
@@ -79,7 +79,7 @@ class MxGraph:
         start_curve, end_curve = edge.curve_start_end()
         curved = 1 if edge.curve.cb is not None else 0
 
-        style = Styles.EDGE.format(
+        return Styles.EDGE.format(
             entry_x=target_node.rect.x_ratio(end_curve.real),
             entry_y=target_node.rect.y_ratio(end_curve.imag),
             exit_x=source_node.rect.x_ratio(start_curve.real),
@@ -90,9 +90,8 @@ class MxGraph:
             curved=curved,
         )
 
-        return style
 
-    def add_node(self, node):
+    def add_node(self, node) -> None:
         fill = (
             node.fill
             if (node.fill is not None and node.fill != "none")
@@ -116,7 +115,7 @@ class MxGraph:
         self.add_mx_geo(node_element, node.rect)
 
     @staticmethod
-    def add_mx_geo(element, rect=None):
+    def add_mx_geo(element, rect=None) -> None:
         if rect is None:
             ET.SubElement(element, MxConst.GEO, {"as": "geometry"}, relative="1")
         else:
@@ -125,7 +124,7 @@ class MxGraph:
             ET.SubElement(element, MxConst.GEO, attributes)
 
     @staticmethod
-    def add_mx_geo_with_points(element, curve):
+    def add_mx_geo_with_points(element, curve) -> None:
         geo = ET.SubElement(element, MxConst.GEO, {"as": "geometry"}, relative="1")
 
         if len(curve.cbset) > 0:

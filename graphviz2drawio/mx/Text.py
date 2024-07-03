@@ -5,7 +5,7 @@ from .Styles import Styles
 
 
 class Text:
-    def __init__(self, anchor, family, size, text, color):
+    def __init__(self, anchor, family, size, text, color) -> None:
         self.anchor = anchor
         self.family = family
         self.size = size

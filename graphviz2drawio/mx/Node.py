@@ -2,8 +2,8 @@ from .GraphObj import GraphObj
 
 
 class Node(GraphObj):
-    def __init__(self, sid, gid, rect, texts, fill, stroke, shape):
-        super(Node, self).__init__(sid, gid)
+    def __init__(self, sid, gid, rect, texts, fill, stroke, shape) -> None:
+        super().__init__(sid, gid)
         self.rect = rect
         self.texts = texts
         self.fill = fill
@@ -21,5 +21,5 @@ class Node(GraphObj):
                 value += "<hr size='1'/>"
         return value
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"Node({self.sid}, {self.gid}, {self.fill}, {self.stroke}, {self.shape})"

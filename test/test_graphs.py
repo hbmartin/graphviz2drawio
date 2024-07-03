@@ -15,23 +15,23 @@ def check_xml_top(root):
     return graph.findall("./root/*")
 
 
-def check_style(e, check):
+def check_style(e, check) -> None:
     assert check in e.attrib["style"]
 
 
-def check_value(e, check):
+def check_value(e, check) -> None:
     value = e.attrib["value"]
     match = re.match(f"<p.*>{check}</p>", html.unescape(value))
     assert match, f"no match found for {value}"
 
 
-def check_edge(edge, source, target):
+def check_edge(edge, source, target) -> None:
     assert edge.attrib.get("edge")
     assert edge.attrib["source"] == source.attrib["id"]
     assert edge.attrib["target"] == target.attrib["id"]
 
 
-def check_edge_dir(e, dx, dy):
+def check_edge_dir(e, dx, dy) -> None:
     style = [e.split("=") for e in e.attrib["style"].split(";")][:-1]
     style = {e[0]: e[1] for e in style if e}
     x2 = float(style["exitX"])
@@ -43,10 +43,9 @@ def check_edge_dir(e, dx, dy):
     assert (y2 - y1) == dy
 
 
-def test_hello():
+def test_hello() -> None:
     file = "test/directed/hello.gv.txt"
     xml = graphviz2drawio.convert(file)
-    print(xml)
 
     root = ET.fromstring(xml)
     elements = check_xml_top(root)
@@ -63,10 +62,9 @@ def test_hello():
     check_edge_dir(edge, dx=0, dy=1)
 
 
-def test_hello_rect():
+def test_hello_rect() -> None:
     file = "test/directed/hello_rect.gv.txt"
     xml = graphviz2drawio.convert(file)
-    print(xml)
 
     root = ET.fromstring(xml)
     elements = check_xml_top(root)
@@ -80,7 +78,7 @@ def test_hello_rect():
     assert "ellipse" not in world.attrib["style"]
 
 
-def test_port():
+def test_port() -> None:
     file = "test/directed/port.gv.txt"
     xml = graphviz2drawio.convert(file)
     root = ET.fromstring(xml)
@@ -88,19 +86,17 @@ def test_port():
     check_edge(elements[6], elements[2], elements[3])
 
 
-def test_polylines():
+def test_polylines() -> None:
     file = "test/undirected/polylines.gv.txt"
     xml = graphviz2drawio.convert(file)
-    print(xml)
 
     root = ET.fromstring(xml)
     check_xml_top(root)
 
 
-def test_cluster():
+def test_cluster() -> None:
     file = "test/directed/cluster.gv.txt"
     xml = graphviz2drawio.convert(file)
-    print(xml)
 
     root = ET.fromstring(xml)
 
@@ -112,10 +108,9 @@ def test_cluster():
     assert contains_cluster
 
 
-def test_convnet():
+def test_convnet() -> None:
     file = "test/directed/convnet.gv.txt"
     xml = graphviz2drawio.convert(file)
-    print(xml)
 
     root = ET.fromstring(xml)
     elements = check_xml_top(root)
@@ -123,10 +118,9 @@ def test_convnet():
     assert elements[-1].attrib["value"] == "$$l_t$$"
 
 
-def test_multilabel():
+def test_multilabel() -> None:
     file = "test/directed/multilabel.gv.txt"
     xml = graphviz2drawio.convert(file)
-    print(xml)
 
     root = ET.fromstring(xml)
     elements = check_xml_top(root)
@@ -134,10 +128,9 @@ def test_multilabel():
     assert elements[-1].attrib["value"] == "c<div>b</div><div>a</div>"
 
 
-def test_datastruct():
+def test_datastruct() -> None:
     file = "test/directed/datastruct.gv.txt"
     xml = graphviz2drawio.convert(file)
-    print(xml)
 
     root = ET.fromstring(xml)
     elements = check_xml_top(root)
@@ -146,10 +139,9 @@ def test_datastruct():
     assert elements[-1].attrib["target"] == "node2"
 
 
-def test_compound():
+def test_compound() -> None:
     file = "test/directed/compound.gv.txt"
     xml = graphviz2drawio.convert(file)
-    print(xml)
 
     root = ET.fromstring(xml)
     elements = check_xml_top(root)

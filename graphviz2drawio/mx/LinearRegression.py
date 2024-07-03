@@ -8,7 +8,7 @@ def variance(points, m):
 
 
 def covariance(points, m):
-    """Returns the covariance of a list of complex points"""
+    """Returns the covariance of a list of complex points."""
     covar = 0.0
     for point in points:
         covar += (point.real - m.real) * (point.imag - m.imag)
@@ -16,7 +16,7 @@ def covariance(points, m):
 
 
 def determination(points, y_mean, b0, b1):
-    """Returns the coefficient of determination (R**2) for linear equation and list of complex points"""
+    """Returns the coefficient of determination (R**2) for linear equation and list of complex points."""
     sse = []
     sst = []
     for point in points:
@@ -32,7 +32,7 @@ def determination(points, y_mean, b0, b1):
 
 
 def coefficients(points):
-    """Returns the coefficients of a linear equation and R**2 as a list for a list of complex points"""
+    """Returns the coefficients of a linear equation and R**2 as a list for a list of complex points."""
     x = [point.real for point in points]
     m = mean(points)
     var = variance(x, m.real)

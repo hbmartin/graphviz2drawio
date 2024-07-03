@@ -5,7 +5,7 @@ from .models import Arguments
 from .version import __version__
 
 
-def main():
+def main() -> None:
 
     args = Arguments(__version__).parse_args()
 

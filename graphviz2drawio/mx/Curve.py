@@ -4,8 +4,8 @@ linear_min_r2 = 0.9
 
 
 class Curve:
-    def __init__(self, start, end, cb, cbset=None):
-        """Takes complex numbers for start, end, and list of 4 Bezier control points"""
+    def __init__(self, start, end, cb, cbset=None) -> None:
+        """Takes complex numbers for start, end, and list of 4 Bezier control points."""
         if cbset is None:
             cbset = []
         self.start = start
@@ -14,9 +14,9 @@ class Curve:
         self.cb = cb
         self.cbset = cbset
 
-    def __str__(self):
+    def __str__(self) -> str:
         control = "[" + (str(self.cb) if self.cb is not None else "None") + "]"
-        return str(self.start) + ", " + control + ", " + str(self.end)
+        return f"{self.start} , {control}, {self.end}"
 
     @staticmethod
     def is_linear(points, threshold=linear_min_r2):

@@ -7,8 +7,8 @@ from .Text import Text
 
 
 class NodeFactory:
-    def __init__(self, coords):
-        super(NodeFactory, self).__init__()
+    def __init__(self, coords) -> None:
+        super().__init__()
         self.coords = coords
 
     def rect_from_svg_points(self, svg):

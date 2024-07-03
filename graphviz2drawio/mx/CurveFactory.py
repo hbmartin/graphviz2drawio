@@ -4,8 +4,8 @@ from .Curve import Curve
 
 
 class CurveFactory:
-    def __init__(self, coords):
-        super(CurveFactory, self).__init__()
+    def __init__(self, coords) -> None:
+        super().__init__()
         self.coords = coords
 
     def from_svg(self, svg_path) -> Curve:

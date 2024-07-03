@@ -5,8 +5,8 @@ from .GraphObj import GraphObj
 
 
 class Edge(GraphObj):
-    def __init__(self, sid: str, gid: str, fr: str, to: str, curve: Curve, label: str):
-        super(Edge, self).__init__(sid, gid)
+    def __init__(self, sid: str, gid: str, fr: str, to: str, curve: Curve, label: str) -> None:
+        super().__init__(sid, gid)
         self.fr = fr
         self.to = to
         self.curve = curve
@@ -25,5 +25,5 @@ class Edge(GraphObj):
     def key_for_label(self) -> str:
         return f"{self.gid}-{self.curve}"
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"{self.fr}->{self.to}: {self.label} {self.style} {self.dir} {self.arrowtail}"
