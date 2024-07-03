@@ -83,5 +83,5 @@ class NodeFactory:
             texts=texts,
             fill=fill,
             stroke=stroke,
-            shape=shape
+            shape=shape,
         )

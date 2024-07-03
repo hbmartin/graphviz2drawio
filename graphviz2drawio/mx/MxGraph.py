@@ -127,13 +127,14 @@ class MxGraph:
     def add_mx_geo_with_points(element, curve):
         geo = ET.SubElement(element, MxConst.GEO, {"as": "geometry"}, relative="1")
 
-        # cbset
         if len(curve.cbset) > 0:
             array = ET.SubElement(geo, MxConst.ARRAY, {"as": "points"})
             for cb in curve.cbset:
                 ET.SubElement(array, MxConst.POINT, x=str(cb[0][0]), y=str(cb[0][1]))
                 if cb:
-                    ET.SubElement(array, MxConst.POINT, x=str(cb[1][0]), y=str(cb[1][1]))
+                    ET.SubElement(
+                        array, MxConst.POINT, x=str(cb[1][0]), y=str(cb[1][1])
+                    )
 
         # TODO: needs to account for multiple bezier in path
         # array = ET.SubElement(geo, MxConst.ARRAY, {"as": "points"})

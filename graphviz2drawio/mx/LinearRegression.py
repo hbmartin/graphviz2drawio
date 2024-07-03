@@ -21,9 +21,9 @@ def determination(points, y_mean, b0, b1):
     for point in points:
         y_hat = b0 + (b1 * point.real)
         diff = point.imag - y_hat
-        sse.append(diff ** 2)
+        sse.append(diff**2)
         diff = point.imag - y_mean
-        sst.append(diff ** 2)
+        sst.append(diff**2)
     if sum(sst) == 0:
         return 1  # Horizontal line
     else:

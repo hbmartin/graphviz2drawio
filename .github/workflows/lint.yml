@@ -28,7 +28,7 @@ jobs:
         else
           pytype -j auto graphviz2drawio
         fi
-#    - uses: psf/black@stable
-#      with:
-#        options: "--check --verbose"
+    - uses: psf/black@stable
+      with:
+        options: "--check --verbose"
     - run: pytest

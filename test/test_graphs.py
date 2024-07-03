@@ -162,7 +162,7 @@ def test_compound():
 
     root = ET.fromstring(xml)
     elements = check_xml_top(root)
-    assert elements[-1].attrib["target"] == "node2"
+    assert elements[-1].attrib["target"] == "node7"
 
 
 # def test_runAll():

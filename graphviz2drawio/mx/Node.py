@@ -20,3 +20,6 @@ class Node(GraphObj):
             if i != last_text:
                 value += "<hr size='1'/>"
         return value
+
+    def __repr__(self):
+        return f"Node({self.sid}, {self.gid}, {self.fill}, {self.stroke}, {self.shape})"

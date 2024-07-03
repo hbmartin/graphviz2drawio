@@ -18,13 +18,12 @@ Convert graphviz (dot) files into draw.io (mxGraph) format.
 - [ ] Fix "cb" bug
 - [x] Add support for clusters
 - [x] Add support for edge labels
+- [ ] Add support for invisible nodes
 - [ ] Address or triage all open issues
-- [ ] Merge or close all outstanding PRs
 - [x] Upgrade to latest pygraphviz
 - [ ] Upgrade to latest svg.path
-- [ ] Add tests for all new features
 - [ ] Reformat for most recent black style
-- [ ] Publish release docs to GH pages
+- [ ] Publish api docs to GH pages
 - [ ] Remove this section before release!
 
 ## Getting Started
@@ -101,14 +100,20 @@ pip install -r requirements.txt
 python -m graphviz2drawio test/directed/hello.gv.txt
 ```
 
-## Roadmap to 1.0 release
+## Roadmap to [0.4](https://github.com/hbmartin/graphviz2drawio/milestone/2)
+- [ ] Bezier curve support
+- [ ] Subgraph conversion #33
+- [ ] Invisible node handling for edges #67
+- [ ] Implementation for outstanding TODOs in code
+- [ ] Image / tooltip support #49
+- [ ] Text on edge alignment #59 
+
+## Roadmap to 1.0
 - [ ] Complete test suite for official graphviz examples
 - [ ] Migrate to uv/hatch for packaging and dep mgmt
-- [ ] Bezier curve support
-- [ ] Port layout
-- [ ] Subgraph support
+- [ ] Port layout/orientation
 - [ ] Fix text alignment inside of shape
-- [ ] Implementation for other outstanding TODOs
+- [ ] Possible to screenshot test with [maxGraph](https://github.com/maxGraph/maxGraph?tab=readme-ov-file) ?
 
 ## License
 
