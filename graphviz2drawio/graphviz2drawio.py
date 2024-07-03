@@ -14,7 +14,7 @@ def convert(graph_to_convert, layout_prog="dot"):
             graph = AGraph(graph_to_convert)
         except BaseException as e:
             raise ValueError(
-                "graph_to_convert must be one of a string, file, or AGraph object"
+                "graph_to_convert must be one of a string, file, or AGraph object",
             ) from e
 
     graph_edges = {

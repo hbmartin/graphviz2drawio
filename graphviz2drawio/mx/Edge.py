@@ -1,4 +1,5 @@
 from graphviz2drawio.models import DotAttr
+
 from .Curve import Curve
 from .GraphObj import GraphObj
 

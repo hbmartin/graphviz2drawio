@@ -1,4 +1,5 @@
 from sys import stderr
+
 from .graphviz2drawio import convert
 from .models import Arguments
 from .version import __version__
@@ -17,7 +18,7 @@ def main():
     except BaseException:
         stderr.write("Something went wrong, please report\n")
         stderr.write(
-            "An automatic crash report can be sent to the developer (no personal or graph information)\n"
+            "An automatic crash report can be sent to the developer (no personal or graph information)\n",
         )
         permission = input("Type 'no' to cancel report, press enter to send: ")
         if permission != "no":

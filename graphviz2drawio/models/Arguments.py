@@ -11,7 +11,7 @@ class Arguments(ArgumentParser):
         self.add_argument(
             "--version",
             action="version",
-            version="%(prog)s {version}".format(version=version),
+            version=f"%(prog)s {version}",
         )
         self.add_argument(
             "-p",

@@ -1,7 +1,8 @@
-from graphviz2drawio import graphviz2drawio
-import xml.etree.ElementTree as ET
-import re
 import html
+import re
+import xml.etree.ElementTree as ET
+
+from graphviz2drawio import graphviz2drawio
 
 num_cells_offset = 2
 
@@ -145,16 +146,6 @@ def test_datastruct():
     assert elements[-1].attrib["target"] == "node2"
 
 
-# TODO: https://github.com/hbmartin/graphviz2drawio/issues/33
-# def test_subgraph():
-#     file = "test/directed/subgraph.gv.txt"
-#     xml = graphviz2drawio.convert(file)
-#     print(xml)
-#
-#     root = ET.fromstring(xml)
-#     elements = check_xml_top(root)
-
-
 def test_compound():
     file = "test/directed/compound.gv.txt"
     xml = graphviz2drawio.convert(file)
@@ -162,7 +153,18 @@ def test_compound():
 
     root = ET.fromstring(xml)
     elements = check_xml_top(root)
-    assert elements[-1].attrib["target"] == "node7"
+    assert elements[2].attrib["id"] == "clust1"
+    assert elements[3].attrib["id"] == "clust2"
+
+
+# TODO: https://github.com/hbmartin/graphviz2drawio/issues/33
+# def test_subgraph():
+#     file = "test/directed/subgraph.gv.txt"
+#     xml = graphviz2drawio.convert(file)
+#     print(xml)
+#
+#     root = ET.fromstring(xml)
+#     elements = check_xml_top(root
 
 
 # def test_runAll():

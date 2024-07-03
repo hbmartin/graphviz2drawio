@@ -1,9 +1,9 @@
+import uuid
 from xml.etree import ElementTree as ET
 
 from graphviz2drawio.models import DotAttr
 from graphviz2drawio.mx import MxConst
 from graphviz2drawio.mx.Styles import Styles
-import uuid
 
 
 class MxGraph:
@@ -133,7 +133,10 @@ class MxGraph:
                 ET.SubElement(array, MxConst.POINT, x=str(cb[0][0]), y=str(cb[0][1]))
                 if cb:
                     ET.SubElement(
-                        array, MxConst.POINT, x=str(cb[1][0]), y=str(cb[1][1])
+                        array,
+                        MxConst.POINT,
+                        x=str(cb[1][0]),
+                        y=str(cb[1][1]),
                     )
 
         # TODO: needs to account for multiple bezier in path

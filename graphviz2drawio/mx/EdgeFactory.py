@@ -1,4 +1,5 @@
 from graphviz2drawio.models import SVG
+
 from .CurveFactory import CurveFactory
 from .Edge import Edge
 

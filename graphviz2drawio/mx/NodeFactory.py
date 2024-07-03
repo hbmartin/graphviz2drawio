@@ -1,8 +1,9 @@
 from graphviz2drawio.models import SVG
 from graphviz2drawio.models.Rect import Rect
+
+from . import Shape
 from .Node import Node
 from .Text import Text
-from . import Shape
 
 
 class NodeFactory:
@@ -55,7 +56,7 @@ class NodeFactory:
 
         if SVG.has(g, "polygon"):
             rect = self.rect_from_svg_points(
-                SVG.get_first(g, "polygon").attrib["points"]
+                SVG.get_first(g, "polygon").attrib["points"],
             )
             shape = Shape.RECT
         else:

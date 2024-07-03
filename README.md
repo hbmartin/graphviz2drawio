@@ -107,6 +107,7 @@ python -m graphviz2drawio test/directed/hello.gv.txt
 - [ ] Implementation for outstanding TODOs in code
 - [ ] Image / tooltip support #49
 - [ ] Text on edge alignment #59 
+- [ ] Support for node with `path` shape #47
 
 ## Roadmap to 1.0
 - [ ] Complete test suite for official graphviz examples

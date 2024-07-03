@@ -1,5 +1,5 @@
-from svg.path import CubicBezier, Move
-from svg.path import parse_path
+from svg.path import CubicBezier, Move, parse_path
+
 from .Curve import Curve
 
 
@@ -23,13 +23,14 @@ class CurveFactory:
                 cb = [self.coords.complex_translate(p) for p in points]
 
             if len(path) > 1:  # set of curves/points
-                for r in range(0, len(path)):
+                for r in range(len(path)):
                     cbset.append(
                         (
                             self.coords.translate(
-                                path[r].start.real, path[r].start.imag
+                                path[r].start.real,
+                                path[r].start.imag,
                             ),
                             self.coords.translate(path[r].end.real, path[r].end.imag),
-                        )
+                        ),
                     )
         return Curve(start=start, end=end, cb=cb, cbset=cbset)
