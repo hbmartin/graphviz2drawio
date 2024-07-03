@@ -10,12 +10,7 @@ def convert(graph_to_convert, layout_prog="dot"):
     if isinstance(graph_to_convert, AGraph):
         graph = graph_to_convert
     else:
-        try:
-            graph = AGraph(graph_to_convert)
-        except BaseException as e:
-            raise ValueError(
-                "graph_to_convert must be one of a string, file, or AGraph object",
-            ) from e
+        graph = AGraph(graph_to_convert)
 
     graph_edges = {
         e[0] + "->" + e[1]: list37(e.attr.iteritems())

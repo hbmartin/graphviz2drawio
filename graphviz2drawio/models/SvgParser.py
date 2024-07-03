@@ -1,11 +1,11 @@
 from collections import OrderedDict
 from xml.etree import ElementTree
 
+from graphviz2drawio.mx.Edge import Edge
 from graphviz2drawio.mx.EdgeFactory import EdgeFactory
+from graphviz2drawio.mx.Node import Node
 from graphviz2drawio.mx.NodeFactory import NodeFactory
 
-from ..mx.Edge import Edge
-from ..mx.Node import Node
 from . import SVG
 from .CoordsTranslate import CoordsTranslate
 

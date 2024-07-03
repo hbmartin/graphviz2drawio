@@ -1,4 +1,4 @@
-from svg.path import CubicBezier, Move, parse_path, Path
+from svg.path import CubicBezier, Move, Path, parse_path
 
 from .Curve import Curve
 

@@ -1,3 +1,5 @@
+from graphviz2drawio.models.Errors import InvalidCbError
+
 from . import LinearRegression
 
 linear_min_r2 = 0.9
@@ -10,7 +12,8 @@ class Curve:
             cbset = []
         self.start = start
         self.end = end
-        assert cb is None or len(cb) == 4  # TODO: emit value error instead
+        if cb is not None and len(cb) != 4:
+            raise InvalidCbError
         self.cb = cb
         self.cbset = cbset
 
@@ -48,8 +51,8 @@ class Curve:
         `t` is a parametric parameter where 0 <= t <= 1
 
         implements explicit form of https://en.wikipedia.org/wiki/B%C3%A9zier_curve#Cubic_B%C3%A9zier_curves
+        B(t) = (1-t)³P₀ + 3(1-t)²tP₁ + 3(1-t)t²P₂ + t³P₃ where 0 ≤ t ≤1
         """
-        assert 0 <= t <= 1  # TODO: emit value error instead
         return (
             (((1.0 - t) ** 3) * p[0])
             + (3.0 * t * ((1.0 - t) ** 2) * p[1])
