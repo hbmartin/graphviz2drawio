@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.11", "3.12"]
+        python-version: ["3.10", "3.11", "3.12"]
     steps:
     - uses: actions/checkout@v4
     - name: Setup Graphviz
@@ -32,3 +32,7 @@ jobs:
       with:
         options: "--check --verbose"
     - run: pytest
+    - name: Run main script
+      run: |
+        python3 -m graphviz2drawio test/directed/hello.gv.txt
+        test -f test/directed/hello.gv.xml
