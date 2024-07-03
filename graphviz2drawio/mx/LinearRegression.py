@@ -3,7 +3,8 @@ def mean(points):
 
 
 def variance(points, m):
-    return sum([(x - m) ** 2 for x in points])
+    point_variances = {(x - m) ** 2 for x in points}
+    return sum(point_variances)
 
 
 def covariance(points, m):
@@ -31,7 +32,7 @@ def determination(points, y_mean, b0, b1):
 
 
 def coefficients(points):
-    """Returns the coefficents of a linear equation and R**2 as a list for a list of complex points"""
+    """Returns the coefficients of a linear equation and R**2 as a list for a list of complex points"""
     x = [point.real for point in points]
     m = mean(points)
     var = variance(x, m.real)

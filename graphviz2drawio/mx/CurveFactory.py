@@ -11,7 +11,7 @@ class CurveFactory:
     def from_svg(self, svg_path) -> Curve:
         path = parse_path(svg_path)
         start = self.coords.complex_translate(path[0].start)
-        end = self.coords.complex_translate(path[len(path) - 1].end)
+        end = self.coords.complex_translate(path[-1].end)
         cb = None
         cbset = []
         if isinstance(path[0], Move):
@@ -23,14 +23,14 @@ class CurveFactory:
                 cb = [self.coords.complex_translate(p) for p in points]
 
             if len(path) > 1:  # set of curves/points
-                for r in range(len(path)):
+                for p in path:
                     cbset.append(
                         (
                             self.coords.translate(
-                                path[r].start.real,
-                                path[r].start.imag,
+                                p.start.real,
+                                p.start.imag,
                             ),
-                            self.coords.translate(path[r].end.real, path[r].end.imag),
+                            self.coords.translate(p.end.real, p.end.imag),
                         ),
                     )
         return Curve(start=start, end=end, cb=cb, cbset=cbset)
