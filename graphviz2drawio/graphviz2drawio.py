@@ -13,10 +13,9 @@ def convert(graph_to_convert, layout_prog="dot"):
         graph = AGraph(graph_to_convert)
 
     graph_edges = {
-        e[0] + "->" + e[1]: list37(e.attr.iteritems())
-        for e in list37(graph.edges_iter())
+        e[0] + "->" + e[1]: list(e.attr.iteritems()) for e in graph.edges_iter()
     }
-    graph_nodes = {n: list37(n.attr.iteritems()) for n in list37(graph.nodes_iter())}
+    graph_nodes = {n: list(n.attr.iteritems()) for n in graph.nodes_iter()}
 
     svg_graph = graph.draw(prog=layout_prog, format="svg")
     nodes, edges, clusters = parse_nodes_edges_clusters(svg_graph)
@@ -26,16 +25,3 @@ def convert(graph_to_convert, layout_prog="dot"):
     # Put clusters first, so that nodes are drawn in front
     mx_graph = MxGraph(clusters | nodes, edges)
     return mx_graph.value()
-
-
-# Workaround for change in iterator behavior in Python 3.7
-# https://www.python.org/dev/peps/pep-0479/
-# TODO: remove this
-def list37(iterator):
-    rv = []
-    try:
-        for i in iterator:
-            rv.append(i)
-    except RuntimeError:
-        pass
-    return rv

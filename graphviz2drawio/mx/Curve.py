@@ -12,7 +12,7 @@ class Curve:
             cbset = []
         self.start = start
         self.end = end
-        if cb is not None and len(cb) != 4:
+        if cb is not None and len(cb) != 4:  # noqa: PLR2004
             raise InvalidCbError
         self.cb = cb
         self.cbset = cbset
@@ -44,13 +44,13 @@ class Curve:
         return [getattr(x, prop) for x in self.cb]
 
     @staticmethod
-    def _cubic_bezier(p: list[float], t: float) -> float:
-        """Returns a float representing the point along the cubic Bézier.
+    def _cubic_bezier(p: list, t: float):
+        """Calculate the point along the cubic Bézier.
 
         `p` is an ordered list of 4 control points [P0, P1, P2, P3]
         `t` is a parametric parameter where 0 <= t <= 1
 
-        implements explicit form of https://en.wikipedia.org/wiki/B%C3%A9zier_curve#Cubic_B%C3%A9zier_curves
+        implements https://en.wikipedia.org/wiki/B%C3%A9zier_curve#Cubic_B%C3%A9zier_curves
         B(t) = (1-t)³P₀ + 3(1-t)²tP₁ + 3(1-t)t²P₂ + t³P₃ where 0 ≤ t ≤1
         """
         return (
