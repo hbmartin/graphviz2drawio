@@ -35,6 +35,7 @@ def convert(graph_to_convert, layout_prog="dot"):
 
 # Workaround for change in iterator behavior in Python 3.7
 # https://www.python.org/dev/peps/pep-0479/
+# TODO: remove this
 def list37(iterator):
     rv = []
     try:

@@ -15,14 +15,12 @@ Convert graphviz (dot) files into draw.io (mxGraph) format.
 
 - [x] Migrate from Travis to GHA for CI
 - [ ] Migrate from Make to GHA for release
-- [ ] Fix "cb" bug
+- [x] Fix "cb" bug
 - [x] Add support for clusters
 - [x] Add support for edge labels
-- [ ] Add support for invisible nodes
-- [ ] Address or triage all open issues
 - [x] Upgrade to latest pygraphviz
-- [ ] Upgrade to latest svg.path
-- [ ] Reformat for most recent black style
+- [x] Upgrade to latest svg.path
+- [x] Reformat for most recent black style
 - [ ] Publish api docs to GH pages
 - [ ] Remove this section before release!
 
