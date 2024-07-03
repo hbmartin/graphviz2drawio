@@ -16,10 +16,9 @@ def main() -> None:
     try:
         output = convert(args.to_convert, args.program)
     except BaseException:
-        stderr.write("Something went wrong, please report\n")
-        stderr.write(
-            "An automatic crash report can be sent to the developer (no personal or graph information)\n",
-        )
+        stderr.write("Something went wrong, please file an issue.\n")
+        stderr.write("This tool can automatically report using sentry.io.\n")
+        stderr.write("The report contains no PII or graph data (only the file path).\n")
         permission = input("Type 'no' to cancel report, press enter to send: ")
         if permission != "no":
             from raven import Client

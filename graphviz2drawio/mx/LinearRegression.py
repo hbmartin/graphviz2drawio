@@ -15,8 +15,9 @@ def covariance(points, m):
     return covar
 
 
-def determination(points, y_mean, b0, b1):
-    """Returns the coefficient of determination (R**2) for linear equation and list of complex points."""
+def determination(points, y_mean, b0, b1) -> float:
+    """Calculates the coefficient of determination (R**2) for list of complex points
+    and a linear equation."""
     sse = []
     sst = []
     for point in points:
@@ -31,8 +32,10 @@ def determination(points, y_mean, b0, b1):
         return 1 - (sum(sse) / sum(sst))
 
 
-def coefficients(points):
-    """Returns the coefficients of a linear equation and R**2 as a list for a list of complex points."""
+def coefficients(points: list) -> list[float]:
+    """Calculates the coefficients of a lin. eq. and R**2 for a list of complex points.
+
+    Returns a list of floats [b0, b1, r2]"""
     x = [point.real for point in points]
     m = mean(points)
     var = variance(x, m.real)

@@ -16,6 +16,6 @@ class Arguments(ArgumentParser):
         self.add_argument(
             "-p",
             "--program",
-            help="layout program (defaults to dot), may be one of: neato, dot, twopi, circo, fdp, nop",
+            help="layout program (defaults to dot)",
             default="dot",
         )

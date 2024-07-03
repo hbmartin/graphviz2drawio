@@ -36,7 +36,7 @@ It is recommended to use [pipx](https://pipx.pypa.io/stable/) to install and run
 
 ```bash
 brew install pipx
-pipx install -U graphviz2drawio
+pipx install graphviz2drawio
 ```
 
 ## Usage

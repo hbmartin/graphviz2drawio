@@ -34,4 +34,7 @@ class Edge(GraphObj):
         return f"{self.gid}-{self.curve}"
 
     def __repr__(self) -> str:
-        return f"{self.fr}->{self.to}: {self.label} {self.style} {self.dir} {self.arrowtail}"
+        return (
+            f"{self.fr}->{self.to}: "
+            f"{self.label}, {self.style}, {self.dir}, {self.arrowtail}"
+        )

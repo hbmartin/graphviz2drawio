@@ -1,6 +1,6 @@
 import html
 import re
-import xml.etree.ElementTree as ET
+from xml.etree import ElementTree
 
 from graphviz2drawio import graphviz2drawio
 
@@ -47,7 +47,7 @@ def test_hello() -> None:
     file = "test/directed/hello.gv.txt"
     xml = graphviz2drawio.convert(file)
 
-    root = ET.fromstring(xml)
+    root = ElementTree.fromstring(xml)
     elements = check_xml_top(root)
 
     hello = elements[2]
@@ -66,7 +66,7 @@ def test_hello_rect() -> None:
     file = "test/directed/hello_rect.gv.txt"
     xml = graphviz2drawio.convert(file)
 
-    root = ET.fromstring(xml)
+    root = ElementTree.fromstring(xml)
     elements = check_xml_top(root)
 
     hello = elements[2]
@@ -81,7 +81,7 @@ def test_hello_rect() -> None:
 def test_port() -> None:
     file = "test/directed/port.gv.txt"
     xml = graphviz2drawio.convert(file)
-    root = ET.fromstring(xml)
+    root = ElementTree.fromstring(xml)
     elements = check_xml_top(root)
     check_edge(elements[6], elements[2], elements[3])
 
@@ -90,7 +90,7 @@ def test_polylines() -> None:
     file = "test/undirected/polylines.gv.txt"
     xml = graphviz2drawio.convert(file)
 
-    root = ET.fromstring(xml)
+    root = ElementTree.fromstring(xml)
     check_xml_top(root)
 
 
@@ -98,7 +98,7 @@ def test_cluster() -> None:
     file = "test/directed/cluster.gv.txt"
     xml = graphviz2drawio.convert(file)
 
-    root = ET.fromstring(xml)
+    root = ElementTree.fromstring(xml)
 
     elements = check_xml_top(root)
     contains_cluster = False
@@ -112,7 +112,7 @@ def test_convnet() -> None:
     file = "test/directed/convnet.gv.txt"
     xml = graphviz2drawio.convert(file)
 
-    root = ET.fromstring(xml)
+    root = ElementTree.fromstring(xml)
     elements = check_xml_top(root)
 
     assert elements[-1].attrib["value"] == "$$l_t$$"
@@ -122,7 +122,7 @@ def test_multilabel() -> None:
     file = "test/directed/multilabel.gv.txt"
     xml = graphviz2drawio.convert(file)
 
-    root = ET.fromstring(xml)
+    root = ElementTree.fromstring(xml)
     elements = check_xml_top(root)
 
     assert elements[-1].attrib["value"] == "c<div>b</div><div>a</div>"
@@ -132,7 +132,7 @@ def test_datastruct() -> None:
     file = "test/directed/datastruct.gv.txt"
     xml = graphviz2drawio.convert(file)
 
-    root = ET.fromstring(xml)
+    root = ElementTree.fromstring(xml)
     elements = check_xml_top(root)
 
     assert elements[-1].attrib["source"] == "node12"
@@ -143,7 +143,7 @@ def test_compound() -> None:
     file = "test/directed/compound.gv.txt"
     xml = graphviz2drawio.convert(file)
 
-    root = ET.fromstring(xml)
+    root = ElementTree.fromstring(xml)
     elements = check_xml_top(root)
     assert elements[2].attrib["id"] == "clust1"
     assert elements[3].attrib["id"] == "clust2"
@@ -155,7 +155,7 @@ def test_compound() -> None:
 #     xml = graphviz2drawio.convert(file)
 #     print(xml)
 #
-#     root = ET.fromstring(xml)
+#     root = ElementTree.fromstring(xml)
 #     elements = check_xml_top(root
 
 

@@ -19,16 +19,17 @@ class Curve:
         return f"{self.start} , {control}, {self.end}"
 
     @staticmethod
-    def is_linear(points, threshold=linear_min_r2):
+    def is_linear(points: list, threshold: float = linear_min_r2):
         """Returns a boolean indicating whether a list of complex points is linear.
 
-        Takes a list of complex points and optional minimum R**2 threshold for linear regression.
+        Takes a list of complex points and optional minimum R**2 threshold.
+        Threshold defaults to 0.9.
         """
         r2 = LinearRegression.coefficients(points)[2]
         return r2 > threshold
 
     def cubic_bezier_coordinates(self, t):
-        """Returns a complex number representing the point along the cubic bezier curve.
+        """Returns a complex number representing the point along the cubic Bézier curve.
 
         Takes parametric parameter t where 0 <= t <= 1
         """
@@ -40,10 +41,11 @@ class Curve:
         return [getattr(x, prop) for x in self.cb]
 
     @staticmethod
-    def _cubic_bezier(p, t) -> float:
-        """Returns a float representing the point along the cubic Bézier in the given dimension.
+    def _cubic_bezier(p: list[float], t: float) -> float:
+        """Returns a float representing the point along the cubic Bézier.
 
-        Takes ordered list of 4 control points [P0, P1, P2, P3] and parametric parameter t where 0 <= t <= 1
+        `p` is an ordered list of 4 control points [P0, P1, P2, P3]
+        `t` is a parametric parameter where 0 <= t <= 1
 
         implements explicit form of https://en.wikipedia.org/wiki/B%C3%A9zier_curve#Cubic_B%C3%A9zier_curves
         """

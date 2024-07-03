@@ -43,7 +43,7 @@ class MxGraph:
                 MxConst.CELL,
                 attrib={
                     "id": uuid.uuid4().hex,
-                    "style": "edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];",
+                    "style": Styles.EDGE_LABEL,
                     "parent": edge.sid,
                     "value": edge.label,
                     "vertex": "1",

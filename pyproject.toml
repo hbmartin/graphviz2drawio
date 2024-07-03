@@ -52,9 +52,11 @@ skip-magic-trailing-comma = false
 line-ending = "auto"
 
 [tool.ruff.lint.per-file-ignores]
-"test/*" = ["ANN201", "E501", "ERA001", "PLR2004", "PT011", "S101"]
+"test/*" = ["ANN201", "E501", "ERA001", "FIX002", "INP001", "PLR2004", "PT011", "S101", "TD003"]
 "graphviz2drawio/__main__.py" = ["T201"]
 "graphviz2drawio/version.py" = ["T201"]
+"doc/source/conf.py" = ["ERA001"]
+"graphviz2drawio/mx/Styles.py" = ["E501"]
 
 [tool.pytest.ini_options]
 pythonpath = ". venv/lib/python3.12/site-packages"
