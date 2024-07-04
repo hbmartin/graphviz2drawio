@@ -17,7 +17,7 @@ class Edge(GraphObj):
         self.fr = fr
         self.to = to
         self.curve = curve
-        self.style = None
+        self.line_style = None
         self.dir = None
         self.arrowtail = None
         self.label = label
@@ -34,5 +34,5 @@ class Edge(GraphObj):
     def __repr__(self) -> str:
         return (
             f"{self.fr}->{self.to}: "
-            f"{self.label}, {self.style}, {self.dir}, {self.arrowtail}"
+            f"{self.label}, {self.line_style}, {self.dir}, {self.arrowtail}"
         )

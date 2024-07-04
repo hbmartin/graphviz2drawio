@@ -66,7 +66,7 @@ class MxGraph:
     def get_edge_style(edge, source_node, target_node):
         end_arrow = MxConst.BLOCK
         end_fill = 1
-        dashed = 1 if edge.style == DotAttr.DASHED else 0
+        dashed = 1 if edge.line_style == DotAttr.DASHED else 0
         if edge.arrowtail is not None:
             tail = edge.arrowtail
             if edge.arrowtail[0] == DotAttr.NO_FILL:
