@@ -92,6 +92,16 @@ def test_polylines() -> None:
 
     root = ElementTree.fromstring(xml)
     check_xml_top(root)
+    assert False
+
+
+def test_polylines_curved() -> None:
+    file = "test/undirected/polylines_curved.gv.txt"
+    xml = graphviz2drawio.convert(file)
+
+    root = ElementTree.fromstring(xml)
+    check_xml_top(root)
+    # assert False
 
 
 def test_cluster() -> None:

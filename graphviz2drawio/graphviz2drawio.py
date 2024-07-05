@@ -2,7 +2,7 @@
 
 from pygraphviz import AGraph
 
-from .models import parse_nodes_edges_clusters
+from .models.SvgParser import parse_nodes_edges_clusters
 from .mx.MxGraph import MxGraph
 
 

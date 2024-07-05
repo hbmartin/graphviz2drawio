@@ -1,8 +1,9 @@
 import math
+from typing import Callable, Any
 
 from svg.path import CubicBezier
 
-from graphviz2drawio.models.Errors import InvalidCbError
+from ..models.Errors import InvalidCbError
 
 linear_min_r2 = 0.9
 
@@ -24,15 +25,22 @@ class Curve:
         return f"{self.start} , {control}, {self.end}"
 
     @staticmethod
-    def is_linear(cb: CubicBezier) -> bool:
-        m, b = Curve._linear_regression(cb.start, cb.end)
-        control1_prediction = m * cb.control1.real + b
-        control2_prediction = m * cb.control2.real + b
+    def is_linear(cb: CubicBezier, is_rotated: bool = False) -> bool:
+        line = _line(cb.start, cb.end)
+
+        if line is None:
+            if is_rotated:  # Prevent infinite recursion
+                return False
+            return Curve.is_linear(_rotate_bezier(cb), True)
 
         return math.isclose(
-            control1_prediction, cb.control1.imag, abs_tol=threshold
+            line(cb.control1.real),
+            cb.control1.imag,
+            rel_tol=0.1,
         ) and math.isclose(
-            control2_prediction, cb.control2.imag, abs_tol=threshold
+            line(cb.control2.real),
+            cb.control2.imag,
+            rel_tol=0.1,
         )
 
     def cubic_bezier_coordinates(self, t: float) -> complex:
@@ -88,3 +96,30 @@ class Curve:
             + (6.0 * t * (1.0 - t) * (p[2] - p[1]))
             + (3.0 * (t**2) * (p[3] - p[2]))
         )
+
+
+def _line(start: complex, end: complex) -> Callable[[float], float] | None:
+    """Calculate the slope and y-intercept of a line."""
+    denom = end.real - start.real
+    if denom == 0:
+        return None
+    # Linearity is used to determine if a cubic Bézier is actually a line
+    # BUT we need to check for vertical lines or vertically oriented Beziers
+    # Maybe caller should flip x/y and call again?
+    m = (end.imag - start.imag) / denom
+    b = start.imag - (m * start.real)
+
+    def y(x: float) -> float:
+        return (m * x) + b
+
+    return y
+
+
+def _rotate_bezier(cb):
+    """Reverse imaginary and real parts for all components."""
+    return CubicBezier(
+        complex(cb.start.imag, cb.start.real),
+        complex(cb.control1.imag, cb.control1.real),
+        complex(cb.control2.imag, cb.control2.real),
+        complex(cb.end.imag, cb.end.real),
+    )
