@@ -13,7 +13,7 @@ class Curve:
     """
 
     def __init__(
-        self, start: complex, end: complex, is_bezier: bool, points: list[complex]
+        self, start: complex, end: complex, *, is_bezier: bool, points: list[complex]
     ) -> None:
         """Complex numbers for start, end, and list of 4 Bezier control points."""
         self.start: complex = start
