@@ -3,44 +3,46 @@ from typing import Callable, Any
 
 from svg.path import CubicBezier
 
-from ..models.Errors import InvalidCbError
-
-linear_min_r2 = 0.9
-
 
 class Curve:
-    def __init__(self, start, end, cb, cbset=None) -> None:
+    """A complex number representation of a curve.
+
+    A curve may either be a straight line or a cubic Bézier as specified by is_bezier.
+    If the curve is linear then the points list be the polyline anchors.
+    If the curve is a cubic Bézier then the points list will be the control points.
+    """
+
+    def __init__(
+        self, start: complex, end: complex, is_bezier: bool, points: list[complex]
+    ) -> None:
         """Complex numbers for start, end, and list of 4 Bezier control points."""
-        if cbset is None:
-            cbset = []
-        self.start = start
-        self.end = end
-        if cb is not None and len(cb) != 4:  # noqa: PLR2004
-            raise InvalidCbError
-        self.cb = cb
-        self.cbset = cbset
+        self.start: complex = start
+        self.end: complex = end
+        self.is_bezier: bool = is_bezier
+        self.points: list[complex] = points
 
     def __str__(self) -> str:
-        control = "[" + (str(self.cb) if self.cb is not None else "None") + "]"
-        return f"{self.start} , {control}, {self.end}"
+        # control = "[" + (str(self.cb) if self.cb is not None else "None") + "]"
+        return f"{self.start} , {self.end}"
 
     @staticmethod
-    def is_linear(cb: CubicBezier, is_rotated: bool = False) -> bool:
-        line = _line(cb.start, cb.end)
+    def is_linear(cb: CubicBezier) -> bool:
+        if cb.start == cb.end:
+            return False
 
-        if line is None:
-            if is_rotated:  # Prevent infinite recursion
-                return False
-            return Curve.is_linear(_rotate_bezier(cb), True)
+        y = _line(cb.start, cb.end)
+
+        if y is None:
+            return Curve.is_linear(_rotate_bezier(cb))
 
         return math.isclose(
-            line(cb.control1.real),
+            y(cb.control1.real),
             cb.control1.imag,
-            rel_tol=0.1,
+            rel_tol=0.01,
         ) and math.isclose(
-            line(cb.control2.real),
+            y(cb.control2.real),
             cb.control2.imag,
-            rel_tol=0.1,
+            rel_tol=0.01,
         )
 
     def cubic_bezier_coordinates(self, t: float) -> complex:
@@ -75,8 +77,8 @@ class Curve:
         B(t) = (1-t)³P₀ + 3(1-t)²tP₁ + 3(1-t)t²P₂ + t³P₃ where 0 ≤ t ≤1
         """
         return (
-            (((1.0 - t) ** 3) * p[0])
-            + (3.0 * t * ((1.0 - t) ** 2) * p[1])
+            (((1.0 - t) ** 3) * p.real)
+            + (3.0 * t * ((1.0 - t) ** 2) * p.imag)
             + (3.0 * (t**2) * (1.0 - t) * p[2])
             + ((t**3) * p[3])
         )
@@ -92,8 +94,8 @@ class Curve:
         B`(t) = 3(1-t)²(P₁-P₀) + 6(1-t)t(P₂-P₁) + 3t²(P₃-P₂) where 0 ≤ t ≤1
         """
         return (
-            (3.0 * ((1.0 - t) ** 2) * (p[1] - p[0]))
-            + (6.0 * t * (1.0 - t) * (p[2] - p[1]))
+            (3.0 * ((1.0 - t) ** 2) * (p.imag - p.real))
+            + (6.0 * t * (1.0 - t) * (p[2] - p.imag))
             + (3.0 * (t**2) * (p[3] - p[2]))
         )
 
@@ -103,9 +105,6 @@ def _line(start: complex, end: complex) -> Callable[[float], float] | None:
     denom = end.real - start.real
     if denom == 0:
         return None
-    # Linearity is used to determine if a cubic Bézier is actually a line
-    # BUT we need to check for vertical lines or vertically oriented Beziers
-    # Maybe caller should flip x/y and call again?
     m = (end.imag - start.imag) / denom
     b = start.imag - (m * start.real)
 
@@ -123,3 +122,43 @@ def _rotate_bezier(cb):
         complex(cb.control2.imag, cb.control2.real),
         complex(cb.end.imag, cb.end.real),
     )
+
+
+def _lower_cubic_bezier_to_two_quadratics(
+    P0: complex, P1: complex, P2: complex, P3: complex, t: float
+) -> tuple[list[complex], list[complex]]:
+    """Splits a cubic Bézier curve defined by control points P0-P3 at t,
+    returning two new cubic Bézier curve segments."""
+    Q0 = P0
+    Q1 = complex((1 - t) * P0.real + t * P1.real, (1 - t) * P0.imag + t * P1.imag)
+    Q2 = complex(
+        (1 - t) ** 2 * P0.real + 2 * (1 - t) * t * P1.real + t**2 * P2.real,
+        (1 - t) ** 2 * P0.imag + 2 * (1 - t) * t * P1.imag + t**2 * P2.imag,
+    )
+    Q3 = complex(
+        (1 - t) ** 3 * P0.real
+        + 3 * (1 - t) ** 2 * t * P1.real
+        + 3 * (1 - t) * t**2 * P2.real
+        + t**3 * P3.real,
+        (1 - t) ** 3 * P0.imag
+        + 3 * (1 - t) ** 2 * t * P1.imag
+        + 3 * (1 - t) * t**2 * P2.imag
+        + t**3 * P3.imag,
+    )
+    return [Q0, Q1, Q2], [Q2, Q3, P3]
+
+
+(
+    (
+        (2 + 2j),
+        (1.0956739766575936 + 3.808652046684813j),
+        (3.053667401045204 + 3.5727902021338993j),
+        (5.100619597768561 + 3.326212294969724j),
+    ),
+    (
+        (5.100619597768561 + 3.326212294969724j),
+        (7.580690054131715 + 3.027460529428433j),
+        (10.191347953315187 + 2.7129780700272192j),
+        (8 + 6j),
+    ),
+)

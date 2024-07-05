@@ -3,7 +3,7 @@ class CoordsTranslate:
         self.x = x
         self.y = y
 
-    def complex_translate(self, cnum):
+    def complex_translate(self, cnum: complex) -> complex:
         return complex(cnum.real + self.x, cnum.imag + self.y)
 
     def translate(self, x, y):
