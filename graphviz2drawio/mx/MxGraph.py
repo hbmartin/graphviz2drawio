@@ -114,7 +114,9 @@ class MxGraph:
     @staticmethod
     def add_mx_geo_with_points(element: Element, curve: Curve) -> None:
         geo = SubElement(
-            element, MxConst.GEO, attrib={"as": "geometry", "relative": "1"},
+            element,
+            MxConst.GEO,
+            attrib={"as": "geometry", "relative": "1"},
         )
         SubElement(
             geo,

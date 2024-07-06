@@ -25,15 +25,19 @@ class CurveFactory:
                     points.append(self.coords.complex_translate(segment.start))
                 else:
                     split_cubes = subdivide_inflections(
-                        segment.start, segment.control1, segment.control2, segment.end,
+                        segment.start,
+                        segment.control1,
+                        segment.control2,
+                        segment.end,
                     )
-                    for cube in split_cubes:
-                        if cube:
-                            points.append(  # noqa: PERF401
-                                self.coords.complex_translate(
-                                    approximate_cubic_bezier_as_quadratic(*cube)[1],
-                                ),
-                            )
+                    split_controls = [
+                        self.coords.complex_translate(
+                            approximate_cubic_bezier_as_quadratic(*cube)[1],
+                        )
+                        for cube in split_cubes
+                        if cube
+                    ]
+                    points.extend(split_controls)
 
         start = self.coords.complex_translate(path[0].start)
         end = self.coords.complex_translate(path[-1].end)

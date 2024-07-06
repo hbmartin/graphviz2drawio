@@ -8,6 +8,6 @@ def test_line():
     assert line(2) == -11
 
 
-def test_line_vertical():
+def test_vertical_line_returns_none():
     line = _line(complex(1, 10), complex(1, 4))
     assert line is None

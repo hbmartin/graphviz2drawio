@@ -6,7 +6,11 @@ EPSILON: float = 1e-03
 
 
 def controlpoints_at(
-    p1: complex, c1: complex, c2: complex, p2: complex, t: float,
+    p1: complex,
+    c1: complex,
+    c2: complex,
+    p2: complex,
+    t: float,
 ) -> tuple[complex, complex, complex, complex, complex]:
     """Get the point on this curve at `t` plus control points.
 
@@ -34,7 +38,11 @@ def controlpoints_at(
 
 
 def subdivide(
-    p1: complex, c1: complex, c2: complex, p2: complex, t: float,
+    p1: complex,
+    c1: complex,
+    c2: complex,
+    p2: complex,
+    t: float,
 ) -> tuple[tuple, tuple | None]:
     """Subdivide this curve at the point on the curve at `t`.
 
@@ -131,9 +139,7 @@ def roots(p1: complex, c1: complex, c2: complex, p2: complex) -> tuple[float, fl
 
     def _valid_t(t: float) -> float:
         # Check range of t, returns -1 if t is out of range.
-        if EPSILON < t < 1 - EPSILON:
-            return t
-        return -1
+        return t if EPSILON < t < 1 - EPSILON else -1
 
     if is_zero(a):
         if not is_zero(b):
@@ -164,11 +170,14 @@ def roots(p1: complex, c1: complex, c2: complex, p2: complex) -> tuple[float, fl
 
 def is_zero(value: float) -> bool:
     """Determine if the float value is essentially zero."""
-    return bool(-EPSILON < value < EPSILON)
+    return -EPSILON < value < EPSILON
 
 
 def approximate_cubic_bezier_as_quadratic(
-    p0: complex, c1: complex, c2: complex, p2: complex,
+    p0: complex,
+    c1: complex,
+    c2: complex,
+    p2: complex,
 ) -> tuple[complex, complex, complex]:
     """Approximates a cubic Bézier as a quadratic using tangent intersection."""
     # Calculate tangent vectors at start and end points
