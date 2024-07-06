@@ -45,7 +45,9 @@ class CurveFactory:
         end = self.coords.complex_translate(path[-1].end)
 
         if len(points) > 0 and cmath.isclose(
-            start, points[0], rel_tol=CLOSE_POINT_TOLERANCE
+            start,
+            points[0],
+            rel_tol=CLOSE_POINT_TOLERANCE,
         ):
             points = points[1:]
 

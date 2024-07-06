@@ -138,7 +138,7 @@ def roots(p1: complex, c1: complex, c2: complex, p2: complex) -> tuple[float, fl
     c = v1.real * v2.imag - v1.imag * v2.real
 
     def _valid_t(t: float) -> float:
-        # Check range of t, returns -1 if t is out of range.
+        """Check range of t, returns -1 if t is out of range."""
         return t if EPSILON < t < 1 - EPSILON else -1
 
     if is_zero(a):

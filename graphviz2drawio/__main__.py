@@ -8,7 +8,7 @@ from .version import __version__
 
 def main() -> None:
 
-    args = Arguments(__version__).parse_args()
+    args = Arguments(__version__).parse_args()  # pytype: disable=not-callable
 
     if not args.stdout:
         stderr.write("This is beta software, please report issues to:\n")

@@ -5,6 +5,8 @@ from .GraphObj import GraphObj
 
 
 class Edge(GraphObj):
+    """An edge connecting two nodes in the graph."""
+
     def __init__(
         self,
         sid: str,

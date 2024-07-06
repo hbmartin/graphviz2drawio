@@ -33,6 +33,7 @@ class Curve:
 
     @staticmethod
     def is_linear(cb: CubicBezier) -> bool:
+        """Determine if the cubic Bézier is a straight line."""
         if cb.start == cb.end:
             return False
 
