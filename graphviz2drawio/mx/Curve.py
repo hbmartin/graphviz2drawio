@@ -3,7 +3,7 @@ from collections.abc import Callable
 
 from svg.path import CubicBezier
 
-line_epsilon = 0.01
+LINE_TOLERANCE = 0.01
 
 
 class Curve:
@@ -44,11 +44,11 @@ class Curve:
         return math.isclose(
             y(cb.control1.real),
             cb.control1.imag,
-            rel_tol=line_epsilon,
+            rel_tol=LINE_TOLERANCE,
         ) and math.isclose(
             y(cb.control2.real),
             cb.control2.imag,
-            rel_tol=line_epsilon,
+            rel_tol=LINE_TOLERANCE,
         )
 
 

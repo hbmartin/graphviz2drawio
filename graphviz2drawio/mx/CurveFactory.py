@@ -6,6 +6,8 @@ from ..models.CoordsTranslate import CoordsTranslate
 from .bezier import approximate_cubic_bezier_as_quadratic, subdivide_inflections
 from .Curve import Curve
 
+CLOSE_POINT_TOLERANCE = 0.1
+
 
 class CurveFactory:
     def __init__(self, coords: CoordsTranslate) -> None:
@@ -42,9 +44,9 @@ class CurveFactory:
         start = self.coords.complex_translate(path[0].start)
         end = self.coords.complex_translate(path[-1].end)
 
-REL_TOLERANCE = 0.1
-
-        if len(points) > 0 and cmath.isclose(start, points[0], rel_tol=REL_TOLERANCE):
+        if len(points) > 0 and cmath.isclose(
+            start, points[0], rel_tol=CLOSE_POINT_TOLERANCE
+        ):
             points = points[1:]
 
         return Curve(start=start, end=end, is_bezier=is_bezier, points=points)
