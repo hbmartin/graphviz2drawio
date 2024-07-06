@@ -1,5 +1,3 @@
-from xml.etree.ElementTree import tostring
-
 from graphviz2drawio.models import SVG
 from graphviz2drawio.models.Rect import Rect
 
