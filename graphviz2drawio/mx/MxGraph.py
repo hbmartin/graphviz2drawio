@@ -157,3 +157,9 @@ class MxGraph:
     def value(self) -> str:
         indent(self.graph)
         return tostring(self.graph, encoding="unicode", xml_declaration=True)
+
+    def __str__(self) -> str:
+        return self.value()
+
+    def __repr__(self) -> str:
+        return self.value()

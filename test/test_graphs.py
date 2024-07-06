@@ -160,7 +160,6 @@ def test_compound() -> None:
     assert elements[3].attrib["id"] == "clust2"
 
 
-# TODO: https://github.com/hbmartin/graphviz2drawio/issues/33
 # def test_subgraph():
 #     file = "test/directed/subgraph.gv.txt"
 #     xml = graphviz2drawio.convert(file)
