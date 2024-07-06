@@ -6,6 +6,9 @@ __pycache__/
 # C extensions
 *.so
 
+# VSCode config
+ .vscode
+
 # Distribution / packaging
 .Python
 build/
@@ -145,3 +148,4 @@ test/**/*.xml
 .idea/tasks.xml
 .idea/modules.xml
 .idea/*.iml
+test/**/*.svg

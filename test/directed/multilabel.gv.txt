@@ -1,0 +1,8 @@
+digraph {
+  node [shape=rectangle];
+  rankdir=LR;
+  splines=false;
+	"X" -> "Y"[ label="c" ];
+	"X" -> "Y"[ label="b" ];
+	"X" -> "Y"[ label="a" ];
+}

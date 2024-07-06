@@ -1,5 +1,3 @@
-DECLARATION = '<?xml version="1.0"?>'
-
 BLOCK = "block"
 DIAMOND = "diamond"
 
@@ -23,3 +21,5 @@ ROOT = "root"
 CURVE_INTERVALS = [0.25, 0.5, 0.75]
 
 NONE = "none"
+CURVED = "curved=1;"
+SHARP = "rounded=0;"

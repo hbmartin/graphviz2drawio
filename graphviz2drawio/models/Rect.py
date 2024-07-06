@@ -1,5 +1,5 @@
 class Rect:
-    def __init__(self, x, y, width, height):
+    def __init__(self, x, y, width, height) -> None:
         self.x = x
         self.y = y
         self.width = width
@@ -10,20 +10,18 @@ class Rect:
     def x_ratio(self, search):
         if search < self.x:
             return 0
-        elif search > self.x + self.width:
+        if search > self.x + self.width:
             return 1
-        else:
-            ratio = (search - self.x) / self.width
-            return self._approx(ratio, 0.5, 0.1)
+        ratio = (search - self.x) / self.width
+        return self._approx(ratio, 0.5, 0.1)
 
     def y_ratio(self, search):
         if search < self.y:
             return 0
-        elif search > self.y + self.height:
+        if search > self.y + self.height:
             return 1
-        else:
-            ratio = (search - self.y) / self.height
-            return self._approx(ratio, 0.5, 0.1)
+        ratio = (search - self.y) / self.height
+        return self._approx(ratio, 0.5, 0.1)
 
     @staticmethod
     def _approx(value, center, delta):
