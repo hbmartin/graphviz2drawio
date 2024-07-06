@@ -112,42 +112,43 @@ class MxGraph:
             SubElement(element, MxConst.GEO, attributes)
 
     @staticmethod
-    def add_mx_geo_with_points(element: Element, curve: Curve) -> None:
+    def add_mx_geo_with_points(element: Element, curve: Curve | None) -> None:
         geo = SubElement(
             element,
             MxConst.GEO,
             attrib={"as": "geometry", "relative": "1"},
         )
-        SubElement(
-            geo,
-            MxConst.POINT,
-            attrib={
-                "x": str(curve.start.real),
-                "y": str(curve.start.imag),
-                "as": "sourcePoint",
-            },
-        )
-        SubElement(
-            geo,
-            MxConst.POINT,
-            attrib={
-                "x": str(curve.end.real),
-                "y": str(curve.end.imag),
-                "as": "targetPoint",
-            },
-        )
+        if curve is not None:
+            SubElement(
+                geo,
+                MxConst.POINT,
+                attrib={
+                    "x": str(curve.start.real),
+                    "y": str(curve.start.imag),
+                    "as": "sourcePoint",
+                },
+            )
+            SubElement(
+                geo,
+                MxConst.POINT,
+                attrib={
+                    "x": str(curve.end.real),
+                    "y": str(curve.end.imag),
+                    "as": "targetPoint",
+                },
+            )
 
-        if len(curve.points) != 0:
-            array = SubElement(geo, MxConst.ARRAY, {"as": "points"})
-            for point in curve.points:
-                SubElement(
-                    array,
-                    MxConst.POINT,
-                    attrib={
-                        "x": str(point.real),
-                        "y": str(point.imag),
-                    },
-                )
+            if len(curve.points) != 0:
+                array = SubElement(geo, MxConst.ARRAY, {"as": "points"})
+                for point in curve.points:
+                    SubElement(
+                        array,
+                        MxConst.POINT,
+                        attrib={
+                            "x": str(point.real),
+                            "y": str(point.imag),
+                        },
+                    )
 
     @staticmethod
     def x_y_strs(point: complex) -> tuple[str, str]:

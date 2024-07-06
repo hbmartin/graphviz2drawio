@@ -8,6 +8,7 @@ from graphviz2drawio.mx.NodeFactory import NodeFactory
 
 from . import SVG
 from .CoordsTranslate import CoordsTranslate
+from .Errors import MissingTitleError
 
 
 def parse_nodes_edges_clusters(
@@ -26,6 +27,8 @@ def parse_nodes_edges_clusters(
     for g in root:
         if SVG.is_tag(g, "g"):
             title = SVG.get_title(g)
+            if title is None:
+                raise MissingTitleError(g)
             if g.attrib["class"] == "node":
                 nodes[title] = node_factory.from_svg(g)
             elif g.attrib["class"] == "edge":

@@ -11,8 +11,10 @@ def get_first(g: Element, tag: str) -> Element | None:
     return g.find(f"./{NS_SVG}{tag}")
 
 
-def get_title(g: Element) -> str:
-    return get_first(g, "title").text  # pytype: disable=attribute-error
+def get_title(g: Element) -> str | None:
+    if (title_el := get_first(g, "title")) is not None:
+        return title_el.text  # pytype: disable=attribute-error
+    return None
 
 
 def get_text(g: Element) -> str | None:

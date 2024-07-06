@@ -12,7 +12,7 @@ class Edge(GraphObj):
         sid: str,
         fr: str,
         to: str,
-        curve: Curve,
+        curve: Curve | None,
         label: str,
     ) -> None:
         super().__init__(sid=sid, gid=f"{fr}->{to}")

@@ -5,8 +5,9 @@ class GdValueError(ValueError):
         super().__init__(message)
 
 
-class InvalidCbError(GdValueError):
-    """Invalid cubic Bézier value."""
+class MissingTitleError(GdValueError):
+    """Title missing from SVG element."""
 
-    def __init__(self) -> None:
-        super().__init__("Invalid cubic Bézier value.")
+    def __init__(self, g) -> None:
+        super().__init__("Title missing from SVG element.")
+        self.g = g
