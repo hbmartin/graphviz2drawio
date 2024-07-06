@@ -88,7 +88,7 @@ class MxGraph:
         stroke = node.stroke if node.stroke is not None else MxConst.DEFAULT_STROKE
         style = Styles.get_for_shape(node.shape)
 
-        attributes = dict(fill=fill, stroke=stroke)
+        attributes = {"fill": fill, "stroke": stroke}
         if style == Styles.IMAGE:
             import base64
 
