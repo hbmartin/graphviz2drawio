@@ -31,6 +31,14 @@ class NodeFactory:
                 height = test_height
         return Rect(x=min_x, y=min_y, width=width, height=height)
 
+    @staticmethod
+    def rect_from_image(attrib):
+        filtered = dict()
+        for k, v in attrib.items():
+            if k in ["x", "y", "width", "height"]:
+                filtered[k] = float(v.strip("px"))
+        return Rect(**filtered)
+
     def rect_from_ellipse_svg(self, attrib):
         cx = float(attrib["cx"])
         cy = float(attrib["cy"])
@@ -47,6 +55,8 @@ class NodeFactory:
                 SVG.get_first(g, "polygon").attrib["points"],
             )
             shape = Shape.RECT
+        elif SVG.has(g, "image"):
+            rect = self.rect_from_image(SVG.get_first(g, "image").attrib)
         else:
             rect = self.rect_from_ellipse_svg(SVG.get_first(g, "ellipse").attrib)
             shape = Shape.ELLIPSE
