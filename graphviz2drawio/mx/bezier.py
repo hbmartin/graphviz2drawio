@@ -1,4 +1,5 @@
 # Based on https://github.com/utlco/utl-geom2d/blob/main/src/geom2d/bezier.py
+# See also https://pomax.github.io/bezierinfo/
 
 import math
 

@@ -20,7 +20,7 @@ jobs:
         cache-dependency-path: requirements.txt
     - run: pip install -r requirements.txt
     - run: pip install black ruff pytype pytest
-#    - run: ruff check .
+    - run: ruff check .
     - name: Run pytype if not on 3.12
       run: |
         if [[ '${{ steps.cpython3.outputs.python-version }}' == *"3.12"* ]]; then

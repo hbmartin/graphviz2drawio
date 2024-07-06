@@ -79,20 +79,20 @@ python -m graphviz2drawio test/directed/hello.gv.txt
 ```
 
 ## Roadmap to [0.4](https://github.com/hbmartin/graphviz2drawio/milestone/2)
-- [ ] Improved Bezier curve support
+- [x] Improved Bezier curve support [done](https://github.com/hbmartin/graphviz2drawio/pull/81)
 - [ ] Subgraph conversion #33
 - [ ] Invisible node handling for edges #67
-- [ ] Implementation for outstanding TODOs in code
 - [ ] Image / tooltip support #49
 - [ ] Text on edge alignment #59 
-- [ ] Text alignment inside of shape
 - [ ] Support for node with `path` shape #47
-- [ ] Ensure undirected graphs are not drawn with arrows
-- [ ] Run ruff in CI
+- [x] Run ruff in CI
 - [ ] Publish api docs to GH pages
 - [ ] Restore codecov to test GHA
 
 ## Roadmap to 1.0
+- [ ] Text alignment inside of shape
+- [ ] Improved support for stroke / background colors
+- [ ] Ensure undirected graphs are not drawn with arrows
 - [ ] Complete test suite for all graphviz examples
 - [ ] Migrate to uv/hatch for packaging and dep mgmt
 - [ ] Port layout/orientation
