@@ -42,7 +42,9 @@ class CurveFactory:
         start = self.coords.complex_translate(path[0].start)
         end = self.coords.complex_translate(path[-1].end)
 
-        if len(points) > 0 and cmath.isclose(start, points[0], rel_tol=0.1):
+REL_TOLERANCE = 0.1
+
+        if len(points) > 0 and cmath.isclose(start, points[0], rel_tol=REL_TOLERANCE):
             points = points[1:]
 
         return Curve(start=start, end=end, is_bezier=is_bezier, points=points)
