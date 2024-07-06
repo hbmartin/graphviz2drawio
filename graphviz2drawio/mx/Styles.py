@@ -140,10 +140,10 @@ class Styles(Enum):
             return Styles.RARROW
         if dot_shape == Shape.LARROW:
             return Styles.LARROW
-        elif dot_shape == Shape.IMAGE:
+        if dot_shape == Shape.IMAGE:
             return Styles.IMAGE
-        else:
-            return Styles.NODE
+        
+        return Styles.NODE
 
     def format(self, **values):
         return self.value.format(**values)
