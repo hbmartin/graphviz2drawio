@@ -1,3 +1,5 @@
+from xml.etree.ElementTree import Element
+
 from graphviz2drawio.models import SVG
 from graphviz2drawio.models.Rect import Rect
 
@@ -11,7 +13,7 @@ class NodeFactory:
         super().__init__()
         self.coords = coords
 
-    def rect_from_svg_points(self, svg):
+    def rect_from_svg_points(self, svg: str) -> Rect:
         points = svg.split(" ")
         points = [self.coords.translate(*p.split(",")) for p in points]
         min_x, min_y = points[0]
@@ -32,7 +34,7 @@ class NodeFactory:
         return Rect(x=min_x, y=min_y, width=width, height=height)
 
     @staticmethod
-    def rect_from_image(attrib):
+    def rect_from_image(attrib: dict[str, str]) -> Rect:
         filtered = {
             k: float(v.strip("px"))
             for k, v in attrib.items()
@@ -40,7 +42,7 @@ class NodeFactory:
         }
         return Rect(**filtered)
 
-    def rect_from_ellipse_svg(self, attrib):
+    def rect_from_ellipse_svg(self, attrib: dict[str, str]) -> Rect:
         cx = float(attrib["cx"])
         cy = float(attrib["cy"])
         rx = float(attrib["rx"])
@@ -48,30 +50,31 @@ class NodeFactory:
         x, y = self.coords.translate(cx, cy)
         return Rect(x=x - rx, y=y - ry, width=rx * 2, height=ry * 2)
 
-    def from_svg(self, g) -> Node:
+    def from_svg(self, g: Element) -> Node:
         texts = self._extract_texts(g)
+        rect = None
+        fill = g.attrib.get("fill", None)
+        stroke = g.attrib.get("stroke", None)
 
         if (polygon := SVG.get_first(g, "polygon")) is not None:
             rect = self.rect_from_svg_points(polygon.attrib["points"])
             shape = Shape.RECT
+            if "stroke" in polygon.attrib:
+                stroke = polygon.attrib["stroke"]
+            if "fill" in polygon.attrib:
+                fill = polygon.attrib["fill"]
         elif (image := SVG.get_first(g, "image")) is not None:
             rect = self.rect_from_image(image.attrib)
             shape = Shape.RECT
-        else:
+        elif (ellipse := SVG.get_first(g, "ellipse")) is not None:
             rect = self.rect_from_ellipse_svg(SVG.get_first(g, "ellipse").attrib)
             shape = Shape.ELLIPSE
-
-        stroke = None
-        if (polygon := SVG.get_first(g, "polygon")) is not None:
-            if "stroke" in polygon.attrib:
-                stroke = polygon.attrib["stroke"]
-
-        fill = g.attrib.get("fill", None)
-
-        # should apply to all geometries
-        if (ellipse := SVG.get_first(g, "ellipse")) is not None:
-            if (ellipse_fill := ellipse.attrib.get("fill")) is not None:
-                fill = ellipse_fill
+            if "fill" in ellipse.attrib:
+                fill = ellipse.attrib["fill"]
+            if "stroke" in ellipse.attrib:
+                stroke = ellipse.attrib["stroke"]
+        else:
+            shape = Shape.ELLIPSE
 
         return Node(
             sid=g.attrib["id"],
@@ -84,7 +87,7 @@ class NodeFactory:
         )
 
     @staticmethod
-    def _extract_texts(g):
+    def _extract_texts(g: Element):
         texts = []
         current_text = None
         for t in g:
