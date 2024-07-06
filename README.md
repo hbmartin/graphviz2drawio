@@ -3,7 +3,9 @@
 <a href="https://pypi.org/project/graphviz2drawio/"><img src="https://img.shields.io/pypi/v/graphviz2drawio.svg" alt="pypi"></a>
 <a href="https://pypi.python.org/pypi/graphviz2drawio/"><img src="https://img.shields.io/pypi/pyversions/graphviz2drawio.svg" /></a>
 [![Lint and Test](https://github.com/hbmartin/graphviz2drawio/actions/workflows/lint.yml/badge.svg)](https://github.com/hbmartin/graphviz2drawio/actions/workflows/lint.yml)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![Code style: black](https://img.shields.io/badge/🐧️-black-000000.svg)](https://github.com/psf/black)
+[![Checked with pytype](https://img.shields.io/badge/🦆-pytype-437f30.svg)](https://google.github.io/pytype/)
 [![twitter](https://img.shields.io/badge/@hmartin-00aced.svg?logo=twitter&logoColor=black)](https://twitter.com/hmartin)
 
 
@@ -87,7 +89,6 @@ python -m graphviz2drawio test/directed/hello.gv.txt
 - [ ] Support for node with `path` shape #47
 - [x] Run ruff in CI
 - [ ] Publish api docs to GH pages
-- [ ] Restore codecov to test GHA
 
 ## Roadmap to 1.0
 - [ ] Text alignment inside of shape
@@ -96,6 +97,7 @@ python -m graphviz2drawio test/directed/hello.gv.txt
 - [ ] Complete test suite for all graphviz examples
 - [ ] Migrate to uv/hatch for packaging and dep mgmt
 - [ ] Port layout/orientation
+- [ ] Restore codecov to test GHA
 - [ ] Possible to screenshot test with [maxGraph](https://github.com/maxGraph/maxGraph?tab=readme-ov-file) ?
 
 ## License
