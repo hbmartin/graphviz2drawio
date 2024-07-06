@@ -1,10 +1,10 @@
 import cmath
 
-from svg.path import CubicBezier, Path, parse_path, QuadraticBezier
+from svg.path import CubicBezier, Path, QuadraticBezier, parse_path
 
-from .Curve import Curve
-from .bezier import subdivide_inflections, approximate_cubic_bezier_as_quadratic
 from ..models.CoordsTranslate import CoordsTranslate
+from .bezier import approximate_cubic_bezier_as_quadratic, subdivide_inflections
+from .Curve import Curve
 
 
 class CurveFactory:
@@ -17,22 +17,23 @@ class CurveFactory:
         points: list[complex] = []
         is_bezier = not all(map(Curve.is_linear, filter(_is_cubic, path)))
 
-        for p in path:
-            if isinstance(p, QuadraticBezier):
-                points.append(self.coords.complex_translate(p.control))
-            elif isinstance(p, CubicBezier):
-                if Curve.is_linear(p):
-                    points.append(self.coords.complex_translate(p.start))
+        for segment in path:
+            if isinstance(segment, QuadraticBezier):
+                points.append(self.coords.complex_translate(segment.control))
+            elif isinstance(segment, CubicBezier):
+                if Curve.is_linear(segment):
+                    points.append(self.coords.complex_translate(segment.start))
                 else:
                     split_cubes = subdivide_inflections(
-                        p.start, p.control1, p.control2, p.end
+                        segment.start, segment.control1, segment.control2, segment.end,
                     )
                     for cube in split_cubes:
-                        points.append(
-                            self.coords.complex_translate(
-                                approximate_cubic_bezier_as_quadratic(*cube)[1]
+                        if cube:
+                            points.append(  # noqa: PERF401
+                                self.coords.complex_translate(
+                                    approximate_cubic_bezier_as_quadratic(*cube)[1],
+                                ),
                             )
-                        )
 
         start = self.coords.complex_translate(path[0].start)
         end = self.coords.complex_translate(path[-1].end)
@@ -41,6 +42,7 @@ class CurveFactory:
             points = points[1:]
 
         return Curve(start=start, end=end, is_bezier=is_bezier, points=points)
+
 
 def _is_cubic(p):
     return isinstance(p, CubicBezier)

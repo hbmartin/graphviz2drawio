@@ -24,7 +24,7 @@ class MxGraph:
 
     def add_edge(self, edge: Edge) -> None:
         source, target = self.get_edge_source_target(edge)
-        style = self.get_edge_style(edge, source, target)
+        style = self.get_edge_style(edge)
         edge_element = SubElement(
             self.root,
             MxConst.CELL,
@@ -61,7 +61,7 @@ class MxGraph:
         return self.nodes[edge.fr], self.nodes[edge.to]
 
     @staticmethod
-    def get_edge_style(edge, source_node, target_node):
+    def get_edge_style(edge):
         end_arrow = MxConst.BLOCK
         end_fill = 1
         dashed = 1 if edge.line_style == DotAttr.DASHED else 0
@@ -114,7 +114,7 @@ class MxGraph:
     @staticmethod
     def add_mx_geo_with_points(element: Element, curve: Curve) -> None:
         geo = SubElement(
-            element, MxConst.GEO, attrib={"as": "geometry", "relative": "1"}
+            element, MxConst.GEO, attrib={"as": "geometry", "relative": "1"},
         )
         SubElement(
             geo,

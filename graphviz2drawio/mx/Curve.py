@@ -1,5 +1,5 @@
 import math
-from typing import Callable, Any
+from collections.abc import Callable
 
 from svg.path import CubicBezier
 
@@ -13,7 +13,7 @@ class Curve:
     """
 
     def __init__(
-        self, start: complex, end: complex, *, is_bezier: bool, points: list[complex]
+        self, start: complex, end: complex, *, is_bezier: bool, points: list[complex],
     ) -> None:
         """Complex numbers for start, end, and list of 4 Bezier control points."""
         self.start: complex = start
@@ -22,8 +22,7 @@ class Curve:
         self.points: list[complex] = points
 
     def __str__(self) -> str:
-        # control = "[" + (str(self.cb) if self.cb is not None else "None") + "]"
-        return f"{self.start} , {self.end}"
+        return f"{self.start} -> {self.end} {self.is_bezier} ({self.points})"
 
     @staticmethod
     def is_linear(cb: CubicBezier) -> bool:
@@ -122,43 +121,3 @@ def _rotate_bezier(cb):
         complex(cb.control2.imag, cb.control2.real),
         complex(cb.end.imag, cb.end.real),
     )
-
-
-def _lower_cubic_bezier_to_two_quadratics(
-    P0: complex, P1: complex, P2: complex, P3: complex, t: float
-) -> tuple[list[complex], list[complex]]:
-    """Splits a cubic Bézier curve defined by control points P0-P3 at t,
-    returning two new cubic Bézier curve segments."""
-    Q0 = P0
-    Q1 = complex((1 - t) * P0.real + t * P1.real, (1 - t) * P0.imag + t * P1.imag)
-    Q2 = complex(
-        (1 - t) ** 2 * P0.real + 2 * (1 - t) * t * P1.real + t**2 * P2.real,
-        (1 - t) ** 2 * P0.imag + 2 * (1 - t) * t * P1.imag + t**2 * P2.imag,
-    )
-    Q3 = complex(
-        (1 - t) ** 3 * P0.real
-        + 3 * (1 - t) ** 2 * t * P1.real
-        + 3 * (1 - t) * t**2 * P2.real
-        + t**3 * P3.real,
-        (1 - t) ** 3 * P0.imag
-        + 3 * (1 - t) ** 2 * t * P1.imag
-        + 3 * (1 - t) * t**2 * P2.imag
-        + t**3 * P3.imag,
-    )
-    return [Q0, Q1, Q2], [Q2, Q3, P3]
-
-
-(
-    (
-        (2 + 2j),
-        (1.0956739766575936 + 3.808652046684813j),
-        (3.053667401045204 + 3.5727902021338993j),
-        (5.100619597768561 + 3.326212294969724j),
-    ),
-    (
-        (5.100619597768561 + 3.326212294969724j),
-        (7.580690054131715 + 3.027460529428433j),
-        (10.191347953315187 + 2.7129780700272192j),
-        (8 + 6j),
-    ),
-)

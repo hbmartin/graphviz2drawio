@@ -6,17 +6,19 @@ EPSILON: float = 1e-03
 
 
 def controlpoints_at(
-    p1: complex, c1: complex, c2: complex, p2: complex, t: float
+    p1: complex, c1: complex, c2: complex, p2: complex, t: float,
 ) -> tuple[complex, complex, complex, complex, complex]:
     """Get the point on this curve at `t` plus control points.
 
     Useful for subdividing the curve at `t`.
 
-    Returns:
+    Returns
+    -------
         A tuple of the form (C0, C1, P, C2, C3) where C1 and C2 are
         the control points tangent to P and C0 and C3 would be the
         new control points of the endpoints where this curve to be
         subdivided at P.
+
     """
     mt = 1 - t
     # First intermediate points
@@ -32,18 +34,20 @@ def controlpoints_at(
 
 
 def subdivide(
-    p1: complex, c1: complex, c2: complex, p2: complex, t: float
-) -> tuple[tuple, tuple]:
+    p1: complex, c1: complex, c2: complex, p2: complex, t: float,
+) -> tuple[tuple, tuple | None]:
     """Subdivide this curve at the point on the curve at `t`.
 
     Split curve into two cubic Bézier curves, where 0<t<1.
     Uses De Casteljaus's algorithm.
 
-    Returns:
+    Returns
+    -------
         A tuple of one or two CubicBezier objects.
+
     """
     if t < 0 or t > 1:
-        raise ValueError(f"t={t}")
+        return (p1, c1, c2, p2), None
     cp0, cp1, p, cp2, cp3 = controlpoints_at(p1, c1, c2, p2, t)
     curve1 = (p1, cp0, cp1, p)
     curve2 = (p, cp2, cp3, p2)
@@ -53,9 +57,11 @@ def subdivide(
 def subdivide_inflections(p1: complex, c1: complex, c2: complex, p2: complex) -> tuple:
     """Subdivide this curve at the inflection points, if any.
 
-    Returns:
+    Returns
+    -------
         A list containing one to three curves depending on whether
         there are no inflections, one inflection, or two inflections.
+
     """
     t1, t2 = roots(p1, c1, c2, p2)
     if t2 < 0:
@@ -97,13 +103,15 @@ def roots(p1: complex, c1: complex, c2: complex, p2: complex) -> tuple[float, fl
     See:
         http://web.archive.org/web/20220129063812/https://www.caffeineowl.com/graphics/2d/vectorial/cubic-inflexion.html
 
-    Returns:
+    Returns
+    -------
         A tuple containing the roots (t1, t2).
         The root values will be 0 < t < 1 or -1 if no root.
         If there is only one root it will always be the
         first value of the tuple.
         The roots will be ordered by ascending value if
         there is more than one.
+
     """
     # Basically the equation to be solved is where the cross product of
     # the first and second derivatives is zero:
@@ -131,7 +139,6 @@ def roots(p1: complex, c1: complex, c2: complex, p2: complex) -> tuple[float, fl
         if not is_zero(b):
             # This would be a straight line so there shouldn't really
             # be an inflection point.
-            # TODO: investigate this.
             return _valid_t(-c / b), -1
         return -1, -1
 
@@ -145,9 +152,6 @@ def roots(p1: complex, c1: complex, c2: complex, p2: complex) -> tuple[float, fl
     # When a curve has a loop the discriminant will be negative
     # so use the absolute value to use the real part of a
     # normally complex number...
-    # I can't remember how this was determined besides
-    # experimentally.
-    # TODO: prove this
     disroot = math.sqrt(abs(dis))
     t1 = _valid_t((-b - disroot) / (2 * a))
     t2 = _valid_t((-b + disroot) / (2 * a))
@@ -164,11 +168,9 @@ def is_zero(value: float) -> bool:
 
 
 def approximate_cubic_bezier_as_quadratic(
-    p0: complex, c1: complex, c2: complex, p2: complex
+    p0: complex, c1: complex, c2: complex, p2: complex,
 ) -> tuple[complex, complex, complex]:
-    """Approximates a cubic Bézier curve (p0-p2) with a quadratic Bézier curve (Q0-Q2)
-    using tangent intersection."""
-
+    """Approximates a cubic Bézier as a quadratic using tangent intersection."""
     # Calculate tangent vectors at start and end points
     tan_start = 3.0 * (c1 - p0)
     tan_end = 3.0 * (p2 - c2)

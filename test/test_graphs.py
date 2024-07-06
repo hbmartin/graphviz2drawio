@@ -92,7 +92,8 @@ def test_polylines() -> None:
 
     root = ElementTree.fromstring(xml)
     check_xml_top(root)
-    assert False
+    assert "curved" not in xml
+    assert "rounded=0" in xml
 
 
 def test_polylines_curved() -> None:
@@ -101,7 +102,9 @@ def test_polylines_curved() -> None:
 
     root = ElementTree.fromstring(xml)
     check_xml_top(root)
-    # assert False
+
+    assert "rounded" not in xml
+    assert "curved=1" in xml
 
 
 def test_cluster() -> None:
