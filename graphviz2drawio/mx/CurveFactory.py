@@ -1,36 +1,58 @@
-from svg.path import CubicBezier, Move, Path, parse_path
+import cmath
 
+from svg.path import CubicBezier, Path, QuadraticBezier, parse_path
+
+from ..models.CoordsTranslate import CoordsTranslate
+from .bezier import approximate_cubic_bezier_as_quadratic, subdivide_inflections
 from .Curve import Curve
+
+CLOSE_POINT_TOLERANCE = 0.1
 
 
 class CurveFactory:
-    def __init__(self, coords) -> None:
+    def __init__(self, coords: CoordsTranslate) -> None:
         super().__init__()
         self.coords = coords
 
     def from_svg(self, svg_path: str) -> Curve:
-        path: Path | list = parse_path(svg_path)
+        path: Path = parse_path(svg_path)
+        points: list[complex] = []
+        is_bezier = not all(map(Curve.is_linear, filter(_is_cubic, path)))
+
+        for segment in path:
+            if isinstance(segment, QuadraticBezier):
+                points.append(self.coords.complex_translate(segment.control))
+            elif isinstance(segment, CubicBezier):
+                if Curve.is_linear(segment):
+                    points.append(self.coords.complex_translate(segment.start))
+                else:
+                    split_cubes = subdivide_inflections(
+                        segment.start,
+                        segment.control1,
+                        segment.control2,
+                        segment.end,
+                    )
+                    split_controls = [
+                        self.coords.complex_translate(
+                            approximate_cubic_bezier_as_quadratic(*cube)[1],
+                        )
+                        for cube in split_cubes
+                        if cube
+                    ]
+                    points.extend(split_controls)
+
         start = self.coords.complex_translate(path[0].start)
         end = self.coords.complex_translate(path[-1].end)
-        cb = None
-        cbset = []
-        if isinstance(path[0], Move):
-            path = [path[i] for i in range(1, len(path))]
-        if isinstance(path[0], CubicBezier):
-            # TODO: needs to account for multiple bezier in path
-            points = [path[0].start, path[0].control1, path[0].control2, path[0].end]
-            if not Curve.is_linear(points):
-                cb = [self.coords.complex_translate(p) for p in points]
 
-            if len(path) > 1:  # set of curves/points
-                for p in path:
-                    cbset.append(
-                        (
-                            self.coords.translate(
-                                p.start.real,
-                                p.start.imag,
-                            ),
-                            self.coords.translate(p.end.real, p.end.imag),
-                        ),
-                    )
-        return Curve(start=start, end=end, cb=cb, cbset=cbset)
+        if len(points) > 0 and cmath.isclose(
+            start,
+            points[0],
+            rel_tol=CLOSE_POINT_TOLERANCE,
+        ):
+            points = points[1:]
+
+        return Curve(start=start, end=end, is_bezier=is_bezier, points=points)
+
+
+def _is_cubic(p):
+    return isinstance(p, CubicBezier)

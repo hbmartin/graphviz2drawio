@@ -87,6 +87,7 @@ python -m graphviz2drawio test/directed/hello.gv.txt
 - [ ] Text on edge alignment #59 
 - [ ] Text alignment inside of shape
 - [ ] Support for node with `path` shape #47
+- [ ] Ensure undirected graphs are not drawn with arrows
 - [ ] Run ruff in CI
 - [ ] Publish api docs to GH pages
 - [ ] Restore codecov to test GHA

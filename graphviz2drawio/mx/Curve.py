@@ -1,61 +1,77 @@
-from graphviz2drawio.models.Errors import InvalidCbError
+import math
+from collections.abc import Callable
 
-from . import LinearRegression
+from svg.path import CubicBezier
 
-linear_min_r2 = 0.9
+LINE_TOLERANCE = 0.01
 
 
 class Curve:
-    def __init__(self, start, end, cb, cbset=None) -> None:
+    """A complex number representation of a curve.
+
+    A curve may either be a straight line or a cubic Bézier as specified by is_bezier.
+    If the curve is linear then the points list be the polyline anchors.
+    If the curve is a cubic Bézier then the points list will be the control points.
+    """
+
+    def __init__(
+        self,
+        start: complex,
+        end: complex,
+        *,
+        is_bezier: bool,
+        points: list[complex],
+    ) -> None:
         """Complex numbers for start, end, and list of 4 Bezier control points."""
-        if cbset is None:
-            cbset = []
-        self.start = start
-        self.end = end
-        if cb is not None and len(cb) != 4:  # noqa: PLR2004
-            raise InvalidCbError
-        self.cb = cb
-        self.cbset = cbset
+        self.start: complex = start
+        self.end: complex = end
+        self.is_bezier: bool = is_bezier
+        self.points: list[complex] = points
 
     def __str__(self) -> str:
-        control = "[" + (str(self.cb) if self.cb is not None else "None") + "]"
-        return f"{self.start} , {control}, {self.end}"
+        return f"{self.start} -> {self.end} {self.is_bezier} ({self.points})"
 
     @staticmethod
-    def is_linear(points: list, threshold: float = linear_min_r2) -> bool:
-        """Determine the linearity of complex points for a given threshold.
+    def is_linear(cb: CubicBezier) -> bool:
+        """Determine if the cubic Bézier is a straight line."""
+        if cb.start == cb.end:
+            return False
 
-        Takes a list of complex points and optional minimum R**2 threshold.
-        Threshold defaults to 0.9.
-        """
-        r2 = LinearRegression.coefficients(points)[2]
-        return r2 > threshold
+        y = _line(cb.start, cb.end)
 
-    def cubic_bezier_coordinates(self, t: float) -> complex:
-        """Calculate a complex number representing a point along the cubic Bézier curve.
+        if y is None:
+            return Curve.is_linear(_rotate_bezier(cb))
 
-        Takes parametric parameter t where 0 <= t <= 1
-        """
-        x = Curve._cubic_bezier(self._cb("real"), t)
-        y = Curve._cubic_bezier(self._cb("imag"), t)
-        return complex(x, y)
-
-    def _cb(self, prop):
-        return [getattr(x, prop) for x in self.cb]
-
-    @staticmethod
-    def _cubic_bezier(p: list, t: float):
-        """Calculate the point along the cubic Bézier.
-
-        `p` is an ordered list of 4 control points [P0, P1, P2, P3]
-        `t` is a parametric parameter where 0 <= t <= 1
-
-        implements https://en.wikipedia.org/wiki/B%C3%A9zier_curve#Cubic_B%C3%A9zier_curves
-        B(t) = (1-t)³P₀ + 3(1-t)²tP₁ + 3(1-t)t²P₂ + t³P₃ where 0 ≤ t ≤1
-        """
-        return (
-            (((1.0 - t) ** 3) * p[0])
-            + (3.0 * t * ((1.0 - t) ** 2) * p[1])
-            + (3.0 * (t**2) * (1.0 - t) * p[2])
-            + ((t**3) * p[3])
+        return math.isclose(
+            y(cb.control1.real),
+            cb.control1.imag,
+            rel_tol=LINE_TOLERANCE,
+        ) and math.isclose(
+            y(cb.control2.real),
+            cb.control2.imag,
+            rel_tol=LINE_TOLERANCE,
         )
+
+
+def _line(start: complex, end: complex) -> Callable[[float], float] | None:
+    """Calculate the slope and y-intercept of a line."""
+    denom = end.real - start.real
+    if denom == 0:
+        return None
+    m = (end.imag - start.imag) / denom
+    b = start.imag - (m * start.real)
+
+    def y(x: float) -> float:
+        return (m * x) + b
+
+    return y
+
+
+def _rotate_bezier(cb):
+    """Reverse imaginary and real parts for all components."""
+    return CubicBezier(
+        complex(cb.start.imag, cb.start.real),
+        complex(cb.control1.imag, cb.control1.real),
+        complex(cb.control2.imag, cb.control2.real),
+        complex(cb.end.imag, cb.end.real),
+    )

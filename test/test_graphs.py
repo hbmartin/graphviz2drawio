@@ -59,7 +59,6 @@ def test_hello() -> None:
     check_value(world, "World")
     edge = elements[4]
     check_edge(edge, hello, world)
-    check_edge_dir(edge, dx=0, dy=1)
 
 
 def test_hello_rect() -> None:
@@ -92,6 +91,18 @@ def test_polylines() -> None:
 
     root = ElementTree.fromstring(xml)
     check_xml_top(root)
+    assert "curved" not in xml
+    assert "rounded=0" in xml
+
+
+def test_polylines_curved() -> None:
+    file = "test/undirected/polylines_curved.gv.txt"
+    xml = graphviz2drawio.convert(file)
+
+    root = ElementTree.fromstring(xml)
+    check_xml_top(root)
+
+    assert "curved=1" in xml
 
 
 def test_cluster() -> None:
