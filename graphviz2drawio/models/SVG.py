@@ -12,7 +12,7 @@ def get_first(g: Element, tag: str) -> Element | None:
 
 
 def get_title(g: Element) -> str:
-    return get_first(g, "title").text
+    return get_first(g, "title").text  # pytype: disable=attribute-error
 
 
 def get_text(g: Element) -> str | None:
