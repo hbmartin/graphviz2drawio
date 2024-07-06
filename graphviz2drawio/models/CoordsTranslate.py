@@ -10,6 +10,6 @@ class CoordsTranslate:
         return float(x) + self.x, float(y) + self.y
 
     @staticmethod
-    def from_svg_transform(transform):
+    def from_svg_transform(transform: str) -> "CoordsTranslate":
         x, y = transform.split("translate(")[1].split(")")[0].split(" ")
         return CoordsTranslate(x=float(x), y=float(y))

@@ -84,10 +84,9 @@ python -m graphviz2drawio test/directed/hello.gv.txt
 - [x] Improved Bezier curve support [done](https://github.com/hbmartin/graphviz2drawio/pull/81)
 - [ ] Subgraph conversion #33
 - [ ] Invisible node handling for edges #67
-- [ ] Image / tooltip support #49
+- [ ] Image / tooltip support [#45](https://github.com/hbmartin/graphviz2drawio/issues/45)
 - [ ] Text on edge alignment #59 
 - [ ] Support for node with `path` shape #47
-- [x] Run ruff in CI
 
 ## Roadmap to 0.5
 - [ ] Migrate to uv/hatch for packaging and dep mgmt
