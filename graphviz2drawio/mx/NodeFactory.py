@@ -1,3 +1,5 @@
+from xml.etree.ElementTree import tostring
+
 from graphviz2drawio.models import SVG
 from graphviz2drawio.models.Rect import Rect
 
@@ -33,10 +35,11 @@ class NodeFactory:
 
     @staticmethod
     def rect_from_image(attrib):
-        filtered = dict()
-        for k, v in attrib.items():
-            if k in ["x", "y", "width", "height"]:
-                filtered[k] = float(v.strip("px"))
+        filtered = {
+            k: float(v.strip("px"))
+            for k, v in attrib.items()
+            if k in ["x", "y", "width", "height"]
+        }
         return Rect(**filtered)
 
     def rect_from_ellipse_svg(self, attrib):
@@ -50,30 +53,27 @@ class NodeFactory:
     def from_svg(self, g) -> Node:
         texts = self._extract_texts(g)
 
-        if SVG.has(g, "polygon"):
-            rect = self.rect_from_svg_points(
-                SVG.get_first(g, "polygon").attrib["points"],
-            )
+        if (polygon := SVG.get_first(g, "polygon")) is not None:
+            rect = self.rect_from_svg_points(polygon.attrib["points"])
             shape = Shape.RECT
-        elif SVG.has(g, "image"):
-            rect = self.rect_from_image(SVG.get_first(g, "image").attrib)
+        elif (image := SVG.get_first(g, "image")) is not None:
+            rect = self.rect_from_image(image.attrib)
+            shape = Shape.RECT
         else:
             rect = self.rect_from_ellipse_svg(SVG.get_first(g, "ellipse").attrib)
             shape = Shape.ELLIPSE
 
         stroke = None
-        if SVG.has(g, "polygon"):
-            polygon = SVG.get_first(g, "polygon")
+        if (polygon := SVG.get_first(g, "polygon")) is not None:
             if "stroke" in polygon.attrib:
                 stroke = polygon.attrib["stroke"]
 
         fill = g.attrib.get("fill", None)
-        try:
-            ellipse = SVG.get_first(g, "ellipse")
-            if ellipse_fill := ellipse.attrib.get("fill"):
+
+        # should apply to all geometries
+        if (ellipse := SVG.get_first(g, "ellipse")) is not None:
+            if (ellipse_fill := ellipse.attrib.get("fill")) is not None:
                 fill = ellipse_fill
-        except IndexError:
-            pass
 
         return Node(
             sid=g.attrib["id"],

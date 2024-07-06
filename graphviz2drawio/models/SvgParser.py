@@ -30,7 +30,7 @@ def parse_nodes_edges_clusters(
                 nodes[title] = node_factory.from_svg(g)
             elif g.attrib["class"] == "edge":
                 edge = edge_factory.from_svg(g)
-                if existing_edge := edges.get(edge.key_for_label):
+                if (existing_edge := edges.get(edge.key_for_label)) is not None:
                     existing_edge.label += f"<div>{edge.label}</div>"
                 else:
                     edges[edge.key_for_label] = edge
