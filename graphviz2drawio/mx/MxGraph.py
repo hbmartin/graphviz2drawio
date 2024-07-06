@@ -90,11 +90,9 @@ class MxGraph:
 
         attributes = {"fill": fill, "stroke": stroke}
         if style_for_shape == Styles.IMAGE:
-            import base64
+            from graphviz2drawio.mx.image import image_data_for_path
 
-            with open(node.image, "rb") as image_file:
-                encoded_string = base64.b64encode(image_file.read()).decode("utf-8")
-            attributes["image"] = f"data:image/png,{encoded_string}"
+            attributes["image"] = image_data_for_path(node.image)
 
         style: str = style_for_shape.format(**attributes)
 
