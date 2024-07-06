@@ -3,7 +3,13 @@ from graphviz2drawio.models.CoordsTranslate import CoordsTranslate
 
 
 def rect_from_svg_points(coords: CoordsTranslate, svg: str) -> Rect:
-    points: list[tuple[float, float]] = [coords.translate(*p.split(",")) for p in svg.split(" ")]
+    """Don't use this function.
+
+    It will be replaced by accurately returning the shape of the SVG.
+    """
+    points: list[tuple[float, float]] = [
+        coords.translate(*p.split(",")) for p in svg.split(" ")
+    ]
     min_x, min_y = points[0]
     width = 0.0
     height = 0.0

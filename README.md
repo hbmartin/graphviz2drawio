@@ -9,7 +9,7 @@
 [![twitter](https://img.shields.io/badge/@hmartin-00aced.svg?logo=twitter&logoColor=black)](https://twitter.com/hmartin)
 
 
-Convert graphviz (dot) files into draw.io (mxGraph) format.
+Convert graphviz (dot) files into draw.io / lucid (mxGraph) format.
 
 ## Prerequisites
 
@@ -47,7 +47,7 @@ Run the conversion app on your graphviz file
 ```bash
 graphviz2drawio example.dot
 ```
-You can then import the output XML file into draw.io
+You can then import the output XML file into draw.io or lucidchart.
 
 ## Library Usage
 ```python
@@ -90,6 +90,7 @@ python -m graphviz2drawio test/directed/hello.gv.txt
 
 ## Roadmap to 0.5
 - [ ] Migrate to uv/hatch for packaging and dep mgmt
+- [ ] Turn on master branch protection
 - [ ] Text alignment inside of shape
 - [ ] Improved support for stroke / background colors
 - [ ] Ensure undirected graphs are not drawn with arrows

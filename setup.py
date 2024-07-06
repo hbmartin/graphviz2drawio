@@ -12,7 +12,7 @@ with open(path.join(here, "graphviz2drawio", "version.py")) as fp:
 setup(
     name="graphviz2drawio",
     version=__version__,  # noqa: F821
-    description="Convert graphviz (dot) files into draw.io (mxGraph) format",
+    description="Convert graphviz (dot) files into draw.io / lucid (mxGraph) format",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/hbmartin/graphviz2drawio/",

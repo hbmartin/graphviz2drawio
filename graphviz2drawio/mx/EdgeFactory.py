@@ -1,8 +1,8 @@
 from graphviz2drawio.models import SVG
 
+from ..models.Errors import MissingTitleError
 from .CurveFactory import CurveFactory
 from .Edge import Edge
-from ..models.Errors import MissingTitleError
 
 
 class EdgeFactory:
