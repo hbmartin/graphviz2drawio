@@ -88,15 +88,16 @@ python -m graphviz2drawio test/directed/hello.gv.txt
 - [ ] Text on edge alignment #59 
 - [ ] Support for node with `path` shape #47
 - [x] Run ruff in CI
-- [ ] Publish api docs to GH pages
 
-## Roadmap to 1.0
+## Roadmap to 0.5
+- [ ] Migrate to uv/hatch for packaging and dep mgmt
 - [ ] Text alignment inside of shape
 - [ ] Improved support for stroke / background colors
 - [ ] Ensure undirected graphs are not drawn with arrows
-- [ ] Complete test suite for all graphviz examples
-- [ ] Migrate to uv/hatch for packaging and dep mgmt
 - [ ] Port layout/orientation
+
+## Future Improvements
+- [ ] Complete test suite for all graphviz examples
 - [ ] Restore codecov to test GHA
 - [ ] Possible to screenshot test with [maxGraph](https://github.com/maxGraph/maxGraph?tab=readme-ov-file) ?
 

@@ -67,7 +67,7 @@ class NodeFactory:
             rect = self.rect_from_image(image.attrib)
             shape = Shape.RECT
         elif (ellipse := SVG.get_first(g, "ellipse")) is not None:
-            rect = self.rect_from_ellipse_svg(SVG.get_first(g, "ellipse").attrib)
+            rect = self.rect_from_ellipse_svg(ellipse.attrib)
             shape = Shape.ELLIPSE
             if "fill" in ellipse.attrib:
                 fill = ellipse.attrib["fill"]
