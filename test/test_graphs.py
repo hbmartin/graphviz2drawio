@@ -159,6 +159,7 @@ def test_compound() -> None:
     assert elements[2].attrib["id"] == "clust1"
     assert elements[3].attrib["id"] == "clust2"
 
+
 # NOTE: this test cannot be run in prod because of image paths
 # def test_aws_diagram_with_images() -> None:
 #     file = "test/directed/grouped_workers.dot"
