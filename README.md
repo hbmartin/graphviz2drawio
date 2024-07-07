@@ -92,13 +92,8 @@ python -m graphviz2drawio test/directed/hello.gv.txt
 - [ ] Migrate to uv/hatch for packaging and dep mgmt
 - [ ] Turn on master branch protection
 - [ ] Text alignment inside of shape
-- [ ] Improved support for stroke / background colors
 - [ ] Port layout/orientation
-
-## Future Improvements
-- [ ] Complete test suite for all graphviz examples
-- [ ] Restore codecov to test GHA
-- [ ] Possible to screenshot test with [maxGraph](https://github.com/maxGraph/maxGraph?tab=readme-ov-file) ?
+- [ ] Support for fill gradient
 
 ## License
 
