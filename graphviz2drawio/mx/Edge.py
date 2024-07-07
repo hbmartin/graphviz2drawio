@@ -2,6 +2,7 @@ from graphviz2drawio.models import DotAttr
 
 from .Curve import Curve
 from .GraphObj import GraphObj
+from .Text import Text
 
 
 class Edge(GraphObj):
@@ -13,7 +14,7 @@ class Edge(GraphObj):
         fr: str,
         to: str,
         curve: Curve | None,
-        labels: str,
+        labels: list[Text],
     ) -> None:
         super().__init__(sid=sid, gid=f"{fr}->{to}")
         self.fr = fr
@@ -30,14 +31,14 @@ class Edge(GraphObj):
         return self.curve.start, self.curve.end
 
     def text_to_mx_value(self):
-       value = ""
-       last_text = len(self.labels) - 1
-       for i, t in enumerate(self.labels):
-           style = t.get_mx_style()
-           value += "<p style='" + style + "'>" + t.text + "</p>"
-           if i != last_text:
-               value += "<hr size='1'/>"
-       return value
+        value = ""
+        last_text = len(self.labels) - 1
+        for i, t in enumerate(self.labels):
+            style = t.get_mx_style()
+            value += "<p style='" + style + "'>" + t.text + "</p>"
+            if i != last_text:
+                value += "<hr size='1'/>"
+        return value
 
     @property
     def key_for_label(self) -> str:
@@ -48,4 +49,3 @@ class Edge(GraphObj):
             f"{self.fr}->{self.to}: "
             f"{self.labels}, {self.line_style}, {self.dir}, {self.arrowtail}"
         )
-

@@ -2,8 +2,13 @@
 # See also https://pomax.github.io/bezierinfo/
 
 import math
+from typing import TypeAlias
+
+from graphviz2drawio.models.Errors import InvalidBezierParameterError
 
 EPSILON: float = 1e-03
+Cubic: TypeAlias = tuple[complex, complex, complex, complex]
+Quadratic: TypeAlias = tuple[complex, complex, complex]
 
 
 def controlpoints_at(
@@ -44,7 +49,7 @@ def subdivide(
     c2: complex,
     p2: complex,
     t: float,
-) -> tuple[tuple, tuple | None]:
+) -> tuple[Cubic, Cubic]:
     """Subdivide this curve at the point on the curve at `t`.
 
     Split curve into two cubic Bézier curves, where 0<t<1.
@@ -56,7 +61,7 @@ def subdivide(
 
     """
     if t < 0 or t > 1:
-        return (p1, c1, c2, p2), None
+        raise InvalidBezierParameterError(t)
     cp0, cp1, p, cp2, cp3 = controlpoints_at(p1, c1, c2, p2, t)
     curve1 = (p1, cp0, cp1, p)
     curve2 = (p, cp2, cp3, p2)
@@ -179,7 +184,7 @@ def approximate_cubic_bezier_as_quadratic(
     c1: complex,
     c2: complex,
     p2: complex,
-) -> tuple[complex, complex, complex]:
+) -> Quadratic:
     """Approximates a cubic Bézier as a quadratic using tangent intersection."""
     # Calculate tangent vectors at start and end points
     tan_start = 3.0 * (c1 - p0)
