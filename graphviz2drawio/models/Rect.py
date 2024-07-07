@@ -1,5 +1,12 @@
 class Rect:
-    def __init__(self, x: float, y: float, width: float, height: float, image: str | None = None) -> None:
+    def __init__(
+        self,
+        x: float,
+        y: float,
+        width: float,
+        height: float,
+        image: str | None = None,
+    ) -> None:
         # x,y is the top left corner
         self.x = x
         self.y = y
