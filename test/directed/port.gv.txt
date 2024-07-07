@@ -1,0 +1,6 @@
+digraph graph_name {
+  a1 a2;
+  b1;
+  a1 -> b1[headport=w; tailport=e];
+  a1 -> b2
+}

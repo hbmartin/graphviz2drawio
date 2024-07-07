@@ -1,0 +1,38 @@
+name: Lint and Test
+on: push
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup Graphviz
+      uses: ts-graphviz/setup-graphviz@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      id: cpython3
+      with:
+        python-version: ${{ matrix.python-version }}
+        cache: pip
+        cache-dependency-path: requirements.txt
+    - run: pip install -r requirements.txt
+    - run: pip install black ruff pytype pytest
+    - run: ruff check .
+    - name: Run pytype if not on 3.12
+      run: |
+        if [[ '${{ steps.cpython3.outputs.python-version }}' == *"3.12"* ]]; then
+          echo "pytype does not support 3.12: https://github.com/google/pytype/issues/1475"
+        else
+          pytype -j auto graphviz2drawio
+        fi
+    - uses: psf/black@stable
+      with:
+        options: "--check --verbose"
+    - run: pytest
+    - name: Run main script
+      run: |
+        python3 -m graphviz2drawio test/directed/hello.gv.txt
+        test -f test/directed/hello.gv.xml

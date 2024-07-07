@@ -1,7 +1,8 @@
-from graphviz2drawio import graphviz2drawio
-import xml.etree.ElementTree as ET
-import re
 import html
+import re
+from xml.etree import ElementTree
+
+from graphviz2drawio import graphviz2drawio
 
 num_cells_offset = 2
 
@@ -14,23 +15,23 @@ def check_xml_top(root):
     return graph.findall("./root/*")
 
 
-def check_style(e, check):
+def check_style(e, check) -> None:
     assert check in e.attrib["style"]
 
 
-def check_value(e, check):
+def check_value(e, check) -> None:
     value = e.attrib["value"]
-    match = re.match(r"<p.*>%s</p>" % check, html.unescape(value))
-    assert match, "no match found for %s" % value
+    match = re.match(f"<p.*>{check}</p>", html.unescape(value))
+    assert match, f"no match found for {value}"
 
 
-def check_edge(e, source, target):
-    assert e.attrib.get("edge")
-    assert e.attrib["source"] == source.attrib["id"]
-    assert e.attrib["target"] == target.attrib["id"]
+def check_edge(edge, source, target) -> None:
+    assert edge.attrib.get("edge")
+    assert edge.attrib["source"] == source.attrib["id"]
+    assert edge.attrib["target"] == target.attrib["id"]
 
 
-def check_edge_dir(e, dx, dy):
+def check_edge_dir(e, dx, dy) -> None:
     style = [e.split("=") for e in e.attrib["style"].split(";")][:-1]
     style = {e[0]: e[1] for e in style if e}
     x2 = float(style["exitX"])
@@ -42,33 +43,141 @@ def check_edge_dir(e, dx, dy):
     assert (y2 - y1) == dy
 
 
-def test_hello():
-    file = "./directed/hello.gv.txt"
+def test_hello() -> None:
+    file = "test/directed/hello.gv.txt"
     xml = graphviz2drawio.convert(file)
-    print(xml)
 
-    root = ET.fromstring(xml)
+    root = ElementTree.fromstring(xml)
     elements = check_xml_top(root)
 
-    hello = elements[3]
+    hello = elements[2]
     check_style(hello, "ellipse")
     check_value(hello, "Hello")
 
-    world = elements[4]
+    world = elements[3]
     check_style(world, "ellipse")
     check_value(world, "World")
-    edge = elements[2]
+    edge = elements[4]
     check_edge(edge, hello, world)
-    check_edge_dir(edge, dx=0, dy=1)
 
 
-def test_polylines():
-    file = "./undirected/polylines.gv.txt"
+def test_hello_rect() -> None:
+    file = "test/directed/hello_rect.gv.txt"
     xml = graphviz2drawio.convert(file)
-    print(xml)
 
-    root = ET.fromstring(xml)
+    root = ElementTree.fromstring(xml)
+    elements = check_xml_top(root)
+
+    hello = elements[2]
+    check_value(hello, "Hello")
+    assert "ellipse" not in hello.attrib["style"]
+
+    world = elements[3]
+    check_value(world, "World")
+    assert "ellipse" not in world.attrib["style"]
+
+
+def test_port() -> None:
+    file = "test/directed/port.gv.txt"
+    xml = graphviz2drawio.convert(file)
+    root = ElementTree.fromstring(xml)
+    elements = check_xml_top(root)
+    check_edge(elements[6], elements[2], elements[3])
+
+
+def test_polylines() -> None:
+    file = "test/undirected/polylines.gv.txt"
+    xml = graphviz2drawio.convert(file)
+
+    root = ElementTree.fromstring(xml)
     check_xml_top(root)
+    assert "curved" not in xml
+    assert "rounded=0" in xml
+
+
+def test_polylines_curved() -> None:
+    file = "test/undirected/polylines_curved.gv.txt"
+    xml = graphviz2drawio.convert(file)
+
+    root = ElementTree.fromstring(xml)
+    check_xml_top(root)
+
+    assert "curved=1" in xml
+
+
+def test_cluster() -> None:
+    file = "test/directed/cluster.gv.txt"
+    xml = graphviz2drawio.convert(file)
+
+    root = ElementTree.fromstring(xml)
+
+    elements = check_xml_top(root)
+    contains_cluster = False
+    for el in elements:
+        if "process" in el.attrib.get("value", ""):
+            contains_cluster = True
+    assert contains_cluster
+
+
+def test_convnet() -> None:
+    file = "test/directed/convnet.gv.txt"
+    xml = graphviz2drawio.convert(file)
+
+    root = ElementTree.fromstring(xml)
+    elements = check_xml_top(root)
+
+    assert elements[-1].attrib["value"] == "$$l_t$$"
+
+
+def test_multilabel() -> None:
+    file = "test/directed/multilabel.gv.txt"
+    xml = graphviz2drawio.convert(file)
+
+    root = ElementTree.fromstring(xml)
+    elements = check_xml_top(root)
+
+    assert elements[-1].attrib["value"] == "c<div>b</div><div>a</div>"
+
+
+def test_datastruct() -> None:
+    file = "test/directed/datastruct.gv.txt"
+    xml = graphviz2drawio.convert(file)
+
+    root = ElementTree.fromstring(xml)
+    elements = check_xml_top(root)
+
+    assert elements[-1].attrib["source"] == "node12"
+    assert elements[-1].attrib["target"] == "node2"
+
+
+def test_compound() -> None:
+    file = "test/directed/compound.gv.txt"
+    xml = graphviz2drawio.convert(file)
+
+    root = ElementTree.fromstring(xml)
+    elements = check_xml_top(root)
+    assert elements[2].attrib["id"] == "clust1"
+    assert elements[3].attrib["id"] == "clust2"
+
+
+# NOTE: this test cannot be run in prod because of image paths
+# def test_aws_diagram_with_images() -> None:
+#     file = "test/directed/grouped_workers.dot"
+#     xml = graphviz2drawio.convert(file)
+#
+#     assert "image/png" in xml
+#     assert "kMjhN+uQd8AAAAABJRU5ErkJggg==" in xml
+#     assert "kuBy44fGjYObFajs5kypw6aMN3ONBgZZptQa7gXSDlmx6w9DKXOaGqwgt9" in xml
+#     assert "BG6tKW3quVQZWmu2GFloMWD44DhO04vFB8MDdx7FBdl1b9Px2uO" in xml
+
+
+# def test_subgraph():
+#     file = "test/directed/subgraph.gv.txt"
+#     xml = graphviz2drawio.convert(file)
+#     print(xml)
+#
+#     root = ElementTree.fromstring(xml)
+#     elements = check_xml_top(root
 
 
 # def test_runAll():

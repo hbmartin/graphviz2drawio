@@ -1,31 +1,43 @@
 from collections import OrderedDict
 from xml.etree import ElementTree
+
+from graphviz2drawio.mx.Edge import Edge
 from graphviz2drawio.mx.EdgeFactory import EdgeFactory
+from graphviz2drawio.mx.Node import Node
 from graphviz2drawio.mx.NodeFactory import NodeFactory
+
 from . import SVG
 from .CoordsTranslate import CoordsTranslate
+from .Errors import MissingTitleError
 
 
-class SvgParser:
-    def __init__(self, svg_data):
-        self.svg_data = svg_data
+def parse_nodes_edges_clusters(
+    svg_data: bytes,
+) -> tuple[OrderedDict[str, Node], list[Edge], OrderedDict[str, Node]]:
+    root = ElementTree.fromstring(svg_data)[0]
 
-    def get_nodes_and_edges(self):
-        root = ElementTree.fromstring(self.svg_data)[0]
+    coords = CoordsTranslate.from_svg_transform(root.attrib["transform"])
+    node_factory = NodeFactory(coords)
+    edge_factory = EdgeFactory(coords)
 
-        coords = CoordsTranslate.from_svg_transform(root.attrib["transform"])
-        node_factory = NodeFactory(coords)
-        edge_factory = EdgeFactory(coords)
+    nodes: OrderedDict[str, Node] = OrderedDict()
+    edges: OrderedDict[str, Edge] = OrderedDict()
+    clusters: OrderedDict[str, Node] = OrderedDict()
 
-        nodes = OrderedDict()
-        edges = []
+    for g in root:
+        if SVG.is_tag(g, "g"):
+            title = SVG.get_title(g)
+            if title is None:
+                raise MissingTitleError(g)
+            if g.attrib["class"] == "node":
+                nodes[title] = node_factory.from_svg(g)
+            elif g.attrib["class"] == "edge":
+                edge = edge_factory.from_svg(g)
+                if (existing_edge := edges.get(edge.key_for_label)) is not None:
+                    existing_edge.label += f"<div>{edge.label}</div>"
+                else:
+                    edges[edge.key_for_label] = edge
+            elif g.attrib["class"] == "cluster":
+                clusters[title] = node_factory.from_svg(g)
 
-        for g in root:
-            if SVG.is_tag(g, "g"):
-                title = SVG.get_title(g)
-                if g.attrib["class"] == "node":
-                    nodes[title] = node_factory.from_svg(g)
-                elif g.attrib["class"] == "edge":
-                    edges.append(edge_factory.from_svg(g))
-
-        return nodes, edges
+    return nodes, list(edges.values()), clusters

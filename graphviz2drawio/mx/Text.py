@@ -1,10 +1,11 @@
 from graphviz2drawio.models import DotAttr
 from graphviz2drawio.mx import MxConst
+
 from .Styles import Styles
 
 
 class Text:
-    def __init__(self, anchor, family, size, text, color):
+    def __init__(self, anchor, family, size, text, color) -> None:
         self.anchor = anchor
         self.family = family
         self.size = size
@@ -13,9 +14,8 @@ class Text:
 
     def get_mx_style(self):
         align = MxConst.CENTER if self.anchor == DotAttr.MIDDLE else MxConst.START
-        # TODO: add right
         margin = (
-            "margin-top:4px;" if self.anchor == DotAttr.MIDDLE else "margin-left:4px;"
+            "margin-top:4px" if self.anchor == DotAttr.MIDDLE else "margin-left:4px"
         )
         rescaled_size = 10.0 * (self.size / 14.0)
         return Styles.TEXT.format(

@@ -1,0 +1,25 @@
+digraph Layer1 {
+	graph [fontcolor="#2D3436" fontname="Sans-Serif" fontsize=15 label=Layer1 nodesep=0.60 pad=2.0 rankdir=LR ranksep=0.75 splines=ortho]
+	node [fixedsize=true fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13 height=1.4 imagescale=true labelloc=b shape=box style=rounded width=1.4]
+	edge [color="#7B8894"]
+	c1f7153c9e32421d836368051a837462 [label=dns height=1.9 image="/home/anna/PycharmProjects/diagram/venv/lib/python3.7/site-packages/resources/aws/network/route-53.png" shape=none]
+	"4adc5fcb62f74cfc91e0361a9d9df8e2" [label=lb height=1.9 image="/home/anna/PycharmProjects/diagram/venv/lib/python3.7/site-packages/resources/aws/network/elastic-load-balancing.png" shape=none]
+	a275ead10c404ea899628a2b9e96718d [label=memcached height=1.9 image="/home/anna/PycharmProjects/diagram/venv/lib/python3.7/site-packages/resources/aws/database/elasticache.png" shape=none]
+	"4298ae03bc26401ca91f226395f3c0ca" [label=userdb height=1.9 image="/home/anna/PycharmProjects/diagram/venv/lib/python3.7/site-packages/resources/aws/database/rds.png" shape=none]
+	subgraph cluster_Services {
+		graph [bgcolor="#E5F5FD" fontname="Sans-Serif" fontsize=12 label=Services labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+		f54e1bfa37524a19b5a15a2af2423647 [label=web1 height=1.9 image="/home/anna/PycharmProjects/diagram/venv/lib/python3.7/site-packages/resources/aws/compute/elastic-container-service.png" shape=none]
+		"82b031cab3a2430a99d322923fd72bb1" [label=web2 height=1.9 image="/home/anna/PycharmProjects/diagram/venv/lib/python3.7/site-packages/resources/aws/compute/elastic-container-service.png" shape=none]
+		"5fe8e3fd159b4072b59496ead0c7dc39" [label=web3 height=1.9 image="/home/anna/PycharmProjects/diagram/venv/lib/python3.7/site-packages/resources/aws/compute/elastic-container-service.png" shape=none]
+	}
+	c1f7153c9e32421d836368051a837462 -> "4adc5fcb62f74cfc91e0361a9d9df8e2" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"4adc5fcb62f74cfc91e0361a9d9df8e2" -> f54e1bfa37524a19b5a15a2af2423647 [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"4adc5fcb62f74cfc91e0361a9d9df8e2" -> "82b031cab3a2430a99d322923fd72bb1" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"4adc5fcb62f74cfc91e0361a9d9df8e2" -> "5fe8e3fd159b4072b59496ead0c7dc39" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	f54e1bfa37524a19b5a15a2af2423647 -> "4298ae03bc26401ca91f226395f3c0ca" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"82b031cab3a2430a99d322923fd72bb1" -> "4298ae03bc26401ca91f226395f3c0ca" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"5fe8e3fd159b4072b59496ead0c7dc39" -> "4298ae03bc26401ca91f226395f3c0ca" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	f54e1bfa37524a19b5a15a2af2423647 -> a275ead10c404ea899628a2b9e96718d [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"82b031cab3a2430a99d322923fd72bb1" -> a275ead10c404ea899628a2b9e96718d [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"5fe8e3fd159b4072b59496ead0c7dc39" -> a275ead10c404ea899628a2b9e96718d [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+}

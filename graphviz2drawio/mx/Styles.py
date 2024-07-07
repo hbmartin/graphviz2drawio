@@ -1,10 +1,16 @@
 from enum import Enum
+
 from . import Shape
 
 
+# Make this subclass StrEnum when dropping Py 3.10 support
 class Styles(Enum):
     NODE = "verticalAlign=top;align=left;overflow=fill;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeColor={stroke};strokeWidth=1;fillColor={fill};"
-    EDGE = "rounded=1;html=1;exitX={exit_x:.3g};exitY={exit_y:.3g};entryX={entry_x:.3g};entryY={entry_y:.3g};jettySize=auto;curved={curved};endArrow={end_arrow};dashed={dashed};endFill={end_fill};"
+    EDGE = "html=1;endArrow={end_arrow};dashed={dashed};endFill={end_fill};entryX={entryX};entryY={entryY};exitX={exitX};exitY={exitY};"
+    EDGE_UNCONNECTED = "html=1;endArrow={end_arrow};dashed={dashed};endFill={end_fill};"
+    EDGE_LABEL = (
+        "edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];"
+    )
     TEXT = "margin:0px;text-align:{align};{margin};font-size:{size}px;font-family:{family};color:{color};"
 
     ELLIPSE = "ellipse;" + NODE
@@ -65,75 +71,60 @@ class Styles(Enum):
         + NODE
     )
     LARROW = "flipH=1;" + RARROW
+    IMAGE = (
+        "shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image={image};"
+        + NODE
+    )
 
     @staticmethod
-    def get_for_shape(dot_shape):
-        if dot_shape in (None, Shape.ELLIPSE, Shape.OVAL):
+    def get_for_shape(dot_shape: str | None) -> "Styles":
+        if dot_shape is None:
             return Styles.ELLIPSE
-        elif dot_shape in (Shape.BOX, Shape.RECT, Shape.RECTANGLE):
-            return Styles.NODE
-        elif dot_shape in (Shape.HEXAGON, Shape.POLYGON):
-            return Styles.HEXAGON
-        elif dot_shape == Shape.CIRCLE:
-            return Styles.CIRCLE
-        elif dot_shape == Shape.EGG:
-            return Styles.EGG
-        elif dot_shape == Shape.TRIANGLE:
-            return Styles.TRIANGLE
-        elif dot_shape == Shape.PLAIN:
-            return Styles.LINE
-        elif dot_shape == Shape.DIAMOND:
-            return Styles.DIAMOND
-        elif dot_shape == Shape.TRAPEZIUM:
-            return Styles.TRAPEZOID
-        elif dot_shape == Shape.PARALLELOGRAM:
-            return Styles.PARALLELOGRAM
-        elif dot_shape == Shape.HOUSE:
-            return Styles.HOUSE
-        elif dot_shape == Shape.PENTAGON:
-            return Styles.PENTAGON
-        elif dot_shape == Shape.OCTAGON:
-            return Styles.OCTAGON
-        elif dot_shape == Shape.DOUBLE_CIRCLE:
-            return Styles.DOUBLE_CIRCLE
-        elif dot_shape == Shape.DOUBLE_OCTAGON:
-            return Styles.DOUBLE_OCTAGON
-        elif dot_shape == Shape.INV_TRIANGLE:
-            return Styles.INV_TRIANGLE
-        elif dot_shape == Shape.INV_TRAPEZIUM:
-            return Styles.INV_TRAPEZOID
-        elif dot_shape == Shape.INV_HOUSE:
-            return Styles.INV_HOUSE
-        elif dot_shape == Shape.SQUARE:
-            return Styles.SQUARE
-        elif dot_shape == Shape.STAR:
-            return Styles.STAR
-        elif dot_shape == Shape.UNDERLINE:
-            return Styles.UNDERLINE
-        elif dot_shape == Shape.CYLINDER:
-            return Styles.CYLINDER
-        elif dot_shape == Shape.NOTE:
-            return Styles.NODE
-        elif dot_shape == Shape.TAB:
-            return Styles.TAB
-        elif dot_shape == Shape.FOLDER:
-            return Styles.FOLDER
-        elif dot_shape == Shape.BOX_3D:
-            return Styles.CUBE
-        elif dot_shape == Shape.COMPONENT:
-            return Styles.COMPONENT
-        elif dot_shape in (Shape.PROMOTER, Shape.RPROMOTER):
-            return Styles.RPROMOTER
-        elif dot_shape == Shape.LPROMOTER:
-            return Styles.LPROMOTER
-        elif dot_shape == Shape.CDS:
-            return Styles.CDS
-        elif dot_shape == Shape.RARROW:
-            return Styles.RARROW
-        elif dot_shape == Shape.LARROW:
-            return Styles.LARROW
-        else:
-            return Styles.NODE
+        if dot_shape in _shape_to_style:
+            return _shape_to_style[dot_shape]
+        return Styles.NODE
 
     def format(self, **values):
         return self.value.format(**values)
+
+
+_shape_to_style: dict[str, "Styles"] = {
+    Shape.BOX: Styles.NODE,
+    Shape.BOX_3D: Styles.CUBE,
+    Shape.CDS: Styles.CDS,
+    Shape.CIRCLE: Styles.CIRCLE,
+    Shape.COMPONENT: Styles.COMPONENT,
+    Shape.CYLINDER: Styles.CYLINDER,
+    Shape.DIAMOND: Styles.DIAMOND,
+    Shape.DOUBLE_CIRCLE: Styles.DOUBLE_CIRCLE,
+    Shape.DOUBLE_OCTAGON: Styles.DOUBLE_OCTAGON,
+    Shape.EGG: Styles.EGG,
+    Shape.ELLIPSE: Styles.ELLIPSE,
+    Shape.FOLDER: Styles.FOLDER,
+    Shape.HEXAGON: Styles.HEXAGON,
+    Shape.HOUSE: Styles.HOUSE,
+    Shape.IMAGE: Styles.IMAGE,
+    Shape.INV_HOUSE: Styles.INV_HOUSE,
+    Shape.INV_TRAPEZIUM: Styles.INV_TRAPEZOID,
+    Shape.INV_TRIANGLE: Styles.INV_TRIANGLE,
+    Shape.LARROW: Styles.LARROW,
+    Shape.LPROMOTER: Styles.LPROMOTER,
+    Shape.NOTE: Styles.NOTE,
+    Shape.OCTAGON: Styles.OCTAGON,
+    Shape.OVAL: Styles.ELLIPSE,
+    Shape.PARALLELOGRAM: Styles.PARALLELOGRAM,
+    Shape.PENTAGON: Styles.PENTAGON,
+    Shape.PLAIN: Styles.LINE,
+    Shape.POLYGON: Styles.HEXAGON,
+    Shape.PROMOTER: Styles.RPROMOTER,
+    Shape.RARROW: Styles.RARROW,
+    Shape.RECT: Styles.NODE,
+    Shape.RECTANGLE: Styles.NODE,
+    Shape.RPROMOTER: Styles.RPROMOTER,
+    Shape.SQUARE: Styles.SQUARE,
+    Shape.STAR: Styles.STAR,
+    Shape.TAB: Styles.TAB,
+    Shape.TRAPEZIUM: Styles.TRAPEZOID,
+    Shape.TRIANGLE: Styles.TRIANGLE,
+    Shape.UNDERLINE: Styles.UNDERLINE,
+}

@@ -1,12 +1,14 @@
+import pathlib
 from sys import stderr
+
 from .graphviz2drawio import convert
 from .models import Arguments
 from .version import __version__
 
 
-def main():
+def main() -> None:
 
-    args = Arguments(__version__).parse_args()
+    args = Arguments(__version__).parse_args()  # pytype: disable=not-callable
 
     if not args.stdout:
         stderr.write("This is beta software, please report issues to:\n")
@@ -15,10 +17,9 @@ def main():
     try:
         output = convert(args.to_convert, args.program)
     except BaseException:
-        stderr.write("Something went wrong, please report\n")
-        stderr.write(
-            "An automatic crash report can be sent to the developer (no personal or graph information)\n"
-        )
+        stderr.write("Something went wrong, please file an issue.\n")
+        stderr.write("This tool can automatically report using sentry.io.\n")
+        stderr.write("The report contains no PII or graph data (only the file path).\n")
         permission = input("Type 'no' to cancel report, press enter to send: ")
         if permission != "no":
             from raven import Client
@@ -38,9 +39,9 @@ def main():
         outfile = args.outfile
     else:
         base = args.to_convert.split(".")
-        outfile = ".".join(base[:-1] + ["xml"])
-    with open(outfile, "w") as fd:
-        fd.write(output)
+        outfile = ".".join(base[:-1]) + ".xml"
+
+    pathlib.Path(outfile).write_text(output)
     stderr.write("Converted file: " + outfile + "\n")
 
 
