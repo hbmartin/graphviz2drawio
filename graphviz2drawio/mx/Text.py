@@ -5,12 +5,16 @@ from .Styles import Styles
 
 
 class Text:
-    def __init__(self, anchor, family, size, text, color) -> None:
+    def __init__(
+        self, anchor, family, size, text, color, bold: bool, italic: bool
+    ) -> None:
         self.anchor = anchor
         self.family = family
         self.size = size
         self.text = text
         self.color = color
+        self.bold = bold
+        self.italic = italic
 
     def get_mx_style(self):
         align = MxConst.CENTER if self.anchor == DotAttr.MIDDLE else MxConst.START
@@ -26,6 +30,14 @@ class Text:
             color=self.color or MxConst.DEFAULT_FONT_COLOR,
         )
 
+    def to_simple_value(self) -> str:
+        text = self.text
+        if self.bold:
+            text = f"<b>{text}</b>"
+        if self.italic:
+            text = f"<i>{text}</i>"
+        return text
+
     @staticmethod
     def from_svg(t):
         return Text(
@@ -34,4 +46,6 @@ class Text:
             family=t.attrib.get("font-family", MxConst.DEFAULT_FONT_FAMILY),
             size=float(t.attrib.get("font-size", MxConst.DEFAULT_TEXT_SIZE)),
             color=t.attrib.get("fill", None),
+            bold=t.get("font-weight", None) == "bold",
+            italic=t.get("font-style", None) == "italic",
         )

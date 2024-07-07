@@ -40,15 +40,15 @@ class MxGraph:
             },
         )
 
-        if edge.label is not None:
+        if len(edge.labels) > 0:
             edge_label_element = SubElement(
                 self.root,
                 MxConst.CELL,
                 attrib={
                     "id": f"label_{edge.sid}",
-                    "style": str(Styles.EDGE_LABEL),
+                    "style": Styles.EDGE_LABEL.value,
                     "parent": edge.sid,
-                    "value": edge.label,
+                    "value": edge.value_for_labels(),
                     "vertex": "1",
                     "connectable": "0",
                 },
@@ -79,23 +79,26 @@ class MxGraph:
             if tail == DotAttr.DIAMOND:
                 end_arrow = MxConst.DIAMOND
         if edge.curve is not None:
-            exit_x, exit_y = source_geo.relative_location_along_perimeter(
-                edge.curve.start,
-            )
-            entry_x, entry_y = target_geo.relative_location_along_perimeter(
-                edge.curve.end,
-            )
-            return Styles.EDGE.format(
+            style = Styles.EDGE.format(
                 end_arrow=end_arrow,
                 dashed=dashed,
                 end_fill=end_fill,
-                entryX=entry_x,
-                entryY=entry_y,
-                exitX=exit_x,
-                exitY=exit_y,
             ) + (MxConst.CURVED if edge.curve.is_bezier else MxConst.SHARP)
 
-        return Styles.EDGE_UNCONNECTED.format(
+            if source_geo is not None:
+                exit_x, exit_y = source_geo.relative_location_along_perimeter(
+                    edge.curve.start,
+                )
+                style += f"exitX={exit_x};exitY={exit_y};"
+            if target_geo is not None:
+                entry_x, entry_y = target_geo.relative_location_along_perimeter(
+                    edge.curve.end,
+                )
+                style += f"entryX={entry_x};entryY={entry_y};"
+
+            return style
+
+        return Styles.EDGE.format(
             end_arrow=end_arrow,
             dashed=dashed,
             end_fill=end_fill,
