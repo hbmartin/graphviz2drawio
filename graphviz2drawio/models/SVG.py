@@ -3,7 +3,7 @@ from xml.etree.ElementTree import Element
 NS_SVG = "{http://www.w3.org/2000/svg}"
 
 
-def svg_tag(tag):
+def svg_tag(tag: str) -> str:
     return f"{NS_SVG}{tag}"
 
 
@@ -27,5 +27,5 @@ def get_text(g: Element) -> str | None:
     return None
 
 
-def is_tag(g, tag):
+def is_tag(g: Element, tag: str) -> bool:
     return g.tag == svg_tag(tag)

@@ -85,7 +85,7 @@ class Styles(Enum):
             return _shape_to_style[dot_shape]
         return Styles.NODE
 
-    def format(self, **values):
+    def format(self, **values) -> str:  # noqa: ANN003
         return self.value.format(**values)
 
 

@@ -67,7 +67,7 @@ def _line(start: complex, end: complex) -> Callable[[float], float] | None:
     return y
 
 
-def _rotate_bezier(cb):
+def _rotate_bezier(cb: CubicBezier) -> CubicBezier:
     """Reverse imaginary and real parts for all components."""
     return CubicBezier(
         complex(cb.start.imag, cb.start.real),

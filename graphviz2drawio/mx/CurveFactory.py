@@ -1,4 +1,5 @@
 import cmath
+from typing import Any
 
 from svg.path import CubicBezier, Path, QuadraticBezier, parse_path
 
@@ -54,5 +55,5 @@ class CurveFactory:
         return Curve(start=start, end=end, is_bezier=is_bezier, points=points)
 
 
-def _is_cubic(p):
+def _is_cubic(p: Any) -> bool:  # noqa: ANN401
     return isinstance(p, CubicBezier)

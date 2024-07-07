@@ -1,6 +1,9 @@
+from xml.etree.ElementTree import Element
+
 from graphviz2drawio.models import DotAttr
 from graphviz2drawio.mx import MxConst
 
+from ..models.Errors import MissingTextError
 from .Styles import Styles
 
 
@@ -24,7 +27,7 @@ class Text:
         self.bold = bold
         self.italic = italic
 
-    def get_mx_style(self):
+    def get_mx_style(self) -> str:
         align = MxConst.CENTER if self.anchor == DotAttr.MIDDLE else MxConst.START
         margin = (
             "margin-top:4px" if self.anchor == DotAttr.MIDDLE else "margin-left:4px"
@@ -47,9 +50,12 @@ class Text:
         return text
 
     @staticmethod
-    def from_svg(t):
+    def from_svg(t: Element) -> "Text":
+        text = t.text
+        if text is None:
+            raise MissingTextError(t)
         return Text(
-            text=t.text.replace("<", "&lt;").replace(">", "&gt;"),
+            text=text.replace("<", "&lt;").replace(">", "&gt;"),
             anchor=t.attrib.get("text-anchor", None),
             family=t.attrib.get("font-family", MxConst.DEFAULT_FONT_FAMILY),
             size=float(t.attrib.get("font-size", MxConst.DEFAULT_TEXT_SIZE)),

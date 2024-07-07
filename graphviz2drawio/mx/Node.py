@@ -22,7 +22,7 @@ class Node(GraphObj):
         self.label = None
         self.shape = shape
 
-    def text_to_mx_value(self):
+    def text_to_mx_value(self) -> str:
         value = ""
         last_text = len(self.texts) - 1
         for i, t in enumerate(self.texts):
