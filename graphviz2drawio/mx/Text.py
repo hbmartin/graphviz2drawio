@@ -57,3 +57,6 @@ class Text:
             bold=t.get("font-weight", None) == "bold",
             italic=t.get("font-style", None) == "italic",
         )
+
+    def __repr__(self) -> str:
+        return self.text

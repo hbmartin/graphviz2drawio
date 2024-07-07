@@ -2,7 +2,6 @@ from collections import OrderedDict
 from xml.etree.ElementTree import Element, SubElement, indent, tostring
 
 from graphviz2drawio.models import DotAttr
-from graphviz2drawio.models.Rect import Rect
 from graphviz2drawio.mx import MxConst
 from graphviz2drawio.mx.Curve import Curve
 from graphviz2drawio.mx.Edge import Edge
@@ -27,8 +26,7 @@ class MxGraph:
 
     def add_edge(self, edge: Edge) -> None:
         source, target = self.get_edge_source_target(edge)
-        style = self.get_edge_style(
-            edge=edge,
+        style = edge.get_edge_style(
             source_geo=source.rect if source is not None else None,
             target_geo=target.rect if target is not None else None,
         )
@@ -71,48 +69,6 @@ class MxGraph:
         if edge.dir == DotAttr.BACK:
             return self.nodes.get(edge.to), self.nodes.get(edge.fr)
         return self.nodes.get(edge.fr), self.nodes.get(edge.to)
-
-    @staticmethod
-    def get_edge_style(
-        edge: Edge,  # pytype: disable=invalid-annotation
-        source_geo: Rect | None,
-        target_geo: Rect | None,
-    ) -> str:
-        end_arrow = MxConst.BLOCK
-        end_fill = 1
-        dashed = 1 if edge.line_style == DotAttr.DASHED else 0
-        if edge.arrowtail is not None:
-            tail = edge.arrowtail
-            if edge.arrowtail[0] == DotAttr.NO_FILL:
-                end_fill = 0
-                tail = edge.arrowtail[1:]
-            if tail == DotAttr.DIAMOND:
-                end_arrow = MxConst.DIAMOND
-        if edge.curve is not None:
-            style = Styles.EDGE.format(
-                end_arrow=end_arrow,
-                dashed=dashed,
-                end_fill=end_fill,
-            ) + (MxConst.CURVED if edge.curve.is_bezier else MxConst.SHARP)
-
-            if source_geo is not None:
-                exit_x, exit_y = source_geo.relative_location_along_perimeter(
-                    edge.curve.start,
-                )
-                style += f"exitX={exit_x:.2f};exitY={exit_y:.2f};"
-            if target_geo is not None:
-                entry_x, entry_y = target_geo.relative_location_along_perimeter(
-                    edge.curve.end,
-                )
-                style += f"entryX={entry_x:.2f};entryY={entry_y:.2f};"
-
-            return style
-
-        return Styles.EDGE.format(
-            end_arrow=end_arrow,
-            dashed=dashed,
-            end_fill=end_fill,
-        )
 
     def add_node(self, node: Node) -> None:
         fill = node.fill if node.fill is not None else MxConst.NONE

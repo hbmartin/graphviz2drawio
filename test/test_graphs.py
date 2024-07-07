@@ -176,11 +176,10 @@ def test_subgraph_and_colors():
 def test_invisible():
     file = "test/directed/invisible.gv.txt"
     xml = graphviz2drawio.convert(file)
-    print(xml)
 
     root = ElementTree.fromstring(xml)
-    elements = check_xml_top(root)
-    assert elements[-1].attrib["target"] == "node7"
+    check_xml_top(root)
+    assert ';exitX=1.0000;exitY=0.5839;"' in xml
 
 
 # NOTE: this test cannot be run in prod because of image paths

@@ -13,12 +13,14 @@ from .Errors import MissingTitleError
 
 def parse_nodes_edges_clusters(
     svg_data: bytes,
+    *,
+    is_directed: bool,
 ) -> tuple[OrderedDict[str, Node], list[Edge], OrderedDict[str, Node]]:
     root = ElementTree.fromstring(svg_data)[0]
 
     coords = CoordsTranslate.from_svg_transform(root.attrib["transform"])
     node_factory = NodeFactory(coords)
-    edge_factory = EdgeFactory(coords)
+    edge_factory = EdgeFactory(coords=coords, is_directed=is_directed)
 
     nodes: OrderedDict[str, Node] = OrderedDict()
     edges: OrderedDict[str, Edge] = OrderedDict()
