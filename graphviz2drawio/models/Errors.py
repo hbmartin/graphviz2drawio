@@ -12,7 +12,18 @@ class MissingTitleError(GdValueError):
     """Title missing from SVG element."""
 
     def __init__(self, g: Element) -> None:
-        super().__init__(f"Title missing from SVG element: {g.tag}")
+        super().__init__(
+            f"Title missing from SVG element: {g.tag} with attributes {g.attrib}.",
+        )
+
+
+class MissingTextError(GdValueError):
+    """Title missing from SVG element."""
+
+    def __init__(self, g: Element) -> None:
+        super().__init__(
+            f"Text missing from SVG element: {g.tag} with attributes {g.attrib}.",
+        )
 
 
 class InvalidBezierParameterError(GdValueError):

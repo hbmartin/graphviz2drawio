@@ -3,7 +3,7 @@ from xml.etree.ElementTree import Element
 from graphviz2drawio.models import DotAttr
 from graphviz2drawio.mx import MxConst
 
-from ..models.Errors import MissingTitleError
+from ..models.Errors import MissingTextError
 from .Styles import Styles
 
 
@@ -53,7 +53,7 @@ class Text:
     def from_svg(t: Element) -> "Text":
         text = t.text
         if text is None:
-            raise MissingTitleError(t)
+            raise MissingTextError(t)
         return Text(
             text=text.replace("<", "&lt;").replace(">", "&gt;"),
             anchor=t.attrib.get("text-anchor", None),
