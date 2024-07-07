@@ -160,6 +160,13 @@ def test_compound() -> None:
     assert elements[3].attrib["id"] == "clust2"
 
 
+def test_aws_diagram_with_images() -> None:
+    file = "test/directed/grouped_workers.dot"
+    xml = graphviz2drawio.convert(file)
+
+    assert "image/png" in xml
+
+
 # def test_subgraph():
 #     file = "test/directed/subgraph.gv.txt"
 #     xml = graphviz2drawio.convert(file)

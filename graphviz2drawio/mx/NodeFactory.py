@@ -27,8 +27,8 @@ class NodeFactory:
             if "fill" in polygon.attrib:
                 fill = polygon.attrib["fill"]
         elif (image := SVG.get_first(g, "image")) is not None:
-            rect = rect_from_image(image.attrib)
-            shape = Shape.RECT
+            rect = rect_from_image(self.coords, image.attrib)
+            shape = Shape.IMAGE
         elif (ellipse := SVG.get_first(g, "ellipse")) is not None:
             rect = rect_from_ellipse_svg(
                 coords=self.coords,

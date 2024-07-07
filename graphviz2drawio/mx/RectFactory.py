@@ -28,13 +28,15 @@ def rect_from_svg_points(coords: CoordsTranslate, svg: str) -> Rect:
     return Rect(x=min_x, y=min_y, width=width, height=height)
 
 
-def rect_from_image(attrib: dict[str, str]) -> Rect:
-    filtered = {
-        k: float(v.strip("px"))
-        for k, v in attrib.items()
-        if k in ["x", "y", "width", "height"]
-    }
-    return Rect(**filtered)
+def rect_from_image(coords: CoordsTranslate, attrib: dict[str, str]) -> Rect:
+    x, y = coords.translate(attrib["x"], attrib["y"])
+
+    return Rect(
+        width=float(attrib["width"].strip("px")),
+        height=float(attrib["height"].strip("px")),
+        x=x,
+        y=y,
+    )
 
 
 def rect_from_ellipse_svg(coords: CoordsTranslate, attrib: dict[str, str]) -> Rect:

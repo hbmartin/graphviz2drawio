@@ -1,14 +1,16 @@
+from collections import OrderedDict
 from xml.etree.ElementTree import Element, SubElement, indent, tostring
 
-from graphviz2drawio.models import DotAttr
+from graphviz2drawio.models import DotAttr, Rect
 from graphviz2drawio.mx import MxConst
 from graphviz2drawio.mx.Curve import Curve
 from graphviz2drawio.mx.Edge import Edge
+from graphviz2drawio.mx.Node import Node
 from graphviz2drawio.mx.Styles import Styles
 
 
 class MxGraph:
-    def __init__(self, nodes, edges) -> None:
+    def __init__(self, nodes: OrderedDict[str, Node], edges: list[Edge]) -> None:
         self.nodes = nodes
         self.edges = edges
         self.graph = Element(MxConst.GRAPH)
@@ -24,7 +26,7 @@ class MxGraph:
 
     def add_edge(self, edge: Edge) -> None:
         source, target = self.get_edge_source_target(edge)
-        style = self.get_edge_style(edge)
+        style = self.get_edge_style(edge, source.rect, target.rect)
         edge_element = SubElement(
             self.root,
             MxConst.CELL,
@@ -55,13 +57,13 @@ class MxGraph:
 
         self.add_mx_geo_with_points(edge_element, edge.curve)
 
-    def get_edge_source_target(self, edge):
+    def get_edge_source_target(self, edge: Edge) -> tuple[Node, Node]:
         if edge.dir == DotAttr.BACK:
             return self.nodes[edge.to], self.nodes[edge.fr]
         return self.nodes[edge.fr], self.nodes[edge.to]
 
     @staticmethod
-    def get_edge_style(edge):
+    def get_edge_style(edge: Edge, source_geo: Rect, target_geo: Rect) -> str:
         end_arrow = MxConst.BLOCK
         end_fill = 1
         dashed = 1 if edge.line_style == DotAttr.DASHED else 0
@@ -72,11 +74,16 @@ class MxGraph:
                 tail = edge.arrowtail[1:]
             if tail == DotAttr.DIAMOND:
                 end_arrow = MxConst.DIAMOND
-
+        exit_x, exit_y = source_geo.relative_location_along_perimeter(edge.curve.start)
+        entry_x, entry_y = target_geo.relative_location_along_perimeter(edge.curve.end)
         return Styles.EDGE.format(
             end_arrow=end_arrow,
             dashed=dashed,
             end_fill=end_fill,
+            entryX=entry_x,
+            entryY=entry_y,
+            exitX=exit_x,
+            exitY=exit_y,
         ) + (MxConst.CURVED if edge.curve.is_bezier else MxConst.SHARP)
 
     def add_node(self, node) -> None:
