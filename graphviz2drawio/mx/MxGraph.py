@@ -2,6 +2,7 @@ from collections import OrderedDict
 from xml.etree.ElementTree import Element, SubElement, indent, tostring
 
 from graphviz2drawio.models import DotAttr
+from graphviz2drawio.models.Rect import Rect
 from graphviz2drawio.mx import MxConst
 from graphviz2drawio.mx.Curve import Curve
 from graphviz2drawio.mx.Edge import Edge
@@ -97,7 +98,7 @@ class MxGraph:
         self.add_mx_geo(node_element, node.rect)
 
     @staticmethod
-    def add_mx_geo(element, rect=None) -> None:
+    def add_mx_geo(element: Element, rect: Rect | None = None) -> None:
         if rect is None:
             SubElement(element, MxConst.GEO, attrib={"as": "geometry", "relative": "1"})
         else:

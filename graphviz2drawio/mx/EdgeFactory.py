@@ -1,3 +1,5 @@
+from xml.etree.ElementTree import Element
+
 from graphviz2drawio.models import SVG
 
 from ..models.CoordsTranslate import CoordsTranslate
@@ -13,7 +15,7 @@ class EdgeFactory:
         self.curve_factory = CurveFactory(coords)
         self.is_directed = is_directed
 
-    def from_svg(self, g) -> Edge:
+    def from_svg(self, g: Element) -> Edge:
         title = SVG.get_title(g)
         if title is None:
             raise MissingTitleError(g)

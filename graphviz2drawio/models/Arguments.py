@@ -2,7 +2,7 @@ from argparse import ArgumentParser
 
 
 class Arguments(ArgumentParser):
-    def __init__(self, version) -> None:
+    def __init__(self, version: str) -> None:
         super().__init__(prog="graphviz2drawio")
         self.add_argument("to_convert", metavar="file.dot", help="graphviz file")
         output = self.add_mutually_exclusive_group()

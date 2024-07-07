@@ -2,6 +2,7 @@ from xml.etree.ElementTree import Element
 
 from graphviz2drawio.models import SVG
 
+from ..models.CoordsTranslate import CoordsTranslate
 from ..models.Errors import MissingIdentifiersError
 from . import Shape
 from .Node import Node
@@ -10,7 +11,7 @@ from .Text import Text
 
 
 class NodeFactory:
-    def __init__(self, coords) -> None:
+    def __init__(self, coords: CoordsTranslate) -> None:
         super().__init__()
         self.coords = coords
 
@@ -62,7 +63,7 @@ class NodeFactory:
         return g.attrib.get("fill", None), g.attrib.get("stroke", None)
 
     @staticmethod
-    def _extract_texts(g: Element):
+    def _extract_texts(g: Element) -> list[Text]:
         texts = []
         current_text = None
         for t in g:

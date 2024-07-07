@@ -38,7 +38,7 @@ class Rect:
             "height": str(self.height),
         }
 
-    def closest_point_along_perimeter(self, x: float, y: float):
+    def closest_point_along_perimeter(self, x: float, y: float) -> tuple[float, float]:
         x = clamp(x, self.x, self.right)
         y = clamp(y, self.y, self.bottom)
 
@@ -62,5 +62,5 @@ class Rect:
         return self.x_ratio(p[0]), self.y_ratio(p[1])
 
 
-def clamp(value, min_v, max_v):
+def clamp(value: float, min_v: float, max_v: float) -> float:
     return max(min(value, max_v), min_v)
