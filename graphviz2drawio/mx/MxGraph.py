@@ -65,8 +65,8 @@ class MxGraph:
     @staticmethod
     def get_edge_style(
         edge: Edge,  # pytype: disable=invalid-annotation
-        source_geo: Rect,
-        target_geo: Rect,
+        source_geo: Rect | None,
+        target_geo: Rect | None,
     ) -> str:
         end_arrow = MxConst.BLOCK
         end_fill = 1
@@ -105,19 +105,15 @@ class MxGraph:
         )
 
     def add_node(self, node: Node) -> None:
-        fill = (
-            node.fill
-            if (node.fill is not None and node.fill != "none")
-            else MxConst.DEFAULT_FILL
-        )
-        stroke = node.stroke if node.stroke is not None else MxConst.DEFAULT_STROKE
+        fill = node.fill if node.fill is not None else MxConst.NONE
+        stroke = node.stroke if node.stroke is not None else MxConst.NONE
         style_for_shape = Styles.get_for_shape(node.shape)
 
         attributes = {"fill": fill, "stroke": stroke}
-        if style_for_shape == Styles.IMAGE:
+        if (rect := node.rect) is not None and (image_path := rect.image) is not None:
             from graphviz2drawio.mx.image import image_data_for_path
 
-            attributes["image"] = image_data_for_path(node.rect.image)
+            attributes["image"] = image_data_for_path(image_path)
 
         style: str = style_for_shape.format(**attributes)
 

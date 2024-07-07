@@ -6,7 +6,15 @@ from .Styles import Styles
 
 class Text:
     def __init__(
-        self, anchor, family, size, text, color, bold: bool, italic: bool
+        self,
+        text: str,
+        anchor: str | None,
+        family: str,
+        size: float,
+        color: str | None,
+        *,
+        bold: bool,
+        italic: bool,
     ) -> None:
         self.anchor = anchor
         self.family = family

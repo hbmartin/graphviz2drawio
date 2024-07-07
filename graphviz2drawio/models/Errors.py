@@ -18,3 +18,12 @@ class InvalidBezierParameterError(GdValueError):
 
     def __init__(self, t) -> None:
         super().__init__(f"Invalid Bezier parameter (t={t}), must be 0 <= t <= 1.")
+
+
+class MissingIdentifiersError(GdValueError):
+    """Missing identifiers for a geometry."""
+
+    def __init__(self, sid, gid) -> None:
+        super().__init__(
+            f"Missing identifiers for a geometry: sid(id): {sid}, gid(title): {gid}.",
+        )

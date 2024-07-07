@@ -11,6 +11,10 @@ def get_first(g: Element, tag: str) -> Element | None:
     return g.find(f"./{NS_SVG}{tag}")
 
 
+def count_tags(g: Element, tag: str) -> int:
+    return len(g.findall(f"./{NS_SVG}{tag}"))
+
+
 def get_title(g: Element) -> str | None:
     if (title_el := get_first(g, "title")) is not None:
         return title_el.text  # pytype: disable=attribute-error

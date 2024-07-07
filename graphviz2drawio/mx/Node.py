@@ -1,8 +1,19 @@
+from ..models.Rect import Rect
 from .GraphObj import GraphObj
+from .Text import Text
 
 
 class Node(GraphObj):
-    def __init__(self, sid, gid, rect, texts, fill, stroke, shape) -> None:
+    def __init__(
+        self,
+        sid: str,
+        gid: str,
+        rect: Rect | None,
+        texts: list[Text],
+        fill: str | None,
+        stroke: str | None,
+        shape: str,
+    ) -> None:
         super().__init__(sid, gid)
         self.rect = rect
         self.texts = texts
