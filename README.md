@@ -86,13 +86,13 @@ python -m graphviz2drawio test/directed/hello.gv.txt
 - [x] Image / tooltip support [#45](https://github.com/hbmartin/graphviz2drawio/issues/45) [done](https://github.com/hbmartin/graphviz2drawio/pull/82)
 - [ ] Support for node with `path` shape #47
 - [ ] Add py.typed file for type hinting
+- [ ] Fixes for no arrows and double arrows
 
 ## Roadmap to 0.5
 - [ ] Migrate to uv/hatch for packaging and dep mgmt
 - [ ] Turn on master branch protection
 - [ ] Text alignment inside of shape
 - [ ] Improved support for stroke / background colors
-- [ ] Ensure undirected graphs are not drawn with arrows
 - [ ] Port layout/orientation
 
 ## Future Improvements

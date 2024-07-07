@@ -16,27 +16,19 @@ class Rect:
         self.right = x + width
         self.image = image
 
-    def x_ratio(self, search):
+    def x_ratio(self, search: float) -> float:
         if search < self.x:
             return 0
         if search > self.x + self.width:
             return 1
-        ratio = (search - self.x) / self.width
-        return self._approx(ratio, 0.5, 0.1)
+        return (search - self.x) / self.width
 
-    def y_ratio(self, search):
+    def y_ratio(self, search: float) -> float:
         if search < self.y:
             return 0
         if search > self.y + self.height:
             return 1
-        ratio = (search - self.y) / self.height
-        return self._approx(ratio, 0.5, 0.1)
-
-    @staticmethod
-    def _approx(value, center, delta):
-        if abs(value - center) < delta:
-            return center
-        return value
+        return (search - self.y) / self.height
 
     def to_dict_str(self):
         return {

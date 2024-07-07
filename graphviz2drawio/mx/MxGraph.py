@@ -27,18 +27,27 @@ class MxGraph:
 
     def add_edge(self, edge: Edge) -> None:
         source, target = self.get_edge_source_target(edge)
-        style = self.get_edge_style(edge, source.rect, target.rect)
+        style = self.get_edge_style(
+            edge=edge,
+            source_geo=source.rect if source is not None else None,
+            target_geo=target.rect if target is not None else None,
+        )
+
+        attrib = {
+            "id": edge.sid,
+            "style": style,
+            "parent": "1",
+            "edge": "1",
+        }
+        if source is not None:
+            attrib["source"] = source.sid
+        if target is not None:
+            attrib["target"] = target.sid
+
         edge_element = SubElement(
             self.root,
             MxConst.CELL,
-            attrib={
-                "id": edge.sid,
-                "style": style,
-                "parent": "1",
-                "edge": "1",
-                "source": source.sid,
-                "target": target.sid,
-            },
+            attrib=attrib,
         )
 
         if len(edge.labels) > 0:
@@ -58,10 +67,10 @@ class MxGraph:
 
         self.add_mx_geo_with_points(edge_element, edge.curve)
 
-    def get_edge_source_target(self, edge: Edge) -> tuple[Node, Node]:
+    def get_edge_source_target(self, edge: Edge) -> tuple[Node | None, Node | None]:
         if edge.dir == DotAttr.BACK:
-            return self.nodes[edge.to], self.nodes[edge.fr]
-        return self.nodes[edge.fr], self.nodes[edge.to]
+            return self.nodes.get(edge.to), self.nodes.get(edge.fr)
+        return self.nodes.get(edge.fr), self.nodes.get(edge.to)
 
     @staticmethod
     def get_edge_style(
@@ -90,12 +99,12 @@ class MxGraph:
                 exit_x, exit_y = source_geo.relative_location_along_perimeter(
                     edge.curve.start,
                 )
-                style += f"exitX={exit_x};exitY={exit_y};"
+                style += f"exitX={exit_x:.2f};exitY={exit_y:.2f};"
             if target_geo is not None:
                 entry_x, entry_y = target_geo.relative_location_along_perimeter(
                     edge.curve.end,
                 )
-                style += f"entryX={entry_x};entryY={entry_y};"
+                style += f"entryX={entry_x:.2f};entryY={entry_y:.2f};"
 
             return style
 
