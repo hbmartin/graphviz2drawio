@@ -13,7 +13,7 @@ class Edge(GraphObj):
         fr: str,
         to: str,
         curve: Curve | None,
-        label: str,
+        labels: str,
     ) -> None:
         super().__init__(sid=sid, gid=f"{fr}->{to}")
         self.fr = fr
@@ -22,12 +22,22 @@ class Edge(GraphObj):
         self.line_style = None
         self.dir = None
         self.arrowtail = None
-        self.label = label
+        self.labels = labels
 
     def curve_start_end(self):
         if self.dir == DotAttr.BACK:
             return self.curve.end, self.curve.start
         return self.curve.start, self.curve.end
+
+    def text_to_mx_value(self):
+       value = ""
+       last_text = len(self.labels) - 1
+       for i, t in enumerate(self.labels):
+           style = t.get_mx_style()
+           value += "<p style='" + style + "'>" + t.text + "</p>"
+           if i != last_text:
+               value += "<hr size='1'/>"
+       return value
 
     @property
     def key_for_label(self) -> str:
@@ -36,5 +46,6 @@ class Edge(GraphObj):
     def __repr__(self) -> str:
         return (
             f"{self.fr}->{self.to}: "
-            f"{self.label}, {self.line_style}, {self.dir}, {self.arrowtail}"
+            f"{self.labels}, {self.line_style}, {self.dir}, {self.arrowtail}"
         )
+

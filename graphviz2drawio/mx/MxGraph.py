@@ -37,6 +37,7 @@ class MxGraph:
                 "edge": "1",
                 "source": source.sid,
                 "target": target.sid,
+                "value": edge.text_to_mx_value(),
             },
         )
 
