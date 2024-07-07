@@ -38,7 +38,7 @@ setup(
     keywords="graphviz graph agraph dot convert conversion draw drawio mxgraph maxgraph",
     packages=find_packages(exclude=["doc", "test"]),
     python_requires=">=3.10",
-    install_requires=["pygraphviz", "raven", "svg.path"],
+    install_requires=["puremagic", "pygraphviz", "raven", "svg.path"],
     tests_require=["pytest"],
     entry_points={"console_scripts": ["graphviz2drawio=graphviz2drawio.__main__:main"]},
     project_urls={

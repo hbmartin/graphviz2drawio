@@ -1,14 +1,16 @@
+from collections import OrderedDict
 from xml.etree.ElementTree import Element, SubElement, indent, tostring
 
-from graphviz2drawio.models import DotAttr
+from graphviz2drawio.models import DotAttr, Rect
 from graphviz2drawio.mx import MxConst
 from graphviz2drawio.mx.Curve import Curve
 from graphviz2drawio.mx.Edge import Edge
+from graphviz2drawio.mx.Node import Node
 from graphviz2drawio.mx.Styles import Styles
 
 
 class MxGraph:
-    def __init__(self, nodes, edges) -> None:
+    def __init__(self, nodes: OrderedDict[str, Node], edges: list[Edge]) -> None:
         self.nodes = nodes
         self.edges = edges
         self.graph = Element(MxConst.GRAPH)
@@ -24,7 +26,7 @@ class MxGraph:
 
     def add_edge(self, edge: Edge) -> None:
         source, target = self.get_edge_source_target(edge)
-        style = self.get_edge_style(edge)
+        style = self.get_edge_style(edge, source.rect, target.rect)
         edge_element = SubElement(
             self.root,
             MxConst.CELL,
@@ -55,13 +57,17 @@ class MxGraph:
 
         self.add_mx_geo_with_points(edge_element, edge.curve)
 
-    def get_edge_source_target(self, edge):
+    def get_edge_source_target(self, edge: Edge) -> tuple[Node, Node]:
         if edge.dir == DotAttr.BACK:
             return self.nodes[edge.to], self.nodes[edge.fr]
         return self.nodes[edge.fr], self.nodes[edge.to]
 
     @staticmethod
-    def get_edge_style(edge):
+    def get_edge_style(
+        edge: Edge,  # pytype: disable=invalid-annotation
+        source_geo: Rect,
+        target_geo: Rect,
+    ) -> str:
         end_arrow = MxConst.BLOCK
         end_fill = 1
         dashed = 1 if edge.line_style == DotAttr.DASHED else 0
@@ -72,22 +78,45 @@ class MxGraph:
                 tail = edge.arrowtail[1:]
             if tail == DotAttr.DIAMOND:
                 end_arrow = MxConst.DIAMOND
+        if edge.curve is not None:
+            exit_x, exit_y = source_geo.relative_location_along_perimeter(
+                edge.curve.start,
+            )
+            entry_x, entry_y = target_geo.relative_location_along_perimeter(
+                edge.curve.end,
+            )
+            return Styles.EDGE.format(
+                end_arrow=end_arrow,
+                dashed=dashed,
+                end_fill=end_fill,
+                entryX=entry_x,
+                entryY=entry_y,
+                exitX=exit_x,
+                exitY=exit_y,
+            ) + (MxConst.CURVED if edge.curve.is_bezier else MxConst.SHARP)
 
-        return Styles.EDGE.format(
+        return Styles.EDGE_UNCONNECTED.format(
             end_arrow=end_arrow,
             dashed=dashed,
             end_fill=end_fill,
-        ) + (MxConst.CURVED if edge.curve.is_bezier else MxConst.SHARP)
+        )
 
-    def add_node(self, node) -> None:
+    def add_node(self, node: Node) -> None:
         fill = (
             node.fill
             if (node.fill is not None and node.fill != "none")
             else MxConst.DEFAULT_FILL
         )
         stroke = node.stroke if node.stroke is not None else MxConst.DEFAULT_STROKE
+        style_for_shape = Styles.get_for_shape(node.shape)
 
-        style = Styles.get_for_shape(node.shape).format(fill=fill, stroke=stroke)
+        attributes = {"fill": fill, "stroke": stroke}
+        if style_for_shape == Styles.IMAGE:
+            from graphviz2drawio.mx.image import image_data_for_path
+
+            attributes["image"] = image_data_for_path(node.rect.image)
+
+        style: str = style_for_shape.format(**attributes)
 
         node_element = SubElement(
             self.root,

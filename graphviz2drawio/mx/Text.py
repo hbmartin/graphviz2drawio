@@ -15,7 +15,7 @@ class Text:
     def get_mx_style(self):
         align = MxConst.CENTER if self.anchor == DotAttr.MIDDLE else MxConst.START
         margin = (
-            "margin-top:4px;" if self.anchor == DotAttr.MIDDLE else "margin-left:4px;"
+            "margin-top:4px" if self.anchor == DotAttr.MIDDLE else "margin-left:4px"
         )
         rescaled_size = 10.0 * (self.size / 14.0)
         return Styles.TEXT.format(

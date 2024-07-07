@@ -4,8 +4,8 @@
 <a href="https://pypi.python.org/pypi/graphviz2drawio/"><img src="https://img.shields.io/pypi/pyversions/graphviz2drawio.svg" /></a>
 [![Lint and Test](https://github.com/hbmartin/graphviz2drawio/actions/workflows/lint.yml/badge.svg)](https://github.com/hbmartin/graphviz2drawio/actions/workflows/lint.yml)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
-[![Code style: black](https://img.shields.io/badge/🐧️-black-000000.svg)](https://github.com/psf/black)
-[![Checked with pytype](https://img.shields.io/badge/🦆-pytype-437f30.svg)](https://google.github.io/pytype/)
+[![Code style: black](https://img.shields.io/badge/🐧-black-000000.svg)](https://github.com/psf/black)
+[![CodeFactor](https://www.codefactor.io/repository/github/hbmartin/graphviz2drawio/badge)](https://www.codefactor.io/repository/github/hbmartin/graphviz2drawio)
 [![twitter](https://img.shields.io/badge/@hmartin-00aced.svg?logo=twitter&logoColor=black)](https://twitter.com/hmartin)
 
 
@@ -84,9 +84,10 @@ python -m graphviz2drawio test/directed/hello.gv.txt
 - [x] Improved Bezier curve support [done](https://github.com/hbmartin/graphviz2drawio/pull/81)
 - [ ] Subgraph conversion #33
 - [ ] Invisible node handling for edges #67
-- [ ] Image / tooltip support [#45](https://github.com/hbmartin/graphviz2drawio/issues/45)
+- [x] Image / tooltip support [#45](https://github.com/hbmartin/graphviz2drawio/issues/45) [done](https://github.com/hbmartin/graphviz2drawio/pull/82)
 - [ ] Text on edge alignment #59 
 - [ ] Support for node with `path` shape #47
+- [ ] Add py.typed file for type hinting
 
 ## Roadmap to 0.5
 - [ ] Migrate to uv/hatch for packaging and dep mgmt
