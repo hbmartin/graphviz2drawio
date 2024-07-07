@@ -17,13 +17,13 @@ class NodeFactory:
     def from_svg(self, g: Element) -> Node:
         texts = self._extract_texts(g)
         rect = None
-        fill = g.attrib.get("fill", None)
-        stroke = g.attrib.get("stroke", None)
+        fill = None
+        stroke = None
 
         if (polygon := SVG.get_first(g, "polygon")) is not None:
             rect = rect_from_svg_points(self.coords, polygon.attrib["points"])
             shape = Shape.RECT
-            stroke, fill = self._extract_fill_and_stroke(polygon)
+            fill, stroke = self._extract_fill_and_stroke(polygon)
         elif (image := SVG.get_first(g, "image")) is not None:
             rect = rect_from_image(self.coords, image.attrib)
             shape = Shape.IMAGE
@@ -37,7 +37,7 @@ class NodeFactory:
                 if SVG.count_tags(g, "ellipse") == 1
                 else Shape.DOUBLE_CIRCLE
             )
-            stroke, fill = self._extract_fill_and_stroke(ellipse)
+            fill, stroke = self._extract_fill_and_stroke(ellipse)
         else:
             shape = Shape.ELLIPSE
 

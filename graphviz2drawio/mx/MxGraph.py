@@ -1,7 +1,8 @@
 from collections import OrderedDict
 from xml.etree.ElementTree import Element, SubElement, indent, tostring
 
-from graphviz2drawio.models import DotAttr, Rect
+from graphviz2drawio.models import DotAttr
+from graphviz2drawio.models.Rect import Rect
 from graphviz2drawio.mx import MxConst
 from graphviz2drawio.mx.Curve import Curve
 from graphviz2drawio.mx.Edge import Edge

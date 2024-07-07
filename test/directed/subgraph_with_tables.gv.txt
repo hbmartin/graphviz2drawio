@@ -1,0 +1,17 @@
+digraph G {
+  node [ shape = "Mrecord" ];
+  subgraph cluster_A {
+    style = rounded;
+    label = "{x|y|z}";
+    NodeA [label="{a|b|c}"];
+	NodeB [label="{d|e}"];
+	NodeA -> NodeB;
+  };
+  subgraph cluster_B {
+    style = rounded;
+    label = <<table border="0" cellborder="1" cellspacing="0"><tr><td>xx</td><td>ww</td></tr><tr><td>yy</td></tr><tr><td>zz</td></tr></table>>;
+    NodeC [label =<<table border="0" cellborder="1" cellspacing="0"><tr><td>aa</td><td>gg</td></tr><tr><td>bb</td></tr><tr><td>cc</td></tr></table>>];
+	NodeD [label=<<table border="0" cellborder="1" cellspacing="0"><tr><td>dd</td><td>hh</td></tr><tr><td>ee</td></tr></table>>];
+	NodeC -> NodeD;
+  };
+}

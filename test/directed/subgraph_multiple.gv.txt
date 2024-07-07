@@ -1,0 +1,16 @@
+digraph {
+  subgraph cluster_frontend {
+    label="*Frontend*";
+    React;
+    Bootstrap;
+  }
+
+  subgraph cluster_backend {
+    label="*Backend*";
+    expressjs;
+    "aws-sdk";
+  }
+
+  React -> expressjs;
+  expressjs -> "aws-sdk";
+}

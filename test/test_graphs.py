@@ -127,6 +127,7 @@ def test_convnet() -> None:
     elements = check_xml_top(root)
 
     assert elements[-1].attrib["value"] == "$$l_t$$"
+    assert "doubleEllipse" in xml
 
 
 def test_multilabel() -> None:
@@ -160,6 +161,18 @@ def test_compound() -> None:
     assert elements[3].attrib["id"] == "clust2"
 
 
+def test_subgraph_and_colors():
+    file = "test/directed/subgraph_multiple.gv.txt"
+    xml = graphviz2drawio.convert(file)
+
+    root = ElementTree.fromstring(xml)
+    check_xml_top(root)
+    assert "fillColor=none" in xml
+    assert "strokeColor=black" in xml
+    assert "clust1" in xml
+    assert "clust2" in xml
+
+
 # NOTE: this test cannot be run in prod because of image paths
 # def test_aws_diagram_with_images() -> None:
 #     file = "test/directed/grouped_workers.dot"
@@ -169,15 +182,6 @@ def test_compound() -> None:
 #     assert "kMjhN+uQd8AAAAABJRU5ErkJggg==" in xml
 #     assert "kuBy44fGjYObFajs5kypw6aMN3ONBgZZptQa7gXSDlmx6w9DKXOaGqwgt9" in xml
 #     assert "BG6tKW3quVQZWmu2GFloMWD44DhO04vFB8MDdx7FBdl1b9Px2uO" in xml
-
-
-# def test_subgraph():
-#     file = "test/directed/subgraph.gv.txt"
-#     xml = graphviz2drawio.convert(file)
-#     print(xml)
-#
-#     root = ElementTree.fromstring(xml)
-#     elements = check_xml_top(root
 
 
 # def test_runAll():

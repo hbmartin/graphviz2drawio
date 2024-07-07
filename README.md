@@ -85,7 +85,6 @@ python -m graphviz2drawio test/directed/hello.gv.txt
 - [ ] Subgraph conversion #33
 - [ ] Invisible node handling for edges #67
 - [x] Image / tooltip support [#45](https://github.com/hbmartin/graphviz2drawio/issues/45) [done](https://github.com/hbmartin/graphviz2drawio/pull/82)
-- [ ] Text on edge alignment #59 
 - [ ] Support for node with `path` shape #47
 - [ ] Add py.typed file for type hinting
 
