@@ -166,6 +166,9 @@ def test_compound() -> None:
 #     xml = graphviz2drawio.convert(file)
 #
 #     assert "image/png" in xml
+#     assert "kMjhN+uQd8AAAAABJRU5ErkJggg==" in xml
+#     assert "kuBy44fGjYObFajs5kypw6aMN3ONBgZZptQa7gXSDlmx6w9DKXOaGqwgt9" in xml
+#     assert "BG6tKW3quVQZWmu2GFloMWD44DhO04vFB8MDdx7FBdl1b9Px2uO" in xml
 
 
 # def test_subgraph():

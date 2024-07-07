@@ -36,6 +36,7 @@ def rect_from_image(coords: CoordsTranslate, attrib: dict[str, str]) -> Rect:
         height=float(attrib["height"].strip("px")),
         x=x,
         y=y,
+        image=attrib["{http://www.w3.org/1999/xlink}href"],
     )
 
 

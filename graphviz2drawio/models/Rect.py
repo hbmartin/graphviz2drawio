@@ -1,5 +1,5 @@
 class Rect:
-    def __init__(self, x: float, y: float, width: float, height: float) -> None:
+    def __init__(self, x: float, y: float, width: float, height: float, image: str | None = None) -> None:
         # x,y is the top left corner
         self.x = x
         self.y = y
@@ -7,6 +7,7 @@ class Rect:
         self.height = height
         self.bottom = y + height
         self.right = x + width
+        self.image = image
 
     def x_ratio(self, search):
         if search < self.x:

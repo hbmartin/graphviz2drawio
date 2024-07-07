@@ -97,7 +97,7 @@ class MxGraph:
             end_fill=end_fill,
         )
 
-    def add_node(self, node) -> None:
+    def add_node(self, node: Node) -> None:
         fill = (
             node.fill
             if (node.fill is not None and node.fill != "none")
@@ -109,8 +109,7 @@ class MxGraph:
         attributes = {"fill": fill, "stroke": stroke}
         if style_for_shape == Styles.IMAGE:
             from graphviz2drawio.mx.image import image_data_for_path
-
-            attributes["image"] = image_data_for_path(node.image)
+            attributes["image"] = image_data_for_path(node.rect.image)
 
         style: str = style_for_shape.format(**attributes)
 
