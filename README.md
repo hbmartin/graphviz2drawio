@@ -80,14 +80,6 @@ pip install -r requirements.txt
 python -m graphviz2drawio test/directed/hello.gv.txt
 ```
 
-## Roadmap to [0.4](https://github.com/hbmartin/graphviz2drawio/milestone/2)
-- [x] Improved Bezier curve support [done](https://github.com/hbmartin/graphviz2drawio/pull/81)
-- [x] Invisible node handling for edges [#67](https://github.com/hbmartin/graphviz2drawio/issues/67) [done](https://github.com/hbmartin/graphviz2drawio/pull/83)
-- [x] Image / tooltip support [#45](https://github.com/hbmartin/graphviz2drawio/issues/45) [done](https://github.com/hbmartin/graphviz2drawio/pull/82)
-- [ ] Support for node with `path` shape [#47](https://github.com/hbmartin/graphviz2drawio/issues/47)
-- [ ] Add py.typed file for type hinting
-- [x] Fixes for no arrows and double arrows [done](https://github.com/hbmartin/graphviz2drawio/pull/83)
-
 ## Roadmap to 0.5
 - [ ] Migrate to uv/hatch for packaging and dep mgmt
 - [ ] Turn on master branch protection

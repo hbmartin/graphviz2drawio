@@ -21,7 +21,7 @@ jobs:
     - run: pip install -r requirements.txt
     - run: pip install black ruff pytest
     - run: ruff check .
-    - name: Run pytype if not on 3.12
+    - name: Run mypy if on 3.12, pytype otherwise
       run: |
         if [[ '${{ steps.cpython3.outputs.python-version }}' == *"3.12"* ]]; then
           echo "pytype does not support 3.12: https://github.com/google/pytype/issues/1475"
