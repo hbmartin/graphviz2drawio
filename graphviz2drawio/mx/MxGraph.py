@@ -63,7 +63,11 @@ class MxGraph:
         return self.nodes[edge.fr], self.nodes[edge.to]
 
     @staticmethod
-    def get_edge_style(edge: Edge, source_geo: Rect, target_geo: Rect) -> str:  # pytype: disable=invalid-annotation
+    def get_edge_style(
+        edge: Edge,  # pytype: disable=invalid-annotation
+        source_geo: Rect,
+        target_geo: Rect,
+    ) -> str:
         end_arrow = MxConst.BLOCK
         end_fill = 1
         dashed = 1 if edge.line_style == DotAttr.DASHED else 0
