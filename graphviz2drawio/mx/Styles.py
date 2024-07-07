@@ -9,7 +9,7 @@ class Styles(Enum):
     EDGE = "html=1;endArrow={end_arrow};dashed={dashed};endFill={end_fill};entryX={entryX};entryY={entryY};exitX={exitX};exitY={exitY};"
     EDGE_UNCONNECTED = "html=1;endArrow={end_arrow};dashed={dashed};endFill={end_fill};"
     EDGE_LABEL = (
-        "edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];"
+        "edgeLabel;html=1;align=center;verticalAlign=bottom;resizable=0;points=[];"
     )
     TEXT = "margin:0px;text-align:{align};{margin};font-size:{size}px;font-family:{family};color:{color};"
 

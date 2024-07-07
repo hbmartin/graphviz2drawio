@@ -3,7 +3,6 @@ from graphviz2drawio.models import SVG
 from ..models.Errors import MissingTitleError
 from .CurveFactory import CurveFactory
 from .Edge import Edge
-from .Text import Text
 
 
 class EdgeFactory:
@@ -12,21 +11,16 @@ class EdgeFactory:
         self.curve_factory = CurveFactory(coords)
 
     @staticmethod
-    def _get_labels(g) -> list[Text]:
-        texts = []
-        current_text = None
-        for t in g:
-            if SVG.is_tag(t, "text"):
-                if current_text is None:
-                    current_text = Text.from_svg(t)
+    def _get_label(g) -> str | None:
+        text = None
+        for tag in g:
+            if SVG.is_tag(tag, "text"):
+                if text is None:
+                    text = tag.text
                 else:
-                    current_text.text += "<br/>" + t.text
-            elif current_text is not None:
-                texts.append(current_text)
-                current_text = None
-        if current_text is not None:
-            texts.append(current_text)
-        return texts
+                    text += f"<div>{tag.text}</div>"
+
+        return text
 
     def from_svg(self, g) -> Edge:
         title = SVG.get_title(g)
@@ -36,8 +30,8 @@ class EdgeFactory:
         fr = fr.split(":")[0]
         to = to.split(":")[0]
         curve = None
-        labels = self._get_labels(g)
+        label = self._get_label(g)
         if (path := SVG.get_first(g, "path")) is not None:
             if "d" in path.attrib:
                 curve = self.curve_factory.from_svg(path.attrib["d"])
-        return Edge(sid=g.attrib["id"], fr=fr, to=to, curve=curve, labels=labels)
+        return Edge(sid=g.attrib["id"], fr=fr, to=to, curve=curve, label=label)

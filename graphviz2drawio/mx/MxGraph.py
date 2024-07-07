@@ -37,16 +37,15 @@ class MxGraph:
                 "edge": "1",
                 "source": source.sid,
                 "target": target.sid,
-                "value": edge.text_to_mx_value(),
             },
         )
 
-        if edge.label:
+        if edge.label is not None:
             edge_label_element = SubElement(
                 self.root,
                 MxConst.CELL,
                 attrib={
-                    "id": f"label_{edge.fr}_{edge.to}",
+                    "id": f"label_{edge.sid}",
                     "style": str(Styles.EDGE_LABEL),
                     "parent": edge.sid,
                     "value": edge.label,

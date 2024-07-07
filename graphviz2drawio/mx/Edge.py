@@ -2,7 +2,6 @@ from graphviz2drawio.models import DotAttr
 
 from .Curve import Curve
 from .GraphObj import GraphObj
-from .Text import Text
 
 
 class Edge(GraphObj):
@@ -14,7 +13,7 @@ class Edge(GraphObj):
         fr: str,
         to: str,
         curve: Curve | None,
-        labels: list[Text],
+        label: str | None,
     ) -> None:
         super().__init__(sid=sid, gid=f"{fr}->{to}")
         self.fr = fr
@@ -23,7 +22,7 @@ class Edge(GraphObj):
         self.line_style = None
         self.dir = None
         self.arrowtail = None
-        self.labels = labels
+        self.label = label
 
     def curve_start_end(self):
         if self.dir == DotAttr.BACK:
@@ -42,7 +41,7 @@ class Edge(GraphObj):
 
     @property
     def key_for_label(self) -> str:
-        return f"{self.gid}-{self.curve}"
+        return f"{self.gid}-{self.curve}-{self.dir}"
 
     def __repr__(self) -> str:
         return (

@@ -32,6 +32,9 @@ def parse_nodes_edges_clusters(
             if g.attrib["class"] == "node":
                 nodes[title] = node_factory.from_svg(g)
             elif g.attrib["class"] == "edge":
+                # We need to merge edges with the same source and target
+                # GV represents multiple labels with multiple edges
+                # even when they are visually along the same edge
                 edge = edge_factory.from_svg(g)
                 if (existing_edge := edges.get(edge.key_for_label)) is not None:
                     existing_edge.label += f"<div>{edge.label}</div>"
