@@ -83,7 +83,7 @@ class Edge(GraphObj):
         active_dirs: set[str],
     ) -> tuple[str, int]:
         shape = MxConst.BLOCK if self.dir in active_dirs else MxConst.NONE
-        fill = 1 if self.dir in active_dirs else MxConst.NONE
+        fill = 1 if self.dir in active_dirs else 0
 
         if arrow is not None:
             if arrow == "none":
