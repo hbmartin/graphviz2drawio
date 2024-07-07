@@ -21,7 +21,10 @@ def convert(graph_to_convert: AGraph | str | IO, layout_prog: str = "dot") -> st
 
     svg_graph = graph.draw(prog=layout_prog, format="svg")
 
-    nodes, edges, clusters = parse_nodes_edges_clusters(svg_graph)
+    nodes, edges, clusters = parse_nodes_edges_clusters(
+        svg_data=svg_graph,
+        is_directed=graph.directed,
+    )
 
     for e in edges:
         e.enrich_from_graph(graph_edges[e.gid])

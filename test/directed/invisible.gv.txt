@@ -1,0 +1,22 @@
+digraph G {
+    graph [rankdir = LR, splines=ortho];
+
+    node[shape=record];
+
+    emmc [label="eMMC" color="blue"]
+    boot_host [label="" style=invis width=0 height=2]
+    spinor [label="SPI NOR" color="green"]
+    soc [label="SoC" height=4]
+    nand [label="Raw NAND" color="yellow"]
+    dev_eth [label="" style=invis width=0 height=2]
+    eeprom [label="I2C EEPROM" color="red"]
+
+    emmc -> soc [arrowhead=none]
+    boot_host -> soc [xlabel="Boot Source"]
+    boot_host -> soc [xlabel="USB" dir=both]
+    spinor -> soc [arrowhead=none]
+    soc -> nand [arrowhead=none]
+    soc -> dev_eth [xlabel="USB-OTG" dir=both]
+    soc -> dev_eth [xlabel="Ethernet" dir=both]
+    soc -> eeprom [arrowhead=none]
+}

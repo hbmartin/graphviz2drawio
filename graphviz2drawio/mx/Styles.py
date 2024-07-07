@@ -6,10 +6,12 @@ from . import Shape
 # Make this subclass StrEnum when dropping Py 3.10 support
 class Styles(Enum):
     NODE = "verticalAlign=top;align=left;overflow=fill;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeColor={stroke};strokeWidth=1;fillColor={fill};"
-    EDGE = "html=1;endArrow={end_arrow};dashed={dashed};endFill={end_fill};"
+    EDGE = "html=1;endArrow={end_arrow};dashed={dashed};endFill={end_fill};startArrow={start_arrow};startFill={start_fill};"
     EDGE_LABEL = (
         "edgeLabel;html=1;align=center;verticalAlign=bottom;resizable=0;points=[];"
     )
+    EDGE_INVIS = "rounded=1;html=1;exitX={exit_x:.3g};exitY={exit_y:.3g};jettySize=auto;curved={curved};endArrow={end_arrow};dashed={dashed};endFill={end_fill};"
+
     TEXT = "margin:0px;text-align:{align};{margin};font-size:{size}px;font-family:{family};color:{color};"
 
     ELLIPSE = "ellipse;" + NODE

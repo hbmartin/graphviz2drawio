@@ -1,4 +1,7 @@
 BACK = "back"
+BOTH: str = "both"
+FORWARD: str = "forward"
+NONE = "none"
 
 DIAMOND = "diamond"
 
