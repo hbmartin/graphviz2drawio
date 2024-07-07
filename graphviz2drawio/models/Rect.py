@@ -30,7 +30,7 @@ class Rect:
             return 1
         return (search - self.y) / self.height
 
-    def to_dict_str(self):
+    def to_dict_str(self) -> dict[str, str]:
         return {
             "x": str(self.x),
             "y": str(self.y),
