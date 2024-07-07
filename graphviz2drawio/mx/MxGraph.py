@@ -74,17 +74,28 @@ class MxGraph:
                 tail = edge.arrowtail[1:]
             if tail == DotAttr.DIAMOND:
                 end_arrow = MxConst.DIAMOND
-        exit_x, exit_y = source_geo.relative_location_along_perimeter(edge.curve.start)
-        entry_x, entry_y = target_geo.relative_location_along_perimeter(edge.curve.end)
-        return Styles.EDGE.format(
+        if edge.curve is not None:
+            exit_x, exit_y = source_geo.relative_location_along_perimeter(
+                edge.curve.start,
+            )
+            entry_x, entry_y = target_geo.relative_location_along_perimeter(
+                edge.curve.end,
+            )
+            return Styles.EDGE.format(
+                end_arrow=end_arrow,
+                dashed=dashed,
+                end_fill=end_fill,
+                entryX=entry_x,
+                entryY=entry_y,
+                exitX=exit_x,
+                exitY=exit_y,
+            ) + (MxConst.CURVED if edge.curve.is_bezier else MxConst.SHARP)
+
+        return Styles.EDGE_UNCONNECTED.format(
             end_arrow=end_arrow,
             dashed=dashed,
             end_fill=end_fill,
-            entryX=entry_x,
-            entryY=entry_y,
-            exitX=exit_x,
-            exitY=exit_y,
-        ) + (MxConst.CURVED if edge.curve.is_bezier else MxConst.SHARP)
+        )
 
     def add_node(self, node) -> None:
         fill = (

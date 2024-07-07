@@ -7,6 +7,7 @@ from . import Shape
 class Styles(Enum):
     NODE = "verticalAlign=top;align=left;overflow=fill;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeColor={stroke};strokeWidth=1;fillColor={fill};"
     EDGE = "html=1;endArrow={end_arrow};dashed={dashed};endFill={end_fill};entryX={entryX};entryY={entryY};exitX={exitX};exitY={exitY};"
+    EDGE_UNCONNECTED = "html=1;endArrow={end_arrow};dashed={dashed};endFill={end_fill};"
     EDGE_LABEL = (
         "edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];"
     )

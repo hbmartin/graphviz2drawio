@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from collections import OrderedDict
 from typing import IO
 
 from pygraphviz import AGraph
@@ -19,11 +20,14 @@ def convert(graph_to_convert: AGraph | str | IO, layout_prog: str = "dot") -> st
     graph_nodes = {n: list(n.attr.iteritems()) for n in graph.nodes_iter()}
 
     svg_graph = graph.draw(prog=layout_prog, format="svg")
-    del graph
+
     nodes, edges, clusters = parse_nodes_edges_clusters(svg_graph)
-    [e.enrich_from_graph(graph_edges[e.gid]) for e in edges]
-    [n.enrich_from_graph(graph_nodes[n.gid]) for n in nodes.values()]
+
+    for e in edges:
+        e.enrich_from_graph(graph_edges[e.gid])
+    for n in nodes.values():
+        n.enrich_from_graph(graph_nodes[n.gid])
 
     # Put clusters first, so that nodes are drawn in front
-    mx_graph = MxGraph(clusters | nodes, edges)
+    mx_graph = MxGraph(OrderedDict(list(clusters.items()) + list(nodes.items())), edges)
     return mx_graph.value()
