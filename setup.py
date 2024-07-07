@@ -46,4 +46,5 @@ setup(
         "Source": "https://github.com/hbmartin/graphviz2drawio/",
     },
     include_package_data=True,
+    package_data={"graphviz2drawio": ["py.typed"]},
 )
