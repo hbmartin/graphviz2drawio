@@ -19,7 +19,7 @@ jobs:
         cache: pip
         cache-dependency-path: requirements.txt
     - run: pip install -r requirements.txt
-    - run: pip install black ruff pytest
+    - run: pip install black ruff pytest pytest-cov
     - run: ruff check .
     - name: Run mypy if on 3.12, pytype otherwise
       run: |
@@ -35,7 +35,7 @@ jobs:
     - uses: psf/black@stable
       with:
         options: "--check --verbose"
-    - run: pytest
+    - run: pytest --cov
     - name: Run main script
       run: |
         python3 -m graphviz2drawio test/directed/hello.gv.txt
