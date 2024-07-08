@@ -37,20 +37,26 @@ def _convert_file(to_convert: str, program: str, outfile: str | None) -> None:
 def main() -> None:
     args = Arguments(__version__).parse_args()  # pytype: disable=not-callable
 
+    in_files: list[str]
+    out_files: list[str] | None
     if args.outfile is None or len(args.outfile) == 0:
         in_files = [args.to_convert]
-        out_files = [_gv_filename_to_xml(args.to_convert) if not args.stdout else None]
+        out_files = None if args.stdout else [_gv_filename_to_xml(args.to_convert)]
     elif len(args.outfile) == 1:
         in_files = [args.to_convert]
         out_files = args.outfile
     else:
         in_files = [args.to_convert, *args.outfile]
-        out_files = [_gv_filename_to_xml(args.to_convert)] + [
-            _gv_filename_to_xml(f) for f in args.outfile
+        out_files = [
+            _gv_filename_to_xml(args.to_convert),
+            *[_gv_filename_to_xml(f) for f in args.outfile],
         ]
 
-    for in_file, out_file in zip(in_files, out_files, strict=True):
-        _convert_file(in_file, args.program, out_file)
+    if out_files is None:
+        _convert_file(in_files[0], args.program, None)
+    else:
+        for in_file, out_file in zip(in_files, out_files, strict=True):
+            _convert_file(in_file, args.program, out_file)
 
 
 if __name__ == "__main__":
