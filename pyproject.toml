@@ -1,3 +1,67 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "graphviz2drawio"
+dynamic = ["version"]
+description = "Convert graphviz (dot) files into draw.io / lucid (mxGraph) format"
+readme = "README.md"
+license = "GPLv3"
+requires-python = ">=3.10"
+authors = [
+    { name = "Harold Martin", email = "harold.martin@gmail.com" },
+]
+keywords = [
+    "agraph",
+    "conversion",
+    "convert",
+    "dot",
+    "draw",
+    "drawio",
+    "graph",
+    "graphviz",
+    "maxgraph",
+    "mxgraph",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Multimedia :: Graphics",
+    "Topic :: Multimedia :: Graphics :: Graphics Conversion",
+    "Topic :: Scientific/Engineering :: Visualization",
+    "Topic :: Scientific/Engineering :: Visualization",
+]
+dependencies = [
+    "puremagic",
+    "pygraphviz",
+    "svg.path",
+]
+
+[project.scripts]
+graphviz2drawio = "graphviz2drawio.__main__:main"
+
+[project.urls]
+"Bug Reports" = "https://github.com/hbmartin/graphviz2drawio/issues"
+Homepage = "https://github.com/hbmartin/graphviz2drawio/"
+Source = "https://github.com/hbmartin/graphviz2drawio/"
+
+[tool.hatch.version]
+path = "graphviz2drawio/__init__.py"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/graphviz2drawio",
+]
+
 [tool.ruff]
 # Exclude a variety of commonly ignored directories.
 exclude = [
