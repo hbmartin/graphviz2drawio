@@ -39,6 +39,7 @@ It is recommended to use [pipx](https://pipx.pypa.io/stable/) to install and run
 ```bash
 brew install pipx
 pipx install graphviz2drawio
+# Use pipx upgrade graphviz2drawio to update
 ```
 
 ## Usage
@@ -67,6 +68,11 @@ where `graph_to_convert` can be any of a file path, file handle, string of dot l
 ## Contributing
 
 Pull requests and issue reports are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Thanks to all the people who have helped make this project succesful!
+
+[![Profile images of all the contributors](https://contrib.rocks/image?repo=hbmartin/graphviz2drawio)](https://github.com/hbmartin/graphviz2drawio/graphs/contributors)
+
 
 ### Development Setup
 
