@@ -13,7 +13,7 @@ Convert graphviz (dot) files into draw.io / lucid (mxGraph) format.
 
 ## Installation
 
-#### macOS
+### macOS
 graphviz2drawio can be installed with [Homebrew](https://brew.sh/):
 
 ```bash

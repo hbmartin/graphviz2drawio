@@ -24,14 +24,13 @@ jobs:
     - run: ruff check .
     - name: Run mypy if on 3.12, pytype otherwise
       run: |
-        if [[ '${{ steps.cpython3.outputs.python-version }}' == *"3.12"* ]]; then
-          echo "pytype does not support 3.12: https://github.com/google/pytype/issues/1475"
-          echo "running mypy instead..."
-          pip install mypy
-          mypy graphviz2drawio --ignore-missing-imports
-        else
+        if [[ '${{ steps.cpython3.outputs.python-version }}' == *"3.11"* ]]; then
           pip install pytype
           pytype -j auto graphviz2drawio
+        else
+          echo "pytype does not support >= 3.12: https://github.com/google/pytype/issues/1475"
+          pip install mypy
+          mypy graphviz2drawio --ignore-missing-imports
         fi
     - uses: psf/black@stable
       with:
