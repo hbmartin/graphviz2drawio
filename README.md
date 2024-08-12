@@ -11,35 +11,36 @@
 
 Convert graphviz (dot) files into draw.io / lucid (mxGraph) format.
 
-## Prerequisites
-
-The graphviz library is required before installing this package.
+## Installation
 
 #### macOS
-Python 3 and graphviz can be installed with [Homebrew](https://brew.sh/):
+graphviz2drawio can be installed with [Homebrew](https://brew.sh/):
 
 ```bash
-brew update
-brew install python3 graphviz
-# In order to build pygraphviz:
-export CFLAGS="-I$(brew --prefix graphviz)/include/"                                                   
-export LDFLAGS="-L$(brew --prefix graphviz)/lib/"
+brew install hbmartin/graphviz2drawio/graphviz2drawio
 ```
+
+### Linux
+
+It is recommended to use [pipx](https://pipx.pypa.io/stable/) to install and run the CLI tool. If you wish to use the library, you can install with `pip` instead.
+
+Note that the graphviz library is required before installing this package.
 
 #### Ubuntu / Debian
 
 ```bash
-sudo apt install python3-pip graphviz graphviz-dev
+sudo apt update
+sudo apt install pipx graphviz graphviz-dev
+pipx install graphviz2drawio
+# To update: pipx upgrade graphviz2drawio
 ```
 
-## Installation
-
-It is recommended to use [pipx](https://pipx.pypa.io/stable/) to install and run the CLI tool. If you wish to use the library, you can install with `pip` instead.
-
+#### Fedora
 ```bash
-brew install pipx
+sudo dnf install pipx
+pipx ensurepath
 pipx install graphviz2drawio
-# Use pipx upgrade graphviz2drawio to update
+# To update: pipx upgrade graphviz2drawio
 ```
 
 ## Usage
