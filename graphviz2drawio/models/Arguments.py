@@ -20,14 +20,16 @@ class Arguments(ArgumentParser):
             "-o",
             "--outfile",
             metavar="file.xml",
-            help="Optional path to output XML. May not be used with multiple input files.",
+            help="Optional path to output XML. "
+            "May not be used with multiple input files.",
             nargs="?",
             default=None,
         )
         self.add_argument(
             "--stdout",
             action="store_true",
-            help="Print converted output to stdout instead of writing an XML file.",
+            help="Print converted output to stdout instead of writing an XML file. "
+            "May not be used with multiple input files.",
         )
         self.add_argument(
             "-p",

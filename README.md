@@ -50,7 +50,7 @@ Run the conversion app on your graphviz file. For example, the command below wil
 graphviz2drawio example1.dot example2.dot
 ```
 
-Alternately, you can specify the output file (but only if there is a single input file)
+Alternatively, you can specify the output file (but only if there is a single input file)
 
 ```bash
 graphviz2drawio example.dot -o /path/to/somewhere/new_name.xml
