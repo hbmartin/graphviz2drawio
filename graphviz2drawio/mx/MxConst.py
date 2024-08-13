@@ -18,3 +18,9 @@ ROOT = "root"
 NONE = "none"
 CURVED = "curved=1;"
 SHARP = "rounded=0;"
+
+VERTICAL_ALIGN = {
+    "t": "top",
+    "b": "bottom",
+    "c": "middle",
+}

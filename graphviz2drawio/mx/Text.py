@@ -28,8 +28,8 @@ class Text:
         open_tags = ""
         close_tags = ""
         if self.bold:
-            open_tags += "<b>"
-            close_tags += "</b>"
+            open_tags = "<b>"
+            close_tags = "</b>"
         if self.italic:
             open_tags = "<i>" + open_tags
             close_tags += "</i>"

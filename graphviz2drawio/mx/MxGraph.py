@@ -6,6 +6,7 @@ from graphviz2drawio.models.Rect import Rect
 from graphviz2drawio.mx import MxConst
 from graphviz2drawio.mx.Curve import Curve
 from graphviz2drawio.mx.Edge import Edge
+from graphviz2drawio.mx.MxConst import VERTICAL_ALIGN
 from graphviz2drawio.mx.Node import Node
 from graphviz2drawio.mx.Styles import Styles
 
@@ -82,7 +83,7 @@ class MxGraph:
 
             attributes["image"] = image_data_for_path(image_path)
 
-        attributes["vertical_align"] = self.vertical_align_for_labelloc(node.labelloc)
+        attributes["vertical_align"] = VERTICAL_ALIGN.get(node.labelloc, "middle")
 
         style: str = style_for_shape.format(**attributes)
 
@@ -98,12 +99,6 @@ class MxGraph:
             },
         )
         self.add_mx_geo(node_element, node.rect)
-
-    @staticmethod
-    def vertical_align_for_labelloc(labelloc: str) -> str:
-        if labelloc == "t":
-            return "top"
-        return "bottom" if labelloc == "b" else "middle"
 
     @staticmethod
     def add_mx_geo(element: Element, rect: Rect | None = None) -> None:
