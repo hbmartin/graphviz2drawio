@@ -6,6 +6,7 @@ from graphviz2drawio.models.Rect import Rect
 from graphviz2drawio.mx import MxConst
 from graphviz2drawio.mx.Curve import Curve
 from graphviz2drawio.mx.Edge import Edge
+from graphviz2drawio.mx.MxConst import VERTICAL_ALIGN
 from graphviz2drawio.mx.Node import Node
 from graphviz2drawio.mx.Styles import Styles
 
@@ -82,6 +83,8 @@ class MxGraph:
 
             attributes["image"] = image_data_for_path(image_path)
 
+        attributes["vertical_align"] = VERTICAL_ALIGN.get(node.labelloc, "middle")
+
         style: str = style_for_shape.format(**attributes)
 
         node_element = SubElement(
@@ -89,7 +92,7 @@ class MxGraph:
             MxConst.CELL,
             attrib={
                 "id": node.sid,
-                "value": node.text_to_mx_value(),
+                "value": node.texts_to_mx_value(),
                 "style": style,
                 "parent": "1",
                 "vertex": "1",
@@ -144,10 +147,6 @@ class MxGraph:
                             "y": str(point.imag),
                         },
                     )
-
-    @staticmethod
-    def x_y_strs(point: complex) -> tuple[str, str]:
-        return str(int(point.real)), str(int(point.imag))
 
     def value(self) -> str:
         indent(self.graph)

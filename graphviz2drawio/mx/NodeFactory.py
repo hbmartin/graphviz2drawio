@@ -15,7 +15,7 @@ class NodeFactory:
         super().__init__()
         self.coords = coords
 
-    def from_svg(self, g: Element) -> Node:
+    def from_svg(self, g: Element, labelloc: str) -> Node:
         texts = self._extract_texts(g)
         rect = None
         fill = None
@@ -56,6 +56,7 @@ class NodeFactory:
             fill=fill,
             stroke=stroke,
             shape=shape,
+            labelloc=labelloc,
         )
 
     @staticmethod

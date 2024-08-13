@@ -1,6 +1,5 @@
 from xml.etree.ElementTree import Element
 
-from graphviz2drawio.models import DotAttr
 from graphviz2drawio.mx import MxConst
 
 from ..models.Errors import MissingTextError
@@ -11,7 +10,6 @@ class Text:
     def __init__(
         self,
         text: str,
-        anchor: str | None,
         family: str,
         size: float,
         color: str | None,
@@ -19,7 +17,6 @@ class Text:
         bold: bool,
         italic: bool,
     ) -> None:
-        self.anchor = anchor
         self.family = family
         self.size = size
         self.text = text
@@ -27,27 +24,23 @@ class Text:
         self.bold = bold
         self.italic = italic
 
-    def get_mx_style(self) -> str:
-        align = MxConst.CENTER if self.anchor == DotAttr.MIDDLE else MxConst.START
-        margin = (
-            "margin-top:4px" if self.anchor == DotAttr.MIDDLE else "margin-left:4px"
-        )
-        rescaled_size = 10.0 * (self.size / 14.0)
-        return Styles.TEXT.format(
-            align=align,
-            margin=margin,
-            size=rescaled_size,
+    def get_mx_value(self) -> str:
+        open_tags = ""
+        close_tags = ""
+        if self.bold:
+            open_tags = "<b>"
+            close_tags = "</b>"
+        if self.italic:
+            open_tags = "<i>" + open_tags
+            close_tags += "</i>"
+        return Styles.TEXT_VALUE.format(
+            text=self.text,
+            size=self.size or "14",
             family=self.family or MxConst.DEFAULT_FONT_FAMILY,
             color=self.color or MxConst.DEFAULT_FONT_COLOR,
+            open_tags=open_tags,
+            close_tags=close_tags,
         )
-
-    def to_simple_value(self) -> str:
-        text = self.text
-        if self.bold:
-            text = f"<b>{text}</b>"
-        if self.italic:
-            text = f"<i>{text}</i>"
-        return text
 
     @staticmethod
     def from_svg(t: Element) -> "Text":
@@ -56,10 +49,9 @@ class Text:
             raise MissingTextError(t)
         return Text(
             text=text.replace("<", "&lt;").replace(">", "&gt;"),
-            anchor=t.attrib.get("text-anchor", None),
             family=t.attrib.get("font-family", MxConst.DEFAULT_FONT_FAMILY),
             size=float(t.attrib.get("font-size", MxConst.DEFAULT_TEXT_SIZE)),
-            color=t.attrib.get("fill", None),
+            color=t.attrib.get("fill", MxConst.DEFAULT_FONT_COLOR),
             bold=t.get("font-weight", None) == "bold",
             italic=t.get("font-style", None) == "italic",
         )

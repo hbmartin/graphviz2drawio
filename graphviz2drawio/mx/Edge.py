@@ -115,10 +115,7 @@ class Edge(GraphObj):
         )
 
     def value_for_labels(self) -> str:
-        text = ""
-        for i, label in enumerate(self.labels):
-            if i == 0:
-                text += label.to_simple_value()
-            else:
-                text += f"<div>{label.to_simple_value()}</div>"
-        return text
+        return "".join(
+            (label.get_mx_value() if i == 0 else f"<div>{label.get_mx_value()}</div>")
+            for i, label in enumerate(self.labels)
+        )
