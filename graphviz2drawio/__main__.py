@@ -86,7 +86,7 @@ def _validate_args(args: Namespace) -> None:
         and args.to_convert[0] == sys.stdin
         and sys.stdin.isatty()
     ):
-        Arguments(__version__).print_help()
+        Arguments(__version__).print_help()  # pytype: disable=not-callable
         sys.exit(1)
 
 
