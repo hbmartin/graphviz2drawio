@@ -126,7 +126,10 @@ def test_convnet() -> None:
     root = ElementTree.fromstring(xml)
     elements = check_xml_top(root)
 
-    assert elements[-1].attrib["value"] == "<font style='font-size: 14.0px;' face='Times,serif' color='#000000'>$$l_t$$</font>"
+    assert (
+        elements[-1].attrib["value"]
+        == "<font style='font-size: 14.0px;' face='Times,serif' color='#000000'>$$l_t$$</font>"
+    )
     assert "doubleEllipse" in xml
     assert "steelblue1" not in xml
 
@@ -138,7 +141,10 @@ def test_multilabel() -> None:
     root = ElementTree.fromstring(xml)
     elements = check_xml_top(root)
 
-    assert elements[-1].attrib["value"] == "<font style='font-size: 14.0px;' face='Times,serif' color='#000000'>c</font><div><font style='font-size: 14.0px;' face='Times,serif' color='#000000'>b</font></div><div><font style='font-size: 14.0px;' face='Times,serif' color='#000000'>a</font></div>"
+    assert (
+        elements[-1].attrib["value"]
+        == "<font style='font-size: 14.0px;' face='Times,serif' color='#000000'>c</font><div><font style='font-size: 14.0px;' face='Times,serif' color='#000000'>b</font></div><div><font style='font-size: 14.0px;' face='Times,serif' color='#000000'>a</font></div>"
+    )
 
 
 def test_datastruct() -> None:
