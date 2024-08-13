@@ -42,7 +42,7 @@ def _convert_file(to_convert: TextIOWrapper, program: str, outfile: str | None) 
 def main() -> None:
     args = Arguments(__version__).parse_args()  # pytype: disable=not-callable
 
-    in_files: list[str]
+    in_files: list[TextIOWrapper]
     out_files: list[str | None]
 
     _validate_args(args)
