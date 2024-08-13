@@ -103,9 +103,7 @@ class MxGraph:
     def vertical_align_for_labelloc(labelloc: str) -> str:
         if labelloc == "t":
             return "top"
-        if labelloc == "b":
-            return "bottom"
-        return "middle"  # e.g. for "c"
+        return "bottom" if labelloc == "b" else "middle"
 
     @staticmethod
     def add_mx_geo(element: Element, rect: Rect | None = None) -> None:
