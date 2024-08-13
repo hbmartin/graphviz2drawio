@@ -98,14 +98,14 @@ pip install -r requirements.txt
 python -m graphviz2drawio test/directed/hello.gv.txt
 ```
 
-## Roadmap to 0.5
+## Roadmap
 - [ ] Migrate to uv/hatch for packaging and dep mgmt
 - [ ] Turn on master branch protection
-- [ ] Text alignment inside of shape
-- [ ] Port layout/orientation
 - [ ] Support for fill gradient
+- [ ] Support compatible [arrows](https://graphviz.org/docs/attr-types/arrowType/)
 
-## License
+## Legal
 
 © [Harold Martin](https://www.linkedin.com/in/harold-martin-98526971/) - released under [GPLv3](LICENSE.md)
 
+diagrams.net is a trademark and draw.io is a registered trademark of JGraph Limited.

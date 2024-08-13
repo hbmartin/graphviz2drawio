@@ -13,6 +13,7 @@ class Node(GraphObj):
         fill: str | None,
         stroke: str | None,
         shape: str,
+        labelloc: str,
     ) -> None:
         super().__init__(sid, gid)
         self.rect = rect
@@ -21,15 +22,20 @@ class Node(GraphObj):
         self.stroke = stroke
         self.label = None
         self.shape = shape
+        self.labelloc = labelloc
 
-    def text_to_mx_value(self) -> str:
+    def texts_to_mx_value(self) -> str:
         value = ""
         last_text = len(self.texts) - 1
         for i, t in enumerate(self.texts):
-            style = t.get_mx_style()
-            value += f"<p style='{style}'>{t.text}</p>"
+            if i != 0:
+                value += "<div>" + t.get_mx_value() + "</div>"
+            else:
+                value += t.get_mx_value()
+
             if i != last_text:
                 value += "<hr size='1'/>"
+
         return value
 
     def __repr__(self) -> str:

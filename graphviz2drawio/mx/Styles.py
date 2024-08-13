@@ -5,14 +5,14 @@ from . import Shape
 
 # Make this subclass StrEnum when dropping Py 3.10 support
 class Styles(Enum):
-    NODE = "verticalAlign=top;align=left;overflow=fill;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeColor={stroke};strokeWidth=1;fillColor={fill};"
+    NODE = "verticalAlign={vertical_align};html=1;rounded=0;labelBackgroundColor=none;strokeColor={stroke};strokeWidth=1;fillColor={fill};"
     EDGE = "html=1;endArrow={end_arrow};dashed={dashed};endFill={end_fill};startArrow={start_arrow};startFill={start_fill};fillColor={stroke};strokeColor={stroke};"
     EDGE_LABEL = (
         "edgeLabel;html=1;align=center;verticalAlign=bottom;resizable=0;points=[];"
     )
     EDGE_INVIS = "rounded=1;html=1;exitX={exit_x:.3g};exitY={exit_y:.3g};jettySize=auto;curved={curved};endArrow={end_arrow};dashed={dashed};endFill={end_fill};"
 
-    TEXT = "margin:0px;text-align:{align};{margin};font-size:{size}px;font-family:{family};color:{color};"
+    TEXT_VALUE = "{open_tags}<font style='font-size: {size}px;' face='{family}' color='{color}'>{text}</font>{close_tags}"
 
     ELLIPSE = "ellipse;" + NODE
     CIRCLE = "ellipse;aspect=fixed;" + NODE
@@ -28,12 +28,10 @@ class Styles(Enum):
     PARALLELOGRAM = "shape=parallelogram;perimeter=parallelogramPerimeter;" + NODE
     HOUSE = "shape=offPageConnector;direction=west;" + NODE
     PENTAGON = "shape=mxgraph.basic.pentagon;" + NODE
-    OCTAGON = (
-        "shape=mxgraph.basic.octagon2;align=center;verticalAlign=middle;dx=15;" + NODE
-    )
+    OCTAGON = "shape=mxgraph.basic.octagon2;align=center;dx=15;" + NODE
     DOUBLE_CIRCLE = "ellipse;shape=doubleEllipse;aspect=fixed;" + NODE
     DOUBLE_OCTAGON = (
-        "shape=image;html=1;verticalAlign=middle;verticalLabelPosition=middle;imageAspect=0;aspect=fixed;image=https://cdn4.iconfinder.com/data/icons/feather/24/octagon-128.png;labelPosition=center;align=center;"
+        "shape=image;html=1;verticalLabelPosition=middle;imageAspect=0;aspect=fixed;image=https://cdn4.iconfinder.com/data/icons/feather/24/octagon-128.png;labelPosition=center;align=center;"
         + NODE
     )
     INV_TRIANGLE = "triangle;direction=south;" + NODE
@@ -43,7 +41,7 @@ class Styles(Enum):
     INV_HOUSE = "shape=offPageConnector;direction=east;" + NODE
     SQUARE = "aspect=fixed;" + NODE
     STAR = (
-        "shape=mxgraph.basic.star;labelPosition=center;align=center;verticalLabelPosition=middle;verticalAlign=middle;"
+        "shape=mxgraph.basic.star;labelPosition=center;align=center;verticalLabelPosition=middle;"
         + NODE
     )
     UNDERLINE = "line;strokeWidth=2;verticalAlign=bottom;labelPosition=center;verticalLabelPosition=top;align=center;"
@@ -51,24 +49,22 @@ class Styles(Enum):
     NOTE = "shape=note;backgroundOutline=1;" + NODE
     TAB = "shape=folder;tabWidth=40;tabHeight=14;tabPosition=left;" + NODE
     FOLDER = (
-        "shape=mxgraph.office.concepts.folder;outlineConnect=0;align=center;verticalLabelPosition=middle;verticalAlign=middle;labelPosition=center;shadow=0;dashed=0;"
+        "shape=mxgraph.office.concepts.folder;outlineConnect=0;align=center;verticalLabelPosition=middle;labelPosition=center;shadow=0;dashed=0;"
         + NODE
     )
     CUBE = "shape=cube;boundedLbl=1;backgroundOutline=1;" + NODE
-    COMPONENT = (
-        "shape=component;align=center;spacingLeft=36;verticalAlign=bottom;" + NODE
-    )
+    COMPONENT = "shape=component;align=center;spacingLeft=36;" + NODE
     RPROMOTER = (
-        "shape=mxgraph.arrows2.bendArrow;dy=15;dx=38;notch=0;arrowHead=55;rounded=0;shadow=0;dashed=0;align=center;verticalAlign=middle;"
+        "shape=mxgraph.arrows2.bendArrow;dy=15;dx=38;notch=0;arrowHead=55;rounded=0;shadow=0;dashed=0;align=center;"
         + NODE
     )
     LPROMOTER = "flipH=1;" + RPROMOTER
     CDS = (
-        "shape=mxgraph.arrows2.arrow;dy=0;dx=10;notch=0;shadow=0;dashed=0;align=center;verticalAlign=middle;"
+        "shape=mxgraph.arrows2.arrow;dy=0;dx=10;notch=0;shadow=0;dashed=0;align=center;"
         + NODE
     )
     RARROW = (
-        "shape=mxgraph.arrows2.arrow;dy=0.6;dx=40;align=center;labelPosition=center;notch=0;strokeWidth=2;verticalLabelPosition=middle;verticalAlign=middle;"
+        "shape=mxgraph.arrows2.arrow;dy=0.6;dx=40;align=center;labelPosition=center;notch=0;strokeWidth=2;verticalLabelPosition=middle;"
         + NODE
     )
     LARROW = "flipH=1;" + RARROW

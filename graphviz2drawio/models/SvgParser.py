@@ -39,7 +39,7 @@ def parse_nodes_edges_clusters(
             if title is None:
                 raise MissingTitleError(g)
             if g.attrib["class"] == "node":
-                nodes[title] = node_factory.from_svg(g)
+                nodes[title] = node_factory.from_svg(g, labelloc="c")
             elif g.attrib["class"] == "edge":
                 # We need to merge edges with the same source and target
                 # GV represents multiple labels with multiple edges
@@ -52,6 +52,6 @@ def parse_nodes_edges_clusters(
                 else:
                     edges[edge.key_for_label] = edge
             elif g.attrib["class"] == "cluster":
-                clusters[title] = node_factory.from_svg(g)
+                clusters[title] = node_factory.from_svg(g, labelloc="t")
 
     return nodes, list(edges.values()), clusters

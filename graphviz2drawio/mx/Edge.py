@@ -118,7 +118,7 @@ class Edge(GraphObj):
         text = ""
         for i, label in enumerate(self.labels):
             if i == 0:
-                text += label.to_simple_value()
+                text += label.get_mx_value()
             else:
-                text += f"<div>{label.to_simple_value()}</div>"
+                text += f"<div>{label.get_mx_value()}</div>"
         return text

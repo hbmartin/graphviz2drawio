@@ -82,6 +82,8 @@ class MxGraph:
 
             attributes["image"] = image_data_for_path(image_path)
 
+        attributes["vertical_align"] = self.vertical_align_for_labelloc(node.labelloc)
+
         style: str = style_for_shape.format(**attributes)
 
         node_element = SubElement(
@@ -89,13 +91,21 @@ class MxGraph:
             MxConst.CELL,
             attrib={
                 "id": node.sid,
-                "value": node.text_to_mx_value(),
+                "value": node.texts_to_mx_value(),
                 "style": style,
                 "parent": "1",
                 "vertex": "1",
             },
         )
         self.add_mx_geo(node_element, node.rect)
+
+    @staticmethod
+    def vertical_align_for_labelloc(labelloc: str) -> str:
+        if labelloc == "t":
+            return "top"
+        if labelloc == "b":
+            return "bottom"
+        return "middle"  # e.g. for "c"
 
     @staticmethod
     def add_mx_geo(element: Element, rect: Rect | None = None) -> None:
@@ -144,10 +154,6 @@ class MxGraph:
                             "y": str(point.imag),
                         },
                     )
-
-    @staticmethod
-    def x_y_strs(point: complex) -> tuple[str, str]:
-        return str(int(point.real)), str(int(point.imag))
 
     def value(self) -> str:
         indent(self.graph)

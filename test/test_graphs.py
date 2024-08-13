@@ -21,7 +21,7 @@ def check_style(e, check) -> None:
 
 def check_value(e, check) -> None:
     value = e.attrib["value"]
-    match = re.match(f"<p.*>{check}</p>", html.unescape(value))
+    match = re.match(f"<font.*>{check}</font>", html.unescape(value))
     assert match, f"no match found for {value}"
 
 
@@ -126,7 +126,7 @@ def test_convnet() -> None:
     root = ElementTree.fromstring(xml)
     elements = check_xml_top(root)
 
-    assert elements[-1].attrib["value"] == "$$l_t$$"
+    assert elements[-1].attrib["value"] == "<font style='font-size: 14.0px;' face='Times,serif' color='#000000'>$$l_t$$</font>"
     assert "doubleEllipse" in xml
     assert "steelblue1" not in xml
 
@@ -138,7 +138,7 @@ def test_multilabel() -> None:
     root = ElementTree.fromstring(xml)
     elements = check_xml_top(root)
 
-    assert elements[-1].attrib["value"] == "c<div>b</div><div>a</div>"
+    assert elements[-1].attrib["value"] == "<font style='font-size: 14.0px;' face='Times,serif' color='#000000'>c</font><div><font style='font-size: 14.0px;' face='Times,serif' color='#000000'>b</font></div><div><font style='font-size: 14.0px;' face='Times,serif' color='#000000'>a</font></div>"
 
 
 def test_datastruct() -> None:
@@ -180,7 +180,7 @@ def test_title_with_colon():
 
     root = ElementTree.fromstring(xml)
     check_xml_top(root)
-    assert "//absl/random:random&lt;/p&gt;" in xml
+    assert "//absl/random:random&lt;/font&gt;" in xml
 
 
 def test_invisible():
