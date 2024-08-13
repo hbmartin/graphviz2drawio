@@ -20,6 +20,7 @@ class Edge(GraphObj):
         is_directed: bool,
         curve: Curve | None,
         labels: list[Text],
+        stroke: str,
     ) -> None:
         super().__init__(sid=sid, gid=f"{fr}->{to}")
         self.fr = fr
@@ -30,6 +31,7 @@ class Edge(GraphObj):
         self.arrowtail = None
         self.arrowhead = None
         self.labels = labels
+        self.stroke = stroke
 
     def get_edge_style(
         self,
@@ -53,6 +55,7 @@ class Edge(GraphObj):
                 end_fill=end_fill,
                 start_arrow=start_arrow,
                 start_fill=start_fill,
+                stroke=self.stroke,
             ) + (MxConst.CURVED if self.curve.is_bezier else MxConst.SHARP)
 
             if source_geo is not None:
@@ -74,6 +77,7 @@ class Edge(GraphObj):
             end_fill=end_fill,
             start_arrow=start_arrow,
             start_fill=start_fill,
+            stroke=self.stroke,
         )
 
     def _get_arrow_shape_and_fill(
