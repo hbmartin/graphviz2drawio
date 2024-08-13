@@ -1,34 +1,6 @@
 [tool.ruff]
 # Exclude a variety of commonly ignored directories.
-exclude = [
-    ".bzr",
-    ".direnv",
-    ".eggs",
-    ".git",
-    ".git-rewrite",
-    ".hg",
-    ".ipynb_checkpoints",
-    ".mypy_cache",
-    ".nox",
-    ".pants.d",
-    ".pyenv",
-    ".pytest_cache",
-    ".pytype",
-    ".ruff_cache",
-    ".svn",
-    ".tox",
-    ".venv",
-    ".vscode",
-    "__pypackages__",
-    "_build",
-    "buck-out",
-    "build",
-    "dist",
-    "node_modules",
-    "setup.py",
-    "site-packages",
-    "venv",
-]
+exclude = [".bzr", ".direnv", ".eggs", ".git", ".git-rewrite", ".hg", ".ipynb_checkpoints", ".mypy_cache", ".nox", ".pants.d", ".pyenv", ".pytest_cache", ".pytype", ".ruff_cache", ".svn", ".tox", ".venv", ".vscode", "__pypackages__", "_build", "buck-out", "build", "dist", "node_modules", "setup.py", "site-packages", "venv"]
 
 # Same as Black.
 line-length = 88
@@ -57,6 +29,7 @@ line-ending = "auto"
 "graphviz2drawio/version.py" = ["T201"]
 "doc/source/conf.py" = ["A001", "ERA001", "INP001"]
 "graphviz2drawio/mx/Styles.py" = ["C901", "E501", "PLR0911", "PLR0912"]
+"graphviz2drawio/models/commented_tree_builder.py" = ["ANN001", "ANN201", "ANN204"]
 
 [tool.pytest.ini_options]
 pythonpath = ". venv/lib/python3.12/site-packages"

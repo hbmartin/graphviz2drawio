@@ -6,7 +6,7 @@ from . import Shape
 # Make this subclass StrEnum when dropping Py 3.10 support
 class Styles(Enum):
     NODE = "verticalAlign=top;align=left;overflow=fill;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeColor={stroke};strokeWidth=1;fillColor={fill};"
-    EDGE = "html=1;endArrow={end_arrow};dashed={dashed};endFill={end_fill};startArrow={start_arrow};startFill={start_fill};"
+    EDGE = "html=1;endArrow={end_arrow};dashed={dashed};endFill={end_fill};startArrow={start_arrow};startFill={start_fill};fillColor={stroke};strokeColor={stroke};"
     EDGE_LABEL = (
         "edgeLabel;html=1;align=center;verticalAlign=bottom;resizable=0;points=[];"
     )
@@ -81,6 +81,8 @@ class Styles(Enum):
     def get_for_shape(dot_shape: str | None) -> "Styles":
         if dot_shape is None:
             return Styles.ELLIPSE
+        if dot_shape.startswith("M") and dot_shape[1:] in _shape_to_style:
+            return _shape_to_style[dot_shape[1:]]
         if dot_shape in _shape_to_style:
             return _shape_to_style[dot_shape]
         return Styles.NODE

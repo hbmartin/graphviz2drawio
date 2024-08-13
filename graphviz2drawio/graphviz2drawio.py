@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 from collections import OrderedDict
 from typing import IO
 
@@ -14,10 +15,12 @@ def convert(graph_to_convert: AGraph | str | IO, layout_prog: str = "dot") -> st
     else:
         graph = AGraph(graph_to_convert)
 
-    graph_edges = {
-        e[0] + "->" + e[1]: list(e.attr.iteritems()) for e in graph.edges_iter()
+    graph_edges: dict[str, dict] = {
+        f"{e[0]}->{e[1]}-"
+        + (e.attr.get("xlabel") or e.attr.get("label") or ""): e.attr.to_dict()
+        for e in graph.edges_iter()
     }
-    graph_nodes = {n: list(n.attr.iteritems()) for n in graph.nodes_iter()}
+    graph_nodes: dict[str, dict] = {n: n.attr.to_dict() for n in graph.nodes_iter()}
 
     svg_graph = graph.draw(prog=layout_prog, format="svg")
 
@@ -27,7 +30,7 @@ def convert(graph_to_convert: AGraph | str | IO, layout_prog: str = "dot") -> st
     )
 
     for e in edges:
-        e.enrich_from_graph(graph_edges[e.gid])
+        e.enrich_from_graph(graph_edges[e.key_for_enrichment])
     for n in nodes.values():
         n.enrich_from_graph(graph_nodes[n.gid])
 

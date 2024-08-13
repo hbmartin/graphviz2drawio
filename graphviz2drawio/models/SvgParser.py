@@ -7,6 +7,7 @@ from graphviz2drawio.mx.Node import Node
 from graphviz2drawio.mx.NodeFactory import NodeFactory
 
 from . import SVG
+from .commented_tree_builder import COMMENT, CommentedTreeBuilder
 from .CoordsTranslate import CoordsTranslate
 from .Errors import MissingTitleError
 
@@ -16,7 +17,10 @@ def parse_nodes_edges_clusters(
     *,
     is_directed: bool,
 ) -> tuple[OrderedDict[str, Node], list[Edge], OrderedDict[str, Node]]:
-    root = ElementTree.fromstring(svg_data)[0]
+    root = ElementTree.fromstring(
+        svg_data,
+        parser=ElementTree.XMLParser(target=CommentedTreeBuilder()),
+    )[0]
 
     coords = CoordsTranslate.from_svg_transform(root.attrib["transform"])
     node_factory = NodeFactory(coords)
@@ -26,9 +30,12 @@ def parse_nodes_edges_clusters(
     edges: OrderedDict[str, Edge] = OrderedDict()
     clusters: OrderedDict[str, Node] = OrderedDict()
 
+    prev_comment = None
     for g in root:
-        if SVG.is_tag(g, "g"):
-            title = SVG.get_title(g)
+        if g.tag == COMMENT:
+            prev_comment = g.text
+        elif SVG.is_tag(g, "g"):
+            title = prev_comment or SVG.get_title(g)
             if title is None:
                 raise MissingTitleError(g)
             if g.attrib["class"] == "node":
@@ -37,7 +44,7 @@ def parse_nodes_edges_clusters(
                 # We need to merge edges with the same source and target
                 # GV represents multiple labels with multiple edges
                 # even when they are visually along the same edge
-                edge = edge_factory.from_svg(g)
+                edge = edge_factory.from_svg(g, title)
                 if (existing_edge := edges.get(edge.key_for_label)) is not None and len(
                     edge.labels,
                 ) > 0:
