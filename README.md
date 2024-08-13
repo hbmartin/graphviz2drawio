@@ -44,17 +44,28 @@ pipx install graphviz2drawio
 ```
 
 ## Usage
-Run the conversion app on your graphviz file
+Run the conversion app on your graphviz file. For example, the command below will create converted files `example1.xml` and `example2.xml`.
 
 ```bash
-graphviz2drawio example.dot
+graphviz2drawio example1.dot example2.dot
 ```
-You can then import the output XML file into draw.io or lucidchart.
+
+Alternatively, you can specify the output file (but only if there is a single input file)
+
+```bash
+graphviz2drawio example.dot -o /path/to/somewhere/new_name.xml
+```
+
+Output can also be sent to stdout by using the `--stdout` flag.
+
+Graphs can be piped in from stdin and sent to stdout (default) or to a file with `-o ...`.
+
 
 ## Library Usage
 ```python
 from graphviz2drawio import graphviz2drawio
 
+graph_to_convert = ...
 xml = graphviz2drawio.convert(graph_to_convert)
 print(xml)
 ```
