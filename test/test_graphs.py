@@ -128,6 +128,7 @@ def test_convnet() -> None:
 
     assert elements[-1].attrib["value"] == "$$l_t$$"
     assert "doubleEllipse" in xml
+    assert "steelblue1" not in xml
 
 
 def test_multilabel() -> None:
@@ -171,6 +172,15 @@ def test_subgraph_and_colors():
     assert "strokeColor=black" in xml
     assert "clust1" in xml
     assert "clust2" in xml
+
+
+def test_title_with_colon():
+    file = "test/directed/bazel.gv.txt"
+    xml = graphviz2drawio.convert(file)
+
+    root = ElementTree.fromstring(xml)
+    check_xml_top(root)
+    assert "//absl/random:random&lt;/p&gt;" in xml
 
 
 def test_invisible():

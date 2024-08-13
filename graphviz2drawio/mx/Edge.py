@@ -37,7 +37,6 @@ class Edge(GraphObj):
         target_geo: Rect | None,
     ) -> str:
         dashed = 1 if self.line_style == DotAttr.DASHED else 0
-
         end_arrow, end_fill = self._get_arrow_shape_and_fill(
             arrow=self.arrowhead,
             active_dirs={DotAttr.FORWARD, DotAttr.BOTH},
@@ -85,7 +84,7 @@ class Edge(GraphObj):
         shape = MxConst.BLOCK if self.dir in active_dirs else MxConst.NONE
         fill = 1 if self.dir in active_dirs else 0
 
-        if arrow is not None:
+        if arrow is not None and len(arrow) > 0:
             if arrow == "none":
                 shape = MxConst.NONE
                 fill = 0
@@ -101,10 +100,14 @@ class Edge(GraphObj):
     def key_for_label(self) -> str:
         return f"{self.gid}-{self.curve}-{self.dir}"
 
+    @property
+    def key_for_enrichment(self) -> str:
+        return f"{self.gid}-{self.labels[0] if len(self.labels) > 0 else ''}"
+
     def __repr__(self) -> str:
         return (
-            f"{self.fr}->{self.to}: "
-            f"{self.labels}, {self.line_style}, {self.dir}, {self.arrowtail}"
+            f"|{self.fr}->{self.to}|: "
+            f"{self.labels}, {self.arrowhead}, {self.dir}, {self.arrowtail};"
         )
 
     def value_for_labels(self) -> str:
