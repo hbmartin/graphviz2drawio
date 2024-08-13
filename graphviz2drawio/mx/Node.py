@@ -28,11 +28,7 @@ class Node(GraphObj):
         value = ""
         last_text = len(self.texts) - 1
         for i, t in enumerate(self.texts):
-            if i != 0:
-                value += "<div>" + t.get_mx_value() + "</div>"
-            else:
-                value += t.get_mx_value()
-
+            value += f"<div>{t.get_mx_value()}</div>" if i != 0 else t.get_mx_value()
             if i != last_text:
                 value += "<hr size='1'/>"
 
