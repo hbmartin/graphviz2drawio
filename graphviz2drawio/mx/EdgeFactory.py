@@ -18,12 +18,15 @@ class EdgeFactory:
         fr, to = title.replace("--", "->").split("->")
         curve = None
         stroke = "#000000"
+        stroke_width = "1"
         labels = [Text.from_svg(tag) for tag in g if SVG.is_tag(tag, "text")]
         if (path := SVG.get_first(g, "path")) is not None:
             if "d" in path.attrib:
                 curve = self.curve_factory.from_svg(path.attrib["d"])
             if "stroke" in path.attrib:
                 stroke = path.attrib["stroke"]
+            if "stroke-width" in path.attrib:
+                stroke_width = path.attrib["stroke-width"]
         return Edge(
             sid=g.attrib["id"],
             fr=fr,
@@ -32,4 +35,5 @@ class EdgeFactory:
             curve=curve,
             labels=labels,
             stroke=stroke,
+            stroke_width=stroke_width,
         )

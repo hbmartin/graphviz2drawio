@@ -1,7 +1,7 @@
 # graphviz2drawio
 
 [![PyPI - Version](https://img.shields.io/pypi/v/graphviz2drawio)](https://pypi.org/project/graphviz2drawio/)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/graphviz2drawio)](https://pypi.org/project/graphviz2drawio/)
+[![Anaconda-Server Badge](https://anaconda.org/conda-forge/graphviz2drawio/badges/version.svg)](https://anaconda.org/conda-forge/graphviz2drawio)
 [![Lint and Test](https://github.com/hbmartin/graphviz2drawio/actions/workflows/lint.yml/badge.svg)](https://github.com/hbmartin/graphviz2drawio/actions/workflows/lint.yml)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![Code style: black](https://img.shields.io/badge/🐧-black-000000.svg)](https://github.com/psf/black)
@@ -42,6 +42,12 @@ sudo dnf install pipx
 pipx ensurepath
 pipx install graphviz2drawio
 # To update: pipx upgrade graphviz2drawio
+```
+
+## Anaconda
+    
+```bash
+conda install conda-forge::graphviz2drawio
 ```
 
 ## Usage

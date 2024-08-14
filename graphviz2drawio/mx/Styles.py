@@ -7,11 +7,11 @@ from . import Shape
 class Styles(Enum):
     NODE = (
         "verticalAlign={vertical_align};html=1;rounded=0;labelBackgroundColor=none;strokeColor={stroke};"
-        "strokeWidth=1;fillColor={fill};"
+        "strokeWidth=1;fillColor={fill};strokeWidth={stroke_width};dashed={dashed};"
     )
     EDGE = (
         "html=1;endArrow={end_arrow};dashed={dashed};endFill={end_fill};startArrow={start_arrow};"
-        "startFill={start_fill};fillColor={stroke};strokeColor={stroke};"
+        "startFill={start_fill};fillColor={stroke};strokeColor={stroke};strokeWidth={stroke_width};"
     )
     EDGE_LABEL = (
         "edgeLabel;html=1;align=center;verticalAlign=bottom;resizable=0;points=[];"

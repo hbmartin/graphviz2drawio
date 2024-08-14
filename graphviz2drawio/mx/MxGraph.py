@@ -15,7 +15,7 @@ class MxGraph:
     def __init__(self, nodes: OrderedDict[str, Node], edges: list[Edge]) -> None:
         self.nodes = nodes
         self.edges = edges
-        self.graph = Element(MxConst.GRAPH)
+        self.graph = Element(MxConst.GRAPH, attrib={"grid": "0"})
         self.root = SubElement(self.graph, MxConst.ROOT)
         SubElement(self.root, MxConst.CELL, attrib={"id": "0"})
         SubElement(self.root, MxConst.CELL, attrib={"id": "1", "parent": "0"})
@@ -73,41 +73,38 @@ class MxGraph:
         return self.nodes.get(edge.fr), self.nodes.get(edge.to)
 
     def add_node(self, node: Node) -> None:
-        fill = node.fill if node.fill is not None else MxConst.NONE
-        stroke = node.stroke if node.stroke is not None else MxConst.NONE
-        style_for_shape = Styles.get_for_shape(node.shape)
-
-        attributes = {"fill": fill, "stroke": stroke}
-        if (rect := node.rect) is not None and (image_path := rect.image) is not None:
-            from graphviz2drawio.mx.image import image_data_for_path
-
-            attributes["image"] = image_data_for_path(image_path)
-
-        attributes["vertical_align"] = VERTICAL_ALIGN.get(node.labelloc, "middle")
-
-        style: str = style_for_shape.format(**attributes)
-
         node_element = SubElement(
             self.root,
             MxConst.CELL,
             attrib={
                 "id": node.sid,
                 "value": node.texts_to_mx_value(),
-                "style": style,
+                "style": node.get_node_style(),
                 "parent": "1",
                 "vertex": "1",
             },
         )
-        self.add_mx_geo(node_element, node.rect)
+        self.add_mx_geo(node_element, node.rect, node.text_offset)
 
     @staticmethod
-    def add_mx_geo(element: Element, rect: Rect | None = None) -> None:
-        if rect is None:
-            SubElement(element, MxConst.GEO, attrib={"as": "geometry", "relative": "1"})
-        else:
+    def add_mx_geo(element: Element, rect: Rect | None = None, text_offset: complex | None = None) -> None:
+        if rect is not None:
             attributes = rect.to_dict_str()
             attributes["as"] = "geometry"
             SubElement(element, MxConst.GEO, attributes)
+        elif text_offset is not None:
+            geo = SubElement(element, MxConst.GEO, attrib={"as": "geometry", "relative": "1"})
+            SubElement(
+                geo,
+                MxConst.POINT,
+                attrib={
+                    "x": str(text_offset.real),
+                    "y": str(text_offset.imag),
+                    "as": "offset",
+                },
+            )
+        else:
+            SubElement(element, MxConst.GEO, attrib={"as": "geometry", "relative": "1"})
 
     @staticmethod
     def add_mx_geo_with_points(element: Element, curve: Curve | None) -> None:
