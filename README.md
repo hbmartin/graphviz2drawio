@@ -6,10 +6,9 @@
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![Code style: black](https://img.shields.io/badge/🐧-black-000000.svg)](https://github.com/psf/black)
 [![CodeFactor](https://www.codefactor.io/repository/github/hbmartin/graphviz2drawio/badge)](https://www.codefactor.io/repository/github/hbmartin/graphviz2drawio)
-[![twitter](https://img.shields.io/badge/@hmartin-00aced.svg?logo=twitter&logoColor=black)](https://twitter.com/hmartin)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=hbmartin_graphviz2drawio&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=hbmartin_graphviz2drawio)
 
-
-Convert graphviz (dot) files into draw.io / lucid (mxGraph) format.
+Convert graphviz (dot) files to draw.io / lucid (mxGraph) format. Beautiful and editable graphs in your favorite editor.
 
 ## Installation
 

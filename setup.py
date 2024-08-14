@@ -1,5 +1,6 @@
-from setuptools import setup, find_packages
 from os import path
+
+from setuptools import find_packages, setup
 
 here = path.abspath(path.dirname(__file__))
 
@@ -12,14 +13,15 @@ with open(path.join(here, "graphviz2drawio", "version.py")) as fp:
 setup(
     name="graphviz2drawio",
     version=__version__,  # noqa: F821
-    description="Convert graphviz (dot) files into draw.io / lucid (mxGraph) format",
+    description="Convert graphviz (dot) files to draw.io / lucid (mxGraph) format. "
+    "Beautiful and editable graphs in your favorite editor.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/hbmartin/graphviz2drawio/",
     author="Harold Martin",
     author_email="harold.martin@gmail.com",
     classifiers=[
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
         "Intended Audience :: End Users/Desktop",
         "Intended Audience :: Information Technology",
@@ -33,6 +35,7 @@ setup(
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
     ],
     license="GPLv3",
     keywords="graphviz graph agraph dot convert conversion draw drawio mxgraph maxgraph",
