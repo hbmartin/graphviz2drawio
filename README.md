@@ -1,7 +1,7 @@
 # graphviz2drawio
 
-<a href="https://pypi.org/project/graphviz2drawio/"><img src="https://img.shields.io/pypi/v/graphviz2drawio.svg" alt="pypi"></a>
-<a href="https://pypi.python.org/pypi/graphviz2drawio/"><img src="https://img.shields.io/pypi/pyversions/graphviz2drawio.svg" /></a>
+[![PyPI - Version](https://img.shields.io/pypi/v/graphviz2drawio)](https://pypi.org/project/graphviz2drawio/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/graphviz2drawio)](https://pypi.org/project/graphviz2drawio/)
 [![Lint and Test](https://github.com/hbmartin/graphviz2drawio/actions/workflows/lint.yml/badge.svg)](https://github.com/hbmartin/graphviz2drawio/actions/workflows/lint.yml)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![Code style: black](https://img.shields.io/badge/🐧-black-000000.svg)](https://github.com/psf/black)
@@ -13,6 +13,7 @@ Convert graphviz (dot) files to draw.io / lucid (mxGraph) format. Beautiful and 
 ## Installation
 
 ### macOS
+
 graphviz2drawio can be installed with [Homebrew](https://brew.sh/):
 
 ```bash
@@ -35,6 +36,7 @@ pipx install graphviz2drawio
 ```
 
 #### Fedora
+
 ```bash
 sudo dnf install pipx
 pipx ensurepath
@@ -43,6 +45,7 @@ pipx install graphviz2drawio
 ```
 
 ## Usage
+
 Run the conversion app on your graphviz file. For example, the command below will create converted files `example1.xml` and `example2.xml`.
 
 ```bash
@@ -59,8 +62,8 @@ Output can also be sent to stdout by using the `--stdout` flag.
 
 Graphs can be piped in from stdin and sent to stdout (default) or to a file with `-o ...`.
 
-
 ## Library Usage
+
 ```python
 from graphviz2drawio import graphviz2drawio
 
@@ -68,13 +71,13 @@ graph_to_convert = ...
 xml = graphviz2drawio.convert(graph_to_convert)
 print(xml)
 ```
+
 where `graph_to_convert` can be any of a file path, file handle, string of dot language, or PyGraphviz.AGraph object
 
 ## Built With
 
 * [PyGraphviz](http://pygraphviz.github.io/documentation/pygraphviz-1.4rc1/reference/index.html) - Python interface to Graphviz
 * [svg.path](https://github.com/regebro/svg.path) - SVG path objects and parser
-
 
 ## Contributing
 
@@ -83,7 +86,6 @@ Pull requests and issue reports are welcome. For major changes, please open an i
 Thanks to all the people who have contributed to this project!
 
 [![Profile images of all the contributors](https://contrib.rocks/image?repo=hbmartin/graphviz2drawio)](https://github.com/hbmartin/graphviz2drawio/graphs/contributors)
-
 
 ### Development Setup
 
@@ -98,9 +100,10 @@ python -m graphviz2drawio test/directed/hello.gv.txt
 ```
 
 ## Roadmap
-- [ ] Migrate to uv/hatch for packaging and dep mgmt
-- [ ] Support for fill gradient
-- [ ] Support compatible [arrows](https://graphviz.org/docs/attr-types/arrowType/)
+
+* Migrate to uv/hatch for packaging and dep mgmt
+* Support for fill gradient
+* Support compatible [arrows](https://graphviz.org/docs/attr-types/arrowType/)
 
 ## Legal
 
