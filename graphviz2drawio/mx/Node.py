@@ -1,8 +1,8 @@
+from ..models.Rect import Rect
 from . import MxConst
+from .GraphObj import GraphObj
 from .MxConst import VERTICAL_ALIGN
 from .Styles import Styles
-from ..models.Rect import Rect
-from .GraphObj import GraphObj
 from .Text import Text
 
 
@@ -19,6 +19,7 @@ class Node(GraphObj):
         labelloc: str,
         stroke_width: str,
         text_offset: complex | None,
+        *,
         dashed: bool,
     ) -> None:
         super().__init__(sid, gid)
@@ -49,7 +50,12 @@ class Node(GraphObj):
         style_for_shape = Styles.get_for_shape(self.shape)
         dashed = 1 if self.dashed else 0
 
-        attributes = {"fill": fill, "stroke": stroke, "stroke_width": self.stroke_width, "dashed": dashed}
+        attributes = {
+            "fill": fill,
+            "stroke": stroke,
+            "stroke_width": self.stroke_width,
+            "dashed": dashed,
+        }
         if (rect := self.rect) is not None and (image_path := rect.image) is not None:
             from graphviz2drawio.mx.image import image_data_for_path
 
@@ -60,4 +66,7 @@ class Node(GraphObj):
         return style_for_shape.format(**attributes)
 
     def __repr__(self) -> str:
-        return f"Node({self.sid}, {self.gid}, {self.fill}, {self.stroke}, {self.shape}, {self.rect})"
+        return (
+            f"Node({self.sid}, {self.gid}, {self.fill}, {self.stroke}, {self.shape}, "
+            f"{self.rect})"
+        )

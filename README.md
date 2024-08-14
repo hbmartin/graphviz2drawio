@@ -45,7 +45,7 @@ pipx install graphviz2drawio
 ```
 
 ## Anaconda
-    
+
 ```bash
 conda install conda-forge::graphviz2drawio
 ```
@@ -110,6 +110,8 @@ python -m graphviz2drawio test/directed/hello.gv.txt
 * Migrate to uv/hatch for packaging and dep mgmt
 * Support for fill gradient
 * Support compatible [arrows](https://graphviz.org/docs/attr-types/arrowType/)
+* Support [multiple edges](https://graphviz.org/Gallery/directed/switch.html)
+* Support [edges with links](https://graphviz.org/Gallery/directed/pprof.html)
 
 ## Legal
 

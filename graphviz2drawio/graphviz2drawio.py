@@ -35,5 +35,5 @@ def convert(graph_to_convert: AGraph | str | IO, layout_prog: str = "dot") -> st
         n.enrich_from_graph(graph_nodes[n.gid])
 
     # Put clusters first, so that nodes are drawn in front
-    mx_graph = MxGraph(OrderedDict(list(clusters.items()) + list(nodes.items())), edges)
+    mx_graph = MxGraph(clusters, nodes, edges)
     return mx_graph.value()

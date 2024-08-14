@@ -110,7 +110,7 @@ class Edge(GraphObj):
 
     @property
     def key_for_enrichment(self) -> str:
-        return f"{self.gid}-{self.labels[0] if len(self.labels) > 0 else ''}"
+        return f"{self.gid}-{"\\n".join([l.text.replace('\xa0', ' ') for l in self.labels])}"
 
     def __repr__(self) -> str:
         return (

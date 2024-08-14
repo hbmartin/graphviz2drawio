@@ -6,13 +6,12 @@ from graphviz2drawio.models.Rect import Rect
 from graphviz2drawio.mx import MxConst
 from graphviz2drawio.mx.Curve import Curve
 from graphviz2drawio.mx.Edge import Edge
-from graphviz2drawio.mx.MxConst import VERTICAL_ALIGN
 from graphviz2drawio.mx.Node import Node
 from graphviz2drawio.mx.Styles import Styles
 
 
 class MxGraph:
-    def __init__(self, nodes: OrderedDict[str, Node], edges: list[Edge]) -> None:
+    def __init__(self, clusters: OrderedDict[str, Node], nodes: OrderedDict[str, Node], edges: list[Edge]) -> None:
         self.nodes = nodes
         self.edges = edges
         self.graph = Element(MxConst.GRAPH, attrib={"grid": "0"})
@@ -21,6 +20,8 @@ class MxGraph:
         SubElement(self.root, MxConst.CELL, attrib={"id": "1", "parent": "0"})
 
         # Add nodes first so edges are drawn on top
+        for cluster in clusters.values():
+            self.add_node(cluster)
         for node in nodes.values():
             self.add_node(node)
         for edge in edges:
@@ -87,13 +88,21 @@ class MxGraph:
         self.add_mx_geo(node_element, node.rect, node.text_offset)
 
     @staticmethod
-    def add_mx_geo(element: Element, rect: Rect | None = None, text_offset: complex | None = None) -> None:
+    def add_mx_geo(
+        element: Element,
+        rect: Rect | None = None,
+        text_offset: complex | None = None,
+    ) -> None:
         if rect is not None:
             attributes = rect.to_dict_str()
             attributes["as"] = "geometry"
             SubElement(element, MxConst.GEO, attributes)
         elif text_offset is not None:
-            geo = SubElement(element, MxConst.GEO, attrib={"as": "geometry", "relative": "1"})
+            geo = SubElement(
+                element,
+                MxConst.GEO,
+                attrib={"as": "geometry", "relative": "1"},
+            )
             SubElement(
                 geo,
                 MxConst.POINT,
