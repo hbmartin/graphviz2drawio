@@ -28,7 +28,6 @@ line-ending = "auto"
 "graphviz2drawio/__main__.py" = ["T201"]
 "graphviz2drawio/version.py" = ["T201"]
 "doc/source/conf.py" = ["A001", "ERA001", "INP001"]
-"graphviz2drawio/mx/Styles.py" = ["C901", "E501", "PLR0911", "PLR0912"]
 "graphviz2drawio/models/commented_tree_builder.py" = ["ANN001", "ANN201", "ANN204"]
 
 [tool.pytest.ini_options]
