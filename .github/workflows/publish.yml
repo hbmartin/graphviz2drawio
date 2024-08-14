@@ -4,6 +4,9 @@ on:
   release:
     types: [created]
 
+permissions:
+  contents: read
+
 jobs:
   pypi-publish:
     name: Upload release to PyPI
