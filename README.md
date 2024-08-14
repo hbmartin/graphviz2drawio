@@ -80,7 +80,7 @@ where `graph_to_convert` can be any of a file path, file handle, string of dot l
 
 Pull requests and issue reports are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-Thanks to all the people who have helped make this project succesful!
+Thanks to all the people who have contributed to this project!
 
 [![Profile images of all the contributors](https://contrib.rocks/image?repo=hbmartin/graphviz2drawio)](https://github.com/hbmartin/graphviz2drawio/graphs/contributors)
 
@@ -99,7 +99,6 @@ python -m graphviz2drawio test/directed/hello.gv.txt
 
 ## Roadmap
 - [ ] Migrate to uv/hatch for packaging and dep mgmt
-- [ ] Turn on master branch protection
 - [ ] Support for fill gradient
 - [ ] Support compatible [arrows](https://graphviz.org/docs/attr-types/arrowType/)
 
