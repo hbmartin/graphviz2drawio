@@ -82,10 +82,10 @@ _stop_opacity_re = re.compile(r"stop-opacity:([^;]+);")
 
 
 def _extract_stop_color(stop: ElementTree.Element) -> str | None:
-    if (color := _stop_color_re.search(stop.attrib["style"])) is not None:
-        if (opacity := _stop_opacity_re.search(stop.attrib["style"])) is not None:
+    style = stop.attrib.get("style", "")
+    if (color := _stop_color_re.search(style)) is not None:
+        if (opacity := _stop_opacity_re.search(style)) is not None:
             return adjust_color_opacity(color.group(1), float(opacity.group(1)))
-        return color.group(1)
     return None
 
 
