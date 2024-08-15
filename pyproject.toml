@@ -29,6 +29,7 @@ line-ending = "auto"
 "graphviz2drawio/version.py" = ["T201"]
 "doc/source/conf.py" = ["A001", "ERA001", "INP001"]
 "graphviz2drawio/models/commented_tree_builder.py" = ["ANN001", "ANN201", "ANN204"]
+"graphviz2drawio/models/SvgParser.py" = ["C901", "PLR0912"]
 
 [tool.pytest.ini_options]
 pythonpath = ". venv/lib/python3.12/site-packages"
