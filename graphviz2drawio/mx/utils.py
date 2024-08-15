@@ -4,7 +4,10 @@ def adjust_color_opacity(hex_color: str, opacity: float) -> str:
     hex_color = hex_color.lstrip("#")
 
     # Convert hex to RGB
-    r, g, b = tuple(int(hex_color[i : i + 2], 16) for i in (0, 2, 4))
+    try:
+        r, g, b = tuple(int(hex_color[i : i + 2], 16) for i in (0, 2, 4))
+    except ValueError:
+        return hex_color
 
     # Apply opacity over white background
     r = int(r * opacity + 255 * (1 - opacity))
