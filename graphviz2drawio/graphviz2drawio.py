@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-from collections import OrderedDict
 from typing import IO
 
 from pygraphviz import AGraph
@@ -30,10 +29,13 @@ def convert(graph_to_convert: AGraph | str | IO, layout_prog: str = "dot") -> st
     )
 
     for e in edges:
-        e.enrich_from_graph(graph_edges[e.key_for_enrichment])
+        e.enrich_from_graph(
+            graph_edges.get(e.key_for_enrichment)
+            or graph_edges.get(e.key_for_enrichment.split("\\n")[0]),
+        )
     for n in nodes.values():
         n.enrich_from_graph(graph_nodes[n.gid])
 
     # Put clusters first, so that nodes are drawn in front
-    mx_graph = MxGraph(OrderedDict(list(clusters.items()) + list(nodes.items())), edges)
+    mx_graph = MxGraph(clusters, nodes, edges)
     return mx_graph.value()

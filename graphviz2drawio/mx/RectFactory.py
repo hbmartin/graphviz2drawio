@@ -14,17 +14,13 @@ def rect_from_svg_points(coords: CoordsTranslate, svg: str) -> Rect:
     width = 0.0
     height = 0.0
     for p in points:
-        if p[0] < min_x:
-            min_x = p[0]
-        if p[1] < min_y:
-            min_y = p[1]
+        min_x = min(p[0], min_x)
+        min_y = min(p[1], min_y)
     for p in points:
         test_width = p[0] - min_x
         test_height = p[1] - min_y
-        if test_width > width:
-            width = test_width
-        if test_height > height:
-            height = test_height
+        width = max(test_width, width)
+        height = max(test_height, height)
     return Rect(x=min_x, y=min_y, width=width, height=height)
 
 

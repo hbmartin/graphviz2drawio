@@ -7,11 +7,11 @@ from . import Shape
 class Styles(Enum):
     NODE = (
         "verticalAlign={vertical_align};html=1;rounded=0;labelBackgroundColor=none;strokeColor={stroke};"
-        "strokeWidth=1;fillColor={fill};"
+        "fillColor={fill};strokeWidth={stroke_width};dashed={dashed};"
     )
     EDGE = (
         "html=1;endArrow={end_arrow};dashed={dashed};endFill={end_fill};startArrow={start_arrow};"
-        "startFill={start_fill};fillColor={stroke};strokeColor={stroke};"
+        "startFill={start_fill};fillColor={stroke};strokeColor={stroke};strokeWidth={stroke_width};"
     )
     EDGE_LABEL = (
         "edgeLabel;html=1;align=center;verticalAlign=bottom;resizable=0;points=[];"
@@ -31,10 +31,6 @@ class Styles(Enum):
     HEXAGON = "shape=hexagon;perimeter=hexagonPerimeter2;" + NODE
     EGG = "shape=mxgraph.flowchart.display;direction=south;" + NODE
     TRIANGLE = "triangle;direction=north;" + NODE
-    LINE = (
-        "line;strokeWidth=2;verticalAlign=bottom;labelPosition=center;verticalLabelPosition=top;align=center;"
-        + NODE
-    )
     DIAMOND = "rhombus;" + NODE
     TRAPEZOID = "shape=trapezoid;perimeter=trapezoidPerimeter;" + NODE
     PARALLELOGRAM = "shape=parallelogram;perimeter=parallelogramPerimeter;" + NODE
@@ -129,7 +125,7 @@ _shape_to_style: dict[str, "Styles"] = {
     Shape.OVAL: Styles.ELLIPSE,
     Shape.PARALLELOGRAM: Styles.PARALLELOGRAM,
     Shape.PENTAGON: Styles.PENTAGON,
-    Shape.PLAIN: Styles.LINE,
+    Shape.PLAIN: Styles.NODE,
     Shape.POLYGON: Styles.HEXAGON,
     Shape.PROMOTER: Styles.RPROMOTER,
     Shape.RARROW: Styles.RARROW,

@@ -19,19 +19,22 @@ class Edge(GraphObj):
         to: str,
         is_directed: bool,
         curve: Curve | None,
+        line_style: str | None,
         labels: list[Text],
         stroke: str,
+        stroke_width: str,
     ) -> None:
         super().__init__(sid=sid, gid=f"{fr}->{to}")
         self.fr = fr
         self.to = to
         self.curve = curve
-        self.line_style = None
+        self.line_style = line_style
         self.dir = DotAttr.FORWARD if is_directed else DotAttr.NONE
         self.arrowtail = None
         self.arrowhead = None
         self.labels = labels
         self.stroke = stroke
+        self.stroke_width = stroke_width
 
     def get_edge_style(
         self,
@@ -41,11 +44,11 @@ class Edge(GraphObj):
         dashed = 1 if self.line_style == DotAttr.DASHED else 0
         end_arrow, end_fill = self._get_arrow_shape_and_fill(
             arrow=self.arrowhead,
-            active_dirs={DotAttr.FORWARD, DotAttr.BOTH},
+            active_dirs={DotAttr.FORWARD, DotAttr.BACK, DotAttr.BOTH},
         )
         start_arrow, start_fill = self._get_arrow_shape_and_fill(
             self.arrowtail,
-            active_dirs={DotAttr.BACK, DotAttr.BOTH},
+            active_dirs={DotAttr.BOTH},
         )
 
         if self.curve is not None:
@@ -56,6 +59,7 @@ class Edge(GraphObj):
                 start_arrow=start_arrow,
                 start_fill=start_fill,
                 stroke=self.stroke,
+                stroke_width=self.stroke_width,
             ) + (MxConst.CURVED if self.curve.is_bezier else MxConst.SHARP)
 
             if source_geo is not None:
@@ -78,6 +82,7 @@ class Edge(GraphObj):
             start_arrow=start_arrow,
             start_fill=start_fill,
             stroke=self.stroke,
+            stroke_width=self.stroke_width,
         )
 
     def _get_arrow_shape_and_fill(
@@ -106,7 +111,10 @@ class Edge(GraphObj):
 
     @property
     def key_for_enrichment(self) -> str:
-        return f"{self.gid}-{self.labels[0] if len(self.labels) > 0 else ''}"
+        cleaned_label = "\\n".join(
+            [label.text.replace("\xa0", " ") for label in self.labels],
+        )
+        return f"{self.gid}-{cleaned_label}"
 
     def __repr__(self) -> str:
         return (

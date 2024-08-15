@@ -4,10 +4,12 @@ from graphviz2drawio.models import SVG
 
 from ..models.CoordsTranslate import CoordsTranslate
 from ..models.Errors import MissingIdentifiersError
-from . import Shape
+from . import MxConst, Shape
+from .MxConst import DEFAULT_STROKE_WIDTH
 from .Node import Node
 from .RectFactory import rect_from_ellipse_svg, rect_from_image, rect_from_svg_points
 from .Text import Text
+from .utils import adjust_color_opacity
 
 
 class NodeFactory:
@@ -16,15 +18,28 @@ class NodeFactory:
         self.coords = coords
 
     def from_svg(self, g: Element, labelloc: str) -> Node:
-        texts = self._extract_texts(g)
+        sid = g.attrib["id"]
+        gid = SVG.get_title(g)
         rect = None
-        fill = None
-        stroke = None
+        fill = MxConst.NONE
+        stroke = MxConst.NONE
+        stroke_width = DEFAULT_STROKE_WIDTH
+        dashed = False
+
+        if sid is None or gid is None:
+            raise MissingIdentifiersError(sid, gid)
+
+        if (inner_g := SVG.get_first(g, "g")) is not None:
+            if (inner_a := SVG.get_first(inner_g, "a")) is not None:
+                g = inner_a
 
         if (polygon := SVG.get_first(g, "polygon")) is not None:
             rect = rect_from_svg_points(self.coords, polygon.attrib["points"])
             shape = Shape.RECT
             fill, stroke = self._extract_fill_and_stroke(polygon)
+            stroke_width = polygon.attrib.get("stroke-width", DEFAULT_STROKE_WIDTH)
+            if "stroke-dasharray" in polygon.attrib:
+                dashed = True
         elif (image := SVG.get_first(g, "image")) is not None:
             rect = rect_from_image(self.coords, image.attrib)
             shape = Shape.IMAGE
@@ -39,14 +54,13 @@ class NodeFactory:
                 else Shape.DOUBLE_CIRCLE
             )
             fill, stroke = self._extract_fill_and_stroke(ellipse)
+            stroke_width = ellipse.attrib.get("stroke-width", DEFAULT_STROKE_WIDTH)
+            if "stroke-dasharray" in ellipse.attrib:
+                dashed = True
         else:
             shape = Shape.ELLIPSE
 
-        sid = g.attrib["id"]
-        gid = SVG.get_title(g)
-
-        if sid is None or gid is None:
-            raise MissingIdentifiersError(sid, gid)
+        texts, text_offset = self._extract_texts(g)
 
         return Node(
             sid=sid,
@@ -57,25 +71,44 @@ class NodeFactory:
             stroke=stroke,
             shape=shape,
             labelloc=labelloc,
+            stroke_width=stroke_width,
+            text_offset=text_offset,
+            dashed=dashed,
         )
 
     @staticmethod
-    def _extract_fill_and_stroke(g: Element) -> tuple[str | None, str | None]:
-        return g.attrib.get("fill", None), g.attrib.get("stroke", None)
+    def _extract_fill_and_stroke(g: Element) -> tuple[str, str]:
+        fill = g.attrib.get("fill", MxConst.NONE)
+        stroke = g.attrib.get("stroke", MxConst.NONE)
+        if "fill-opacity" in g.attrib and fill != MxConst.NONE:
+            fill = adjust_color_opacity(fill, float(g.attrib["fill-opacity"]))
+        if "stroke-opacity" in g.attrib and stroke != MxConst.NONE:
+            stroke = adjust_color_opacity(stroke, float(g.attrib["stroke-opacity"]))
+        return fill, stroke
 
-    @staticmethod
-    def _extract_texts(g: Element) -> list[Text]:
+    def _extract_texts(self, g: Element) -> tuple[list[Text], complex | None]:
         texts = []
         current_text = None
+        offset = None
         for t in g:
             if SVG.is_tag(t, "text"):
                 if current_text is None:
                     current_text = Text.from_svg(t)
                 else:
                     current_text.text += f"<br/>{t.text}"
+                if offset is None and current_text is not None:
+                    x = None
+                    y = None
+                    try:
+                        x = float(t.attrib.get("x", "x"))
+                        y = float(t.attrib.get("y", "y")) - current_text.size
+                    except ValueError:
+                        pass
+                    if x is not None and y is not None:
+                        offset = self.coords.complex_translate(complex(x, y))
             elif current_text is not None:
                 texts.append(current_text)
                 current_text = None
         if current_text is not None:
             texts.append(current_text)
-        return texts
+        return texts, offset
