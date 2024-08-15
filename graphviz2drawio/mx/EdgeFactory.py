@@ -5,6 +5,7 @@ from graphviz2drawio.models import SVG, DotAttr
 from ..models.CoordsTranslate import CoordsTranslate
 from .CurveFactory import CurveFactory
 from .Edge import Edge
+from .MxConst import DEFAULT_STROKE_WIDTH
 from .Text import Text
 from .utils import adjust_color_opacity
 
@@ -19,7 +20,7 @@ class EdgeFactory:
         fr, to = title.replace("--", "->").split("->")
         curve = None
         stroke = "#000000"
-        stroke_width = "1"
+        stroke_width = DEFAULT_STROKE_WIDTH
         line_style = None
         labels = [
             text_from_tag

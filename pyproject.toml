@@ -7,7 +7,7 @@ line-length = 88
 indent-width = 4
 
 lint.select = ["ALL"]
-lint.ignore = ["D100", "D101", "D102", "D103", "D104", "D105", "D107", "D203", "D213", "PLR0913", "S314", "SIM102", "TD002", "TID252", "N999"]
+lint.ignore = ["D100", "D101", "D102", "D103", "D104", "D105", "D107", "D203", "D213", "ICN001", "PLR0913", "S314", "SIM102", "TD002", "TID252", "N999"]
 target-version = "py310"
 
 [tool.ruff.format]

@@ -4,7 +4,8 @@ from graphviz2drawio.models import SVG
 
 from ..models.CoordsTranslate import CoordsTranslate
 from ..models.Errors import MissingIdentifiersError
-from . import Shape
+from . import MxConst, Shape
+from .MxConst import DEFAULT_STROKE_WIDTH
 from .Node import Node
 from .RectFactory import rect_from_ellipse_svg, rect_from_image, rect_from_svg_points
 from .Text import Text
@@ -20,9 +21,9 @@ class NodeFactory:
         sid = g.attrib["id"]
         gid = SVG.get_title(g)
         rect = None
-        fill = None
-        stroke = None
-        stroke_width = None
+        fill = MxConst.NONE
+        stroke = MxConst.NONE
+        stroke_width = DEFAULT_STROKE_WIDTH
         dashed = False
 
         if sid is None or gid is None:
@@ -36,7 +37,7 @@ class NodeFactory:
             rect = rect_from_svg_points(self.coords, polygon.attrib["points"])
             shape = Shape.RECT
             fill, stroke = self._extract_fill_and_stroke(polygon)
-            stroke_width = polygon.attrib.get("stroke-width", "1")
+            stroke_width = polygon.attrib.get("stroke-width", DEFAULT_STROKE_WIDTH)
             if "stroke-dasharray" in polygon.attrib:
                 dashed = True
         elif (image := SVG.get_first(g, "image")) is not None:
@@ -53,7 +54,7 @@ class NodeFactory:
                 else Shape.DOUBLE_CIRCLE
             )
             fill, stroke = self._extract_fill_and_stroke(ellipse)
-            stroke_width = ellipse.attrib.get("stroke-width", "1")
+            stroke_width = ellipse.attrib.get("stroke-width", DEFAULT_STROKE_WIDTH)
             if "stroke-dasharray" in ellipse.attrib:
                 dashed = True
         else:
@@ -76,11 +77,12 @@ class NodeFactory:
         )
 
     @staticmethod
-    def _extract_fill_and_stroke(g: Element) -> tuple[str | None, str | None]:
-        fill, stroke = g.attrib.get("fill", None), g.attrib.get("stroke", None)
-        if "fill-opacity" in g.attrib:
+    def _extract_fill_and_stroke(g: Element) -> tuple[str, str]:
+        fill = g.attrib.get("fill", MxConst.NONE)
+        stroke = g.attrib.get("stroke", MxConst.NONE)
+        if "fill-opacity" in g.attrib and fill != MxConst.NONE:
             fill = adjust_color_opacity(fill, float(g.attrib["fill-opacity"]))
-        if "stroke-opacity" in g.attrib:
+        if "stroke-opacity" in g.attrib and stroke != MxConst.NONE:
             stroke = adjust_color_opacity(stroke, float(g.attrib["stroke-opacity"]))
         return fill, stroke
 

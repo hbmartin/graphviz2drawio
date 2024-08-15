@@ -1,5 +1,4 @@
 from ..models.Rect import Rect
-from . import MxConst
 from .GraphObj import GraphObj
 from .MxConst import VERTICAL_ALIGN
 from .Styles import Styles
@@ -13,8 +12,8 @@ class Node(GraphObj):
         gid: str,
         rect: Rect | None,
         texts: list[Text],
-        fill: str | None,
-        stroke: str | None,
+        fill: str,
+        stroke: str,
         shape: str,
         labelloc: str,
         stroke_width: str,
@@ -45,14 +44,12 @@ class Node(GraphObj):
         return value
 
     def get_node_style(self) -> str:
-        fill = self.fill if self.fill is not None else MxConst.NONE
-        stroke = self.stroke if self.stroke is not None else MxConst.NONE
         style_for_shape = Styles.get_for_shape(self.shape)
         dashed = 1 if self.dashed else 0
 
         attributes = {
-            "fill": fill,
-            "stroke": stroke,
+            "fill": self.fill,
+            "stroke": self.stroke,
             "stroke_width": self.stroke_width,
             "dashed": dashed,
         }
