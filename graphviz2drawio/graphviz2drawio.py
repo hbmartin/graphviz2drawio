@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-from collections import OrderedDict
 from typing import IO
 
 from pygraphviz import AGraph

@@ -11,7 +11,12 @@ from graphviz2drawio.mx.Styles import Styles
 
 
 class MxGraph:
-    def __init__(self, clusters: OrderedDict[str, Node], nodes: OrderedDict[str, Node], edges: list[Edge]) -> None:
+    def __init__(
+        self,
+        clusters: OrderedDict[str, Node],
+        nodes: OrderedDict[str, Node],
+        edges: list[Edge],
+    ) -> None:
         self.nodes = nodes
         self.edges = edges
         self.graph = Element(MxConst.GRAPH, attrib={"grid": "0"})

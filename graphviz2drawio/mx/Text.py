@@ -1,8 +1,8 @@
+from typing import Optional
 from xml.etree.ElementTree import Element
 
 from graphviz2drawio.mx import MxConst
 
-from ..models.Errors import MissingTextError
 from .Styles import Styles
 
 
@@ -43,10 +43,10 @@ class Text:
         )
 
     @staticmethod
-    def from_svg(t: Element) -> "Text":
+    def from_svg(t: Element) -> Optional["Text"]:
         text = t.text
-        if text is None:
-            raise MissingTextError(t)
+        if text is None or text.strip() == "":
+            return None
         return Text(
             text=text.replace("<", "&lt;").replace(">", "&gt;"),
             family=t.attrib.get("font-family", MxConst.DEFAULT_FONT_FAMILY),

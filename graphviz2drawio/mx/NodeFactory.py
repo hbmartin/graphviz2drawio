@@ -8,6 +8,7 @@ from . import Shape
 from .Node import Node
 from .RectFactory import rect_from_ellipse_svg, rect_from_image, rect_from_svg_points
 from .Text import Text
+from .utils import adjust_color_opacity
 
 
 class NodeFactory:
@@ -76,7 +77,12 @@ class NodeFactory:
 
     @staticmethod
     def _extract_fill_and_stroke(g: Element) -> tuple[str | None, str | None]:
-        return g.attrib.get("fill", None), g.attrib.get("stroke", None)
+        fill, stroke = g.attrib.get("fill", None), g.attrib.get("stroke", None)
+        if "fill-opacity" in g.attrib:
+            fill = adjust_color_opacity(fill, float(g.attrib["fill-opacity"]))
+        if "stroke-opacity" in g.attrib:
+            stroke = adjust_color_opacity(stroke, float(g.attrib["stroke-opacity"]))
+        return fill, stroke
 
     def _extract_texts(self, g: Element) -> tuple[list[Text], complex | None]:
         texts = []
@@ -88,7 +94,7 @@ class NodeFactory:
                     current_text = Text.from_svg(t)
                 else:
                     current_text.text += f"<br/>{t.text}"
-                if offset is None:
+                if offset is None and current_text is not None:
                     x = None
                     y = None
                     try:

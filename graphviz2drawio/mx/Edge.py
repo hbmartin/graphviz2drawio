@@ -19,6 +19,7 @@ class Edge(GraphObj):
         to: str,
         is_directed: bool,
         curve: Curve | None,
+        line_style: str | None,
         labels: list[Text],
         stroke: str,
         stroke_width: str,
@@ -27,7 +28,7 @@ class Edge(GraphObj):
         self.fr = fr
         self.to = to
         self.curve = curve
-        self.line_style = None
+        self.line_style = line_style
         self.dir = DotAttr.FORWARD if is_directed else DotAttr.NONE
         self.arrowtail = None
         self.arrowhead = None
@@ -43,11 +44,11 @@ class Edge(GraphObj):
         dashed = 1 if self.line_style == DotAttr.DASHED else 0
         end_arrow, end_fill = self._get_arrow_shape_and_fill(
             arrow=self.arrowhead,
-            active_dirs={DotAttr.FORWARD, DotAttr.BOTH},
+            active_dirs={DotAttr.FORWARD, DotAttr.BACK, DotAttr.BOTH},
         )
         start_arrow, start_fill = self._get_arrow_shape_and_fill(
             self.arrowtail,
-            active_dirs={DotAttr.BACK, DotAttr.BOTH},
+            active_dirs={DotAttr.BOTH},
         )
 
         if self.curve is not None:
@@ -110,7 +111,10 @@ class Edge(GraphObj):
 
     @property
     def key_for_enrichment(self) -> str:
-        return f"{self.gid}-{"\\n".join([l.text.replace('\xa0', ' ') for l in self.labels])}"
+        cleaned_label = "\\n".join(
+            [label.text.replace("\xa0", " ") for label in self.labels],
+        )
+        return f"{self.gid}-{cleaned_label}"
 
     def __repr__(self) -> str:
         return (
