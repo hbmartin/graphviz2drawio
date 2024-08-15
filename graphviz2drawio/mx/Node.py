@@ -57,7 +57,7 @@ class Node(GraphObj):
             "stroke_width": self.stroke_width,
             "dashed": dashed,
         }
-        if type(self.fill) is str:
+        if isinstance(self.fill, str):
             attributes["fill"] = self.fill
         elif type(self.fill) is tuple:
             attributes["fill"] = self.fill[0]
