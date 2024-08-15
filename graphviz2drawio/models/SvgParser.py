@@ -96,6 +96,8 @@ def _extract_gradients(
         stops = SVG.findall(radial_gradient, "stop")
         start_color = _extract_stop_color(stops[0])
         end_color = _extract_stop_color(stops[-1])
+        if start_color is None or end_color is None:
+            continue
         yield (
             radial_gradient.attrib["id"],
             start_color,
@@ -104,12 +106,14 @@ def _extract_gradients(
         )
     for linear_gradient in SVG.findall(defs, "linearGradient"):
         stops = SVG.findall(linear_gradient, "stop")
+
         start_color = _extract_stop_color(stops[0])
         end_color = _extract_stop_color(stops[-1])
-        y1 = float(linear_gradient.attrib["y1"])
-        y2 = float(linear_gradient.attrib["y2"])
         if start_color is None or end_color is None:
             continue
+
+        y1 = float(linear_gradient.attrib["y1"])
+        y2 = float(linear_gradient.attrib["y2"])
 
         gradient_direction = "north"
         if isclose(y1, y2, rel_tol=LINE_TOLERANCE):
