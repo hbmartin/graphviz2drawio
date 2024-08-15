@@ -29,7 +29,10 @@ def convert(graph_to_convert: AGraph | str | IO, layout_prog: str = "dot") -> st
     )
 
     for e in edges:
-        e.enrich_from_graph(graph_edges[e.key_for_enrichment])
+        e.enrich_from_graph(
+            graph_edges.get(e.key_for_enrichment)
+            or graph_edges.get(e.key_for_enrichment.split("\\n")[0]),
+        )
     for n in nodes.values():
         n.enrich_from_graph(graph_nodes[n.gid])
 
