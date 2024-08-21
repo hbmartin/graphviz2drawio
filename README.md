@@ -2,9 +2,9 @@
 
 [![PyPI - Version](https://img.shields.io/pypi/v/graphviz2drawio)](https://pypi.org/project/graphviz2drawio/)
 [![Anaconda-Server Badge](https://anaconda.org/conda-forge/graphviz2drawio/badges/version.svg)](https://anaconda.org/conda-forge/graphviz2drawio)
+![homebrew version](https://img.shields.io/homebrew/v/graphviz2drawio)
 [![Lint and Test](https://github.com/hbmartin/graphviz2drawio/actions/workflows/lint.yml/badge.svg)](https://github.com/hbmartin/graphviz2drawio/actions/workflows/lint.yml)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
-[![Code style: black](https://img.shields.io/badge/🐧-black-000000.svg)](https://github.com/psf/black)
 [![CodeFactor](https://www.codefactor.io/repository/github/hbmartin/graphviz2drawio/badge)](https://www.codefactor.io/repository/github/hbmartin/graphviz2drawio)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=hbmartin_graphviz2drawio&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=hbmartin_graphviz2drawio)
 
@@ -17,7 +17,7 @@ Convert graphviz (dot) files to draw.io / lucid (mxGraph) format. Beautiful and 
 graphviz2drawio can be installed with [Homebrew](https://brew.sh/):
 
 ```bash
-brew install hbmartin/graphviz2drawio/graphviz2drawio
+brew install graphviz2drawio
 ```
 
 ### Linux
