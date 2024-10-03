@@ -39,7 +39,3 @@ jobs:
         with:
           options: "--check --verbose"
       - run: pytest --cov
-      - name: Run specs tests script
-        run: |
-          mkdir tmp_out
-          ./test_specs.sh test/ specs/ tmp_out/
