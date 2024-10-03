@@ -11,35 +11,35 @@ jobs:
       matrix:
         python-version: ["3.10", "3.11", "3.12", "3.13"]
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup Graphviz
-      uses: ts-graphviz/setup-graphviz@v2
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5
-      id: cpython3
-      with:
-        python-version: ${{ matrix.python-version }}
-        cache: pip
-        cache-dependency-path: requirements.txt
-        allow-prereleases: true
-    - run: pip install -r requirements.txt
-    - run: pip install black ruff pytest pytest-cov
-    - run: ruff check .
-    - name: Run mypy if on 3.12, pytype otherwise
-      run: |
-        if [[ '${{ steps.cpython3.outputs.python-version }}' == *"3.11"* ]]; then
-          pip install pytype
-          pytype -j auto graphviz2drawio
-        else
-          echo "pytype does not support >= 3.12: https://github.com/google/pytype/issues/1475"
-          pip install mypy
-          mypy graphviz2drawio --ignore-missing-imports
-        fi
-    - uses: psf/black@stable
-      with:
-        options: "--check --verbose"
-    - run: pytest --cov
-    - name: Run main script
-      run: |
-        python3 -m graphviz2drawio test/directed/hello.gv.txt
-        test -f test/directed/hello.gv.xml
+      - uses: actions/checkout@v4
+      - name: Setup Graphviz
+        uses: ts-graphviz/setup-graphviz@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        id: cpython3
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: requirements.txt
+          allow-prereleases: true
+      - run: pip install -r requirements.txt
+      - run: pip install black ruff pytest pytest-cov
+      - run: ruff check .
+      - name: Run mypy if on 3.12, pytype otherwise
+        run: |
+          if [[ '${{ steps.cpython3.outputs.python-version }}' == *"3.11"* ]]; then
+            pip install pytype
+            pytype -j auto graphviz2drawio
+          else
+            echo "pytype does not support >= 3.12: https://github.com/google/pytype/issues/1475"
+            pip install mypy
+            mypy graphviz2drawio --ignore-missing-imports
+          fi
+      - uses: psf/black@stable
+        with:
+          options: "--check --verbose"
+      - run: pytest --cov
+      - name: Run specs tests script
+        run: |
+          mkdir tmp_out
+          ./test_specs.sh test/ specs/ tmp_out/

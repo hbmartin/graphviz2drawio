@@ -21,7 +21,7 @@ process_files() {
     local src_dir="$1"
     local out_dir="$2"
 
-    find "$src_dir" -type f -name "*.gv.txt" | while read -r file; do
+    find "$src_dir" -type f -name "*.gv.txt" -print0 | while IFS= read -r -d $'\0' file; do
         rel_path="${file#$src_dir/}"
         output_file="$out_dir/${rel_path%.gv.txt}.xml"
         mkdir -p "$(dirname "$output_file")"
