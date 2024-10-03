@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxGraphModel grid="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+    <mxCell id="node1" value="&lt;b&gt;&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;changes&lt;br/&gt;in the working tree &lt;/font&gt;&lt;/b&gt;&lt;hr size='1'/&gt;&lt;div&gt;&lt;i&gt;&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;To view: &lt;br/&gt;git diff&lt;/font&gt;&lt;/i&gt;&lt;/div&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=none;fillColor=#efdddd;strokeWidth=1;dashed=0;" parent="1" vertex="1">
+      <mxGeometry x="4.0" y="62.5" width="124.0" height="76.0" as="geometry" />
+    </mxCell>
+    <mxCell id="node2" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;git stash [push]&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=none;fillColor=none;strokeWidth=1;dashed=0;" parent="1" vertex="1">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="210.38" y="56.30000000000001" as="offset" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="node3" value="&lt;b&gt;&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;staging area&lt;br/&gt;(cache, index)&lt;/font&gt;&lt;/b&gt;&lt;hr size='1'/&gt;&lt;div&gt;&lt;i&gt;&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;To view: &lt;br/&gt;git diff --staged&lt;/font&gt;&lt;/i&gt;&lt;/div&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=none;fillColor=#ffefdd;strokeWidth=1;dashed=0;" parent="1" vertex="1">
+      <mxGeometry x="292.75" y="70.5" width="99.25" height="76.0" as="geometry" />
+    </mxCell>
+    <mxCell id="node4" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;discard&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=none;fillColor=none;strokeWidth=1;dashed=0;" parent="1" vertex="1">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="66.0" y="184.3" as="offset" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="node5" value="&lt;b&gt;&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;stash&lt;/font&gt;&lt;/b&gt;&lt;hr size='1'/&gt;&lt;div&gt;&lt;i&gt;&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;To view:&lt;br/&gt;git stash list&lt;/font&gt;&lt;/i&gt;&lt;/div&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=none;fillColor=#dde6ff;strokeWidth=1;dashed=0;" parent="1" vertex="1">
+      <mxGeometry x="170.12" y="157.0" width="80.5" height="63.0" as="geometry" />
+    </mxCell>
+    <mxCell id="node6" value="&lt;b&gt;&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;HEAD &lt;br/&gt;of&lt;/font&gt;&lt;/b&gt;&lt;hr size='1'/&gt;&lt;div&gt;&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt; the current branch&lt;/font&gt;&lt;/div&gt;&lt;hr size='1'/&gt;&lt;div&gt;&lt;i&gt;&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;To view:&lt;br/&gt;git show&lt;br/&gt;git log&lt;/font&gt;&lt;/i&gt;&lt;/div&gt;&lt;hr size='1'/&gt;&lt;div&gt;&lt;i&gt;&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;To change branch:&lt;br/&gt;git switch ...&lt;br/&gt;git checkout ...&lt;/font&gt;&lt;/i&gt;&lt;/div&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=none;fillColor=#efffdd;strokeWidth=1;dashed=0;" parent="1" vertex="1">
+      <mxGeometry x="491.0" y="96.5" width="121.25" height="146.0" as="geometry" />
+    </mxCell>
+    <mxCell id="node7" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;remote branch&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#dddddd;fillColor=#ddffdd;strokeWidth=1;dashed=0;" parent="1" vertex="1">
+      <mxGeometry x="699.62" y="78.5" width="103.75999999999999" height="36.0" as="geometry" />
+    </mxCell>
+    <mxCell id="node8" value="&lt;b&gt;&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;local branches&lt;br/&gt; &lt;/font&gt;&lt;/b&gt;&lt;hr size='1'/&gt;&lt;div&gt;&lt;i&gt;&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;To view:&lt;br/&gt;git branch [--list]&lt;/font&gt;&lt;/i&gt;&lt;/div&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=none;fillColor=#ddefef;strokeWidth=1;dashed=0;" parent="1" vertex="1">
+      <mxGeometry x="695.5" y="136.0" width="112.0" height="63.0" as="geometry" />
+    </mxCell>
+    <mxCell id="edge1" style="html=1;endArrow=none;dashed=1;endFill=0;startArrow=none;startFill=0;fillColor=#babadf;strokeColor=#babadf;strokeWidth=2;rounded=0;exitX=1.0000;exitY=0.2978;" parent="1" edge="1" source="node1" target="node2">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="127.79" y="85.13" as="sourcePoint" />
+        <mxPoint x="179.74" y="71.99000000000001" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge3" style="html=1;endArrow=block;dashed=1;endFill=1;startArrow=none;startFill=0;fillColor=#bf7777;strokeColor=#bf7777;strokeWidth=2;curved=1;exitX=1.0000;exitY=0.5945;entryX=0.0000;entryY=0.5197;" parent="1" edge="1" source="node1" target="node3">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="127.83" y="107.68" as="sourcePoint" />
+        <mxPoint x="285.15" y="110.0" as="targetPoint" />
+        <Array as="points">
+          <mxPoint x="193.20714454871987" y="111.93556718780724" />
+          <mxPoint x="243.66215838257034" y="110.64086996181979" />
+          <mxPoint x="255.75" y="110.5" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="label_edge3" style="edgeLabel;html=1;align=center;verticalAlign=bottom;resizable=0;points=[];" parent="edge3" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;git add ...    &lt;/font&gt;&lt;div&gt;&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;git reset      &lt;/font&gt;&lt;/div&gt;" vertex="1" connectable="0">
+      <mxGeometry as="geometry" relative="1" />
+    </mxCell>
+    <mxCell id="edge5" style="html=1;endArrow=block;dashed=1;endFill=1;startArrow=none;startFill=0;fillColor=#bf7777;strokeColor=#bf7777;strokeWidth=2;rounded=0;exitX=0.5000;exitY=1.0000;" parent="1" edge="1" source="node1" target="node4">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="66.0" y="138.37" as="sourcePoint" />
+        <mxPoint x="66.0" y="166.76" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="label_edge5" style="edgeLabel;html=1;align=center;verticalAlign=bottom;resizable=0;points=[];" parent="edge5" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;git restore ...&lt;/font&gt;" vertex="1" connectable="0">
+      <mxGeometry as="geometry" relative="1" />
+    </mxCell>
+    <mxCell id="edge4" style="html=1;endArrow=block;dashed=1;endFill=1;startArrow=none;startFill=0;fillColor=#777777;strokeColor=#777777;strokeWidth=2;rounded=0;exitX=0.0000;exitY=0.0000;entryX=1.0000;entryY=1.0000;" parent="1" edge="1" source="node5" target="node1">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="134.56" y="142.26" as="sourcePoint" />
+        <mxPoint x="170.2" y="164.29000000000002" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="label_edge4" style="edgeLabel;html=1;align=center;verticalAlign=bottom;resizable=0;points=[];" parent="edge4" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;git stash pop&lt;/font&gt;" vertex="1" connectable="0">
+      <mxGeometry as="geometry" relative="1" />
+    </mxCell>
+    <mxCell id="edge2" style="html=1;endArrow=none;dashed=1;endFill=0;startArrow=none;startFill=0;fillColor=#babadf;strokeColor=#babadf;strokeWidth=2;rounded=0;entryX=0.0000;entryY=0.2846;" parent="1" edge="1" source="node2" target="node3">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="233.43" y="71.96000000000001" as="sourcePoint" />
+        <mxPoint x="293.01" y="92.13" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge10" style="html=1;endArrow=block;dashed=1;endFill=1;startArrow=none;startFill=0;fillColor=#babadf;strokeColor=#babadf;strokeWidth=2;curved=1;entryX=0.0000;entryY=0.0140;" parent="1" edge="1" source="node2" target="node5">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="179.1" y="71.91" as="sourcePoint" />
+        <mxPoint x="164.51" y="157.88" as="targetPoint" />
+        <Array as="points">
+          <mxPoint x="155.82312577989427" y="80.60354558584385" />
+          <mxPoint x="136.44339723967562" y="111.57260619730411" />
+          <mxPoint x="152.2033955874808" y="145.94377219086715" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge6" style="html=1;endArrow=block;dashed=1;endFill=1;startArrow=none;startFill=0;fillColor=#bf7777;strokeColor=#bf7777;strokeWidth=2;rounded=0;exitX=1.0000;exitY=0.4967;entryX=0.0000;entryY=0.0788;" parent="1" edge="1" source="node3" target="node6">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="391.91" y="108.25" as="sourcePoint" />
+        <mxPoint x="483.18" y="108.0" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="label_edge6" style="edgeLabel;html=1;align=center;verticalAlign=bottom;resizable=0;points=[];" parent="edge6" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;git commit&lt;/font&gt;" vertex="1" connectable="0">
+      <mxGeometry as="geometry" relative="1" />
+    </mxCell>
+    <mxCell id="edge7" style="html=1;endArrow=block;dashed=1;endFill=1;startArrow=none;startFill=0;fillColor=#bf7777;strokeColor=#bf7777;strokeWidth=2;curved=1;exitX=1.0000;exitY=0.0788;entryX=0.0000;entryY=0.6964;" parent="1" edge="1" source="node6" target="node7">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="612.25" y="108.0" as="sourcePoint" />
+        <mxPoint x="691.58" y="103.57" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="label_edge7" style="edgeLabel;html=1;align=center;verticalAlign=bottom;resizable=0;points=[];" parent="edge7" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;git push&lt;/font&gt;" vertex="1" connectable="0">
+      <mxGeometry as="geometry" relative="1" />
+    </mxCell>
+    <mxCell id="edge8" style="html=1;endArrow=block;dashed=1;endFill=1;startArrow=none;startFill=0;fillColor=#779b77;strokeColor=#779b77;strokeWidth=2;curved=1;exitX=0.0000;exitY=1.0000;entryX=1.0000;entryY=0.1262;" parent="1" edge="1" source="node7" target="node6">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="620.2" y="131.05" as="sourcePoint" />
+        <mxPoint x="712.24" y="114.92" as="targetPoint" />
+        <Array as="points">
+          <mxPoint x="655.2891114341381" y="131.68312043275398" />
+          <mxPoint x="677.5" y="126.5" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="label_edge8" style="edgeLabel;html=1;align=center;verticalAlign=bottom;resizable=0;points=[];" parent="edge8" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;git pull&lt;/font&gt;" vertex="1" connectable="0">
+      <mxGeometry as="geometry" relative="1" />
+    </mxCell>
+    <mxCell id="edge9" style="html=1;endArrow=none;dashed=0;endFill=0;startArrow=diamond;startFill=0;fillColor=#777777;strokeColor=#777777;strokeWidth=1;rounded=0;exitX=0.0000;exitY=0.5000;entryX=1.0000;entryY=0.4863;" parent="1" edge="1" source="node8" target="node6">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="619.07" y="167.5" as="sourcePoint" />
+        <mxPoint x="695.67" y="167.5" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+  </root>
+</mxGraphModel>

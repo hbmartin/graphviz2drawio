@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxGraphModel grid="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+    <mxCell id="clust1" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='white'&gt;acluster&lt;/font&gt;" style="verticalAlign=top;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=blue;strokeWidth=1;dashed=0;gradientColor=cyan;gradientDirection=south;" parent="1" vertex="1">
+      <mxGeometry x="12.0" y="12.0" width="70.0" height="76.5" as="geometry" />
+    </mxCell>
+    <mxCell id="node1" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;anode&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=red;strokeWidth=1;dashed=0;gradientColor=yellow;gradientDirection=north;" parent="1" vertex="1">
+      <mxGeometry x="20.0" y="44.5" width="54.0" height="36.0" as="geometry" />
+    </mxCell>
+  </root>
+</mxGraphModel>
