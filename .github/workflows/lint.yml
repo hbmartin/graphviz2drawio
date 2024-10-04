@@ -27,7 +27,7 @@ jobs:
       - run: ruff check .
       - name: Run mypy if on 3.12, pytype otherwise
         run: |
-          if [[ '${{ steps.cpython3.outputs.python-version }}' == *"3.11"* ]]; then
+          if [[ '${{ steps.cpython3.outputs.python-version }}' == 3.11* ]]; then
             pip install pytype
             pytype -j auto graphviz2drawio
           else
