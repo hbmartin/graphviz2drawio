@@ -17,9 +17,9 @@ jobs:
           cache: pip
           cache-dependency-path: requirements.txt
           allow-prereleases: true
+      - run: brew install graphviz
       - run: pip install -r requirements.txt
       - name: Run specs tests script
         run: |
-          brew install graphviz
           mkdir tmp_out
           ./test_specs.sh test/ specs/ tmp_out/
