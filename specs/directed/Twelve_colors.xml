@@ -3,43 +3,43 @@
   <root>
     <mxCell id="0" />
     <mxCell id="1" parent="0" />
-    <mxCell id="node1" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='white'&gt;green&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#777777;fillColor=green;strokeWidth=1;dashed=0;" parent="1" vertex="1">
+    <mxCell id="node1" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='white'&gt;green&lt;/font&gt;" style="ellipse;aspect=fixed;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#777777;fillColor=green;strokeWidth=1;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="80.88" y="267.08" width="108.0" height="108.0" as="geometry" />
     </mxCell>
-    <mxCell id="node2" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;white&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#777777;fillColor=white;strokeWidth=1;dashed=0;" parent="1" vertex="1">
+    <mxCell id="node2" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;white&lt;/font&gt;" style="ellipse;aspect=fixed;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#777777;fillColor=white;strokeWidth=1;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="234.66000000000003" y="267.08" width="108.0" height="108.0" as="geometry" />
     </mxCell>
-    <mxCell id="node3" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;yellow&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#777777;fillColor=yellow;strokeWidth=1;dashed=0;" parent="1" vertex="1">
+    <mxCell id="node3" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;yellow&lt;/font&gt;" style="ellipse;aspect=fixed;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#777777;fillColor=yellow;strokeWidth=1;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="146.42" y="114.59999999999997" width="108.0" height="108.0" as="geometry" />
     </mxCell>
-    <mxCell id="node4" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;cyan&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#777777;fillColor=cyan;strokeWidth=1;dashed=0;" parent="1" vertex="1">
+    <mxCell id="node4" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;cyan&lt;/font&gt;" style="ellipse;aspect=fixed;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#777777;fillColor=cyan;strokeWidth=1;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="146.21" y="419.5" width="108.0" height="108.0" as="geometry" />
     </mxCell>
-    <mxCell id="node5" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;yellowgreen&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#777777;fillColor=yellowgreen;strokeWidth=1;dashed=0;" parent="1" vertex="1">
+    <mxCell id="node5" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;yellowgreen&lt;/font&gt;" style="ellipse;aspect=fixed;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#777777;fillColor=yellowgreen;strokeWidth=1;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="4.0" y="139.45999999999998" width="108.0" height="108.0" as="geometry" />
     </mxCell>
-    <mxCell id="node6" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;springgreen&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#777777;fillColor=springgreen;strokeWidth=1;dashed=0;" parent="1" vertex="1">
+    <mxCell id="node6" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;springgreen&lt;/font&gt;" style="ellipse;aspect=fixed;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#777777;fillColor=springgreen;strokeWidth=1;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="4.109999999999999" y="395.14" width="108.0" height="108.0" as="geometry" />
     </mxCell>
-    <mxCell id="node7" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;orange&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#777777;fillColor=orange;strokeWidth=1;dashed=0;" parent="1" vertex="1">
+    <mxCell id="node7" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;orange&lt;/font&gt;" style="ellipse;aspect=fixed;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#777777;fillColor=orange;strokeWidth=1;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="239.07999999999998" y="4.0" width="108.0" height="108.0" as="geometry" />
     </mxCell>
-    <mxCell id="node8" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;deepskyblue&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#777777;fillColor=deepskyblue;strokeWidth=1;dashed=0;" parent="1" vertex="1">
+    <mxCell id="node8" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;deepskyblue&lt;/font&gt;" style="ellipse;aspect=fixed;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#777777;fillColor=deepskyblue;strokeWidth=1;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="237.85000000000002" y="530.77" width="108.0" height="108.0" as="geometry" />
     </mxCell>
-    <mxCell id="node9" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='white'&gt;blue&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#777777;fillColor=blue;strokeWidth=1;dashed=0;" parent="1" vertex="1">
+    <mxCell id="node9" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='white'&gt;blue&lt;/font&gt;" style="ellipse;aspect=fixed;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#777777;fillColor=blue;strokeWidth=1;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="311.0" y="400.6" width="108.0" height="108.0" as="geometry" />
     </mxCell>
-    <mxCell id="node10" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='white'&gt;magenta&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#777777;fillColor=magenta;strokeWidth=1;dashed=0;" parent="1" vertex="1">
+    <mxCell id="node10" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='white'&gt;magenta&lt;/font&gt;" style="ellipse;aspect=fixed;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#777777;fillColor=magenta;strokeWidth=1;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="410.63" y="267.84999999999997" width="108.0" height="108.0" as="geometry" />
     </mxCell>
-    <mxCell id="node11" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='white'&gt;purple&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#777777;fillColor=purple;strokeWidth=1;dashed=0;" parent="1" vertex="1">
+    <mxCell id="node11" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='white'&gt;purple&lt;/font&gt;" style="ellipse;aspect=fixed;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#777777;fillColor=purple;strokeWidth=1;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="460.02" y="403.6" width="108.0" height="108.0" as="geometry" />
     </mxCell>
-    <mxCell id="node13" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='white'&gt;deeppink&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#777777;fillColor=deeppink;strokeWidth=1;dashed=0;" parent="1" vertex="1">
+    <mxCell id="node13" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='white'&gt;deeppink&lt;/font&gt;" style="ellipse;aspect=fixed;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#777777;fillColor=deeppink;strokeWidth=1;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="460.93000000000006" y="132.64999999999998" width="108.0" height="108.0" as="geometry" />
     </mxCell>
-    <mxCell id="node12" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='white'&gt;red&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#777777;fillColor=red;strokeWidth=1;dashed=0;" parent="1" vertex="1">
+    <mxCell id="node12" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='white'&gt;red&lt;/font&gt;" style="ellipse;aspect=fixed;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#777777;fillColor=red;strokeWidth=1;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="311.65" y="134.28999999999996" width="108.0" height="108.0" as="geometry" />
     </mxCell>
     <mxCell id="edge1" style="html=1;endArrow=block;dashed=0;endFill=0;startArrow=none;startFill=0;fillColor=green;strokeColor=green;strokeWidth=1.5;rounded=0;exitX=1.0000;exitY=0.5000;entryX=0.0000;entryY=0.5000;" parent="1" edge="1" source="node1" target="node2">

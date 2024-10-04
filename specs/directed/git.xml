@@ -6,7 +6,7 @@
     <mxCell id="node1" value="&lt;b&gt;&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;changes&lt;br/&gt;in the working tree &lt;/font&gt;&lt;/b&gt;&lt;hr size='1'/&gt;&lt;div&gt;&lt;i&gt;&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;To view: &lt;br/&gt;git diff&lt;/font&gt;&lt;/i&gt;&lt;/div&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=none;fillColor=#efdddd;strokeWidth=1;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="4.0" y="62.5" width="124.0" height="76.0" as="geometry" />
     </mxCell>
-    <mxCell id="node2" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;git stash [push]&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=none;fillColor=none;strokeWidth=1;dashed=0;" parent="1" vertex="1">
+    <mxCell id="node2" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;git stash [push]&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=none;fillColor=none;strokeWidth=1;dashed=0;" parent="1" vertex="1">
       <mxGeometry as="geometry" relative="1">
         <mxPoint x="210.38" y="56.30000000000001" as="offset" />
       </mxGeometry>
@@ -14,7 +14,7 @@
     <mxCell id="node3" value="&lt;b&gt;&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;staging area&lt;br/&gt;(cache, index)&lt;/font&gt;&lt;/b&gt;&lt;hr size='1'/&gt;&lt;div&gt;&lt;i&gt;&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;To view: &lt;br/&gt;git diff --staged&lt;/font&gt;&lt;/i&gt;&lt;/div&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=none;fillColor=#ffefdd;strokeWidth=1;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="292.75" y="70.5" width="99.25" height="76.0" as="geometry" />
     </mxCell>
-    <mxCell id="node4" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;discard&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=none;fillColor=none;strokeWidth=1;dashed=0;" parent="1" vertex="1">
+    <mxCell id="node4" value="&lt;font style='font-size: 14.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;discard&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=none;fillColor=none;strokeWidth=1;dashed=0;" parent="1" vertex="1">
       <mxGeometry as="geometry" relative="1">
         <mxPoint x="66.0" y="184.3" as="offset" />
       </mxGeometry>

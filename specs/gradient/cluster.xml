@@ -24,7 +24,7 @@
     <mxCell id="node4" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;a3&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=cyan;strokeWidth=1;dashed=0;gradientColor=blue;gradientDirection=south;" parent="1" vertex="1">
       <mxGeometry x="40.0" y="296.5" width="54.0" height="36.0" as="geometry" />
     </mxCell>
-    <mxCell id="node9" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;end&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=orange;strokeWidth=1;dashed=0;gradientColor=blue;gradientDirection=radial;" parent="1" vertex="1">
+    <mxCell id="node9" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;end&lt;/font&gt;" style="aspect=fixed;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=orange;strokeWidth=1;dashed=0;gradientColor=blue;gradientDirection=radial;" parent="1" vertex="1">
       <mxGeometry x="102.0" y="368.5" width="36.0" height="36.0" as="geometry" />
     </mxCell>
     <mxCell id="node5" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;b0&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=yellow;strokeWidth=1;dashed=0;gradientColor=magenta;gradientDirection=south;" parent="1" vertex="1">
@@ -36,7 +36,7 @@
     <mxCell id="node7" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;b2&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=cyan;strokeWidth=1;dashed=0;gradientColor=red;gradientDirection=south;" parent="1" vertex="1">
       <mxGeometry x="150.0" y="224.5" width="54.0" height="36.0" as="geometry" />
     </mxCell>
-    <mxCell id="node10" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;start&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=yellow;strokeWidth=1;dashed=0;gradientColor=brown;gradientDirection=radial;" parent="1" vertex="1">
+    <mxCell id="node10" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;start&lt;/font&gt;" style="rhombus;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=yellow;strokeWidth=1;dashed=0;gradientColor=brown;gradientDirection=radial;" parent="1" vertex="1">
       <mxGeometry x="82.12" y="4.0" width="75.75999999999999" height="36.0" as="geometry" />
     </mxCell>
     <mxCell id="edge1" style="html=1;endArrow=block;dashed=0;endFill=1;startArrow=none;startFill=0;fillColor=black;strokeColor=black;strokeWidth=1;rounded=0;exitX=0.5000;exitY=1.0000;entryX=0.5000;entryY=0.0000;" parent="1" edge="1" source="node1" target="node2">

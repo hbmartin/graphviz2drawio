@@ -12,7 +12,7 @@
     <mxCell id="node3" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='white'&gt;Conv2d2&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#63b8ff;fillColor=#63b8ff;strokeWidth=1;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="93.0" y="92.5" width="65.5" height="36.0" as="geometry" />
     </mxCell>
-    <mxCell id="node4" value="" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=black;strokeWidth=1;dashed=0;" parent="1" vertex="1">
+    <mxCell id="node4" value="" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=black;strokeWidth=1;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="137.95" y="197.2" width="3.6" height="3.6" as="geometry" />
     </mxCell>
     <mxCell id="node5" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='white'&gt;MaxPooling&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#63b8ff;fillColor=#63b8ff;strokeWidth=1;dashed=0;" parent="1" vertex="1">

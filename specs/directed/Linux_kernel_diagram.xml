@@ -15,7 +15,7 @@
     <mxCell id="node4" value="&lt;font style='font-size: 24.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;proc &amp; sysfs&lt;br/&gt;file systems&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#e27dd6;fillColor=#b2d3e4;strokeWidth=5;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="418.0" y="249.20000000000005" width="158.39999999999998" height="72.0" as="geometry" />
     </mxCell>
-    <mxCell id="node5" value="&lt;font style='font-size: 20.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;Device&lt;br/&gt;Model&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#e27dd6;fillColor=#91b5c9;strokeWidth=5;dashed=0;" parent="1" vertex="1">
+    <mxCell id="node5" value="&lt;font style='font-size: 20.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;Device&lt;br/&gt;Model&lt;/font&gt;" style="shape=mxgraph.basic.octagon2;align=center;dx=15;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#e27dd6;fillColor=#91b5c9;strokeWidth=5;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="425.2" y="342.40000000000003" width="144.00000000000006" height="57.60000000000002" as="geometry" />
     </mxCell>
     <mxCell id="node6" value="&lt;font style='font-size: 20.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;system run,&lt;br/&gt;modules,&lt;br/&gt;generic&lt;br/&gt;HW access &lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#e27dd6;fillColor=#6a9ab1;strokeWidth=5;dashed=0;" parent="1" vertex="1">
@@ -45,7 +45,7 @@
     <mxCell id="node15" value="&lt;font style='font-size: 20.0px;' face='Helvetica,Arial,sans-serif' color='white'&gt;network:&lt;br/&gt;Ethernet, WiFi ...&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#61c2c5;fillColor=#777777;strokeWidth=5;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="1293.7" y="613.2" width="163.0" height="72.0" as="geometry" />
     </mxCell>
-    <mxCell id="node16" value="&lt;font style='font-size: 24.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;NFS&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#8383cc;fillColor=#91b5c9;strokeWidth=5;dashed=0;" parent="1" vertex="1">
+    <mxCell id="node16" value="&lt;font style='font-size: 24.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;NFS&lt;/font&gt;" style="shape=mxgraph.basic.octagon2;align=center;dx=15;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#8383cc;fillColor=#91b5c9;strokeWidth=5;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="1240.0" y="342.40000000000003" width="86.40000000000009" height="57.60000000000002" as="geometry" />
     </mxCell>
     <mxCell id="node19" value="&lt;font style='font-size: 24.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;Processes&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#c46747;fillColor=#d9e7ee;strokeWidth=5;dashed=0;" parent="1" vertex="1">
@@ -57,7 +57,7 @@
     <mxCell id="node20" value="&lt;font style='font-size: 24.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;Tasks&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#c46747;fillColor=#b2d3e4;strokeWidth=5;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="598.0" y="249.20000000000005" width="158.39999999999998" height="72.0" as="geometry" />
     </mxCell>
-    <mxCell id="node21" value="&lt;font style='font-size: 20.0px;' face='Arial Narrow' color='#000000'&gt;synchronization&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#c46747;fillColor=#91b5c9;strokeWidth=5;dashed=0;" parent="1" vertex="1">
+    <mxCell id="node21" value="&lt;font style='font-size: 20.0px;' face='Arial Narrow' color='#000000'&gt;synchronization&lt;/font&gt;" style="shape=mxgraph.basic.octagon2;align=center;dx=15;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#c46747;fillColor=#91b5c9;strokeWidth=5;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="598.0" y="346.00000000000006" width="158.39999999999998" height="50.39999999999998" as="geometry" />
     </mxCell>
     <mxCell id="node22" value="&lt;font style='font-size: 24.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;Scheduler&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#c46747;fillColor=#6a9ab1;strokeWidth=5;dashed=0;" parent="1" vertex="1">
@@ -69,7 +69,7 @@
     <mxCell id="node24" value="&lt;font style='font-size: 20.0px;' face='Helvetica,Arial,sans-serif' color='white'&gt;CPU&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#c46747;fillColor=#777777;strokeWidth=5;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="598.0" y="613.2" width="158.39999999999998" height="72.0" as="geometry" />
     </mxCell>
-    <mxCell id="node63" value="&lt;font style='font-size: 24.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;© 2007-2022 Costa Shulyupin http://www.MakeLinux.net/kernel/diagram&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=none;fillColor=none;strokeWidth=1;dashed=0;" parent="1" vertex="1">
+    <mxCell id="node63" value="&lt;font style='font-size: 24.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;© 2007-2022 Costa Shulyupin http://www.MakeLinux.net/kernel/diagram&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=none;fillColor=none;strokeWidth=1;dashed=0;" parent="1" vertex="1">
       <mxGeometry as="geometry" relative="1">
         <mxPoint x="677.2" y="721.63" as="offset" />
       </mxGeometry>
@@ -80,13 +80,13 @@
     <mxCell id="node26" value="&lt;font style='font-size: 24.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;Virtual&lt;br/&gt;memory&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#51bf5b;fillColor=#b2d3e4;strokeWidth=5;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="778.0" y="249.20000000000005" width="158.39999999999998" height="72.0" as="geometry" />
     </mxCell>
-    <mxCell id="node27" value="&lt;font style='font-size: 20.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;memory&lt;br/&gt;mapping&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#51bf5b;fillColor=#91b5c9;strokeWidth=5;dashed=0;" parent="1" vertex="1">
+    <mxCell id="node27" value="&lt;font style='font-size: 20.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;memory&lt;br/&gt;mapping&lt;/font&gt;" style="shape=mxgraph.basic.octagon2;align=center;dx=15;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#51bf5b;fillColor=#91b5c9;strokeWidth=5;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="785.2" y="342.40000000000003" width="144.0" height="57.60000000000002" as="geometry" />
     </mxCell>
     <mxCell id="node28" value="&lt;font style='font-size: 24.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;logical&lt;br/&gt;memory&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#51bf5b;fillColor=#6a9ab1;strokeWidth=5;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="778.0" y="431.20000000000005" width="158.39999999999998" height="72.0" as="geometry" />
     </mxCell>
-    <mxCell id="node29" value="&lt;font style='font-size: 24.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;Swap&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#8383cc;fillColor=#91b5c9;strokeWidth=5;dashed=0;" parent="1" vertex="1">
+    <mxCell id="node29" value="&lt;font style='font-size: 24.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;Swap&lt;/font&gt;" style="shape=mxgraph.basic.octagon2;align=center;dx=15;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#8383cc;fillColor=#91b5c9;strokeWidth=5;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="958.0" y="438.40000000000003" width="86.40000000000009" height="57.60000000000002" as="geometry" />
     </mxCell>
     <mxCell id="node30" value="&lt;font style='font-size: 24.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;Page&lt;br/&gt;Allocator&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#51bf5b;fillColor=#71809b;strokeWidth=5;dashed=0;" parent="1" vertex="1">
@@ -101,7 +101,7 @@
     <mxCell id="node36" value="&lt;font style='font-size: 20.0px;' face='Helvetica,Arial,sans-serif' color='white'&gt;storage devices:&lt;br/&gt;SCSI, NVMe ...&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#8383cc;fillColor=#777777;strokeWidth=5;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="1110.83" y="613.2" width="160.75" height="72.0" as="geometry" />
     </mxCell>
-    <mxCell id="node33" value="&lt;font style='font-size: 20.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;page&lt;br/&gt;cache&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#51bf5b;fillColor=#91b5c9;strokeWidth=5;dashed=0;" parent="1" vertex="1">
+    <mxCell id="node33" value="&lt;font style='font-size: 20.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;page&lt;br/&gt;cache&lt;/font&gt;" style="shape=mxgraph.basic.octagon2;align=center;dx=15;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#51bf5b;fillColor=#91b5c9;strokeWidth=5;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="1053.0" y="342.40000000000003" width="86.40000000000009" height="57.60000000000002" as="geometry" />
     </mxCell>
     <mxCell id="node38" value="&lt;font style='font-size: 24.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;storage&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#8383cc;fillColor=white;strokeWidth=5;dashed=0;" parent="1" vertex="1">
@@ -146,7 +146,7 @@
     <mxCell id="node54" value="&lt;font style='font-size: 24.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;virtual&lt;br/&gt;subsystems&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=#b2d3e4;strokeWidth=0;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="4.0" y="249.20000000000005" width="158.4" height="72.0" as="geometry" />
     </mxCell>
-    <mxCell id="node55" value="&lt;font style='font-size: 24.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;bridges&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=#91b5c9;strokeWidth=0;dashed=0;" parent="1" vertex="1">
+    <mxCell id="node55" value="&lt;font style='font-size: 24.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;bridges&lt;/font&gt;" style="shape=mxgraph.basic.octagon2;align=center;dx=15;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=#91b5c9;strokeWidth=0;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="4.0" y="335.20000000000005" width="158.4" height="72.0" as="geometry" />
     </mxCell>
     <mxCell id="node58" value="&lt;font style='font-size: 24.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;logical&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=#6a9ab1;strokeWidth=0;dashed=0;" parent="1" vertex="1">
@@ -158,7 +158,7 @@
     <mxCell id="node61" value="&lt;font style='font-size: 24.0px;' face='Helvetica,Arial,sans-serif' color='white'&gt;electronics,&lt;br/&gt;hardware&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=#777777;strokeWidth=0;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="4.0" y="613.2" width="158.4" height="72.0" as="geometry" />
     </mxCell>
-    <mxCell id="node65" value="&lt;font style='font-size: 40.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;Linux kernel diagram&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=none;fillColor=none;strokeWidth=1;dashed=0;" parent="1" vertex="1">
+    <mxCell id="node65" value="&lt;font style='font-size: 40.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;Linux kernel diagram&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=none;fillColor=none;strokeWidth=1;dashed=0;" parent="1" vertex="1">
       <mxGeometry as="geometry" relative="1">
         <mxPoint x="677.2" y="2.0" as="offset" />
       </mxGeometry>
