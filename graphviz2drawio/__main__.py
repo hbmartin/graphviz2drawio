@@ -35,7 +35,9 @@ def _convert_file(to_convert: TextIOWrapper, program: str, outfile: str | None) 
         print(output)
         return
 
-    pathlib.Path(outfile).write_text(output)
+    out_path = pathlib.Path(outfile)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(output)
     stderr.write("Converted file: " + outfile + "\n")
 
 

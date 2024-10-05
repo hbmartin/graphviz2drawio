@@ -1,7 +1,3 @@
-##"A few people in the field of genetics are using dot to draw "marriage node diagram"  pedigree drawings.  Here is one I have done of a test pedigree from the FTREE pedigree drawing package (Lion Share was a racehorse)." Contributed by David Duffy.
-
-##Command to get the layout: "dot -Tpng thisfile > thisfile.png"
-
 digraph Ped_Lion_Share           {
 # page = "8.2677165,11.692913" ;
 ratio = "auto" ;
