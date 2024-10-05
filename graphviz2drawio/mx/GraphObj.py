@@ -1,4 +1,4 @@
-_blacklist_attrs = ["fill"]
+_blacklist_attrs = ["fill", "shape"]
 
 
 class GraphObj:
