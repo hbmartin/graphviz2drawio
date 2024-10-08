@@ -15,4 +15,6 @@ class GraphObj:
                 continue
             if k in _blacklist_attrs:
                 continue
+            if k == "shape" and v == "none":
+                continue
             self.__setattr__(k, v)

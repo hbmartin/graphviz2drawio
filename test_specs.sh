@@ -25,8 +25,8 @@ process_files() {
         rel_path="${file#$src_dir/}"
         output_file="$out_dir/${rel_path%.gv.txt}.xml"
         mkdir -p "$(dirname "$output_file")"
-        python3 -m graphviz2drawio "$file" -o "$output_file"
-        echo "Processed: $file -> $output_file"
+        python3 -m graphviz2drawio "$file" -o "$output_file" > /dev/null 2>&1
+        echo "Processed: $file -> $output_file ($?)"
     done
 }
 
