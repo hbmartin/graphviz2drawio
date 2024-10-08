@@ -21,7 +21,6 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: pip
           cache-dependency-path: requirements.txt
-          allow-prereleases: true
       - run: pip install -r requirements.txt
       - run: pip install black ruff pytest pytest-cov
       - run: ruff check .
