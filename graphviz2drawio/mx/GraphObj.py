@@ -1,4 +1,4 @@
-_blacklist_attrs = ["fill", "shape"]
+_blacklist_attrs = ["fill"]
 
 
 class GraphObj:
@@ -14,5 +14,7 @@ class GraphObj:
             if v == "" and k in self.__dict__ and self.__dict__[k] is not None:
                 continue
             if k in _blacklist_attrs:
+                continue
+            if k == "shape" and v == "none":
                 continue
             self.__setattr__(k, v)
