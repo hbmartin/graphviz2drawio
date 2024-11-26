@@ -8,6 +8,7 @@ from graphviz2drawio.mx.Curve import Curve
 from graphviz2drawio.mx.Edge import Edge
 from graphviz2drawio.mx.Node import Node
 from graphviz2drawio.mx.Styles import Styles
+from graphviz2drawio.models import SVG
 
 
 class MxGraph:
@@ -16,6 +17,7 @@ class MxGraph:
         clusters: OrderedDict[str, Node],
         nodes: OrderedDict[str, Node],
         edges: list[Edge],
+        
     ) -> None:
         self.nodes = nodes
         self.edges = edges
@@ -23,7 +25,6 @@ class MxGraph:
         self.root = SubElement(self.graph, MxConst.ROOT)
         SubElement(self.root, MxConst.CELL, attrib={"id": "0"})
         SubElement(self.root, MxConst.CELL, attrib={"id": "1", "parent": "0"})
-
         # Add nodes first so edges are drawn on top
         for cluster in clusters.values():
             self.add_node(cluster)
@@ -103,18 +104,21 @@ class MxGraph:
             attributes["as"] = "geometry"
             SubElement(element, MxConst.GEO, attributes)
         elif text_offset is not None:
+            # Calculate width and height based on text_offset
+            width = abs(text_offset.real) * 0.25  # Example calculation
+            height = abs(text_offset.imag) * 0.25  # Example calculation
+            x = str(text_offset.real / 2) 
+            y = str(text_offset.imag / 2)
             geo = SubElement(
                 element,
                 MxConst.GEO,
-                attrib={"as": "geometry", "relative": "1"},
-            )
-            SubElement(
-                geo,
-                MxConst.POINT,
                 attrib={
-                    "x": str(text_offset.real),
-                    "y": str(text_offset.imag),
-                    "as": "offset",
+                    "relative": "1",
+                    "x": x,
+                    "y": y,
+                    "width": str(width),
+                    "height": str(height),
+                    "as": "geometry"
                 },
             )
         else:

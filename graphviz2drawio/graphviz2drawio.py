@@ -13,7 +13,7 @@ def convert(graph_to_convert: AGraph | str | IO, layout_prog: str = "dot") -> st
         graph = graph_to_convert
     else:
         graph = AGraph(graph_to_convert)
-
+    
     graph_edges: dict[str, dict] = {
         f"{e[0]}->{e[1]}-"
         + (e.attr.get("xlabel") or e.attr.get("label") or ""): e.attr.to_dict()
@@ -22,7 +22,7 @@ def convert(graph_to_convert: AGraph | str | IO, layout_prog: str = "dot") -> st
     graph_nodes: dict[str, dict] = {n: n.attr.to_dict() for n in graph.nodes_iter()}
 
     svg_graph = graph.draw(prog=layout_prog, format="svg")
-
+    
     nodes, edges, clusters = parse_nodes_edges_clusters(
         svg_data=svg_graph,
         is_directed=graph.directed,

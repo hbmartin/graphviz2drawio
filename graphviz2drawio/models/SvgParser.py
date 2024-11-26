@@ -15,6 +15,7 @@ from . import SVG
 from .commented_tree_builder import COMMENT, CommentedTreeBuilder
 from .CoordsTranslate import CoordsTranslate
 from .Errors import MissingTitleError
+import xml.etree.ElementTree as ET
 
 
 def parse_nodes_edges_clusters(
@@ -26,7 +27,6 @@ def parse_nodes_edges_clusters(
         svg_data,
         parser=ElementTree.XMLParser(target=CommentedTreeBuilder()),
     )[0]
-
     coords = CoordsTranslate.from_svg_transform(root.attrib["transform"])
     node_factory = NodeFactory(coords)
     edge_factory = EdgeFactory(coords=coords, is_directed=is_directed)
@@ -35,7 +35,6 @@ def parse_nodes_edges_clusters(
     edges: OrderedDict[str, Edge] = OrderedDict()
     clusters: OrderedDict[str, Node] = OrderedDict()
     gradients = dict[str, Gradient]()
-
     prev_comment = None
     for g in root:
         if g.tag == COMMENT:
@@ -68,6 +67,7 @@ def parse_nodes_edges_clusters(
                 else:
                     edges[edge.key_for_label] = edge
             elif g.attrib["class"] == "cluster":
+
                 clusters[title] = node_factory.from_svg(
                     g,
                     labelloc="t",

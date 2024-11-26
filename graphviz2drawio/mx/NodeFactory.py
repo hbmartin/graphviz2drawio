@@ -11,7 +11,7 @@ from .Node import Gradient, Node
 from .RectFactory import rect_from_ellipse_svg, rect_from_image, rect_from_svg_points
 from .Text import Text
 from .utils import adjust_color_opacity
-
+from graphviz2drawio.models.Rect import Rect
 
 class NodeFactory:
     def __init__(self, coords: CoordsTranslate) -> None:
@@ -34,13 +34,12 @@ class NodeFactory:
 
         if sid is None or gid is None:
             raise MissingIdentifiersError(sid, gid)
-
         if (inner_g := SVG.get_first(g, "g")) is not None:
             if (inner_a := SVG.get_first(inner_g, "a")) is not None:
                 g = inner_a
-
-        if (polygon := SVG.get_first(g, "polygon")) is not None:
-            rect = rect_from_svg_points(self.coords, polygon.attrib["points"])
+        if (polygon := SVG.get_first(g, "path")) is not None:
+            x_coords, y_coords, width, height = SVG.get_d(polygon)
+            rect = Rect(x=x_coords,y=y_coords,width=width,height=height)
             shape = Shape.RECT
             fill = self._extract_fill(polygon, gradients)
             stroke = self._extract_stroke(polygon)
