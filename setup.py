@@ -36,6 +36,7 @@ setup(
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
         "Programming Language :: Python :: 3.13",
+        "Programming Language :: Python :: 3.14",
     ],
     license="GPLv3",
     keywords="graphviz graph agraph dot convert conversion draw drawio mxgraph maxgraph",
