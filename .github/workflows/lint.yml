@@ -34,10 +34,6 @@ jobs:
             echo "Using mypy for Python 3.12"
             pip install mypy
             mypy graphviz2drawio --ignore-missing-imports --strict
-          elif [[ '${{ steps.cpython3.outputs.python-version }}' == 3.13* ]]; then
-            echo "Using ty for Python 3.13"
-            pip install ty
-            ty check
           else
             echo "Using pyrefly"
             pip install pyrefly
