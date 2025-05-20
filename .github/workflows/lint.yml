@@ -37,7 +37,7 @@ jobs:
           else
             echo "Using pyrefly"
             pip install pyrefly
-            pyrefly
+            pyrefly check
           fi
       - uses: psf/black@stable
         with:
