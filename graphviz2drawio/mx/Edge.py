@@ -1,5 +1,4 @@
 from ..models import DotAttr
-
 from ..models.Rect import Rect
 from . import MxConst
 from .Curve import Curve

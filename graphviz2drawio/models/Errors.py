@@ -1,5 +1,7 @@
 from xml.etree.ElementTree import Element
 
+from pygraphviz import AGraph
+
 
 class GdValueError(ValueError):
     """Base class for exceptions raised during conversion."""
@@ -45,7 +47,7 @@ class MissingIdentifiersError(GdValueError):
 class UnableToParseGraphError(GdValueError):
     """Graph was unexpectedly None."""
 
-    def __init__(self) -> None:
+    def __init__(self, graph: AGraph) -> None:
         super().__init__(
-            f"Graph returned by pygraphviz was unexpectedly None",
+            f"Graph.draw() returned by pygraphviz was unexpectedly None: {graph}",
         )

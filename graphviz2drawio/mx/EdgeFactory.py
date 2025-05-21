@@ -1,7 +1,6 @@
 from xml.etree.ElementTree import Element
 
 from ..models import SVG, DotAttr
-
 from ..models.CoordsTranslate import CoordsTranslate
 from .CurveFactory import CurveFactory
 from .Edge import Edge

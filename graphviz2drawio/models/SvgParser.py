@@ -2,20 +2,22 @@ import re
 from collections import OrderedDict
 from collections.abc import Iterable
 from math import isclose
+from typing import TYPE_CHECKING
 from xml.etree import ElementTree
-from xml.etree.ElementTree import Element
 
+from ..mx.Curve import LINE_TOLERANCE
 from ..mx.Edge import Edge
 from ..mx.EdgeFactory import EdgeFactory
 from ..mx.Node import Gradient, Node
 from ..mx.NodeFactory import NodeFactory
-
-from ..mx.Curve import LINE_TOLERANCE
 from ..mx.utils import adjust_color_opacity
 from . import SVG
 from .commented_tree_builder import COMMENT, CommentedTreeBuilder
 from .CoordsTranslate import CoordsTranslate
 from .Errors import MissingTitleError
+
+if TYPE_CHECKING:
+    from xml.etree.ElementTree import Element
 
 
 def parse_nodes_edges_clusters(

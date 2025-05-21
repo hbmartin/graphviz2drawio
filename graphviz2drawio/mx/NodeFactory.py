@@ -2,7 +2,6 @@ import re
 from xml.etree.ElementTree import Element
 
 from ..models import SVG
-
 from ..models.CoordsTranslate import CoordsTranslate
 from ..models.Errors import MissingIdentifiersError
 from . import MxConst, Shape

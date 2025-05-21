@@ -27,7 +27,7 @@ def convert(graph_to_convert: AGraph | str | IO, layout_prog: str = "dot") -> st
     svg_graph: bytes | None = graph.draw(prog=layout_prog, format="svg")
 
     if svg_graph is None:
-        raise UnableToParseGraphError()
+        raise UnableToParseGraphError(graph)
 
     nodes, edges, clusters = parse_nodes_edges_clusters(
         svg_data=svg_graph,
