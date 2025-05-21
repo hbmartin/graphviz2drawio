@@ -23,7 +23,7 @@ class TestApproximateCubicBezierAsQuadratic(unittest.TestCase):
         self.assertEqual(result[0], p0)
         self.assertEqual(result[2], p2)
         # Control point should be somewhere reasonable
-        self.assertTrue(isinstance(result[1], complex))
+        self.assertIsInstance(result[1], complex)
 
     def test_straight_line_approximation(self):
         """Test approximation of a cubic curve that's essentially a straight line."""
@@ -165,8 +165,7 @@ class TestSubdivideInflections(unittest.TestCase):
 
         result = subdivide_inflections(p0, c1, c2, p3)
 
-        # Should have at least one subdivision
-        self.assertTrue(len(result) >= 2)
+        self.assertEqual(len(result), 2)
 
         # All curves should connect properly
         for i in range(len(result) - 1):
