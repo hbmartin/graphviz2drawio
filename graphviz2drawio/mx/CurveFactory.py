@@ -42,7 +42,9 @@ class CurveFactory:
                     ]
                     points.extend(split_controls)
 
+        # pyrefly: ignore  # missing-attribute
         start: complex = self.coords.complex_translate(path[0].start)
+        # pyrefly: ignore  # missing-attribute
         end: complex = self.coords.complex_translate(path[-1].end)
 
         if len(points) > 0 and cmath.isclose(
