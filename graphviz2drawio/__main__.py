@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import pathlib
 import sys
 from argparse import Namespace
 from io import TextIOWrapper
@@ -15,7 +14,7 @@ DEFAULT_TEXT = "\033[0m"
 RED_TEXT = "\033[91m"
 BOLD = "\033[1m"
 
-utf8 = "utf-8"
+UTF8 = "utf-8"
 
 
 def _gv_filename_to_xml(filename: str) -> str:
@@ -45,25 +44,17 @@ def _convert_file(
             with to_convert.open(encoding=encoding) as contents:
                 output = convert(contents.read(), program)
     except UnicodeDecodeError:
-        if encoding != utf8:
-            # Attempt to automatically recover. Chinese Windows systems in particular
-            # typically use other encodings e.g. gbk, cp950, cp1252, etc. but the
-            # actual dot files are still UTF-8 encoded
+        if encoding != UTF8 and isinstance(to_convert, Path):
+            # Attempt to automatically recover for file. Chinese Windows systems in
+            # particular often use other encodings e.g. gbk, cp950, cp1252, etc. but
+            # the actual dot files are still UTF-8 encoded
             # https://github.com/hbmartin/graphviz2drawio/issues/105
-            return _convert_file(to_convert, program, utf8, outfile)
+            return _convert_file(to_convert, program, UTF8, outfile)
 
-        from locale import getpreferredencoding
+        _write_stderr_message(str(to_convert))
+        raise
 
-        error_message = f"Error decoding {to_convert} with {utf8}"
-        stderr.write(f"{RED_TEXT}{BOLD}{error_message}\n")
-        stderr.write("Try again by specifying your file encoding with the -e flag.\n")
-        if (sys_enc := getpreferredencoding(do_setlocale=False).lower()) != utf8:
-            stderr.write(f"e.g. using your system's default encoding -e {sys_enc})")
-            stderr.write(f"\n\n{DEFAULT_TEXT}")
-        else:
-            _write_stderr_message(str(to_convert))
-            raise
-    except BaseException:
+    except Exception:
         _write_stderr_message(str(to_convert))
         raise
 
@@ -75,7 +66,7 @@ def _convert_file(
         print(output)
         return None
 
-    out_path = pathlib.Path(outfile)
+    out_path = Path(outfile)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(output)
     stderr.write("Converted file: " + outfile + "\n")

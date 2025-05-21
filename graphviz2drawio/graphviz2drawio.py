@@ -14,25 +14,7 @@ def convert(
     graph_to_convert: AGraph | str | TextIOBase | Path | TextIO,
     layout_prog: str = "dot",
 ) -> str:
-    if isinstance(graph_to_convert, AGraph):
-        graph = graph_to_convert
-    elif isinstance(graph_to_convert, str):
-        # This fixes a pygraphviz bug where a string beginning with a comment
-        # is mistakenly identified as a filename.
-        # https://github.com/pygraphviz/pygraphviz/issues/536
-        pattern = re.compile(
-            r"(?:\s*(?:/\*[^*]*\*+(?:[^/*][^*]*\*+)*/|//[^\r\n]*|\#[^\r\n]*)\s*)*\s*(strict)?\s*(graph|digraph).*?\{.*\}\s*",
-            re.DOTALL | re.MULTILINE | re.VERBOSE,
-        )
-        if pattern.match(graph_to_convert):
-            graph = AGraph(string=graph_to_convert)
-        else:
-            graph = AGraph(filename=graph_to_convert)
-    elif hasattr(graph_to_convert, "read"):
-        graph = AGraph(string=graph_to_convert.read())
-    else:
-        # Use builtin type detection which includes:  hasattr(thing, "open")
-        graph = AGraph(graph_to_convert)
+    graph = _load_pygraphviz_graph(graph_to_convert)
 
     graph_edges: dict[str, dict] = {
         f"{e[0]}->{e[1]}-"
@@ -65,3 +47,26 @@ def convert(
     # Put clusters first, so that nodes are drawn in front
     mx_graph = MxGraph(clusters, nodes, edges)
     return mx_graph.value()
+
+
+def _load_pygraphviz_graph(
+    graph_to_convert: AGraph | str | TextIOBase | Path | TextIO,
+) -> AGraph:
+    if isinstance(graph_to_convert, AGraph):
+        return graph_to_convert
+    if isinstance(graph_to_convert, str):
+        # This fixes a pygraphviz bug where a string beginning with a comment
+        # is mistakenly identified as a filename.
+        # https://github.com/pygraphviz/pygraphviz/issues/536
+        pattern = re.compile(
+            r"(?:\s*(?:/\*[^*]*\*+(?:[^/*][^*]*\*+)*/|//[^\r\n]*|\#[^\r\n]*)\s*)*\s*(strict)?\s*(graph|digraph).*?\{.*\}\s*",
+            re.DOTALL | re.MULTILINE | re.VERBOSE,
+        )
+        if pattern.match(graph_to_convert):
+            return AGraph(string=graph_to_convert)
+        return AGraph(filename=graph_to_convert)
+    # pyrefly: ignore  # missing-attribute
+    if hasattr(graph_to_convert, "read") and callable(graph_to_convert.read):
+        return AGraph(string=graph_to_convert.read())
+    # Use builtin type detection which includes:  hasattr(thing, "open")
+    return AGraph(graph_to_convert)

@@ -9,9 +9,7 @@ from typing import TextIO
 class NonOpeningFileType:
     def __call__(self, string: str) -> TextIO | Path:
         # the special argument "-" means sys.std{in,out}
-        if string == "-":
-            return sys.stdin
-        return Path(string)
+        return sys.stdin if string == "-" else Path(string)
 
 
 class Arguments(ArgumentParser):

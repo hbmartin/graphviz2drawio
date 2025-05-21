@@ -25,7 +25,7 @@ jobs:
       - run: pip install -r requirements.txt
       - run: pip install black ruff pytest pytest-cov
       - run: ruff check .
-      - name: Run mypy if on 3.12, pytype otherwise
+      - name: Run pytype if on 3.11, pyrefly if on 3.14, mypy otherwise
         run: |
           if [[ '${{ steps.cpython3.outputs.python-version }}' == 3.11* ]]; then
             pip install pytype
@@ -33,9 +33,8 @@ jobs:
           elif [[ '${{ steps.cpython3.outputs.python-version }}' == 3.14* ]]; then
             echo "Using pyrefly for Python 3.14"
             pip install pyrefly
-            pyrefly check
+            pyrefly check graphviz2drawio
           else
-            echo "Using mypy for Python 3.12"
             pip install mypy
             mypy graphviz2drawio --ignore-missing-imports
           fi
