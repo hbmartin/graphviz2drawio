@@ -44,7 +44,7 @@ def _convert_file(
             with to_convert.open(encoding=encoding) as contents:
                 output = convert(contents.read(), program)
     except UnicodeDecodeError:
-        if encoding != UTF8 and isinstance(to_convert, Path):
+        if encoding.lower() != UTF8 and isinstance(to_convert, Path):
             # Attempt to automatically recover for file. Chinese Windows systems in
             # particular often use other encodings e.g. gbk, cp950, cp1252, etc. but
             # the actual dot files are still UTF-8 encoded
@@ -68,7 +68,7 @@ def _convert_file(
 
     out_path = Path(outfile)
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(output)
+    out_path.write_text(output, encoding=encoding)
     stderr.write("Converted file: " + outfile + "\n")
     return None
 

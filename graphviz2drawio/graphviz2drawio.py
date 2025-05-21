@@ -59,8 +59,8 @@ def _load_pygraphviz_graph(
         # is mistakenly identified as a filename.
         # https://github.com/pygraphviz/pygraphviz/issues/536
         pattern = re.compile(
-            pattern=r"^\s*(strict)?\s*(graph|digraph).*{",
-            flags=re.DOTALL | re.MULTILINE,
+            pattern=r"^(?=(\s*))\1(strict)?(?=(\s*))\3(graph|digraph)[^{]*{",
+            flags=re.MULTILINE,
         )
         if pattern.search(graph_to_convert):
             return AGraph(string=graph_to_convert)
