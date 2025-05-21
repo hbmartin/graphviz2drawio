@@ -1,0 +1,218 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxGraphModel grid="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+    <mxCell id="node1" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;Caroline Bouvier Kennedy&lt;br/&gt;b. 27.11.1957 New York&lt;/font&gt;" style="ellipse;verticalAlign=bottom;html=1;rounded=0;labelBackgroundColor=none;strokeColor=red;fillColor=none;strokeWidth=2;dashed=0;" parent="1" vertex="1">
+      <mxGeometry x="135.26999999999998" y="449.45" width="229.46" height="57.98" as="geometry" />
+    </mxCell>
+    <mxCell id="node2" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;John Fitzgerald Kennedy&lt;br/&gt;b. 29.5.1917 Brookline&lt;br/&gt;d. 22.11.1963 Dallas&lt;/font&gt;" style="verticalAlign=bottom;html=1;rounded=0;labelBackgroundColor=none;strokeColor=blue;fillColor=none;strokeWidth=2;dashed=0;" parent="1" vertex="1">
+      <mxGeometry x="630.75" y="226.72000000000003" width="152.5" height="57.5" as="geometry" />
+    </mxCell>
+    <mxCell id="node3" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;John Fitzgerald Kennedy&lt;br/&gt;b. 25.11.1960 Washington&lt;br/&gt;d. 16.7.1999 over the Atlantic Ocean, near Aquinnah, MA, USA&lt;/font&gt;" style="verticalAlign=bottom;html=1;rounded=0;labelBackgroundColor=none;strokeColor=blue;fillColor=none;strokeWidth=2;dashed=0;" parent="1" vertex="1">
+      <mxGeometry x="382.38" y="449.69" width="369.24" height="57.5" as="geometry" />
+    </mxCell>
+    <mxCell id="node4" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;Patrick Bouvier Kennedy&lt;br/&gt;b. 7.8.1963&lt;br/&gt;d. 9.8.1963&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=blue;fillColor=none;strokeWidth=2;dashed=0;" parent="1" vertex="1">
+      <mxGeometry x="770.0" y="449.69" width="154.0" height="57.5" as="geometry" />
+    </mxCell>
+    <mxCell id="node5" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;Jaqueline Lee Bouvier&lt;br/&gt;b. 28.7.1929 Southampton&lt;br/&gt;d. 19.5.1994 New York City&lt;/font&gt;" style="ellipse;verticalAlign=bottom;html=1;rounded=0;labelBackgroundColor=none;strokeColor=red;fillColor=none;strokeWidth=2;dashed=0;" parent="1" vertex="1">
+      <mxGeometry x="129.44" y="332.13" width="241.12" height="81.32" as="geometry" />
+    </mxCell>
+    <mxCell id="node6" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;Aristotle Onassis&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=blue;fillColor=none;strokeWidth=2;dashed=0;" parent="1" vertex="1">
+      <mxGeometry x="8.5" y="460.44" width="109.0" height="36.0" as="geometry" />
+    </mxCell>
+    <mxCell id="node7" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;Joseph Patrick Kennedy&lt;br/&gt;b. 6.9.1888 East Boston&lt;br/&gt;d. 16.11.1969 Hyannis Port&lt;/font&gt;" style="verticalAlign=bottom;html=1;rounded=0;labelBackgroundColor=none;strokeColor=blue;fillColor=none;strokeWidth=2;dashed=0;" parent="1" vertex="1">
+      <mxGeometry x="670.62" y="4.0" width="166.76" height="57.5" as="geometry" />
+    </mxCell>
+    <mxCell id="node8" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;Joseph Patrick Kennedy Jr&lt;br/&gt;b. 1915&lt;br/&gt;d. 1944&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=blue;fillColor=none;strokeWidth=2;dashed=0;" parent="1" vertex="1">
+      <mxGeometry x="801.62" y="226.72000000000003" width="160.76" height="57.5" as="geometry" />
+    </mxCell>
+    <mxCell id="node9" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;Rosemary Kennedy&lt;br/&gt;b. 13.9.1918&lt;br/&gt;d. 7.1.2005&lt;/font&gt;" style="ellipse;verticalAlign=bottom;html=1;rounded=0;labelBackgroundColor=none;strokeColor=red;fillColor=none;strokeWidth=2;dashed=0;" parent="1" vertex="1">
+      <mxGeometry x="980.3199999999999" y="214.81" width="175.36" height="81.32" as="geometry" />
+    </mxCell>
+    <mxCell id="node10" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;Kathleen Kennedy&lt;br/&gt;b. 1920&lt;br/&gt;d. 1948&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=red;fillColor=none;strokeWidth=2;dashed=0;" parent="1" vertex="1">
+      <mxGeometry x="227.09" y="214.81" width="165.82" height="81.32" as="geometry" />
+    </mxCell>
+    <mxCell id="node11" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;Eunice Mary Kennedy&lt;br/&gt;b. 10.7.1921 Brookline&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=red;fillColor=none;strokeWidth=2;dashed=0;" parent="1" vertex="1">
+      <mxGeometry x="411.06" y="226.48" width="201.88" height="57.98" as="geometry" />
+    </mxCell>
+    <mxCell id="node12" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;Rose Elizabeth Fitzgerald&lt;br/&gt;b. 22.7.1890 Boston&lt;br/&gt;d. 22.1.1995 Hyannis Port&lt;/font&gt;" style="ellipse;verticalAlign=bottom;html=1;rounded=0;labelBackgroundColor=none;strokeColor=red;fillColor=none;strokeWidth=2;dashed=0;" parent="1" vertex="1">
+      <mxGeometry x="570.86" y="97.49000000000004" width="226.28" height="81.32" as="geometry" />
+    </mxCell>
+    <mxCell id="node13" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;John Vernou Bouvier III&lt;br/&gt;b. 1891&lt;br/&gt;d. 1957&lt;/font&gt;" style="verticalAlign=bottom;html=1;rounded=0;labelBackgroundColor=none;strokeColor=blue;fillColor=none;strokeWidth=2;dashed=0;" parent="1" vertex="1">
+      <mxGeometry x="4.0" y="109.40000000000003" width="148.0" height="57.5" as="geometry" />
+    </mxCell>
+    <mxCell id="node14" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;Janet Norton Lee&lt;br/&gt;b. 2.10.1877&lt;br/&gt;d. 3.1.1968&lt;/font&gt;" style="ellipse;verticalAlign=bottom;html=1;rounded=0;labelBackgroundColor=none;strokeColor=red;fillColor=none;strokeWidth=2;dashed=0;" parent="1" vertex="1">
+      <mxGeometry x="53.400000000000006" y="214.81" width="155.2" height="81.32" as="geometry" />
+    </mxCell>
+    <mxCell id="edge1" style="html=1;endArrow=none;dashed=0;endFill=0;startArrow=none;startFill=0;fillColor=blue;strokeColor=blue;strokeWidth=2;rounded=0;exitX=0.1174;exitY=1.0000;entryX=0.7266;entryY=0.0000;" parent="1" edge="1" source="node2" target="node1">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="648.66" y="284.68" as="sourcePoint" />
+        <mxPoint x="302.0" y="452.29" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge2" style="html=1;endArrow=none;dashed=0;endFill=0;startArrow=none;startFill=0;fillColor=orange;strokeColor=orange;strokeWidth=2;rounded=0;exitX=0.3837;exitY=1.0000;entryX=0.5482;entryY=0.0000;" parent="1" edge="1" source="node2" target="node3">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="689.27" y="284.46000000000004" as="sourcePoint" />
+        <mxPoint x="584.81" y="449.33" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge3" style="html=1;endArrow=none;dashed=0;endFill=0;startArrow=none;startFill=0;fillColor=orange;strokeColor=orange;strokeWidth=2;rounded=0;exitX=0.6163;exitY=1.0000;entryX=0.3844;entryY=0.0000;" parent="1" edge="1" source="node2" target="node4">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="724.73" y="284.46000000000004" as="sourcePoint" />
+        <mxPoint x="829.19" y="449.33" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge4" style="html=1;endArrow=none;dashed=0;endFill=0;startArrow=none;startFill=0;fillColor=violet;strokeColor=violet;strokeWidth=2;rounded=0;exitX=0.1362;exitY=1.0000;entryX=1.0000;entryY=0.2372;" parent="1" edge="1" source="node2" target="node5">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="651.52" y="284.63" as="sourcePoint" />
+        <mxPoint x="353.18" y="351.42" as="targetPoint" />
+        <Array as="points">
+          <mxPoint x="622.0" y="296.13" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge5" style="html=1;endArrow=none;dashed=0;endFill=0;startArrow=none;startFill=0;fillColor=red;strokeColor=red;strokeWidth=2;rounded=0;exitX=0.5000;exitY=1.0000;entryX=0.5000;entryY=0.0000;" parent="1" edge="1" source="node5" target="node1">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="250.0" y="413.86" as="sourcePoint" />
+        <mxPoint x="250.0" y="449.03000000000003" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge6" style="html=1;endArrow=none;dashed=0;endFill=0;startArrow=none;startFill=0;fillColor=orange;strokeColor=orange;strokeWidth=2;rounded=0;exitX=0.8541;exitY=1.0000;entryX=0.2661;entryY=0.0000;" parent="1" edge="1" source="node5" target="node3">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="335.37" y="401.7" as="sourcePoint" />
+        <mxPoint x="480.65" y="449.21000000000004" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge7" style="html=1;endArrow=none;dashed=0;endFill=0;startArrow=none;startFill=0;fillColor=orange;strokeColor=orange;strokeWidth=2;curved=1;exitX=1.0000;exitY=0.6533;entryX=0.0000;entryY=0.0339;" parent="1" edge="1" source="node5" target="node4">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="365.2" y="385.26" as="sourcePoint" />
+        <mxPoint x="769.82" y="451.64" as="targetPoint" />
+        <Array as="points">
+          <mxPoint x="600.0308702915431" y="411.61511925574155" />
+          <mxPoint x="761.0" y="449.45" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge8" style="html=1;endArrow=none;dashed=0;endFill=0;startArrow=none;startFill=0;fillColor=violet;strokeColor=violet;strokeWidth=2;rounded=0;exitX=0.2439;exitY=1.0000;entryX=0.7891;entryY=0.0000;" parent="1" edge="1" source="node5" target="node6">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="188.25" y="408.01" as="sourcePoint" />
+        <mxPoint x="94.51" y="459.97" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge9" style="html=1;endArrow=none;dashed=0;endFill=0;startArrow=none;startFill=0;fillColor=blue;strokeColor=blue;strokeWidth=2;curved=1;exitX=0.6792;exitY=1.0000;entryX=0.8559;entryY=0.0000;" parent="1" edge="1" source="node7" target="node2">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="783.88" y="61.870000000000005" as="sourcePoint" />
+        <mxPoint x="761.28" y="226.39" as="targetPoint" />
+        <Array as="points">
+          <mxPoint x="822.8307000360765" y="144.77038194950836" />
+          <mxPoint x="793.3834805759802" y="204.34281152030468" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge10" style="html=1;endArrow=none;dashed=0;endFill=0;startArrow=none;startFill=0;fillColor=orange;strokeColor=orange;strokeWidth=2;curved=1;exitX=0.7285;exitY=1.0000;entryX=0.4640;entryY=0.0000;" parent="1" edge="1" source="node7" target="node8">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="792.11" y="61.879999999999995" as="sourcePoint" />
+        <mxPoint x="876.22" y="226.48000000000002" as="targetPoint" />
+        <Array as="points">
+          <mxPoint x="857.0707036399526" y="145.01518696893396" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge11" style="html=1;endArrow=none;dashed=0;endFill=0;startArrow=none;startFill=0;fillColor=orange;strokeColor=orange;strokeWidth=2;rounded=0;exitX=0.7846;exitY=1.0000;entryX=0.2487;entryY=0.0000;" parent="1" edge="1" source="node7" target="node9">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="801.46" y="61.94999999999999" as="sourcePoint" />
+        <mxPoint x="1023.94" y="219.97000000000003" as="targetPoint" />
+        <Array as="points">
+          <mxPoint x="857.0" y="97.5" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge12" style="html=1;endArrow=none;dashed=0;endFill=0;startArrow=none;startFill=0;fillColor=orange;strokeColor=orange;strokeWidth=2;curved=1;exitX=0.0000;exitY=0.7683;entryX=0.7270;entryY=0.0000;" parent="1" edge="1" source="node7" target="node10">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="670.39" y="48.18000000000001" as="sourcePoint" />
+        <mxPoint x="347.64" y="218.89" as="targetPoint" />
+        <Array as="points">
+          <mxPoint x="578.2056077176222" y="68.0302136697627" />
+          <mxPoint x="440.4790952636373" y="135.44282130324564" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge13" style="html=1;endArrow=none;dashed=0;endFill=0;startArrow=none;startFill=0;fillColor=orange;strokeColor=orange;strokeWidth=2;curved=1;exitX=0.0000;exitY=0.6970;entryX=0.5072;entryY=0.0000;" parent="1" edge="1" source="node7" target="node11">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="670.23" y="44.079999999999984" as="sourcePoint" />
+        <mxPoint x="513.45" y="226.16000000000003" as="targetPoint" />
+        <Array as="points">
+          <mxPoint x="598.4595050809809" y="60.582044977379155" />
+          <mxPoint x="521.752794802395" y="138.23617905305747" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge14" style="html=1;endArrow=none;dashed=0;endFill=0;startArrow=none;startFill=0;fillColor=violet;strokeColor=violet;strokeWidth=2;rounded=0;exitX=0.3864;exitY=1.0000;entryX=0.6163;entryY=0.0000;" parent="1" edge="1" source="node7" target="node12">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="735.06" y="61.73000000000002" as="sourcePoint" />
+        <mxPoint x="710.32" y="98.28000000000003" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge15" style="html=1;endArrow=none;dashed=0;endFill=0;startArrow=none;startFill=0;fillColor=red;strokeColor=red;strokeWidth=2;rounded=0;exitX=0.5353;exitY=1.0000;entryX=0.4634;entryY=0.0000;" parent="1" edge="1" source="node12" target="node2">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="691.98" y="179.16000000000003" as="sourcePoint" />
+        <mxPoint x="701.42" y="226.51" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge16" style="html=1;endArrow=none;dashed=0;endFill=0;startArrow=none;startFill=0;fillColor=orange;strokeColor=orange;strokeWidth=2;rounded=0;exitX=0.7590;exitY=1.0000;entryX=0.1986;entryY=0.0000;" parent="1" edge="1" source="node12" target="node8">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="742.6" y="173.28000000000003" as="sourcePoint" />
+        <mxPoint x="833.55" y="226.25" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge17" style="html=1;endArrow=none;dashed=0;endFill=0;startArrow=none;startFill=0;fillColor=orange;strokeColor=orange;strokeWidth=2;curved=1;exitX=0.9182;exitY=1.0000;entryX=0.1366;entryY=0.0000;" parent="1" edge="1" source="node12" target="node9">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="778.62" y="160.81" as="sourcePoint" />
+        <mxPoint x="1004.27" y="227.04000000000002" as="targetPoint" />
+        <Array as="points">
+          <mxPoint x="891.8910436150815" y="188.34450368728307" />
+          <mxPoint x="971.0" y="214.81" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge18" style="html=1;endArrow=none;dashed=0;endFill=0;startArrow=none;startFill=0;fillColor=orange;strokeColor=orange;strokeWidth=2;curved=1;exitX=0.0829;exitY=1.0000;entryX=0.8611;entryY=0.0000;" parent="1" edge="1" source="node12" target="node10">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="589.61" y="160.85000000000002" as="sourcePoint" />
+        <mxPoint x="369.88" y="227.18" as="targetPoint" />
+        <Array as="points">
+          <mxPoint x="478.709784753901" y="188.13863628273828" />
+          <mxPoint x="402.0" y="214.81" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge19" style="html=1;endArrow=none;dashed=0;endFill=0;startArrow=none;startFill=0;fillColor=orange;strokeColor=orange;strokeWidth=2;rounded=0;exitX=0.2678;exitY=1.0000;entryX=0.6924;entryY=0.0000;" parent="1" edge="1" source="node12" target="node11">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="631.46" y="174.38" as="sourcePoint" />
+        <mxPoint x="550.84" y="228.43" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge20" style="html=1;endArrow=none;dashed=0;endFill=0;startArrow=none;startFill=0;fillColor=blue;strokeColor=blue;strokeWidth=2;curved=1;exitX=0.3776;exitY=1.0000;entryX=0.0000;entryY=0.3023;" parent="1" edge="1" source="node13" target="node5">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="59.88" y="167.24" as="sourcePoint" />
+        <mxPoint x="138.58" y="356.71000000000004" as="targetPoint" />
+        <Array as="points">
+          <mxPoint x="12.305191142719394" y="250.7198555000923" />
+          <mxPoint x="72.57202987377323" y="337.05891140677375" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge21" style="html=1;endArrow=none;dashed=0;endFill=0;startArrow=none;startFill=0;fillColor=violet;strokeColor=violet;strokeWidth=2;rounded=0;exitX=0.5876;exitY=1.0000;entryX=0.3851;entryY=0.0000;" parent="1" edge="1" source="node13" target="node14">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="90.97" y="167.36" as="sourcePoint" />
+        <mxPoint x="113.17" y="215.67000000000002" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge22" style="html=1;endArrow=none;dashed=0;endFill=0;startArrow=none;startFill=0;fillColor=red;strokeColor=red;strokeWidth=2;rounded=0;exitX=0.7342;exitY=1.0000;entryX=0.3382;entryY=0.0000;" parent="1" edge="1" source="node14" target="node5">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="167.35" y="291.70000000000005" as="sourcePoint" />
+        <mxPoint x="210.98" y="333.97" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+  </root>
+</mxGraphModel>

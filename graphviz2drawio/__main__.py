@@ -1,7 +1,9 @@
-import pathlib
+#!/usr/bin/env python3
+
 import sys
 from argparse import Namespace
 from io import TextIOWrapper
+from pathlib import Path
 from sys import stderr
 
 from .graphviz2drawio import convert
@@ -12,33 +14,63 @@ DEFAULT_TEXT = "\033[0m"
 RED_TEXT = "\033[91m"
 BOLD = "\033[1m"
 
+UTF8 = "utf-8"
+
 
 def _gv_filename_to_xml(filename: str) -> str:
     return ".".join(filename.split(".")[:-1]) + ".xml"
 
 
-def _convert_file(to_convert: TextIOWrapper, program: str, outfile: str | None) -> None:
+def _write_stderr_message(to_convert: str) -> None:
+    stderr.write(f"{RED_TEXT}{BOLD}Error converting {to_convert}\n")
+    stderr.write("Please open a report at\n")
+    stderr.write("https://github.com/hbmartin/graphviz2drawio/issues\n")
+    stderr.write("and include your diagram and the following information:\n\n")
+    stderr.write(DEFAULT_TEXT)
+    stderr.write(f"Python: {sys.version}, g2d: {__version__}\n")
+
+
+def _convert_file(
+    to_convert: Path | TextIOWrapper,
+    program: str,
+    encoding: str,
+    outfile: str | None,
+) -> None:
+    output: str | None = None
     try:
-        output = convert(to_convert.read(), program)
-    except BaseException:
-        stderr.write(f"{RED_TEXT}{BOLD}Error converting {to_convert}\n")
-        stderr.write("Please open a report at\n")
-        stderr.write("https://github.com/hbmartin/graphviz2drawio/issues\n")
-        stderr.write("and include your diagram and the following error:\n\n")
-        stderr.write(DEFAULT_TEXT)
-        stderr.write(f"Python: {sys.version}, g2d: {__version__}\n")
+        if isinstance(to_convert, TextIOWrapper):
+            output = convert(to_convert, program)
+        elif isinstance(to_convert, Path):
+            with to_convert.open(encoding=encoding) as contents:
+                output = convert(contents.read(), program)
+    except UnicodeDecodeError:
+        if encoding.lower() != UTF8 and isinstance(to_convert, Path):
+            # Attempt to automatically recover for file. Chinese Windows systems in
+            # particular often use other encodings e.g. gbk, cp950, cp1252, etc. but
+            # the actual dot files are still UTF-8 encoded
+            # https://github.com/hbmartin/graphviz2drawio/issues/105
+            return _convert_file(to_convert, program, UTF8, outfile)
+
+        _write_stderr_message(str(to_convert))
         raise
-    finally:
-        to_convert.close()
+
+    except Exception:
+        _write_stderr_message(str(to_convert))
+        raise
+
+    if output is None:
+        _write_stderr_message(str(to_convert))
+        return None
 
     if outfile is None:
         print(output)
-        return
+        return None
 
-    out_path = pathlib.Path(outfile)
+    out_path = Path(outfile)
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(output)
+    out_path.write_text(output, encoding=encoding)
     stderr.write("Converted file: " + outfile + "\n")
+    return None
 
 
 def main() -> None:
@@ -50,7 +82,7 @@ def main() -> None:
     _validate_args(args)
 
     if args.stdout and args.outfile is not None:
-        sys.stdout.write(f"Writing to {args.outfile} (ignoring stdout)\n")
+        sys.stderr.write(f"Writing to {args.outfile} (ignoring stdout)\n")
 
     if len(args.to_convert) == 1:
         in_files = args.to_convert
@@ -60,7 +92,12 @@ def main() -> None:
         out_files = [_gv_filename_to_xml(in_file.name) for in_file in args.to_convert]
 
     for in_file, out_file in zip(in_files, out_files, strict=True):
-        _convert_file(in_file, args.program, out_file)
+        _convert_file(
+            to_convert=in_file,
+            program=args.program,
+            encoding=args.encoding,
+            outfile=out_file,
+        )
 
 
 def _determine_single_output(args: Namespace) -> list[str | None]:

@@ -1,1 +1,4 @@
+/*  Comment here to verify
+comment detection
+*/
 digraph G {Hello->World}

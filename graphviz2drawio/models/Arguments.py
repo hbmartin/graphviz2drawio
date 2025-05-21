@@ -1,5 +1,15 @@
-from argparse import ArgumentParser, FileType
+import sys
+from argparse import ArgumentParser
+from locale import getpreferredencoding
+from pathlib import Path
 from sys import stdin
+from typing import TextIO
+
+
+class NonOpeningFileType:
+    def __call__(self, string: str) -> TextIO | Path:
+        # the special argument "-" means sys.std{in,out}
+        return sys.stdin if string == "-" else Path(string)
 
 
 class Arguments(ArgumentParser):
@@ -13,7 +23,7 @@ class Arguments(ArgumentParser):
             metavar="file(s).dot",
             help="Path of the graphviz file(s) to convert (or stdin).",
             nargs="*",
-            type=FileType("r"),
+            type=NonOpeningFileType(),
             default=[stdin],
         )
         self.add_argument(
@@ -34,8 +44,15 @@ class Arguments(ArgumentParser):
         self.add_argument(
             "-p",
             "--program",
-            help="layout program (defaults to dot)",
+            help="Layout program (defaults to dot)",
             default="dot",
+        )
+        self.add_argument(
+            "--encoding",
+            "-e",
+            type=str,
+            default=getpreferredencoding(do_setlocale=False).lower(),
+            help="Encoding to use when opening files (default: %(default)s)",
         )
         self.add_argument(
             "--version",

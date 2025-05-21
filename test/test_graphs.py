@@ -1,5 +1,6 @@
 import html
 import re
+from pathlib import Path
 from xml.etree import ElementTree
 
 # pyrefly: ignore  # missing-module-attribute
@@ -47,6 +48,24 @@ def check_edge_dir(e, dx, dy) -> None:
 def test_hello() -> None:
     file = "test/directed/hello.gv.txt"
     xml = graphviz2drawio.convert(file)
+
+    root = ElementTree.fromstring(xml)
+    elements = check_xml_top(root)
+
+    hello = elements[2]
+    check_style(hello, "ellipse")
+    check_value(hello, "Hello")
+
+    world = elements[3]
+    check_style(world, "ellipse")
+    check_value(world, "World")
+    edge = elements[4]
+    check_edge(edge, hello, world)
+
+
+def test_hello_after_reading_content_with_comment() -> None:
+    content_with_comment = Path("test/directed/hello.gv.txt").read_text()
+    xml = graphviz2drawio.convert(content_with_comment)
 
     root = ElementTree.fromstring(xml)
     elements = check_xml_top(root)
