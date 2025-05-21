@@ -4,7 +4,7 @@
 import math
 from typing import TypeAlias
 
-from graphviz2drawio.models.Errors import InvalidBezierParameterError
+from ..models.Errors import InvalidBezierParameterError
 
 EPSILON: float = 1e-03
 Cubic: TypeAlias = tuple[complex, complex, complex, complex]

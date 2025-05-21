@@ -1,8 +1,7 @@
 import re
 from xml.etree.ElementTree import Element
 
-from graphviz2drawio.models import SVG
-
+from ..models import SVG
 from ..models.CoordsTranslate import CoordsTranslate
 from ..models.Errors import MissingIdentifiersError
 from . import MxConst, Shape
@@ -106,8 +105,9 @@ class NodeFactory:
 
     def _extract_texts(self, g: Element) -> tuple[list[Text], complex | None]:
         texts = []
-        current_text = None
-        offset = None
+        current_text: Text | None = None
+        offset: complex | None = None
+        # pyrefly: ignore  # unknown
         for t in g:
             if SVG.is_tag(t, "text"):
                 if current_text is None:

@@ -1,3 +1,6 @@
+[tool.pyrefly]
+search_path = ["./graphviz2drawio"]
+
 [tool.ruff]
 # Exclude a variety of commonly ignored directories.
 exclude = [".bzr", ".direnv", ".eggs", ".git", ".git-rewrite", ".hg", ".ipynb_checkpoints", ".mypy_cache", ".nox", ".pants.d", ".pyenv", ".pytest_cache", ".pytype", ".ruff_cache", ".svn", ".tox", ".venv", ".vscode", "__pypackages__", "_build", "buck-out", "build", "dist", "node_modules", "setup.py", "site-packages", "venv"]
@@ -7,7 +10,7 @@ line-length = 88
 indent-width = 4
 
 lint.select = ["ALL"]
-lint.ignore = ["D100", "D101", "D102", "D103", "D104", "D105", "D107", "D203", "D213", "ICN001", "PLR0913", "S314", "SIM102", "TD002", "TID252", "N999"]
+lint.ignore = ["D100", "D101", "D102", "D103", "D104", "D105", "D107", "D203", "D213", "ERA001", "ICN001", "PLR0913", "S314", "SIM102", "TD002", "TID252", "N999"]
 target-version = "py310"
 
 [tool.ruff.format]

@@ -2,19 +2,22 @@ import re
 from collections import OrderedDict
 from collections.abc import Iterable
 from math import isclose
+from typing import TYPE_CHECKING
 from xml.etree import ElementTree
 
-from graphviz2drawio.mx.Edge import Edge
-from graphviz2drawio.mx.EdgeFactory import EdgeFactory
-from graphviz2drawio.mx.Node import Gradient, Node
-from graphviz2drawio.mx.NodeFactory import NodeFactory
-
 from ..mx.Curve import LINE_TOLERANCE
+from ..mx.Edge import Edge
+from ..mx.EdgeFactory import EdgeFactory
+from ..mx.Node import Gradient, Node
+from ..mx.NodeFactory import NodeFactory
 from ..mx.utils import adjust_color_opacity
 from . import SVG
 from .commented_tree_builder import COMMENT, CommentedTreeBuilder
 from .CoordsTranslate import CoordsTranslate
 from .Errors import MissingTitleError
+
+if TYPE_CHECKING:
+    from xml.etree.ElementTree import Element
 
 
 def parse_nodes_edges_clusters(
@@ -22,7 +25,7 @@ def parse_nodes_edges_clusters(
     *,
     is_directed: bool,
 ) -> tuple[OrderedDict[str, Node], list[Edge], OrderedDict[str, Node]]:
-    root = ElementTree.fromstring(
+    root: Element = ElementTree.fromstring(
         svg_data,
         parser=ElementTree.XMLParser(target=CommentedTreeBuilder()),
     )[0]
@@ -37,6 +40,7 @@ def parse_nodes_edges_clusters(
     gradients = dict[str, Gradient]()
 
     prev_comment = None
+    # pyrefly: ignore  # unknown
     for g in root:
         if g.tag == COMMENT:
             prev_comment = g.text

@@ -1,8 +1,7 @@
 from typing import Optional
 from xml.etree.ElementTree import Element
 
-from graphviz2drawio.mx import MxConst
-
+from . import MxConst
 from .Styles import Styles
 
 

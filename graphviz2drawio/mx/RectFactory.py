@@ -1,5 +1,5 @@
-from graphviz2drawio.models.CoordsTranslate import CoordsTranslate
-from graphviz2drawio.models.Rect import Rect
+from ..models.CoordsTranslate import CoordsTranslate
+from ..models.Rect import Rect
 
 
 def rect_from_svg_points(coords: CoordsTranslate, svg: str) -> Rect:
