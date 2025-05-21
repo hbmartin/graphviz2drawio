@@ -21,8 +21,8 @@ def convert(
         # is mistakenly identified as a filename.
         # https://github.com/pygraphviz/pygraphviz/issues/536
         pattern = re.compile(
-            r"(?:\s*(?:/\*.*?\*/|//.*?$|#.*?$)\s*)*\s*(strict)?\s*(graph|digraph).*{.*}\s*",
-            re.DOTALL | re.MULTILINE,
+            r"(?:\s*(?:/\*[^*]*\*+(?:[^/*][^*]*\*+)*/|//[^\r\n]*|\#[^\r\n]*)\s*)*\s*(strict)?\s*(graph|digraph).*?\{.*\}\s*",
+            re.DOTALL | re.MULTILINE | re.VERBOSE,
         )
         if pattern.match(graph_to_convert):
             graph = AGraph(string=graph_to_convert)

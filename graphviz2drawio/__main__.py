@@ -22,6 +22,15 @@ def _gv_filename_to_xml(filename: str) -> str:
     return ".".join(filename.split(".")[:-1]) + ".xml"
 
 
+def _write_stderr_message(to_convert: str) -> None:
+    stderr.write(f"{RED_TEXT}{BOLD}Error converting {to_convert}\n")
+    stderr.write("Please open a report at\n")
+    stderr.write("https://github.com/hbmartin/graphviz2drawio/issues\n")
+    stderr.write("and include your diagram and the following information:\n\n")
+    stderr.write(DEFAULT_TEXT)
+    stderr.write(f"Python: {sys.version}, g2d: {__version__}\n")
+
+
 def _convert_file(
     to_convert: Path | TextIOWrapper,
     program: str,
@@ -52,20 +61,15 @@ def _convert_file(
             stderr.write(f"e.g. using your system's default encoding -e {sys_enc})")
             stderr.write(f"\n\n{DEFAULT_TEXT}")
         else:
-            stderr.write(f"\n\n{DEFAULT_TEXT}")
-            stderr.write("If this problem persists, please open a report at\n")
-            stderr.write("https://github.com/hbmartin/graphviz2drawio/issues\n")
-            stderr.write("and include your diagram and the following error:\n\n")
-            stderr.write(f"Python: {sys.version}, g2d: {__version__}\n")
+            _write_stderr_message(str(to_convert))
             raise
     except BaseException:
-        stderr.write(f"{RED_TEXT}{BOLD}Error converting {to_convert}\n")
-        stderr.write("Please open a report at\n")
-        stderr.write("https://github.com/hbmartin/graphviz2drawio/issues\n")
-        stderr.write("and include your diagram and the following error:\n\n")
-        stderr.write(DEFAULT_TEXT)
-        stderr.write(f"Python: {sys.version}, g2d: {__version__}\n")
+        _write_stderr_message(str(to_convert))
         raise
+
+    if output is None:
+        _write_stderr_message(str(to_convert))
+        return None
 
     if outfile is None:
         print(output)
