@@ -59,10 +59,10 @@ def _load_pygraphviz_graph(
         # is mistakenly identified as a filename.
         # https://github.com/pygraphviz/pygraphviz/issues/536
         pattern = re.compile(
-            r"(?:\s*(?:/\*[^*]*\*+(?:[^/*][^*]*\*+)*/|//[^\r\n]*|\#[^\r\n]*)\s*)*\s*(strict)?\s*(graph|digraph).*?\{.*\}\s*",
-            re.DOTALL | re.MULTILINE | re.VERBOSE,
+            pattern=r"^\s*(strict)?\s*(graph|digraph).*{",
+            flags=re.DOTALL | re.MULTILINE,
         )
-        if pattern.match(graph_to_convert):
+        if pattern.search(graph_to_convert):
             return AGraph(string=graph_to_convert)
         return AGraph(filename=graph_to_convert)
     # pyrefly: ignore  # missing-attribute
