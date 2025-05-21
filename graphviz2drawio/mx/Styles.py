@@ -82,7 +82,7 @@ class Styles(Enum):
     LARROW = "flipH=1;" + RARROW
     IMAGE = (
         "shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;"
-        "imageAspect=0;image={image};"
+        "imageAspect=0;image={image};" + NODE
     )
 
     @staticmethod
