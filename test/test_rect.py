@@ -1,5 +1,6 @@
 import cmath
 
+# pyrefly: ignore  # import-error
 from graphviz2drawio.models.Rect import Rect
 
 

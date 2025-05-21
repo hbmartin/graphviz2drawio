@@ -30,6 +30,10 @@ jobs:
           if [[ '${{ steps.cpython3.outputs.python-version }}' == 3.11* ]]; then
             pip install pytype
             pytype -j auto graphviz2drawio
+          elif [[ '${{ steps.cpython3.outputs.python-version }}' == 3.14* ]]; then
+            echo "Using pyrefly for Python 3.14"
+            pip install pyrefly
+            pyrefly check
           else
             echo "Using mypy for Python 3.12"
             pip install mypy

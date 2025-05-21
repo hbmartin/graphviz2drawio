@@ -2,6 +2,7 @@ import html
 import re
 from xml.etree import ElementTree
 
+# pyrefly: ignore  # missing-module-attribute
 from graphviz2drawio import graphviz2drawio
 
 num_cells_offset = 2

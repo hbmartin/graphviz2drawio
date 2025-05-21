@@ -40,3 +40,12 @@ class MissingIdentifiersError(GdValueError):
         super().__init__(
             f"Missing identifiers for a geometry: sid(id): {sid}, gid(title): {gid}.",
         )
+
+
+class UnableToParseGraphError(GdValueError):
+    """Graph was unexpectedly None."""
+
+    def __init__(self) -> None:
+        super().__init__(
+            f"Graph returned by pygraphviz was unexpectedly None",
+        )

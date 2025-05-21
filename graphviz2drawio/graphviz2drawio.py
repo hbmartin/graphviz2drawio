@@ -4,6 +4,7 @@ from typing import IO
 
 from pygraphviz import AGraph
 
+from .models.Errors import UnableToParseGraphError
 from .models.SvgParser import parse_nodes_edges_clusters
 from .mx.MxGraph import MxGraph
 
@@ -16,12 +17,17 @@ def convert(graph_to_convert: AGraph | str | IO, layout_prog: str = "dot") -> st
 
     graph_edges: dict[str, dict] = {
         f"{e[0]}->{e[1]}-"
+        # pyrefly: ignore  # missing-attribute
         + (e.attr.get("xlabel") or e.attr.get("label") or ""): e.attr.to_dict()
         for e in graph.edges_iter()
     }
+    # pyrefly: ignore  # missing-attribute
     graph_nodes: dict[str, dict] = {n: n.attr.to_dict() for n in graph.nodes_iter()}
 
-    svg_graph = graph.draw(prog=layout_prog, format="svg")
+    svg_graph: bytes | None = graph.draw(prog=layout_prog, format="svg")
+
+    if svg_graph is None:
+        raise UnableToParseGraphError()
 
     nodes, edges, clusters = parse_nodes_edges_clusters(
         svg_data=svg_graph,

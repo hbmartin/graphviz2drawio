@@ -18,12 +18,15 @@ class CommentedTreeBuilder(ElementTree.TreeBuilder):
         self.was_root_set = False
 
     def start(self, tag, attrs):
-        super().start(tag, attrs)
+        elem = super().start(tag, attrs)
         self.was_root_set = True
+        return elem
 
     def comment(self, data):
+        rv = super().comment(data)
         if not self.was_root_set:
-            return
+            return rv
         self.start(COMMENT, {})
         self.data(unescape(data.strip()))
         self.end(COMMENT)
+        return rv

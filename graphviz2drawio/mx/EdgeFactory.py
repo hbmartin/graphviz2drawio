@@ -1,6 +1,6 @@
 from xml.etree.ElementTree import Element
 
-from graphviz2drawio.models import SVG, DotAttr
+from ..models import SVG, DotAttr
 
 from ..models.CoordsTranslate import CoordsTranslate
 from .CurveFactory import CurveFactory
@@ -22,7 +22,8 @@ class EdgeFactory:
         stroke = "#000000"
         stroke_width = DEFAULT_STROKE_WIDTH
         line_style = None
-        labels = [
+        # pyrefly: ignore  # bad-assignment
+        labels: list[Text] = [
             text_from_tag
             for tag in g
             if SVG.is_tag(tag, "text")

@@ -1,5 +1,6 @@
 from os import path
 
+# pyrefly: ignore  # import-error
 from setuptools import find_packages, setup
 
 here = path.abspath(path.dirname(__file__))
@@ -12,6 +13,7 @@ with open(path.join(here, "graphviz2drawio", "version.py")) as fp:
 
 setup(
     name="graphviz2drawio",
+    # pyrefly: ignore  # unknown-name
     version=__version__,  # noqa: F821
     description="Convert graphviz (dot) files to draw.io / lucid (mxGraph) format. "
     "Beautiful and editable graphs in your favorite editor.",

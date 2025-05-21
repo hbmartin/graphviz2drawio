@@ -66,7 +66,7 @@ class Node(GraphObj):
             )
 
         if (rect := self.rect) is not None and (image_path := rect.image) is not None:
-            from graphviz2drawio.mx.image import image_data_for_path
+            from .image import image_data_for_path
 
             attributes["image"] = image_data_for_path(image_path)
 

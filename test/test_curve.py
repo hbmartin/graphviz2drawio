@@ -1,3 +1,4 @@
+# pyrefly: ignore  # import-error
 from graphviz2drawio.mx.Curve import _line
 
 
