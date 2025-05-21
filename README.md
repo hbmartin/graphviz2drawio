@@ -4,7 +4,7 @@
 [![Anaconda-Server Badge](https://anaconda.org/conda-forge/graphviz2drawio/badges/version.svg)](https://anaconda.org/conda-forge/graphviz2drawio)
 [![homebrew version](https://img.shields.io/homebrew/v/graphviz2drawio)](https://formulae.brew.sh/formula/graphviz2drawio)
 [![Lint and Test](https://github.com/hbmartin/graphviz2drawio/actions/workflows/lint.yml/badge.svg)](https://github.com/hbmartin/graphviz2drawio/actions/workflows/lint.yml)
-[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/hbmartin/graphviz2drawio)
 [![CodeFactor](https://www.codefactor.io/repository/github/hbmartin/graphviz2drawio/badge)](https://www.codefactor.io/repository/github/hbmartin/graphviz2drawio)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=hbmartin_graphviz2drawio&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=hbmartin_graphviz2drawio)
 
@@ -89,7 +89,9 @@ where `graph_to_convert` can be any of a file path, file handle, string of dot l
 
 Pull requests and issue reports are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-Thanks to all the people who have contributed to this project.
+To see architectural and process diagrams please visit [the deepwiki page](https://deepwiki.com/hbmartin/graphviz2drawio)
+
+Thanks to all the people who have contributed to this project!
 
 [![Profile images of all the contributors](https://contrib.rocks/image?repo=hbmartin/graphviz2drawio)](https://github.com/hbmartin/graphviz2drawio/graphs/contributors)
 
@@ -98,8 +100,8 @@ Thanks to all the people who have contributed to this project.
 ```bash
 git clone git@github.com:hbmartin/graphviz2drawio.git
 cd graphviz2drawio
-python3 -m venv venv
-source venv/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
 # Replace with the actual path to your dot files
 python -m graphviz2drawio test/directed/hello.gv.txt
