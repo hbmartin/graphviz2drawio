@@ -1,5 +1,25 @@
+from svg import path as svg_path
+
 from ..models.CoordsTranslate import CoordsTranslate
 from ..models.Rect import Rect
+
+
+def rect_from_svg_path(coords: CoordsTranslate, path_d: str) -> Rect:
+    parsed_path: svg_path.Path = svg_path.parse_path(path_d)
+    start: svg_path.Move = parsed_path.pop(0)
+    min_x = start.start.real
+    min_y = start.start.imag
+    max_x = start.start.real
+    max_y = start.start.imag
+    for e in parsed_path:
+        min_x = min(min_x, e.start.real, e.end.real)
+        min_y = min(min_y, e.start.imag, e.end.imag)
+        max_x = max(max_x, e.start.real, e.end.real)
+        max_y = max(max_y, e.start.imag, e.end.imag)
+
+    (x, y) = coords.translate(min_x, min_y)
+
+    return Rect(x=x, y=y, width=max_x - min_x, height=max_y - min_y)
 
 
 def rect_from_svg_points(coords: CoordsTranslate, svg: str) -> Rect:

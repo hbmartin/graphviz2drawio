@@ -7,7 +7,12 @@ from ..models.Errors import MissingIdentifiersError
 from . import MxConst, Shape
 from .MxConst import DEFAULT_STROKE_WIDTH
 from .Node import Gradient, Node
-from .RectFactory import rect_from_ellipse_svg, rect_from_image, rect_from_svg_points
+from .RectFactory import (
+    rect_from_ellipse_svg,
+    rect_from_image,
+    rect_from_svg_path,
+    rect_from_svg_points,
+)
 from .Text import Text
 from .utils import adjust_color_opacity
 
@@ -64,6 +69,11 @@ class NodeFactory:
             stroke_width = ellipse.attrib.get("stroke-width", DEFAULT_STROKE_WIDTH)
             if "stroke-dasharray" in ellipse.attrib:
                 dashed = True
+        elif (path := SVG.get_first(g, "path")) is not None:
+            rect = rect_from_svg_path(self.coords, path.attrib["d"])
+            shape = Shape.RECT
+            fill = self._extract_fill(path, gradients)
+            stroke = self._extract_stroke(path)
         else:
             shape = Shape.ELLIPSE
 
