@@ -1,16 +1,22 @@
 from svg import path as svg_path
 
 from ..models.CoordsTranslate import CoordsTranslate
+from ..models.Errors import CouldNotParsePathError
 from ..models.Rect import Rect
 
 
 def rect_from_svg_path(coords: CoordsTranslate, path_d: str) -> Rect:
     parsed_path: svg_path.Path = svg_path.parse_path(path_d)
+    if len(parsed_path) == 0 or not isinstance(parsed_path[0], svg_path.Move):
+        raise CouldNotParsePathError
     start: svg_path.Move = parsed_path.pop(0)
     min_x = start.start.real
     min_y = start.start.imag
     max_x = start.start.real
     max_y = start.start.imag
+
+    # Note that this loop may not be accurate since it does not calculate
+    # the Bezier curve based on the control points
     for e in parsed_path:
         min_x = min(min_x, e.start.real, e.end.real)
         min_y = min(min_y, e.start.imag, e.end.imag)
