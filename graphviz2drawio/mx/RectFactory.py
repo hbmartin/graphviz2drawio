@@ -8,7 +8,7 @@ from ..models.Rect import Rect
 def rect_from_svg_path(coords: CoordsTranslate, path_d: str) -> Rect:
     parsed_path: svg_path.Path = svg_path.parse_path(path_d)
     if len(parsed_path) == 0 or not isinstance(parsed_path[0], svg_path.Move):
-        raise CouldNotParsePathError
+        raise CouldNotParsePathError(path_d)
     start: svg_path.Move = parsed_path.pop(0)
     min_x = start.start.real
     min_y = start.start.imag

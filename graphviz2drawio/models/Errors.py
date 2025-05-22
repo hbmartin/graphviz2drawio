@@ -13,9 +13,9 @@ class GdValueError(ValueError):
 class CouldNotParsePathError(GdValueError):
     """Could not parse path from SVG element."""
 
-    def __init__(self, g: Element) -> None:
+    def __init__(self, path: str) -> None:
         super().__init__(
-            f"Could not parse path from SVG element: {g.tag} ({g.attrib})",
+            f"Could not parse path from SVG element: {path}",
         )
 
 
