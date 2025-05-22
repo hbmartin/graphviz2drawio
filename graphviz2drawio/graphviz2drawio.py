@@ -14,7 +14,7 @@ def convert(
     graph_to_convert: AGraph | str | TextIOBase | Path | TextIO,
     layout_prog: str = "dot",
 ) -> str:
-    graph = _load_pygraphviz_graph(graph_to_convert)
+    graph = _load_pygraphviz_agraph(graph_to_convert)
 
     graph_edges: dict[str, dict] = {
         f"{e[0]}->{e[1]}-"
@@ -49,12 +49,16 @@ def convert(
     return mx_graph.value()
 
 
-def _load_pygraphviz_graph(
+def _load_pygraphviz_agraph(  # noqa: PLR0911
     graph_to_convert: AGraph | str | TextIOBase | Path | TextIO,
 ) -> AGraph:
     if isinstance(graph_to_convert, AGraph):
         return graph_to_convert
     if isinstance(graph_to_convert, str):
+        if graph_to_convert.endswith((".dot", ".gv", ".txt")):
+            return AGraph(filename=graph_to_convert)
+        if graph_to_convert.endswith(("}", "}\n")):
+            return AGraph(string=graph_to_convert)
         # This fixes a pygraphviz bug where a string beginning with a comment
         # is mistakenly identified as a filename.
         # https://github.com/pygraphviz/pygraphviz/issues/536
@@ -63,6 +67,7 @@ def _load_pygraphviz_graph(
             flags=re.MULTILINE,
         )
         if pattern.search(graph_to_convert):
+            # graph_to_convert was a graph / dot string
             return AGraph(string=graph_to_convert)
         return AGraph(filename=graph_to_convert)
     # pyrefly: ignore  # missing-attribute

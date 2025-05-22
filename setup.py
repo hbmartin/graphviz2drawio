@@ -41,11 +41,11 @@ setup(
         "Programming Language :: Python :: 3.14",
     ],
     license="GPLv3",
-    keywords="graphviz graph agraph dot convert conversion draw drawio mxgraph maxgraph",
+    keywords="graphviz graph agraph dot convert conversion diagrams drawio mxgraph maxgraph Lucidchart",
     packages=find_packages(exclude=["doc", "test"]),
     python_requires=">=3.10",
     install_requires=["puremagic", "pygraphviz", "svg.path"],
-    tests_require=["pytest"],
+    tests_require=["diagrams", "pytest"],
     entry_points={"console_scripts": ["graphviz2drawio=graphviz2drawio.__main__:main"]},
     project_urls={
         "Bug Reports": "https://github.com/hbmartin/graphviz2drawio/issues",
