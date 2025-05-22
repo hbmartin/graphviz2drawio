@@ -3,7 +3,7 @@ fontname="Helvetica,Arial,sans-serif"
 node [fontname="Helvetica,Arial,sans-serif"]
 edge [fontname="Helvetica,Arial,sans-serif"]
 node [style=filled fillcolor="#f8f8f8"]
-subgraph cluster_L { "File: [stackcollapse]" [shape=box fontsize=16 label="File: [stackcollapse]\l\lShowing nodes accounting for 380, 90.48% of 420 total\lDropped 120 nodes (cum <= 2)\lShowing top 20 nodes out of 110\l\lSee https://git.io/JfYMW for how to read the graph\l" tooltip="[stackcollapse]"] }
+subgraph cluster_L { "File: [stackcollapse]" [shape=box fontsize=16 label="File: [stackcollapse]\l\lShowing nodes accounting for 380, 90.48% of 420 total\lDropped 120 nodes (cum <= 2)\lShowing top 20 nodes out of 110\l\lSee https://git.io/JfYMW for how to read the graph\l" tooltip="[stackcollapse]"]  id="node0" }
 N1 [label="deflate\n62 (14.76%)\nof 384 (91.43%)" id="node1" fontsize=18 shape=box tooltip="deflate (384)" color="#b20400" fillcolor="#edd6d5"]
 N2 [label="gzip\n0 of 409 (97.38%)" id="node2" fontsize=8 shape=box tooltip="gzip (409)" color="#b20100" fillcolor="#edd5d5"]
 N3 [label="longest_match\n178 (42.38%)" id="node3" fontsize=24 shape=box tooltip="longest_match (178)" color="#b22800" fillcolor="#eddad5"]
