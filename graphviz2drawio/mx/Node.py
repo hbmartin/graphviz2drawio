@@ -66,7 +66,7 @@ class Node(GraphObj):
             )
 
         if (rect := self.rect) is not None and (image_path := rect.image) is not None:
-            from .image import image_data_for_path  # noqa PLC0415
+            from .image import image_data_for_path  # noqa: PLC0415
 
             attributes["image"] = image_data_for_path(image_path)
 
