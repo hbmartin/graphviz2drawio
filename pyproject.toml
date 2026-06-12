@@ -1,9 +1,71 @@
+[build-system]
+requires = ["uv_build>=0.11,<0.12"]
+build-backend = "uv_build"
+
+[project]
+name = "graphviz2drawio"
+version = "1.2.0"
+description = "Convert graphviz (dot) files to draw.io / lucid (mxGraph) format. Beautiful and editable graphs in your favorite editor."
+readme = "README.md"
+license = "GPL-3.0-or-later"
+license-files = ["LICENSE.md"]
+authors = [{ name = "Harold Martin", email = "harold.martin@gmail.com" }]
+requires-python = ">=3.10"
+keywords = [
+    "graphviz",
+    "graph",
+    "agraph",
+    "dot",
+    "convert",
+    "conversion",
+    "diagrams",
+    "drawio",
+    "mxgraph",
+    "maxgraph",
+    "Lucidchart",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: Science/Research",
+    "Topic :: Multimedia :: Graphics",
+    "Topic :: Multimedia :: Graphics :: Graphics Conversion",
+    "Topic :: Scientific/Engineering :: Visualization",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+dependencies = ["puremagic", "pygraphviz", "svg.path"]
+
+[project.scripts]
+graphviz2drawio = "graphviz2drawio.__main__:main"
+
+[project.urls]
+Source = "https://github.com/hbmartin/graphviz2drawio/"
+"Bug Reports" = "https://github.com/hbmartin/graphviz2drawio/issues"
+
+[dependency-groups]
+dev = ["pytest", "pytest-cov", "diagrams", "ruff", "black"]
+
+[tool.uv]
+# Hold svg.path at the version previously pinned in requirements.txt;
+# 7.x changes coordinate output and would invalidate the spec XMLs.
+constraint-dependencies = ["svg-path==6.3"]
+
+[tool.uv.build-backend]
+module-root = ""
+
 [tool.pyrefly]
 search_path = ["./graphviz2drawio"]
 
 [tool.ruff]
 # Exclude a variety of commonly ignored directories.
-exclude = [".bzr", ".direnv", ".eggs", ".git", ".git-rewrite", ".hg", ".ipynb_checkpoints", ".mypy_cache", ".nox", ".pants.d", ".pyenv", ".pytest_cache", ".pytype", ".ruff_cache", ".svn", ".tox", ".venv", ".vscode", "__pypackages__", "_build", "buck-out", "build", "dist", "node_modules", "setup.py", "site-packages", "venv"]
+exclude = [".bzr", ".direnv", ".eggs", ".git", ".git-rewrite", ".hg", ".ipynb_checkpoints", ".mypy_cache", ".nox", ".pants.d", ".pyenv", ".pytest_cache", ".pytype", ".ruff_cache", ".svn", ".tox", ".venv", ".vscode", "__pypackages__", "_build", "buck-out", "build", "dist", "node_modules", "site-packages", "venv"]
 
 # Same as Black.
 line-length = 88
@@ -35,5 +97,4 @@ line-ending = "auto"
 "graphviz2drawio/models/SvgParser.py" = ["C901", "PLR0912"]
 
 [tool.pytest.ini_options]
-pythonpath = ". venv/lib/python3.12/site-packages"
 testpaths = "test"

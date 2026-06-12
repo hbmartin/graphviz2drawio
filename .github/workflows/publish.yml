@@ -18,13 +18,11 @@ jobs:
       id-token: write
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Python
-      uses: actions/setup-python@v4
+    - name: Set up uv
+      uses: astral-sh/setup-uv@v7
       with:
         python-version: '3.10'
-    - name: Install build and create dist
-      run: |
-        pip install build
-        python3 -m build
+    - name: Create dist
+      run: uv build
     - name: Publish package distributions to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1

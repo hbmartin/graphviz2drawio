@@ -1,3 +1,0 @@
-puremagic==1.30
-pygraphviz==1.14
-svg.path==6.3
