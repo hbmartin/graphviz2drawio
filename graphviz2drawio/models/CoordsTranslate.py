@@ -15,5 +15,7 @@ class CoordsTranslate:
             ")",
             maxsplit=1,
         )[0]
-        x, y = translation.split(" ", maxsplit=1)
-        return CoordsTranslate(x=float(x), y=float(y))
+        parts = translation.replace(",", " ").split()
+        x = float(parts[0])
+        y = float(parts[1]) if len(parts) > 1 else 0.0
+        return CoordsTranslate(x=x, y=y)

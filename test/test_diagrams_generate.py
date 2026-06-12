@@ -117,7 +117,6 @@ def test_event_processing_icon():
     converted = graphviz2drawio.graphviz2drawio.convert(
         Path("event_processing_icon.dot"),
     )
-    Path("event_processing_icon.xml").write_text(converted, encoding="utf-8")
     assert (
         "color='#2d3436'&gt;Event Flows&lt;/font&gt;\" style=\"shape=image;"
         in converted
