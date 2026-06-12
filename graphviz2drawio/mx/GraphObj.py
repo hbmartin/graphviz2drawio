@@ -2,7 +2,6 @@ _blacklist_attrs = ["fill"]
 
 
 class GraphObj:
-
     def __init__(self, sid: str, gid: str) -> None:
         self.sid = sid
         self.gid = gid

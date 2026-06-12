@@ -153,3 +153,5 @@ test/**/*.xml
 .idea/modules.xml
 .idea/*.iml
 test/**/*.svg
+
+*.png
