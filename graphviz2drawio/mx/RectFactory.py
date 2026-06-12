@@ -23,7 +23,7 @@ def rect_from_svg_path(coords: CoordsTranslate, path_d: str) -> Rect:
         max_x = max(max_x, e.start.real, e.end.real)
         max_y = max(max_y, e.start.imag, e.end.imag)
 
-    (x, y) = coords.translate(min_x, min_y)
+    x, y = coords.translate(min_x, min_y)
 
     return Rect(x=x, y=y, width=max_x - min_x, height=max_y - min_y)
 

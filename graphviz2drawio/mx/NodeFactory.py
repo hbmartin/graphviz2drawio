@@ -78,9 +78,6 @@ class NodeFactory:
             shape = Shape.ELLIPSE
 
         texts, text_offset = self._extract_texts(g)
-        print(texts)
-        print(shape)
-        print(g.attrib)
 
         return Node(
             sid=sid,

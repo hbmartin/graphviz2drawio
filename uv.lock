@@ -256,7 +256,7 @@ wheels = [
 
 [[package]]
 name = "graphviz2drawio"
-version = "1.1.0"
+version = "1.2.0"
 source = { editable = "." }
 dependencies = [
     { name = "puremagic", version = "1.30", source = { registry = "https://pkgs.safetycli.com/repository/independent-3c890/pypi/simple/" }, marker = "python_full_version < '3.12'" },
@@ -278,7 +278,7 @@ dev = [
 requires-dist = [
     { name = "puremagic" },
     { name = "pygraphviz" },
-    { name = "svg-path" },
+    { name = "svg-path", specifier = "<7.0" },
 ]
 
 [package.metadata.requires-dev]
