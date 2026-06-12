@@ -107,6 +107,17 @@ uv sync
 uv run python -m graphviz2drawio test/directed/hello.gv.txt
 ```
 
+#### Spec tests
+
+Spec XMLs are generated in a pinned Docker environment because graph layout
+depends on platform font metrics. Use the same Ubuntu and Graphviz image locally
+and in CI:
+
+```bash
+./scripts/spec_env.sh ./scripts/test_specs.sh test/ specs/ tmp_out/
+./scripts/spec_env.sh ./scripts/generate_specs.sh test/ specs/
+```
+
 ## Roadmap
 * Support compatible [arrows](https://graphviz.org/docs/attr-types/arrowType/)
 * Support [multiple edges](https://graphviz.org/Gallery/directed/switch.html)
