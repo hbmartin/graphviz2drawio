@@ -97,19 +97,17 @@ Thanks to all the people who have contributed to this project!
 
 ### Development Setup
 
+[uv](https://docs.astral.sh/uv/) is used for packaging and dependency management.
+
 ```bash
 git clone git@github.com:hbmartin/graphviz2drawio.git
 cd graphviz2drawio
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+uv sync
 # Replace with the actual path to your dot files
-python -m graphviz2drawio test/directed/hello.gv.txt
+uv run python -m graphviz2drawio test/directed/hello.gv.txt
 ```
 
 ## Roadmap
-
-* Migrate to uv/hatch for packaging and dep mgmt
 * Support compatible [arrows](https://graphviz.org/docs/attr-types/arrowType/)
 * Support [multiple edges](https://graphviz.org/Gallery/directed/switch.html)
 * Support [edges with links](https://graphviz.org/Gallery/directed/pprof.html)

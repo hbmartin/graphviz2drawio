@@ -76,3 +76,55 @@ def test_message_collecting():
     assert "strokeColor=#aeb6be;fillColor=#ebf3e7;" in converted
     assert "strokeColor=#aeb6be;fillColor=#ece8f6;" in converted
     assert "image=data:image/png," in converted
+
+
+def icon(node: object, label: str, size=30):
+    class Node(node):
+        def __init__(self) -> None:
+            pass
+
+    icon_path = Node()._load_icon()  # noqa: SLF001
+    return (
+        f'<<table border="0" width="100%"><tr><td fixedsize="true" '
+        f'width="{size}" height="{size}"><img src="{icon_path}" /></td>'
+        f"<td>{label}</td></tr></table>>"
+    )
+
+
+def test_event_processing_icon():
+    with Diagram(
+        "Event Processing Icon",
+        show=False,
+        outformat=["dot", "svg", "png"],
+    ):
+        source = EKS("k8s source")
+
+        with Cluster(icon(ECS, "Event Flows")):
+            with Cluster(icon(ECS, "Event Workers")):
+                workers = [ECS("worker1"), ECS("worker2"), ECS("worker3")]
+
+            queue = SQS("event queue")
+
+            with Cluster("Processing"):
+                handlers = [Lambda("proc1"), Lambda("proc2"), Lambda("proc3")]
+
+        store = S3("events store")
+        dw = Redshift("analytics")
+
+        source >> workers >> queue >> handlers
+        handlers >> store
+        handlers >> dw
+    converted = graphviz2drawio.graphviz2drawio.convert(
+        Path("event_processing_icon.dot"),
+    )
+    Path("event_processing_icon.xml").write_text(converted, encoding="utf-8")
+    assert (
+        "color='#2d3436'&gt;Event Flows&lt;/font&gt;\" style=\"shape=image;"
+        in converted
+    )
+    assert (
+        "color='#2d3436'&gt;Event Workers&lt;/font&gt;\" style=\"shape=image;"
+        in converted
+    )
+    assert "fillColor=none;" in converted
+    assert "image=data:image/png," in converted

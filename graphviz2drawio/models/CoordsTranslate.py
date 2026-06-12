@@ -11,5 +11,9 @@ class CoordsTranslate:
 
     @staticmethod
     def from_svg_transform(transform: str) -> "CoordsTranslate":
-        x, y = transform.split("translate(")[1].split(")")[0].split(" ")
+        translation = transform.split("translate(", maxsplit=1)[1].split(
+            ")",
+            maxsplit=1,
+        )[0]
+        x, y = translation.split(" ", maxsplit=1)
         return CoordsTranslate(x=float(x), y=float(y))
