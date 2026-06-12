@@ -16,6 +16,12 @@ source_dir="${1%/}"
 specs_dir="${2%/}"
 output_dir="${3%/}"
 
+# Run graphviz2drawio in the project environment regardless of cwd
+repo_root="$(cd "$(dirname "$0")/.." && pwd)"
+g2d() {
+    uv run --project "$repo_root" python -m graphviz2drawio "$@"
+}
+
 # Function to process files
 process_files() {
     local src_dir="$1"
@@ -25,7 +31,7 @@ process_files() {
         rel_path="${file#$src_dir/}"
         output_file="$out_dir/${rel_path%.gv.txt}.xml"
         mkdir -p "$(dirname "$output_file")"
-        python3 -m graphviz2drawio "$file" -o "$output_file" > /dev/null 2>&1
+        g2d "$file" -o "$output_file" > /dev/null 2>&1
         echo "Processed: $file -> $output_file ($?)"
     done
 }

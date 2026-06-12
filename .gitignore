@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 tmp_out/
+tmp_render/
 
 # C extensions
 *.so
@@ -155,3 +156,5 @@ test/**/*.xml
 test/**/*.svg
 
 *.png
+triage_decisions.db
+reviews_triage/
