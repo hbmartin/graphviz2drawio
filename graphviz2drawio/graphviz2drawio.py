@@ -1,7 +1,6 @@
 import re
 from io import TextIOBase
 from pathlib import Path
-from typing import TextIO
 
 from pygraphviz import AGraph
 
@@ -11,7 +10,7 @@ from .mx.MxGraph import MxGraph
 
 
 def convert(
-    graph_to_convert: AGraph | str | TextIOBase | Path | TextIO,
+    graph_to_convert: AGraph | str | TextIOBase | Path,
     layout_prog: str = "dot",
 ) -> str:
     graph = _load_pygraphviz_agraph(graph_to_convert)
@@ -50,7 +49,7 @@ def convert(
 
 
 def _load_pygraphviz_agraph(  # noqa: PLR0911
-    graph_to_convert: AGraph | str | TextIOBase | Path | TextIO,
+    graph_to_convert: AGraph | str | TextIOBase | Path,
 ) -> AGraph:
     if isinstance(graph_to_convert, AGraph):
         return graph_to_convert
@@ -70,8 +69,7 @@ def _load_pygraphviz_agraph(  # noqa: PLR0911
             # graph_to_convert was a graph / dot string
             return AGraph(string=graph_to_convert)
         return AGraph(filename=graph_to_convert)
-    # pyrefly: ignore  # missing-attribute
-    if hasattr(graph_to_convert, "read") and callable(graph_to_convert.read):
+    if isinstance(graph_to_convert, TextIOBase):
         return AGraph(string=graph_to_convert.read())
     # Use builtin type detection which includes:  hasattr(thing, "open")
     return AGraph(graph_to_convert)

@@ -61,7 +61,7 @@ constraint-dependencies = ["svg-path==6.3"]
 module-root = ""
 
 [tool.pyrefly]
-search_path = ["./graphviz2drawio"]
+search_path = ["."]
 
 [tool.ruff]
 # Exclude a variety of commonly ignored directories.

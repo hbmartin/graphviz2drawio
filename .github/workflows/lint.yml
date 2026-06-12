@@ -21,7 +21,7 @@ jobs:
           enable-cache: true
       - run: uv sync --locked --dev
       - run: uv run ruff check .
-      - name: Run pytype if on 3.11, pyrefly if on 3.14, mypy otherwise
+      - name: Run pytype if on 3.11, pyrefly if on 3.14, ty otherwise
         run: |
           if [[ '${{ matrix.python-version }}' == 3.11* ]]; then
             uv run --with pytype pytype -j auto graphviz2drawio
@@ -29,7 +29,7 @@ jobs:
             echo "Using pyrefly for Python 3.14"
             uv run --with pyrefly pyrefly check graphviz2drawio
           else
-            uv run --with mypy mypy graphviz2drawio --ignore-missing-imports
+            uv run --with ty ty check graphviz2drawio
           fi
       - uses: psf/black@stable
         with:
