@@ -10,6 +10,12 @@ fi
 source_dir="$1"
 specs_dir="$2"
 
+# Run graphviz2drawio in the project environment regardless of cwd
+repo_root="$(cd "$(dirname "$0")/.." && pwd)"
+g2d() {
+    uv run --project "$repo_root" python -m graphviz2drawio "$@"
+}
+
 # Ensure source_dir doesn't end with a slash
 source_dir="${source_dir%/}"
 
@@ -25,7 +31,7 @@ find "$source_dir" -type f -name "*.gv.txt" | while read -r file; do
     mkdir -p "$(dirname "$output_file")"
 
     # Run the command
-    python3 -m graphviz2drawio "$file" -o "$output_file"
+    g2d "$file" -o "$output_file"
 
     echo "Processed: $file -> $output_file"
 done
