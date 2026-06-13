@@ -4,29 +4,21 @@ on: push
 permissions:
   contents: read
 
-env:
-  GRAPHVIZ_VERSION: "15.0.0"
-
 jobs:
   spec-test:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - name: Install graphviz ${{ env.GRAPHVIZ_VERSION }}
-        run: |
-          curl -fsSL "https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/${GRAPHVIZ_VERSION}/ubuntu_24.04_graphviz-${GRAPHVIZ_VERSION}-debs.tar.xz" -o /tmp/graphviz-debs.tar.xz
-          mkdir /tmp/graphviz-debs
-          tar xJf /tmp/graphviz-debs.tar.xz -C /tmp/graphviz-debs
-          sudo apt-get update
-          sudo apt-get install -y /tmp/graphviz-debs/graphviz_*.deb /tmp/graphviz-debs/libgraphviz4_*.deb /tmp/graphviz-debs/libgraphviz-dev_*.deb
-          dot -V
-      - name: Set up uv
-        uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@d7f5e7f509e45cec5c76c4d5afdd7de93d0b3df5
+      - name: Build spec environment
+        uses: docker/build-push-action@f9f3042f7e2789586610d6e8b85c8f03e5195baf
         with:
-          python-version: "3.12"
-          enable-cache: true
-      - run: uv sync --locked
-      - name: Run specs tests script
-        run: |
-          mkdir tmp_out
-          ./scripts/test_specs.sh test/ specs/ tmp_out/
+          context: .
+          file: scripts/Dockerfile
+          tags: graphviz2drawio-spec-env
+          load: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - name: Run spec tests
+        run: docker run --rm -v "$PWD:/work" -w /work graphviz2drawio-spec-env ./scripts/test_specs.sh test/ tmp_out/
