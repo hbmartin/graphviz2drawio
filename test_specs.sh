@@ -1,32 +1,91 @@
 #!/bin/bash
+set -euo pipefail
 
 # Function to display usage information
 usage() {
-    echo "Usage: $0 <source_directory> <specs_directory> <output_directory>"
+    echo "Usage: $0 <source_directory> <output_directory> [mac|linux]"
     exit 1
 }
 
 # Check if the correct number of arguments is provided
-if [ "$#" -ne 3 ]; then
+if [ "$#" -lt 2 ] || [ "$#" -gt 3 ]; then
     usage
 fi
 
 # Assign arguments to variables
+repo_root="$(cd "$(dirname "$0")" && pwd)"
 source_dir="${1%/}"
-specs_dir="${2%/}"
-output_dir="${3%/}"
+output_dir="${2%/}"
+platform="${3:-${SPEC_PLATFORM:-}}"
+
+detect_platform() {
+    if [ -n "$platform" ]; then
+        case "$(printf "%s" "$platform" | tr "[:upper:]" "[:lower:]")" in
+            mac | macos | darwin)
+                echo "mac"
+                ;;
+            linux)
+                echo "linux"
+                ;;
+            *)
+                echo "Unsupported spec platform: $platform" >&2
+                echo "Expected: mac or linux" >&2
+                exit 1
+                ;;
+        esac
+        return
+    fi
+
+    case "$(uname -s)" in
+        Darwin)
+            echo "mac"
+            ;;
+        Linux)
+            echo "linux"
+            ;;
+        *)
+            echo "Unsupported OS for spec tests: $(uname -s)" >&2
+            echo "Set SPEC_PLATFORM to mac or linux to choose a spec output path." >&2
+            exit 1
+            ;;
+    esac
+}
+
+spec_platform="$(detect_platform)"
+specs_dir="$repo_root/specs/$spec_platform"
+
+if [ ! -d "$source_dir" ]; then
+    echo "Source directory does not exist: $source_dir" >&2
+    exit 1
+fi
+
+if [ ! -d "$specs_dir" ]; then
+    echo "Spec directory does not exist for platform '$spec_platform': $specs_dir" >&2
+    exit 1
+fi
 
 # Function to process files
 process_files() {
     local src_dir="$1"
     local out_dir="$2"
+    local expected_dir="$3"
 
-    find "$src_dir" -type f -name "*.gv.txt" -print0 | while IFS= read -r -d $'\0' file; do
-        rel_path="${file#$src_dir/}"
-        output_file="$out_dir/${rel_path%.gv.txt}.xml"
+    find "$expected_dir" -type f -name "*.xml" -print0 | while IFS= read -r -d "" file; do
+        rel_path="${file#$expected_dir/}"
+        source_file="$src_dir/${rel_path%.xml}.gv.txt"
+        output_file="$out_dir/$rel_path"
+
+        if [ ! -f "$source_file" ]; then
+            echo "Source file missing for spec: $rel_path" >&2
+            return 1
+        fi
+
         mkdir -p "$(dirname "$output_file")"
-        python3 -m graphviz2drawio "$file" -o "$output_file" > /dev/null 2>&1
-        echo "Processed: $file -> $output_file ($?)"
+        if ! python3 -m graphviz2drawio "$source_file" -o "$output_file" >/dev/null; then
+            echo "Failed to process: $source_file" >&2
+            return 1
+        fi
+        echo "Processed: $source_file -> $output_file"
     done
 }
 
@@ -44,54 +103,40 @@ compare_files() {
 
 # Process files from source_dir to output_dir
 echo "Processing files from $source_dir to $output_dir"
-process_files "$source_dir" "$output_dir"
+rm -rf "$output_dir"
+mkdir -p "$output_dir"
+process_files "$source_dir" "$output_dir" "$specs_dir"
 
 # Compare output_dir with specs_dir
-echo "Comparing results in $output_dir with $specs_dir"
+echo "Comparing results in $output_dir with $specs_dir ($spec_platform)"
 diff_found=false
 
-# Recursive function to compare directories
-compare_dirs() {
-    local dir1="$1"
-    local dir2="$2"
+while IFS= read -r -d "" file; do
+    rel_path="${file#$output_dir/}"
+    spec_file="$specs_dir/$rel_path"
 
-    for file in "$dir1"/*; do
-        local rel_path="${file#$dir1/}"
-        local file2="$dir2/$rel_path"
+    if [ ! -f "$spec_file" ]; then
+        echo "File missing in specs directory: $rel_path"
+        diff_found=true
+        continue
+    fi
 
-        if [ -d "$file" ]; then
-            # If it's a directory, recurse
-            compare_dirs "$file" "$file2"
-        elif [ -f "$file" ]; then
-            # If it's a file, compare
-            if [ ! -f "$file2" ]; then
-                echo "File missing in specs directory: $rel_path"
-                diff_found=true
-            else
-                diff_output=$(compare_files "$file" "$file2")
-                if [ -n "$diff_output" ]; then
-                    echo "Differences found in file: $rel_path"
-                    echo "$diff_output"
-                    diff_found=true
-                fi
-            fi
-        fi
-    done
+    if ! diff_output="$(compare_files "$file" "$spec_file")"; then
+        echo "Differences found in file: $rel_path"
+        echo "$diff_output"
+        diff_found=true
+    fi
+done < <(find "$output_dir" -type f -name "*.xml" -print0)
 
-    # Check for extra files in specs_dir
-    for file in "$dir2"/*; do
-        local rel_path="${file#$dir2/}"
-        local file1="$dir1/$rel_path"
+while IFS= read -r -d "" file; do
+    rel_path="${file#$specs_dir/}"
+    output_file="$output_dir/$rel_path"
 
-        if [ ! -e "$file1" ]; then
-            echo "Extra file in specs directory: $rel_path"
-            diff_found=true
-        fi
-    done
-}
-
-# Start the comparison
-compare_dirs "$output_dir" "$specs_dir"
+    if [ ! -f "$output_file" ]; then
+        echo "Extra file in specs directory: $rel_path"
+        diff_found=true
+    fi
+done < <(find "$specs_dir" -type f -name "*.xml" -print0)
 
 if [ "$diff_found" = false ]; then
     echo "No differences found (ignoring unstable IDs). Test passed."

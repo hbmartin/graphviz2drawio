@@ -109,13 +109,15 @@ uv run python -m graphviz2drawio test/directed/hello.gv.txt
 
 #### Spec tests
 
-Spec XMLs are generated in a pinned Docker environment because graph layout
-depends on platform font metrics. Use the same Ubuntu and Graphviz image locally
-and in CI:
+Spec XMLs are stored separately for macOS and Linux because graph layout depends
+on platform font metrics. The spec test runner automatically compares against
+`specs/mac/` on macOS and `specs/linux/` on Linux.
 
 ```bash
-./scripts/spec_env.sh ./scripts/test_specs.sh test/ specs/ tmp_out/
-./scripts/spec_env.sh ./scripts/generate_specs.sh test/ specs/
+./scripts/test_specs.sh test/ tmp_out/
+./scripts/spec_env.sh ./scripts/test_specs.sh test/ tmp_out/
+./scripts/generate_specs.sh test/ specs/mac/
+./scripts/spec_env.sh ./scripts/generate_specs.sh test/ specs/linux/
 ```
 
 ## Roadmap

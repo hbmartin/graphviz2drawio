@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxGraphModel grid="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+    <mxCell id="clust1" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='white'&gt;Linear Angle Variations (white to black gradient)&lt;/font&gt;" style="verticalAlign=top;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=blue;strokeWidth=1;dashed=0;" parent="1" vertex="1">
+      <mxGeometry x="52.0" y="12.0" width="801.0" height="113.52000000000001" as="geometry" />
+    </mxCell>
+    <mxCell id="clust2" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='white'&gt;Radial Angle Variations (white to black gradient)&lt;/font&gt;" style="verticalAlign=top;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=blue;strokeWidth=1;dashed=0;" parent="1" vertex="1">
+      <mxGeometry x="12.0" y="133.52" width="882.0" height="122.72999999999999" as="geometry" />
+    </mxCell>
+    <mxCell id="node1" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;n9:360&lt;/font&gt;" style="ellipse;aspect=fixed;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=white;strokeWidth=1;dashed=0;gradientColor=black;gradientDirection=west;" parent="1" vertex="1">
+      <mxGeometry x="60.49" y="44.49999999999999" width="73.02" height="73.02" as="geometry" />
+    </mxCell>
+    <mxCell id="node2" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;n8:315&lt;/font&gt;" style="ellipse;aspect=fixed;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=white;strokeWidth=1;dashed=0;gradientColor=black;gradientDirection=south;" parent="1" vertex="1">
+      <mxGeometry x="151.49" y="44.49999999999999" width="73.02" height="73.02" as="geometry" />
+    </mxCell>
+    <mxCell id="node3" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;n7:270&lt;/font&gt;" style="ellipse;aspect=fixed;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=white;strokeWidth=1;dashed=0;gradientColor=black;gradientDirection=south;" parent="1" vertex="1">
+      <mxGeometry x="242.49" y="44.49999999999999" width="73.02" height="73.02" as="geometry" />
+    </mxCell>
+    <mxCell id="node4" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;n6:225&lt;/font&gt;" style="ellipse;aspect=fixed;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=white;strokeWidth=1;dashed=0;gradientColor=black;gradientDirection=south;" parent="1" vertex="1">
+      <mxGeometry x="333.49" y="44.49999999999999" width="73.02" height="73.02" as="geometry" />
+    </mxCell>
+    <mxCell id="node5" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;n5:180&lt;/font&gt;" style="ellipse;aspect=fixed;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=white;strokeWidth=1;dashed=0;gradientColor=black;gradientDirection=west;" parent="1" vertex="1">
+      <mxGeometry x="424.49" y="44.49999999999999" width="73.02" height="73.02" as="geometry" />
+    </mxCell>
+    <mxCell id="node14" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;n14:180&lt;/font&gt;" style="ellipse;aspect=fixed;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=white;strokeWidth=1;dashed=0;gradientColor=black;gradientDirection=radial;" parent="1" vertex="1">
+      <mxGeometry x="419.88" y="166.01" width="82.24" height="82.24" as="geometry" />
+    </mxCell>
+    <mxCell id="node6" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;n4:135&lt;/font&gt;" style="ellipse;aspect=fixed;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=white;strokeWidth=1;dashed=0;gradientColor=black;gradientDirection=north;" parent="1" vertex="1">
+      <mxGeometry x="515.49" y="44.49999999999999" width="73.02" height="73.02" as="geometry" />
+    </mxCell>
+    <mxCell id="node7" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;n3:90 &lt;/font&gt;" style="ellipse;aspect=fixed;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=white;strokeWidth=1;dashed=0;gradientColor=black;gradientDirection=north;" parent="1" vertex="1">
+      <mxGeometry x="606.54" y="46.54999999999999" width="68.92" height="68.92" as="geometry" />
+    </mxCell>
+    <mxCell id="node8" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;n2:45 &lt;/font&gt;" style="ellipse;aspect=fixed;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=white;strokeWidth=1;dashed=0;gradientColor=black;gradientDirection=north;" parent="1" vertex="1">
+      <mxGeometry x="693.54" y="46.54999999999999" width="68.92" height="68.92" as="geometry" />
+    </mxCell>
+    <mxCell id="node9" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;n1:0  &lt;/font&gt;" style="ellipse;aspect=fixed;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=white;strokeWidth=1;dashed=0;gradientColor=black;gradientDirection=west;" parent="1" vertex="1">
+      <mxGeometry x="780.59" y="48.599999999999994" width="64.82" height="64.82" as="geometry" />
+    </mxCell>
+    <mxCell id="node10" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;n18:360&lt;/font&gt;" style="ellipse;aspect=fixed;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=white;strokeWidth=1;dashed=0;gradientColor=black;gradientDirection=radial;" parent="1" vertex="1">
+      <mxGeometry x="19.880000000000003" y="166.01" width="82.24" height="82.24" as="geometry" />
+    </mxCell>
+    <mxCell id="node11" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;n17:315&lt;/font&gt;" style="ellipse;aspect=fixed;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=white;strokeWidth=1;dashed=0;gradientColor=black;gradientDirection=radial;" parent="1" vertex="1">
+      <mxGeometry x="119.88" y="166.01" width="82.24" height="82.24" as="geometry" />
+    </mxCell>
+    <mxCell id="node12" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;n16:270&lt;/font&gt;" style="ellipse;aspect=fixed;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=white;strokeWidth=1;dashed=0;gradientColor=black;gradientDirection=radial;" parent="1" vertex="1">
+      <mxGeometry x="219.88" y="166.01" width="82.24" height="82.24" as="geometry" />
+    </mxCell>
+    <mxCell id="node13" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;n15:225&lt;/font&gt;" style="ellipse;aspect=fixed;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=white;strokeWidth=1;dashed=0;gradientColor=black;gradientDirection=radial;" parent="1" vertex="1">
+      <mxGeometry x="319.88" y="166.01" width="82.24" height="82.24" as="geometry" />
+    </mxCell>
+    <mxCell id="node15" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;n13:135&lt;/font&gt;" style="ellipse;aspect=fixed;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=white;strokeWidth=1;dashed=0;gradientColor=black;gradientDirection=radial;" parent="1" vertex="1">
+      <mxGeometry x="519.88" y="166.01" width="82.24" height="82.24" as="geometry" />
+    </mxCell>
+    <mxCell id="node16" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;n12:90 &lt;/font&gt;" style="ellipse;aspect=fixed;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=white;strokeWidth=1;dashed=0;gradientColor=black;gradientDirection=radial;" parent="1" vertex="1">
+      <mxGeometry x="619.93" y="168.06" width="78.14" height="78.14" as="geometry" />
+    </mxCell>
+    <mxCell id="node17" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;n11:45 &lt;/font&gt;" style="ellipse;aspect=fixed;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=white;strokeWidth=1;dashed=0;gradientColor=black;gradientDirection=radial;" parent="1" vertex="1">
+      <mxGeometry x="715.93" y="168.06" width="78.14" height="78.14" as="geometry" />
+    </mxCell>
+    <mxCell id="node18" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;n10:0  &lt;/font&gt;" style="ellipse;aspect=fixed;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=white;strokeWidth=1;dashed=0;gradientColor=black;gradientDirection=radial;" parent="1" vertex="1">
+      <mxGeometry x="811.98" y="170.10999999999999" width="74.04" height="74.04" as="geometry" />
+    </mxCell>
+    <mxCell id="edge1" style="html=1;endArrow=block;dashed=0;endFill=1;startArrow=none;startFill=0;fillColor=black;strokeColor=black;strokeWidth=1;rounded=0;exitX=0.5000;exitY=1.0000;entryX=0.5000;entryY=0.0000;" parent="1" edge="1" source="node5" target="node14">
+      <mxGeometry as="geometry" relative="1">
+        <mxPoint x="461.0" y="117.91" as="sourcePoint" />
+        <mxPoint x="461.0" y="154.8" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+  </root>
+</mxGraphModel>
