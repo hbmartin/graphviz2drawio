@@ -1,0 +1,11 @@
+{
+  "eval_id": 0,
+  "eval_name": "cluster-fidelity-investigation",
+  "prompt": "How faithfully does graphviz2drawio handle clusters? Check test/directed/cluster.gv.txt and tell me what's off compared to what graphviz itself renders.",
+  "assertions": [
+    "Produced both a graphviz reference PNG and a converted draw.io PNG of cluster.gv.txt (image files present in outputs)",
+    "Findings are based on visual comparison of rendered images, not solely on reading the generated XML or source code",
+    "Report names at least two specific, concrete visual differences or confirmed matches (e.g., cluster boxes, node placement, fill colors, labels)",
+    "Report gives an overall fidelity verdict for cluster handling"
+  ]
+}
