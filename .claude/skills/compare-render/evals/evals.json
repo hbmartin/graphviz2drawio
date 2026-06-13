@@ -1,0 +1,26 @@
+{
+  "skill_name": "compare-render",
+  "evals": [
+    {
+      "id": 0,
+      "name": "cluster-fidelity-investigation",
+      "prompt": "How faithfully does graphviz2drawio handle clusters? Check test/directed/cluster.gv.txt and tell me what's off compared to what graphviz itself renders.",
+      "expected_output": "A visual comparison: renders both the graphviz PNG and the converted draw.io PNG, reads both images, and reports specific visual differences (cluster boxes, node placement, colors, labels).",
+      "files": []
+    },
+    {
+      "id": 1,
+      "name": "arrowhead-bug-triage",
+      "prompt": "Someone reported that arrowheads look wrong in the converted draw.io output for the FSM example (test/directed/fsm.gv.txt). Can you investigate and tell me if the report is real?",
+      "expected_output": "Renders the FSM example both ways, visually inspects arrowhead presence/direction in both PNGs, and gives a concrete verdict on whether the bug report is real, with specifics.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "polyline-regression-check",
+      "prompt": "I'm worried that recent edge-handling changes may have regressed curved edges. Verify that the undirected polyline examples (test/undirected/polylines.gv.txt and test/undirected/polylines_curved.gv.txt) still convert well.",
+      "expected_output": "Renders both polyline examples side-by-side with graphviz ground truth, reads the images, and reports whether edge routing/curvature matches, naming any specific divergences.",
+      "files": []
+    }
+  ]
+}

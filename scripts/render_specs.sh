@@ -40,31 +40,52 @@ if [ "$render_all" = true ]; then
     spec_files=$(find "$specs_dir" -type f -name "*.xml")
 else
     spec_files=$(git diff --name-only HEAD -- "$specs_dir" | grep '\.xml$')
-    if [ -z "$spec_files" ]; then
-        echo "No modified specs found in $specs_dir (use --all to render everything)."
-        exit 0
-    fi
 fi
 
-count=0
-echo "$spec_files" | while read -r spec; do
-    rel_path="${spec#$specs_dir/}"
+if [ -z "$spec_files" ]; then
+    if [ "$render_all" = true ]; then
+        echo "No spec files found in $specs_dir."
+    else
+        echo "No modified specs found in $specs_dir (use --all to render everything)."
+    fi
+    exit 0
+fi
+
+render_drawio() {
+    input_file="$1"
+    output_file="$2"
+    label="$3"
+
+    if "$drawio" -x -f png -o "$output_file" "$input_file" > /dev/null 2>&1 && [ -s "$output_file" ]; then
+        echo "Rendered: $label -> $output_file"
+        return 0
+    fi
+
+    echo "Error: draw.io render failed for $label"
+    return 1
+}
+
+status=0
+while IFS= read -r spec; do
+    rel_path="${spec#"$specs_dir"/}"
     base="${rel_path%.xml}"
     out_base="$output_dir/$base"
     mkdir -p "$(dirname "$out_base")"
 
     # Render the current spec
-    "$drawio" -x -f png -o "${out_base}_new.png" "$spec" > /dev/null 2>&1
-    echo "Rendered: $spec -> ${out_base}_new.png"
+    if ! render_drawio "$spec" "${out_base}_new.png" "$spec"; then
+        status=1
+    fi
 
     # Render the HEAD version when the spec has uncommitted changes
     if ! git diff --quiet HEAD -- "$spec" 2> /dev/null; then
         old_xml="${out_base}_old.xml"
         if git show "HEAD:$spec" > "$old_xml" 2> /dev/null; then
-            "$drawio" -x -f png -o "${out_base}_old.png" "$old_xml" > /dev/null 2>&1
-            rm -f "$old_xml"
-            echo "Rendered: HEAD:$spec -> ${out_base}_old.png"
+            if ! render_drawio "$old_xml" "${out_base}_old.png" "HEAD:$spec"; then
+                status=1
+            fi
         fi
+        rm -f "$old_xml"
     fi
 
     # Render the graphviz reference from the original source
@@ -75,6 +96,13 @@ echo "$spec_files" | while read -r spec; do
     else
         echo "Warning: no source found for $spec (expected $src_file)"
     fi
-done
+done <<EOF
+$spec_files
+EOF
 
-echo "Done. Compare *_new.png against *_old.png and *_reference.png in $output_dir"
+if [ "$status" -eq 0 ]; then
+    echo "Done. Compare *_new.png against *_old.png and *_reference.png in $output_dir"
+else
+    echo "Done with errors. Check messages above and outputs in $output_dir"
+fi
+exit "$status"
