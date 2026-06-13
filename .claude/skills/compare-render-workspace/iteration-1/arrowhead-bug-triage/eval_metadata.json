@@ -1,0 +1,11 @@
+{
+  "eval_id": 1,
+  "eval_name": "arrowhead-bug-triage",
+  "prompt": "Someone reported that arrowheads look wrong in the converted draw.io output for the FSM example (test/directed/fsm.gv.txt). Can you investigate and tell me if the report is real?",
+  "assertions": [
+    "Produced both a graphviz reference PNG and a converted draw.io PNG of fsm.gv.txt (image files present in outputs)",
+    "Verdict on the bug report is backed by visual inspection of the rendered images, not solely XML/code analysis",
+    "Report gives an explicit verdict on whether the arrowhead report is real (confirmed, refuted, or partially confirmed)",
+    "Report describes the specific arrowhead behavior observed (presence, direction, or style) in the converted output"
+  ]
+}

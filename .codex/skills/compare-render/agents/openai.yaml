@@ -1,0 +1,4 @@
+interface:
+  display_name: "Compare Render"
+  short_description: "Verify graphviz2drawio visual fidelity"
+  default_prompt: "Use $compare-render to visually compare the Graphviz reference render with the converted draw.io render before declaring graphviz2drawio changes done."

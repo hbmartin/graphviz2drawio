@@ -1,0 +1,44 @@
+{
+  "skill_name": "compare-render",
+  "evals": [
+    {
+      "id": 0,
+      "name": "cluster-fidelity-investigation",
+      "prompt": "How faithfully does graphviz2drawio handle clusters? Check test/directed/cluster.gv.txt and tell me what's off compared to what graphviz itself renders.",
+      "expected_output": "A visual comparison: renders both the graphviz PNG and the converted draw.io PNG, reads both images, and reports specific visual differences (cluster boxes, node placement, colors, labels).",
+      "files": [],
+      "assertions": [
+        "Produced both a graphviz reference PNG and a converted draw.io PNG of cluster.gv.txt (image files present in outputs)",
+        "Findings are based on visual comparison of rendered images, not solely on reading the generated XML or source code",
+        "Report names at least two specific, concrete visual differences or confirmed matches (e.g., cluster boxes, node placement, fill colors, labels)",
+        "Report gives an overall fidelity verdict for cluster handling"
+      ]
+    },
+    {
+      "id": 1,
+      "name": "arrowhead-bug-triage",
+      "prompt": "Someone reported that arrowheads look wrong in the converted draw.io output for the FSM example (test/directed/fsm.gv.txt). Can you investigate and tell me if the report is real?",
+      "expected_output": "Renders the FSM example both ways, visually inspects arrowhead presence/direction in both PNGs, and gives a concrete verdict on whether the bug report is real, with specifics.",
+      "files": [],
+      "assertions": [
+        "Produced both a graphviz reference PNG and a converted draw.io PNG of fsm.gv.txt (image files present in outputs)",
+        "Verdict on the bug report is backed by visual inspection of the rendered images, not solely XML/code analysis",
+        "Report gives an explicit verdict on whether the arrowhead report is real (confirmed, refuted, or partially confirmed)",
+        "Report describes the specific arrowhead behavior observed (presence, direction, or style) in the converted output"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "polyline-regression-check",
+      "prompt": "I'm worried that recent edge-handling changes may have regressed curved edges. Verify that the undirected polyline examples (test/undirected/polylines.gv.txt and test/undirected/polylines_curved.gv.txt) still convert well.",
+      "expected_output": "Renders both polyline examples side-by-side with graphviz ground truth, reads the images, and reports whether edge routing/curvature matches, naming any specific divergences.",
+      "files": [],
+      "assertions": [
+        "Both polylines.gv.txt and polylines_curved.gv.txt were rendered and checked (not just one of them)",
+        "Produced graphviz reference PNGs and converted draw.io PNGs for the checked files (image files present in outputs)",
+        "Conclusions are based on visual comparison of rendered images, not solely XML/code analysis",
+        "Report states a clear per-file conclusion about edge routing/curvature fidelity, naming specific observations"
+      ]
+    }
+  ]
+}

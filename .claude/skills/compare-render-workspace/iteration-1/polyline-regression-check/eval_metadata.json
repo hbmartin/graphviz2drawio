@@ -1,0 +1,11 @@
+{
+  "eval_id": 2,
+  "eval_name": "polyline-regression-check",
+  "prompt": "I'm worried that recent edge-handling changes may have regressed curved edges. Verify that the undirected polyline examples (test/undirected/polylines.gv.txt and test/undirected/polylines_curved.gv.txt) still convert well.",
+  "assertions": [
+    "Both polylines.gv.txt and polylines_curved.gv.txt were rendered and checked (not just one of them)",
+    "Produced graphviz reference PNGs and converted draw.io PNGs for the checked files (image files present in outputs)",
+    "Conclusions are based on visual comparison of rendered images, not solely XML/code analysis",
+    "Report states a clear per-file conclusion about edge routing/curvature fidelity, naming specific observations"
+  ]
+}
