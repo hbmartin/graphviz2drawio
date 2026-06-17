@@ -33,7 +33,7 @@ jobs:
         env:
           BASE_BRANCH: ${{ github.ref_name }}
           GH_TOKEN: ${{ github.token }}
-          PR_BRANCH: automation/regenerate-linux-specs
+          PR_BRANCH: automation/regenerate-linux-specs-${{ github.run_id }}
         run: |
           if git diff --quiet -- specs/linux; then
             echo "No Linux spec changes found."
@@ -43,24 +43,14 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git fetch origin "$PR_BRANCH:refs/remotes/origin/$PR_BRANCH" || true
           git checkout -B "$PR_BRANCH"
           git add specs/linux
           git commit -m "Regenerate Linux specs"
-          git push --force-with-lease origin "$PR_BRANCH"
+          git push origin "$PR_BRANCH"
 
-          body="Regenerated Linux spec XMLs in the pinned Docker environment."
-          if gh pr view "$PR_BRANCH" --repo "$GITHUB_REPOSITORY" --json number >/dev/null 2>&1; then
-            gh pr edit "$PR_BRANCH" \
-              --repo "$GITHUB_REPOSITORY" \
-              --base "$BASE_BRANCH" \
-              --title "Regenerate Linux specs" \
-              --body "$body"
-          else
-            gh pr create \
-              --repo "$GITHUB_REPOSITORY" \
-              --base "$BASE_BRANCH" \
-              --head "$PR_BRANCH" \
-              --title "Regenerate Linux specs" \
-              --body "$body"
-          fi
+          gh pr create \
+            --repo "$GITHUB_REPOSITORY" \
+            --base "$BASE_BRANCH" \
+            --head "$PR_BRANCH" \
+            --title "Regenerate Linux specs" \
+            --body "Regenerated Linux spec XMLs in the pinned Docker environment."
