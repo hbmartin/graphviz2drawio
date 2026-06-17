@@ -69,7 +69,7 @@ Do not create bundled helper scripts for this skill. Use the repository scripts 
 When specs changed or the implementation touches shared layout, style, labels, edges, or XML generation, run the textual spec check:
 
 ```bash
-./scripts/test_specs.sh test specs tmp_out
+./scripts/test_specs.sh test tmp_out
 ```
 
 Treat diffs as evidence to inspect, not automatic failure. If the new output is intentionally better, update specs through the repo's normal process.
