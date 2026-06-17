@@ -41,11 +41,11 @@ done < <(find "$specs_dir" -type f -name "*.xml" -print0)
 
 if [ "$specs_found" = false ]; then
     # Bootstrap an empty specs directory by processing every source graph.
-    find "$source_dir" -type f -name "*.gv.txt" -print0 | while IFS= read -r -d "" file; do
+    while IFS= read -r -d "" file; do
         rel_path="${file#$source_dir/}"
         output_file="$specs_dir/${rel_path%.gv.txt}.xml"
         generate_spec "$file" "$output_file"
-    done
+    done < <(find "$source_dir" -type f -name "*.gv.txt" -print0)
 fi
 
 echo "All spec files have been processed."

@@ -26,16 +26,15 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
       - name: Regenerate Linux specs
-        run: docker run --rm -v "$PWD:/work" -w /work graphviz2drawio-spec-env ./scripts/generate_specs.sh test/ specs/linux/
-      - name: Fix generated file ownership
-        run: sudo chown -R "$USER":"$USER" specs/linux
+        run: docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/work" -w /work graphviz2drawio-spec-env ./scripts/generate_specs.sh test/ specs/linux/
       - name: Create pull request if specs changed
         env:
           BASE_BRANCH: ${{ github.ref_name }}
           GH_TOKEN: ${{ github.token }}
           PR_BRANCH: automation/regenerate-linux-specs-${{ github.run_id }}
         run: |
-          if git diff --quiet -- specs/linux; then
+          git add specs/linux
+          if git diff --cached --quiet -- specs/linux; then
             echo "No Linux spec changes found."
             exit 0
           fi

@@ -39,3 +39,10 @@ COPY pyproject.toml uv.lock ./
 
 RUN uv python install 3.12 \
     && uv sync --locked --no-install-project
+
+RUN useradd --create-home --uid 10001 --shell /usr/sbin/nologin spec-runner \
+    && chown spec-runner:spec-runner /work
+
+ENV HOME=/tmp
+
+USER spec-runner
