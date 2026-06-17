@@ -1,6 +1,6 @@
 graph G {
 //	graph [splines=true overlap=false]
-	graph [truecolor bgcolor="#ff00005f"]
+	graph [truecolor=true bgcolor="#ff00005f"]
 	node [style=filled fillcolor="#00ff005f"]
 	1 -- 30 [f=1];
 	1 -- 40 [f=14];
