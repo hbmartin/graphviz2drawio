@@ -107,16 +107,33 @@ uv sync
 uv run python -m graphviz2drawio test/directed/hello.gv.txt
 ```
 
+On macOS (Apple Silicon), `pygraphviz` compiles a C extension against Graphviz,
+and Homebrew's `/opt/homebrew` is not on the default compiler search path. If
+`uv sync` fails to build `pygraphviz` (clang error about missing
+`graphviz/cgraph.h`), install Graphviz and rebuild that package with the
+Homebrew paths:
+
+```bash
+brew install graphviz
+CFLAGS="-I$(brew --prefix graphviz)/include" \
+LDFLAGS="-L$(brew --prefix graphviz)/lib" \
+uv sync --reinstall-package pygraphviz
+```
+
 #### Spec tests
 
 Spec XMLs are stored separately for macOS and Linux because graph layout depends
 on platform font metrics. The spec test runner automatically compares against
 `specs/mac/` on macOS and `specs/linux/` on Linux.
 
+The scripts invoke `python3` directly, so run the native (macOS) variants
+through `uv run` so they resolve to the project venv. The `spec_env.sh` variants
+run inside Docker and already have the venv on `PATH`.
+
 ```bash
-./scripts/test_specs.sh test/ tmp_out/
+uv run ./scripts/test_specs.sh test/ tmp_out/
 ./scripts/spec_env.sh ./scripts/test_specs.sh test/ tmp_out/
-./scripts/generate_specs.sh test/ specs/mac/
+uv run ./scripts/generate_specs.sh test/ specs/mac/
 ./scripts/spec_env.sh ./scripts/generate_specs.sh test/ specs/linux/
 ```
 

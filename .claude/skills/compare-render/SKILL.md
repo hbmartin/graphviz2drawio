@@ -75,7 +75,7 @@ targeted comparison passes:
   committed expected XML in `specs/` (ignoring unstable ids):
 
   ```bash
-  ./scripts/test_specs.sh test tmp_out
+  uv run ./scripts/test_specs.sh test tmp_out
   ```
 
   Differences are not automatically failures — if the new output is *better*,
