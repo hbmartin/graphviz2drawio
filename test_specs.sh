@@ -70,7 +70,7 @@ process_files() {
     local out_dir="$2"
     local expected_dir="$3"
 
-    find "$expected_dir" -type f -name "*.xml" -print0 | while IFS= read -r -d "" file; do
+    while IFS= read -r -d "" file; do
         rel_path="${file#$expected_dir/}"
         source_file="$src_dir/${rel_path%.xml}.gv.txt"
         output_file="$out_dir/$rel_path"
@@ -86,7 +86,7 @@ process_files() {
             return 1
         fi
         echo "Processed: $source_file -> $output_file"
-    done
+    done < <(find "$expected_dir" -type f -name "*.xml" -print0)
 }
 
 # Function to compare files ignoring unstable IDs
