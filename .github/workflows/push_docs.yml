@@ -28,7 +28,7 @@ jobs:
     - name: Build docs
       run: |
         uv sync --locked
-        uv run --with sphinx sphinx-build doc/source doc/_build/html
+        uv run --with-requirements doc/requirements.txt sphinx-build doc/source doc/_build/html
 
     - uses: actions/upload-pages-artifact@v3
       with:
