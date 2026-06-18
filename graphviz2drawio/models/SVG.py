@@ -6,6 +6,7 @@ NS_SVG = "{http://www.w3.org/2000/svg}"
 def svg_tag(tag: str) -> str:
     return f"{NS_SVG}{tag}"
 
+
 def get_first(g: Element, tag: str) -> Element | None:
     # Direct child first
     result = g.find(f"./{NS_SVG}{tag}")
@@ -14,7 +15,12 @@ def get_first(g: Element, tag: str) -> Element | None:
     # Also search inside <a> and <g> wrappers (Graphviz wraps in <a> when URL is set)
     return g.find(f".//{NS_SVG}{tag}")
 
+
 def findall(g: Element, tag: str) -> list[Element]:
+    return g.findall(f"./{NS_SVG}{tag}")
+
+
+def findall_recursive(g: Element, tag: str) -> list[Element]:
     return g.findall(f".//{NS_SVG}{tag}")
 
 

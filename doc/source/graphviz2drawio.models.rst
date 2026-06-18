@@ -28,6 +28,14 @@ graphviz2drawio.models.DotAttr module
     :undoc-members:
     :show-inheritance:
 
+graphviz2drawio.models.Errors module
+------------------------------------
+
+.. automodule:: graphviz2drawio.models.Errors
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 graphviz2drawio.models.Rect module
 ----------------------------------
 

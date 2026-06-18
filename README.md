@@ -120,7 +120,7 @@ the layout program could not lay the graph out (a missing layout engine or an
 invalid graph). Confirm Graphviz can render the file directly:
 
 ```bash
-dot -Tsvg yourgraph.dot -o /dev/null
+dot -Tsvg yourgraph.dot -o output.svg
 ```
 
 If that command also fails, the problem is in your graph or your Graphviz

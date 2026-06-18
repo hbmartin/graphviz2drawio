@@ -97,7 +97,7 @@ graphviz2drawio.convert(Path("example.dot"))
 graphviz2drawio.convert("digraph { a -> b }")
 
 # An open file handle
-with open("example.dot") as handle:
+with open("example.dot", encoding="utf-8") as handle:
     graphviz2drawio.convert(handle)
 
 # A pre-built PyGraphviz AGraph
