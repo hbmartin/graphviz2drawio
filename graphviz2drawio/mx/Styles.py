@@ -16,6 +16,8 @@ class Styles(Enum):
     EDGE_LABEL = (
         "edgeLabel;html=1;align=center;verticalAlign=bottom;resizable=0;points=[];"
     )
+    EDGE_ANCHOR_EXIT = "exitX={x:.3f};exitY={y:.3f};"
+    EDGE_ANCHOR_ENTRY = "entryX={x:.3f};entryY={y:.3f};"
     EDGE_INVIS = (
         "rounded=1;html=1;exitX={exit_x:.3g};exitY={exit_y:.3g};jettySize=auto;curved={curved};"
         "endArrow={end_arrow};dashed={dashed};endFill={end_fill};"

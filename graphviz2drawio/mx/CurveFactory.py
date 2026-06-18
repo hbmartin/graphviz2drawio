@@ -1,13 +1,23 @@
-import cmath
-from typing import Any
-
-from svg.path import CubicBezier, Path, QuadraticBezier, parse_path
+from svg.path import (
+    Arc,
+    Close,
+    CubicBezier,
+    Line,
+    Move,
+    Path,
+    QuadraticBezier,
+    parse_path,
+)
 
 from ..models.CoordsTranslate import CoordsTranslate
-from .bezier import approximate_cubic_bezier_as_quadratic, subdivide_inflections
+from .bezier import (
+    Cubic,
+    arc_to_cubics,
+    cubic_chain_to_quadratic_controls,
+    line_to_cubic,
+    quadratic_to_cubic,
+)
 from .Curve import Curve
-
-CLOSE_POINT_TOLERANCE = 0.1
 
 
 class CurveFactory:
@@ -17,45 +27,54 @@ class CurveFactory:
 
     def from_svg(self, svg_path: str) -> Curve:
         path: Path = parse_path(svg_path)
-        points: list[complex] = []
-        is_bezier = not all(map(Curve.is_linear, filter(_is_cubic, path)))
+        cubics: list[Cubic] = []
+        linear_flags: list[bool] = []
 
         for segment in path:
-            if isinstance(segment, QuadraticBezier):
-                points.append(self.coords.complex_translate(segment.control))
-            elif isinstance(segment, CubicBezier):
-                if Curve.is_linear(segment):
-                    points.append(self.coords.complex_translate(segment.start))
-                else:
-                    split_cubes = subdivide_inflections(
-                        segment.start,
-                        segment.control1,
-                        segment.control2,
-                        segment.end,
-                    )
-                    split_controls = [
-                        self.coords.complex_translate(
-                            approximate_cubic_bezier_as_quadratic(*cube)[1],
-                        )
-                        for cube in split_cubes
-                        if cube
-                    ]
-                    points.extend(split_controls)
+            if isinstance(segment, Move):
+                continue
+            if isinstance(segment, CubicBezier):
+                cubic = (
+                    self.coords.complex_translate(segment.start),
+                    self.coords.complex_translate(segment.control1),
+                    self.coords.complex_translate(segment.control2),
+                    self.coords.complex_translate(segment.end),
+                )
+                cubics.append(cubic)
+                linear_flags.append(Curve.is_linear(segment))
+            elif isinstance(segment, QuadraticBezier):
+                cubic = quadratic_to_cubic(
+                    self.coords.complex_translate(segment.start),
+                    self.coords.complex_translate(segment.control),
+                    self.coords.complex_translate(segment.end),
+                )
+                cubics.append(cubic)
+                linear_flags.append(Curve.is_linear(CubicBezier(*cubic)))
+            elif isinstance(segment, Line | Close):
+                start = self.coords.complex_translate(segment.start)
+                end = self.coords.complex_translate(segment.end)
+                if start != end:
+                    cubics.append(line_to_cubic(start, end))
+                    linear_flags.append(True)
+            elif isinstance(segment, Arc):
+                arc_cubics = [
+                    tuple(self.coords.complex_translate(point) for point in cubic)
+                    for cubic in arc_to_cubics(segment)
+                ]
+                cubics.extend(arc_cubics)
+                linear_flags.extend(False for _cubic in arc_cubics)
 
-        # pyrefly: ignore  # missing-attribute
-        start: complex = self.coords.complex_translate(path[0].start)
-        # pyrefly: ignore  # missing-attribute
-        end: complex = self.coords.complex_translate(path[-1].end)
+        if not cubics:
+            start = self.coords.complex_translate(path[0].start)
+            end = self.coords.complex_translate(path[-1].end)
+            return Curve(start=start, end=end, is_bezier=False, points=[])
 
-        if len(points) > 0 and cmath.isclose(
-            start,
-            points[0],
-            rel_tol=CLOSE_POINT_TOLERANCE,
-        ):
-            points = points[1:]
+        start = cubics[0][0]
+        end = cubics[-1][3]
+        is_bezier = not all(linear_flags)
+        if is_bezier:
+            points = cubic_chain_to_quadratic_controls(cubics)
+        else:
+            points = [cubic[3] for cubic in cubics[:-1]]
 
         return Curve(start=start, end=end, is_bezier=is_bezier, points=points)
-
-
-def _is_cubic(p: Any) -> bool:  # noqa: ANN401
-    return isinstance(p, CubicBezier)
