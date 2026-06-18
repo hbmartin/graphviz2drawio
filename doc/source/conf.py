@@ -19,13 +19,13 @@
 # -- Project information -----------------------------------------------------
 
 project = "Graphviz2drawio"
-copyright = "2018, Harold Martin"
+copyright = "2018-2026, Harold Martin"
 author = "Harold Martin"
 
 # The short X.Y version
 version = ""
 # The full version, including alpha/beta/rc tags
-release = "0.1.0"
+release = "1.2.0"
 
 
 # -- General configuration ---------------------------------------------------
@@ -40,16 +40,15 @@ release = "0.1.0"
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.viewcode",
+    "myst_parser",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
 
 # The suffix(es) of source filenames.
-# You can specify multiple suffix as a list of string:
-#
-# source_suffix = ['.rst', '.md']
-source_suffix = ".rst"
+# Markdown (.md) pages are handled by the myst_parser extension.
+source_suffix = [".rst", ".md"]
 
 # The master toctree document.
 master_doc = "index"
@@ -59,7 +58,7 @@ master_doc = "index"
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = None
+language = "en"
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.

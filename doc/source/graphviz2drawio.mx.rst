@@ -44,14 +44,6 @@ graphviz2drawio.mx.GraphObj module
     :undoc-members:
     :show-inheritance:
 
-graphviz2drawio.mx.LinearRegression module
-------------------------------------------
-
-.. automodule:: graphviz2drawio.mx.LinearRegression
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 graphviz2drawio.mx.MxConst module
 ---------------------------------
 

@@ -8,7 +8,15 @@ Welcome to Graphviz2drawio's documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Guides:
+
+   guides/getting-started.md
+   guides/how-conversion-works.md
+   guides/troubleshooting.md
+
+.. toctree::
+   :maxdepth: 2
+   :caption: API Reference:
 
    modules.rst
 
