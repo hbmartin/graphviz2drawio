@@ -21,13 +21,13 @@
     <mxCell id="node4" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;aws-sdk&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=none;strokeWidth=1;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="23.880000000000003" y="201.0" width="82.24" height="36.0" as="geometry" />
     </mxCell>
-    <mxCell id="edge1" style="html=1;endArrow=block;dashed=0;endFill=1;startArrow=none;startFill=0;fillColor=black;strokeColor=black;strokeWidth=1;rounded=0;exitX=0.5000;exitY=1.0000;entryX=0.5000;entryY=0.0000;" parent="1" edge="1" source="node1" target="node3">
+    <mxCell id="edge1" style="html=1;endArrow=block;dashed=0;endFill=1;startArrow=none;startFill=0;fillColor=black;strokeColor=black;strokeWidth=1;rounded=0;exitX=0.500;exitY=1.000;entryX=0.500;entryY=0.000;" parent="1" edge="1" source="node1" target="node3">
       <mxGeometry as="geometry" relative="1">
         <mxPoint x="65.0" y="81.0" as="sourcePoint" />
-        <mxPoint x="65.0" y="117.16999999999999" as="targetPoint" />
+        <mxPoint x="65.0" y="117.17" as="targetPoint" />
       </mxGeometry>
     </mxCell>
-    <mxCell id="edge2" style="html=1;endArrow=block;dashed=0;endFill=1;startArrow=none;startFill=0;fillColor=black;strokeColor=black;strokeWidth=1;rounded=0;exitX=0.5000;exitY=1.0000;entryX=0.5000;entryY=0.0000;" parent="1" edge="1" source="node3" target="node4">
+    <mxCell id="edge2" style="html=1;endArrow=block;dashed=0;endFill=1;startArrow=none;startFill=0;fillColor=black;strokeColor=black;strokeWidth=1;rounded=0;exitX=0.500;exitY=1.000;entryX=0.500;entryY=0.000;" parent="1" edge="1" source="node3" target="node4">
       <mxGeometry as="geometry" relative="1">
         <mxPoint x="65.0" y="165.3" as="sourcePoint" />
         <mxPoint x="65.0" y="189.46" as="targetPoint" />

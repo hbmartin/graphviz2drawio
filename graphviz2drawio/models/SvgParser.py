@@ -5,7 +5,6 @@ from math import isclose
 from typing import TYPE_CHECKING
 from xml.etree import ElementTree
 
-from ..mx.Curve import LINE_TOLERANCE
 from ..mx.Edge import Edge
 from ..mx.EdgeFactory import EdgeFactory
 from ..mx.Node import Gradient, Node
@@ -18,6 +17,8 @@ from .Errors import MissingTitleError
 
 if TYPE_CHECKING:
     from xml.etree.ElementTree import Element
+
+_GRADIENT_REL_TOL = 0.01
 
 
 def parse_nodes_edges_clusters(
@@ -120,7 +121,7 @@ def _extract_gradients(
         y2 = float(linear_gradient.attrib["y2"])
 
         gradient_direction = "north"
-        if isclose(y1, y2, rel_tol=LINE_TOLERANCE):
+        if isclose(y1, y2, rel_tol=_GRADIENT_REL_TOL):
             x1 = float(linear_gradient.attrib["y1"])
             x2 = float(linear_gradient.attrib["y2"])
             gradient_direction = "east" if x1 < x2 else "west"

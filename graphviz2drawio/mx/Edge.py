@@ -1,5 +1,4 @@
 from ..models import DotAttr
-from ..models.Rect import Rect
 from . import MxConst
 from .Curve import Curve
 from .GraphObj import GraphObj
@@ -37,8 +36,9 @@ class Edge(GraphObj):
 
     def get_edge_style(
         self,
-        source_geo: Rect | None,
-        target_geo: Rect | None,
+        *,
+        exit_xy: tuple[float, float] | None,
+        entry_xy: tuple[float, float] | None,
     ) -> str:
         dashed = 1 if self.line_style == DotAttr.DASHED else 0
         end_arrow, end_fill = self._get_arrow_shape_and_fill(
@@ -50,39 +50,22 @@ class Edge(GraphObj):
             active_dirs={DotAttr.BOTH},
         )
 
-        if self.curve is not None:
-            style = Styles.EDGE.format(
-                dashed=dashed,
-                end_arrow=end_arrow,
-                end_fill=end_fill,
-                start_arrow=start_arrow,
-                start_fill=start_fill,
-                stroke=self.stroke,
-                stroke_width=self.stroke_width,
-            ) + (MxConst.CURVED if self.curve.is_bezier else MxConst.SHARP)
-
-            if source_geo is not None:
-                exit_x, exit_y = source_geo.relative_location_along_perimeter(
-                    self.curve.start,
-                )
-                style += f"exitX={exit_x:.4f};exitY={exit_y:.4f};"
-            if target_geo is not None:
-                entry_x, entry_y = target_geo.relative_location_along_perimeter(
-                    self.curve.end,
-                )
-                style += f"entryX={entry_x:.4f};entryY={entry_y:.4f};"
-
-            return style
-
-        return Styles.EDGE.format(
-            end_arrow=end_arrow,
+        style = Styles.EDGE.format(
             dashed=dashed,
+            end_arrow=end_arrow,
             end_fill=end_fill,
             start_arrow=start_arrow,
             start_fill=start_fill,
             stroke=self.stroke,
             stroke_width=self.stroke_width,
         )
+        if self.curve is not None:
+            style += MxConst.CURVED if self.curve.is_bezier else MxConst.SHARP
+        if exit_xy is not None:
+            style += Styles.EDGE_ANCHOR_EXIT.format(x=exit_xy[0], y=exit_xy[1])
+        if entry_xy is not None:
+            style += Styles.EDGE_ANCHOR_ENTRY.format(x=entry_xy[0], y=entry_xy[1])
+        return style
 
     def _get_arrow_shape_and_fill(
         self,

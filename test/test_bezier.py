@@ -1,180 +1,217 @@
-import unittest
+import math
+from itertools import pairwise
+
+from svg.path import parse_path
 
 from graphviz2drawio.mx.bezier import (
-    approximate_cubic_bezier_as_quadratic,
-    subdivide_inflections,
+    MAX_QUAD_ERROR,
+    MAX_SEGMENTS_PER_CUBIC,
+    arc_to_cubics,
+    cubic_chain_to_quadratic_controls,
+    cubic_to_quadratic_controls,
+    line_to_cubic,
+    quadratic_to_cubic,
 )
 
 
-class TestApproximateCubicBezierAsQuadratic(unittest.TestCase):
-    def test_simple_curve_approximation(self):
-        """Test basic conversion of a simple cubic Bezier to quadratic."""
-        # A simple cubic curve
-        p0 = complex(0, 0)
-        c1 = complex(1, 2)
-        c2 = complex(3, 2)
-        p2 = complex(4, 0)
+def test_single_control_for_gentle_cubic():
+    cubic = (0j, 1 + 0.2j, 3 + 0.2j, 4 + 0j)
 
-        result = approximate_cubic_bezier_as_quadratic(p0, c1, c2, p2)
+    controls = cubic_to_quadratic_controls(*cubic)
 
-        # Verify result is a quadratic Bezier (3 points)
-        self.assertEqual(len(result), 3)
-        # Start and end points should match
-        self.assertEqual(result[0], p0)
-        self.assertEqual(result[2], p2)
-        # Control point should be somewhere reasonable
-        self.assertIsInstance(result[1], complex)
-
-    def test_straight_line_approximation(self):
-        """Test approximation of a cubic curve that's essentially a straight line."""
-        p0 = complex(0, 0)
-        c1 = complex(1, 0)
-        c2 = complex(3, 0)
-        p2 = complex(4, 0)
-
-        result = approximate_cubic_bezier_as_quadratic(p0, c1, c2, p2)
-
-        # For a straight line, the control point should be on the line
-        self.assertAlmostEqual(result[1].imag, 0)
-        self.assertTrue(0 < result[1].real < 4)
-
-    def test_parallel_tangents_case(self):
-        """Test the case where tangent lines are parallel."""
-        # Set up a cubic with truly parallel tangents
-        p0 = complex(0, 0)
-        c1 = complex(1, 3)
-        c2 = complex(3, -1)  # Make this (3, -1) to create parallel tangent vectors
-        p2 = complex(4, 2)
-
-        # Calculate tangent vectors to verify they're parallel
-        tan_start = 3.0 * (c1 - p0)  # 3*(1+3j) = (3+9j)
-        tan_end = 3.0 * (p2 - c2)  # 3*(4+2j - 3-1j) = 3*(1+3j) = (3+9j)
-
-        # Verify tangents are parallel (same direction)
-        self.assertEqual(tan_start.real * tan_end.imag, tan_start.imag * tan_end.real)
-
-        result = approximate_cubic_bezier_as_quadratic(p0, c1, c2, p2)
-
-        # Should fall back to averaging method
-        expected_control = (c1 + c2) / 2
-        self.assertEqual(result[1], expected_control)
-
-    def test_complex_path_approximation(self):
-        """Test approximation of a more complex cubic Bezier."""
-        p0 = complex(0, 0)
-        c1 = complex(0, 4)
-        c2 = complex(4, 4)
-        p2 = complex(4, 0)
-
-        result = approximate_cubic_bezier_as_quadratic(p0, c1, c2, p2)
-
-        # Verify basic properties
-        self.assertEqual(result[0], p0)
-        self.assertEqual(result[2], p2)
-        # The control point should be somewhat near the center
-        self.assertTrue(0 <= result[1].real <= 4)
-        self.assertTrue(0 <= result[1].imag <= 4)
-
-    def test_edge_case_with_control_points_at_endpoints(self):
-        """Test when control points are at the endpoints."""
-        p0 = complex(0, 0)
-        c1 = p0  # Control point same as start
-        c2 = complex(4, 0)  # Control point same as end
-        p2 = complex(4, 0)
-
-        result = approximate_cubic_bezier_as_quadratic(p0, c1, c2, p2)
-
-        # Should still return a valid quadratic
-        self.assertEqual(len(result), 3)
-        self.assertEqual(result[0], p0)
-        self.assertEqual(result[2], p2)
+    assert len(controls) == 1
+    assert _max_deviation_for_cubic(cubic, controls) <= MAX_QUAD_ERROR
 
 
-class TestSubdivideInflections(unittest.TestCase):
-    def test_curve_with_no_inflections(self):
-        """Test subdivision of a curve with no inflection points."""
-        # Simple curve without inflections
-        p0 = complex(0, 0)
-        c1 = complex(1, 1)
-        c2 = complex(2, 1)
-        p3 = complex(3, 0)
+def test_control_count_grows_with_curvature():
+    gentle = (0j, 1 + 0.2j, 3 + 0.2j, 4 + 0j)
+    hairpin = (0j, 0 + 80j, 100 - 80j, 100 + 0j)
 
-        result = subdivide_inflections(p0, c1, c2, p3)
+    gentle_controls = cubic_to_quadratic_controls(*gentle)
+    hairpin_controls = cubic_to_quadratic_controls(*hairpin)
 
-        # Should return a tuple with just one curve
-        self.assertEqual(len(result), 1)
-        self.assertEqual(result[0], (p0, c1, c2, p3))
-
-    def test_curve_with_one_inflection(self):
-        """Test subdivision of a curve with one inflection point."""
-        # S-curve with one inflection
-        p0 = complex(0, 0)
-        c1 = complex(1, 2)
-        c2 = complex(2, -2)
-        p3 = complex(3, 0)
-
-        result = subdivide_inflections(p0, c1, c2, p3)
-
-        # Should return a tuple with two curves
-        self.assertEqual(len(result), 2)
-        # First curve should start at p0
-        self.assertEqual(result[0][0], p0)
-        # Second curve should end at p3
-        self.assertEqual(result[1][3], p3)
-        # The end of the first curve should match the start of the second
-        self.assertEqual(result[0][3], result[1][0])
-
-    def test_curve_with_two_inflections(self):
-        """Test subdivision of a curve with two inflection points (loop)."""
-        # Create a curve with a loop (has two inflections)
-        p0 = complex(0, 0)
-        c1 = complex(3, 3)
-        c2 = complex(-3, 3)
-        p3 = complex(0, 0)
-
-        result = subdivide_inflections(p0, c1, c2, p3)
-
-        # Should return a tuple with three curves
-        self.assertEqual(len(result), 3)
-        # Check that all three curves connect
-        self.assertEqual(result[0][0], p0)
-        self.assertEqual(result[0][3], result[1][0])
-        self.assertEqual(result[1][3], result[2][0])
-        self.assertEqual(result[2][3], p3)
-
-    def test_almost_straight_curve(self):
-        """Test an almost straight curve that might have numerical stability issues."""
-        p0 = complex(0, 0)
-        c1 = complex(1, 0.001)
-        c2 = complex(2, -0.001)
-        p3 = complex(3, 0)
-
-        result = subdivide_inflections(p0, c1, c2, p3)
-
-        # Verify the result is a valid tuple
-        self.assertIsInstance(result, tuple)
-        # First element should be a cubic Bezier
-        self.assertEqual(len(result[0]), 4)
-
-    def test_complex_s_curve(self):
-        """Test a complex S-curve with potential inflection points."""
-        p0 = complex(0, 0)
-        c1 = complex(1, 3)
-        c2 = complex(3, -3)
-        p3 = complex(4, 0)
-
-        result = subdivide_inflections(p0, c1, c2, p3)
-
-        self.assertEqual(len(result), 2)
-
-        # All curves should connect properly
-        for i in range(len(result) - 1):
-            self.assertEqual(result[i][3], result[i + 1][0])
-
-        # First and last points should match original
-        self.assertEqual(result[0][0], p0)
-        self.assertEqual(result[-1][3], p3)
+    assert len(hairpin_controls) > len(gentle_controls)
 
 
-if __name__ == "__main__":
-    unittest.main()
+def test_error_bound_respected_for_common_shapes():
+    cubics = [
+        (0j, 25 + 40j, 55 + 40j, 80 + 0j),
+        (0j, 25 + 60j, 55 - 60j, 80 + 0j),
+        (0j, 0 + 40j, 60 - 40j, 60 + 0j),
+    ]
+
+    for cubic in cubics:
+        controls = cubic_to_quadratic_controls(*cubic)
+        assert _max_deviation_for_cubic(cubic, controls) <= MAX_QUAD_ERROR + 1e-6
+
+
+def test_cap_returns_best_effort_without_raising():
+    controls = cubic_to_quadratic_controls(
+        0j,
+        0 + 500j,
+        1000 - 500j,
+        1000 + 0j,
+        max_err=1e-12,
+    )
+
+    assert len(controls) == MAX_SEGMENTS_PER_CUBIC
+
+
+def test_min_n_is_respected():
+    controls = cubic_to_quadratic_controls(
+        0j,
+        1 + 0.2j,
+        3 + 0.2j,
+        4 + 0j,
+        max_err=100,
+        min_n=5,
+    )
+
+    assert len(controls) == 5
+
+
+def test_line_to_cubic_controls_are_collinear():
+    cubic = line_to_cubic(1 + 1j, 7 + 4j)
+    chord = cubic[3] - cubic[0]
+
+    assert all(math.isclose(_cross(chord, point - cubic[0]), 0) for point in cubic)
+
+
+def test_two_cubic_chain_junction_lands_on_implied_midpoint():
+    cubics = [
+        (0j, 10 + 0j, 20 + 0j, 30 + 0j),
+        (30 + 0j, 40 + 0j, 50 + 0j, 60 + 0j),
+    ]
+
+    controls = cubic_chain_to_quadratic_controls(cubics)
+
+    assert any(abs(joint - 30) < 1e-9 for joint in _implied_joints(controls))
+
+
+def test_three_cubic_chain_junctions_land_exactly():
+    cubics = [
+        (0j, 10 + 10j, 20 + 10j, 30 + 0j),
+        (30 + 0j, 40 - 10j, 50 - 10j, 60 + 0j),
+        (60 + 0j, 70 + 10j, 80 + 10j, 90 + 0j),
+    ]
+
+    controls = cubic_chain_to_quadratic_controls(cubics)
+    joints = _implied_joints(controls)
+
+    assert any(abs(joint - (30 + 0j)) < 1e-9 for joint in joints)
+    assert any(abs(joint - (60 + 0j)) < 1e-9 for joint in joints)
+
+
+def test_chain_junction_tangent_direction_is_preserved():
+    cubics = [
+        (0j, 10 + 10j, 20 + 10j, 30 + 0j),
+        (30 + 0j, 40 - 10j, 50 - 10j, 60 + 0j),
+    ]
+
+    controls = cubic_chain_to_quadratic_controls(cubics)
+    left, right = _controls_around_joint(controls, 30 + 0j)
+    adjusted_tangent = right - left
+    original_tangent = cubics[1][1] - cubics[1][0]
+
+    assert math.isclose(
+        _cross(adjusted_tangent, original_tangent),
+        0,
+        abs_tol=1e-9,
+    )
+
+
+def test_quadratic_to_cubic_is_exact_degree_elevation():
+    quadratic = (0j, 5 + 10j, 10 + 0j)
+    cubic = quadratic_to_cubic(*quadratic)
+
+    for sample in range(21):
+        t = sample / 20
+        assert abs(_quadratic_point(*quadratic, t) - _cubic_point(cubic, t)) < 1e-9
+
+
+def test_arc_sweep_split_and_endpoints():
+    arc = parse_path("M 10,0 A 10,10 0 1 1 0,-10")[1]
+
+    cubics = arc_to_cubics(arc)
+
+    assert len(cubics) == 3
+    assert cubics[0][0] == arc.start
+    assert cubics[-1][3] == arc.end
+
+
+def test_arc_radial_error_is_small():
+    arc = parse_path("M 10,0 A 10,10 0 1 1 0,-10")[1]
+
+    cubics = arc_to_cubics(arc)
+    max_radial_error = max(
+        abs(abs(_cubic_point(cubic, sample / 50)) - 10)
+        for cubic in cubics
+        for sample in range(51)
+    )
+
+    assert max_radial_error < 0.01
+
+
+def _implied_joints(controls: list[complex]) -> list[complex]:
+    return [(left + right) / 2 for left, right in pairwise(controls)]
+
+
+def _controls_around_joint(
+    controls: list[complex],
+    joint: complex,
+) -> tuple[complex, complex]:
+    for left, right in pairwise(controls):
+        if abs(((left + right) / 2) - joint) < 1e-9:
+            return left, right
+    message = f"joint {joint} not found"
+    raise AssertionError(message)
+
+
+def _max_deviation_for_cubic(cubic, controls: list[complex]) -> float:
+    segment_count = len(controls)
+    quads = _drawio_curved_quads([cubic[0], *controls, cubic[3]])
+    max_deviation = 0.0
+    for segment_index, quad in enumerate(quads):
+        for sample in range(51):
+            u = sample / 50
+            cubic_t = (segment_index + u) / segment_count
+            max_deviation = max(
+                max_deviation,
+                abs(_quadratic_point(*quad, u) - _cubic_point(cubic, cubic_t)),
+            )
+    return max_deviation
+
+
+def _drawio_curved_quads(points: list[complex]) -> list[tuple[complex, complex, complex]]:
+    quads = []
+    current = points[0]
+    for index in range(1, len(points) - 2):
+        end = (points[index] + points[index + 1]) / 2
+        quads.append((current, points[index], end))
+        current = end
+    quads.append((current, points[-2], points[-1]))
+    return quads
+
+
+def _quadratic_point(
+    p0: complex,
+    c: complex,
+    p1: complex,
+    t: float,
+) -> complex:
+    mt = 1 - t
+    return (mt * mt * p0) + (2 * mt * t * c) + (t * t * p1)
+
+
+def _cubic_point(cubic, t: float) -> complex:
+    mt = 1 - t
+    return (
+        (mt * mt * mt * cubic[0])
+        + (3 * mt * mt * t * cubic[1])
+        + (3 * mt * t * t * cubic[2])
+        + (t * t * t * cubic[3])
+    )
+
+
+def _cross(v1: complex, v2: complex) -> float:
+    return (v1.real * v2.imag) - (v1.imag * v2.real)

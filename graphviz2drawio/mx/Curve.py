@@ -1,9 +1,9 @@
-import math
 from collections.abc import Callable
 
 from svg.path import CubicBezier
 
-LINE_TOLERANCE = 0.01
+LINE_ABS_TOLERANCE = 0.01
+_SVG_ROUNDING_TOLERANCE = 0.001
 
 
 class Curve:
@@ -37,20 +37,35 @@ class Curve:
         if cb.start == cb.end:
             return False
 
-        y = _line(cb.start, cb.end)
-
-        if y is None:
-            return Curve.is_linear(_rotate_bezier(cb))
-
-        return math.isclose(
-            y(cb.control1.real),
-            cb.control1.imag,
-            rel_tol=LINE_TOLERANCE,
-        ) and math.isclose(
-            y(cb.control2.real),
-            cb.control2.imag,
-            rel_tol=LINE_TOLERANCE,
+        chord = cb.end - cb.start
+        return (
+            _distance_from_line(cb.start, chord, cb.control1)
+            <= LINE_ABS_TOLERANCE + _SVG_ROUNDING_TOLERANCE
+            and _distance_from_line(cb.start, chord, cb.control2)
+            <= LINE_ABS_TOLERANCE + _SVG_ROUNDING_TOLERANCE
         )
+
+    def first_interior_point(self) -> complex:
+        """Return the first waypoint that is distinct from the source terminal."""
+        for point in self.points:
+            if abs(point - self.start) > LINE_ABS_TOLERANCE:
+                return point
+        return self.end
+
+    def last_interior_point(self) -> complex:
+        """Return the last waypoint that is distinct from the target terminal."""
+        for point in reversed(self.points):
+            if abs(point - self.end) > LINE_ABS_TOLERANCE:
+                return point
+        return self.start
+
+
+def _distance_from_line(start: complex, direction: complex, point: complex) -> float:
+    return abs(_cross(direction, point - start)) / abs(direction)
+
+
+def _cross(v1: complex, v2: complex) -> float:
+    return (v1.real * v2.imag) - (v1.imag * v2.real)
 
 
 def _line(start: complex, end: complex) -> Callable[[float], float] | None:
@@ -65,13 +80,3 @@ def _line(start: complex, end: complex) -> Callable[[float], float] | None:
         return (m * x) + b
 
     return y
-
-
-def _rotate_bezier(cb: CubicBezier) -> CubicBezier:
-    """Reverse imaginary and real parts for all components."""
-    return CubicBezier(
-        complex(cb.start.imag, cb.start.real),
-        complex(cb.control1.imag, cb.control1.real),
-        complex(cb.control2.imag, cb.control2.real),
-        complex(cb.end.imag, cb.end.real),
-    )

@@ -3,6 +3,8 @@ import re
 from pathlib import Path
 from xml.etree import ElementTree
 
+import pytest
+
 # pyrefly: ignore  # missing-module-attribute
 from graphviz2drawio import graphviz2drawio
 
@@ -41,8 +43,8 @@ def check_edge_dir(e, dx, dy) -> None:
     y2 = float(style["exitY"])
     y1 = float(style["entryY"])
 
-    assert (x2 - x1) == dx
-    assert (y2 - y1) == dy
+    assert (x2 - x1) == pytest.approx(dx)
+    assert (y2 - y1) == pytest.approx(dy)
 
 
 def test_hello() -> None:
@@ -215,4 +217,4 @@ def test_invisible():
 
     root = ElementTree.fromstring(xml)
     check_xml_top(root)
-    assert ';exitX=1.0000;exitY=0.5839;"' in xml
+    assert ';exitX=1.000;exitY=0.584;"' in xml
