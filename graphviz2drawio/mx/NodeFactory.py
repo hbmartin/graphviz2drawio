@@ -61,7 +61,7 @@ class NodeFactory:
             )
             shape = (
                 Shape.ELLIPSE
-                if len(SVG.findall(g, "ellipse")) == 1
+                if len(SVG.findall_recursive(g, "ellipse")) == 1
                 else Shape.DOUBLE_CIRCLE
             )
             fill = self._extract_fill(ellipse, gradients)
