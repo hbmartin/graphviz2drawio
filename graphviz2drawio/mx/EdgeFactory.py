@@ -24,10 +24,10 @@ class EdgeFactory:
         # pyrefly: ignore  # bad-assignment
         labels: list[Text] = [
             text_from_tag
-            for tag in g
-            if SVG.is_tag(tag, "text")
-            and (text_from_tag := Text.from_svg(tag)) is not None
+            for tag in SVG.findall(g, "text")
+            if (text_from_tag := Text.from_svg(tag)) is not None
         ]
+
         if (path := SVG.get_first(g, "path")) is not None:
             if "d" in path.attrib:
                 curve = self.curve_factory.from_svg(path.attrib["d"])
