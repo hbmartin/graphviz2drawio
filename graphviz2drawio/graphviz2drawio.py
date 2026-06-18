@@ -13,6 +13,16 @@ def convert(
     graph_to_convert: AGraph | str | TextIOBase | Path,
     layout_prog: str = "dot",
 ) -> str:
+    """Convert a Graphviz graph into draw.io/mxGraph XML.
+
+    :param graph_to_convert: Graphviz input as a ``pygraphviz.AGraph``, a DOT
+        string, a path-like object, or an open text file handle.
+    :param layout_prog: Graphviz layout program to use when rendering the graph
+        to SVG before conversion, such as ``dot``, ``neato``, or ``circo``.
+    :returns: A draw.io-compatible mxGraph XML string.
+    :raises UnableToParseGraphError: If Graphviz does not return SVG output for
+        the graph.
+    """
     graph = _load_pygraphviz_agraph(graph_to_convert)
 
     graph_edges: dict[str, dict] = {

@@ -24,7 +24,7 @@ class EdgeFactory:
         # pyrefly: ignore  # bad-assignment
         labels: list[Text] = [
             text_from_tag
-            for tag in SVG.findall(g, "text")
+            for tag in SVG.findall_recursive(g, "text")
             if (text_from_tag := Text.from_svg(tag)) is not None
         ]
 
