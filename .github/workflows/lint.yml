@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
+        python-version: ["3.11", "3.12", "3.13", "3.14"]
     steps:
       - uses: actions/checkout@v4
       - name: Setup Graphviz
@@ -21,11 +21,9 @@ jobs:
           enable-cache: true
       - run: uv sync --locked --dev
       - run: uv run ruff check .
-      - name: Run pytype if on 3.11, pyrefly if on 3.14, ty otherwise
+      - name: Run pyrefly if on 3.14, ty otherwise
         run: |
-          if [[ '${{ matrix.python-version }}' == 3.11* ]]; then
-            uv run --with pytype pytype -j auto graphviz2drawio
-          elif [[ '${{ matrix.python-version }}' == 3.14* ]]; then
+          if [[ '${{ matrix.python-version }}' == 3.14* ]]; then
             echo "Using pyrefly for Python 3.14"
             uv run --with pyrefly pyrefly check graphviz2drawio
           else

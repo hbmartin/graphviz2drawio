@@ -182,7 +182,9 @@ def _max_deviation_for_cubic(cubic, controls: list[complex]) -> float:
     return max_deviation
 
 
-def _drawio_curved_quads(points: list[complex]) -> list[tuple[complex, complex, complex]]:
+def _drawio_curved_quads(
+    points: list[complex],
+) -> list[tuple[complex, complex, complex]]:
     quads = []
     current = points[0]
     for index in range(1, len(points) - 2):

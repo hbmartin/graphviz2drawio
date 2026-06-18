@@ -57,8 +57,13 @@ class CurveFactory:
                     cubics.append(line_to_cubic(start, end))
                     linear_flags.append(True)
             elif isinstance(segment, Arc):
-                arc_cubics = [
-                    tuple(self.coords.complex_translate(point) for point in cubic)
+                arc_cubics: list[Cubic] = [
+                    (
+                        self.coords.complex_translate(cubic[0]),
+                        self.coords.complex_translate(cubic[1]),
+                        self.coords.complex_translate(cubic[2]),
+                        self.coords.complex_translate(cubic[3]),
+                    )
                     for cubic in arc_to_cubics(segment)
                 ]
                 cubics.extend(arc_cubics)

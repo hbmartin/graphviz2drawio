@@ -67,7 +67,7 @@ graphviz2drawio --encoding utf-8 yourgraph.dot
 
 ## Unsupported Python version
 
-graphviz2drawio requires **Python 3.10 or newer**. Check your interpreter with
+graphviz2drawio requires **Python 3.11 or newer**. Check your interpreter with
 `python --version`, and prefer [pipx](https://pipx.pypa.io/stable/) for the CLI
 so it runs in its own isolated, compatible environment.
 
