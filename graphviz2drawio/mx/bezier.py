@@ -4,7 +4,7 @@
 # See: https://github.com/fonttools/fonttools/tree/main/Lib/fontTools/cu2qu
 
 import math
-from typing import TypeAlias
+from typing import Literal, TypeAlias, overload
 
 from svg.path import Arc
 
@@ -98,8 +98,7 @@ def cubic_chain_to_quadratic_controls(
     tol = max_err / 2
     adjustment_budget = 0.75 * tol
     min_segments = [
-        2 if 0 < index < len(cubics) - 1 else 1
-        for index, _cubic in enumerate(cubics)
+        2 if 0 < index < len(cubics) - 1 else 1 for index, _cubic in enumerate(cubics)
     ]
 
     controls_by_cubic: list[list[complex]] = []
@@ -251,6 +250,26 @@ def _ellipse_derivative(
         (x * cos_rotation) - (y * sin_rotation),
         (x * sin_rotation) + (y * cos_rotation),
     )
+
+
+@overload
+def _cubic_approx_spline(
+    cubic: Cubic,
+    n: int,
+    tolerance: float,
+    *,
+    check: Literal[False],
+) -> list[complex]: ...
+
+
+@overload
+def _cubic_approx_spline(
+    cubic: Cubic,
+    n: int,
+    tolerance: float,
+    *,
+    check: bool = True,
+) -> list[complex] | None: ...
 
 
 def _cubic_approx_spline(

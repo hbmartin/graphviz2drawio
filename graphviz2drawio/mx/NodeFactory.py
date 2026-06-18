@@ -57,7 +57,7 @@ class NodeFactory:
         elif (ellipse := SVG.get_first(g, "ellipse")) is not None:
             rect = rect_from_ellipse_svg(
                 coords=self.coords,
-                attrib=ellipse.attrib,  # pytype: disable=attribute-error
+                attrib=ellipse.attrib,
             )
             shape = (
                 Shape.ELLIPSE

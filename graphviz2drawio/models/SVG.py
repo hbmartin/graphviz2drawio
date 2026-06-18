@@ -26,7 +26,7 @@ def findall_recursive(g: Element, tag: str) -> list[Element]:
 
 def get_title(g: Element) -> str | None:
     if (title_el := get_first(g, "title")) is not None:
-        return title_el.text  # pytype: disable=attribute-error
+        return title_el.text
     return None
 
 

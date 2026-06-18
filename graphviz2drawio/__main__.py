@@ -30,6 +30,21 @@ def _write_stderr_message(to_convert: str) -> None:
     stderr.write(f"Python: {sys.version}, g2d: {__version__}\n")
 
 
+def _add_conversion_note(
+    exc: Exception,
+    *,
+    to_convert: Path | TextIOWrapper,
+    program: str,
+    encoding: str,
+    outfile: str | None,
+) -> None:
+    output = "stdout" if outfile is None else outfile
+    exc.add_note(
+        "graphviz2drawio context: "
+        f"input={to_convert}, program={program}, encoding={encoding}, output={output}",
+    )
+
+
 def _convert_file(
     to_convert: Path | TextIOWrapper,
     program: str,
@@ -43,7 +58,7 @@ def _convert_file(
         elif isinstance(to_convert, Path):
             with to_convert.open(encoding=encoding) as contents:
                 output = convert(contents.read(), program)
-    except UnicodeDecodeError:
+    except UnicodeDecodeError as exc:
         if encoding.lower() != UTF8 and isinstance(to_convert, Path):
             # Attempt to automatically recover for file. Chinese Windows systems in
             # particular often use other encodings e.g. gbk, cp950, cp1252, etc. but
@@ -51,10 +66,24 @@ def _convert_file(
             # https://github.com/hbmartin/graphviz2drawio/issues/105
             return _convert_file(to_convert, program, UTF8, outfile)
 
+        _add_conversion_note(
+            exc,
+            to_convert=to_convert,
+            program=program,
+            encoding=encoding,
+            outfile=outfile,
+        )
         _write_stderr_message(str(to_convert))
         raise
 
-    except Exception:
+    except Exception as exc:
+        _add_conversion_note(
+            exc,
+            to_convert=to_convert,
+            program=program,
+            encoding=encoding,
+            outfile=outfile,
+        )
         _write_stderr_message(str(to_convert))
         raise
 
@@ -74,9 +103,9 @@ def _convert_file(
 
 
 def main() -> None:
-    args = Arguments(__version__).parse_args()  # pytype: disable=not-callable
+    args = Arguments(__version__).parse_args()
 
-    in_files: list[TextIOWrapper]
+    in_files: list[Path | TextIOWrapper]
     out_files: list[str | None]
 
     _validate_args(args)
@@ -91,13 +120,23 @@ def main() -> None:
         in_files = args.to_convert
         out_files = [_gv_filename_to_xml(in_file.name) for in_file in args.to_convert]
 
+    failures: list[Exception] = []
     for in_file, out_file in zip(in_files, out_files, strict=True):
-        _convert_file(
-            to_convert=in_file,
-            program=args.program,
-            encoding=args.encoding,
-            outfile=out_file,
-        )
+        try:
+            _convert_file(
+                to_convert=in_file,
+                program=args.program,
+                encoding=args.encoding,
+                outfile=out_file,
+            )
+        except Exception as exc:
+            if len(in_files) == 1:
+                raise
+            failures.append(exc)
+
+    if failures:
+        msg = f"Failed to convert {len(failures)} of {len(in_files)} files"
+        raise ExceptionGroup(msg, failures)
 
 
 def _determine_single_output(args: Namespace) -> list[str | None]:
@@ -125,7 +164,7 @@ def _validate_args(args: Namespace) -> None:
         and args.to_convert[0] == sys.stdin
         and sys.stdin.isatty()
     ):
-        Arguments(__version__).print_help()  # pytype: disable=not-callable
+        Arguments(__version__).print_help()
         sys.exit(1)
 
 

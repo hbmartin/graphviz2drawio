@@ -65,7 +65,9 @@ def _path_to_cubics(svg_path: str) -> list[Cubic]:
                 (segment.start, segment.control1, segment.control2, segment.end),
             )
         elif isinstance(segment, QuadraticBezier):
-            cubics.append(quadratic_to_cubic(segment.start, segment.control, segment.end))
+            cubics.append(
+                quadratic_to_cubic(segment.start, segment.control, segment.end),
+            )
         elif isinstance(segment, Line | Close):
             if segment.start != segment.end:
                 cubics.append(line_to_cubic(segment.start, segment.end))
@@ -85,7 +87,9 @@ def _max_deviation(cubics, points: list[complex]) -> float:
     )
 
 
-def _drawio_curved_quads(points: list[complex]) -> list[tuple[complex, complex, complex]]:
+def _drawio_curved_quads(
+    points: list[complex],
+) -> list[tuple[complex, complex, complex]]:
     quads = []
     current = points[0]
     for index in range(1, len(points) - 2):
@@ -98,24 +102,19 @@ def _drawio_curved_quads(points: list[complex]) -> list[tuple[complex, complex, 
 
 def _sample_cubics(cubics) -> list[complex]:
     return [
-        _cubic_point(cubic, sample / 80)
-        for cubic in cubics
-        for sample in range(81)
+        _cubic_point(cubic, sample / 80) for cubic in cubics for sample in range(81)
     ]
 
 
 def _sample_quads(quads) -> list[complex]:
     return [
-        _quadratic_point(*quad, sample / 80)
-        for quad in quads
-        for sample in range(81)
+        _quadratic_point(*quad, sample / 80) for quad in quads for sample in range(81)
     ]
 
 
 def _distance_to_polyline(point: complex, polyline: list[complex]) -> float:
     return min(
-        _distance_to_segment(point, start, end)
-        for start, end in pairwise(polyline)
+        _distance_to_segment(point, start, end) for start, end in pairwise(polyline)
     )
 
 
