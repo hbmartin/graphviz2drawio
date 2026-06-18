@@ -9,10 +9,10 @@
     <mxCell id="node2" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;World&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=none;strokeWidth=1;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="4.0" y="76.0" width="81.38" height="36.0" as="geometry" />
     </mxCell>
-    <mxCell id="edge1" style="html=1;endArrow=block;dashed=0;endFill=1;startArrow=none;startFill=0;fillColor=black;strokeColor=black;strokeWidth=1;rounded=0;exitX=0.5000;exitY=1.0000;entryX=0.5000;entryY=0.0000;" parent="1" edge="1" source="node1" target="node2">
+    <mxCell id="edge1" style="html=1;endArrow=block;dashed=0;endFill=1;startArrow=none;startFill=0;fillColor=black;strokeColor=black;strokeWidth=1;rounded=0;exitX=0.500;exitY=1.000;entryX=0.500;entryY=0.000;" parent="1" edge="1" source="node1" target="node2">
       <mxGeometry as="geometry" relative="1">
         <mxPoint x="44.69" y="40.3" as="sourcePoint" />
-        <mxPoint x="44.69" y="64.46000000000001" as="targetPoint" />
+        <mxPoint x="44.69" y="64.46" as="targetPoint" />
       </mxGeometry>
     </mxCell>
   </root>

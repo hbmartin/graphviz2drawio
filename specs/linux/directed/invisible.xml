@@ -18,61 +18,61 @@
     <mxCell id="node4" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;SPI NOR&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=green;fillColor=none;strokeWidth=1;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="7.0" y="239.5" width="79.0" height="36.0" as="geometry" />
     </mxCell>
-    <mxCell id="edge1" style="html=1;endArrow=none;dashed=0;endFill=0;startArrow=none;startFill=0;fillColor=black;strokeColor=black;strokeWidth=1;rounded=0;exitX=1.0000;exitY=0.5000;entryX=0.0000;entryY=0.1215;" parent="1" edge="1" source="node1" target="node2">
+    <mxCell id="edge1" style="html=1;endArrow=none;dashed=0;endFill=0;startArrow=none;startFill=0;fillColor=black;strokeColor=black;strokeWidth=1;rounded=0;exitX=1.000;exitY=0.500;entryX=0.000;entryY=0.122;" parent="1" edge="1" source="node1" target="node2">
       <mxGeometry as="geometry" relative="1">
         <mxPoint x="78.44" y="39.5" as="sourcePoint" />
         <mxPoint x="124.8" y="39.5" as="targetPoint" />
       </mxGeometry>
     </mxCell>
-    <mxCell id="edge5" style="html=1;endArrow=none;dashed=0;endFill=0;startArrow=none;startFill=0;fillColor=black;strokeColor=black;strokeWidth=1;rounded=0;exitX=1.0000;exitY=0.1215;entryX=0.0000;entryY=0.5000;" parent="1" edge="1" source="node2" target="node5">
+    <mxCell id="edge5" style="html=1;endArrow=none;dashed=0;endFill=0;startArrow=none;startFill=0;fillColor=black;strokeColor=black;strokeWidth=1;rounded=0;exitX=1.000;exitY=0.122;entryX=0.000;entryY=0.500;" parent="1" edge="1" source="node2" target="node5">
       <mxGeometry as="geometry" relative="1">
         <mxPoint x="179.3" y="39.5" as="sourcePoint" />
         <mxPoint x="222.81" y="39.5" as="targetPoint" />
       </mxGeometry>
     </mxCell>
-    <mxCell id="edge6" style="html=1;endArrow=block;dashed=0;endFill=1;startArrow=block;startFill=1;fillColor=black;strokeColor=black;strokeWidth=1;rounded=0;exitX=1.0000;exitY=0.5839;" parent="1" edge="1" source="node2">
+    <mxCell id="edge6" style="html=1;endArrow=block;dashed=0;endFill=1;startArrow=block;startFill=1;fillColor=black;strokeColor=black;strokeWidth=1;rounded=0;exitX=1.000;exitY=0.584;" parent="1" edge="1" source="node2">
       <mxGeometry as="geometry" relative="1">
-        <mxPoint x="190.81" y="172.67000000000002" as="sourcePoint" />
-        <mxPoint x="223.29" y="172.67000000000002" as="targetPoint" />
+        <mxPoint x="190.81" y="172.67" as="sourcePoint" />
+        <mxPoint x="223.29" y="172.67" as="targetPoint" />
       </mxGeometry>
     </mxCell>
     <mxCell id="label_edge6" style="edgeLabel;html=1;align=center;verticalAlign=bottom;resizable=0;points=[];" parent="edge6" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;USB-OTG&lt;/font&gt;" vertex="1" connectable="0">
       <mxGeometry as="geometry" relative="1" />
     </mxCell>
-    <mxCell id="edge7" style="html=1;endArrow=block;dashed=0;endFill=1;startArrow=block;startFill=1;fillColor=black;strokeColor=black;strokeWidth=1;rounded=0;exitX=1.0000;exitY=0.4161;" parent="1" edge="1" source="node2">
+    <mxCell id="edge7" style="html=1;endArrow=block;dashed=0;endFill=1;startArrow=block;startFill=1;fillColor=black;strokeColor=black;strokeWidth=1;rounded=0;exitX=1.000;exitY=0.416;" parent="1" edge="1" source="node2">
       <mxGeometry as="geometry" relative="1">
-        <mxPoint x="190.81" y="124.33000000000001" as="sourcePoint" />
-        <mxPoint x="223.29" y="124.33000000000001" as="targetPoint" />
+        <mxPoint x="190.81" y="124.33" as="sourcePoint" />
+        <mxPoint x="223.29" y="124.33" as="targetPoint" />
       </mxGeometry>
     </mxCell>
     <mxCell id="label_edge7" style="edgeLabel;html=1;align=center;verticalAlign=bottom;resizable=0;points=[];" parent="edge7" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;Ethernet&lt;/font&gt;" vertex="1" connectable="0">
       <mxGeometry as="geometry" relative="1" />
     </mxCell>
-    <mxCell id="edge8" style="html=1;endArrow=none;dashed=0;endFill=0;startArrow=none;startFill=0;fillColor=black;strokeColor=black;strokeWidth=1;rounded=0;exitX=1.0000;exitY=0.8785;entryX=0.0000;entryY=0.5000;" parent="1" edge="1" source="node2" target="node7">
+    <mxCell id="edge8" style="html=1;endArrow=none;dashed=0;endFill=0;startArrow=none;startFill=0;fillColor=black;strokeColor=black;strokeWidth=1;rounded=0;exitX=1.000;exitY=0.878;entryX=0.000;entryY=0.500;" parent="1" edge="1" source="node2" target="node7">
       <mxGeometry as="geometry" relative="1">
         <mxPoint x="179.3" y="257.5" as="sourcePoint" />
         <mxPoint x="214.7" y="257.5" as="targetPoint" />
       </mxGeometry>
     </mxCell>
-    <mxCell id="edge2" style="html=1;endArrow=block;dashed=0;endFill=1;startArrow=none;startFill=0;fillColor=black;strokeColor=black;strokeWidth=1;rounded=0;entryX=0.0000;entryY=0.5839;" parent="1" edge="1" target="node2">
+    <mxCell id="edge2" style="html=1;endArrow=block;dashed=0;endFill=1;startArrow=none;startFill=0;fillColor=black;strokeColor=black;strokeWidth=1;rounded=0;entryX=0.000;entryY=0.584;" parent="1" edge="1" target="node2">
       <mxGeometry as="geometry" relative="1">
-        <mxPoint x="89.41" y="172.67000000000002" as="sourcePoint" />
-        <mxPoint x="113.04" y="172.67000000000002" as="targetPoint" />
+        <mxPoint x="89.41" y="172.67" as="sourcePoint" />
+        <mxPoint x="113.04" y="172.67" as="targetPoint" />
       </mxGeometry>
     </mxCell>
     <mxCell id="label_edge2" style="edgeLabel;html=1;align=center;verticalAlign=bottom;resizable=0;points=[];" parent="edge2" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;Boot Source&lt;/font&gt;" vertex="1" connectable="0">
       <mxGeometry as="geometry" relative="1" />
     </mxCell>
-    <mxCell id="edge3" style="html=1;endArrow=block;dashed=0;endFill=1;startArrow=block;startFill=1;fillColor=black;strokeColor=black;strokeWidth=1;rounded=0;entryX=0.0000;entryY=0.4161;" parent="1" edge="1" target="node2">
+    <mxCell id="edge3" style="html=1;endArrow=block;dashed=0;endFill=1;startArrow=block;startFill=1;fillColor=black;strokeColor=black;strokeWidth=1;rounded=0;entryX=0.000;entryY=0.416;" parent="1" edge="1" target="node2">
       <mxGeometry as="geometry" relative="1">
-        <mxPoint x="100.92" y="124.33000000000001" as="sourcePoint" />
-        <mxPoint x="113.04" y="124.33000000000001" as="targetPoint" />
+        <mxPoint x="100.92" y="124.33" as="sourcePoint" />
+        <mxPoint x="113.04" y="124.33" as="targetPoint" />
       </mxGeometry>
     </mxCell>
     <mxCell id="label_edge3" style="edgeLabel;html=1;align=center;verticalAlign=bottom;resizable=0;points=[];" parent="edge3" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;USB&lt;/font&gt;" vertex="1" connectable="0">
       <mxGeometry as="geometry" relative="1" />
     </mxCell>
-    <mxCell id="edge4" style="html=1;endArrow=none;dashed=0;endFill=0;startArrow=none;startFill=0;fillColor=black;strokeColor=black;strokeWidth=1;rounded=0;exitX=1.0000;exitY=0.5000;entryX=0.0000;entryY=0.8785;" parent="1" edge="1" source="node4" target="node2">
+    <mxCell id="edge4" style="html=1;endArrow=none;dashed=0;endFill=0;startArrow=none;startFill=0;fillColor=black;strokeColor=black;strokeWidth=1;rounded=0;exitX=1.000;exitY=0.500;entryX=0.000;entryY=0.878;" parent="1" edge="1" source="node4" target="node2">
       <mxGeometry as="geometry" relative="1">
         <mxPoint x="86.39" y="257.5" as="sourcePoint" />
         <mxPoint x="124.52" y="257.5" as="targetPoint" />
