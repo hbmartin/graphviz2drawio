@@ -22,11 +22,35 @@ brew install graphviz2drawio
 
 ### Linux
 
-It is recommended to use [pipx](https://pipx.pypa.io/stable/) to install and run the CLI tool. If you wish to use the library, you can install with `pip` instead.
+It is recommended to use [uv](https://docs.astral.sh/uv/) or
+[pipx](https://pipx.pypa.io/stable/) to install and run the CLI tool in an
+isolated environment. If you wish to use the library, you can install with
+`pip` instead.
 
 Note that the graphviz library is required before installing this package.
 
-#### Ubuntu / Debian
+#### With uv
+
+##### Ubuntu / Debian
+
+```bash
+sudo apt update
+sudo apt install graphviz graphviz-dev
+uv tool install graphviz2drawio
+# To update: uv tool upgrade graphviz2drawio
+```
+
+##### Fedora
+
+```bash
+sudo dnf install graphviz graphviz-devel
+uv tool install graphviz2drawio
+# To update: uv tool upgrade graphviz2drawio
+```
+
+#### With pipx
+
+##### Ubuntu / Debian
 
 ```bash
 sudo apt update
@@ -35,10 +59,10 @@ pipx install graphviz2drawio
 # To update: pipx upgrade graphviz2drawio
 ```
 
-#### Fedora
+##### Fedora
 
 ```bash
-sudo dnf install pipx
+sudo dnf install pipx graphviz graphviz-devel
 pipx ensurepath
 pipx install graphviz2drawio
 # To update: pipx upgrade graphviz2drawio
@@ -98,9 +122,9 @@ dot -V
 ### `pygraphviz` fails to build during installation
 
 `pygraphviz` compiles a C extension against the Graphviz development headers, so
-those headers must be present *before* you `pip` / `pipx install`. On Debian /
-Ubuntu install `graphviz-dev` (or `libgraphviz-dev`); on Fedora install
-`graphviz-devel`.
+those headers must be present *before* you install with `uv`, `pip`, or `pipx`.
+On Debian / Ubuntu install `graphviz-dev` (or `libgraphviz-dev`); on Fedora
+install `graphviz-devel`.
 
 On macOS (Apple Silicon) the Homebrew prefix `/opt/homebrew` is not on the
 default compiler search path, so the build can fail with a clang error about a
@@ -151,8 +175,9 @@ graphviz2drawio --encoding utf-8 yourgraph.dot
 ### Unsupported Python version
 
 graphviz2drawio requires **Python 3.11 or newer**. Check your interpreter with
-`python --version`, and prefer [pipx](https://pipx.pypa.io/stable/) for the CLI
-so it runs in its own isolated, compatible environment.
+`python --version`, and prefer [uv](https://docs.astral.sh/uv/) or
+[pipx](https://pipx.pypa.io/stable/) for the CLI so it runs in its own
+isolated, compatible environment.
 
 ### Other conversion errors
 

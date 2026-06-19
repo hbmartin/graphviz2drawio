@@ -4,6 +4,9 @@ from svg.path import CubicBezier
 
 LINE_ABS_TOLERANCE = 0.01
 _SVG_ROUNDING_TOLERANCE = 0.001
+# Two points closer than this (in graphviz points) are treated as coincident
+# when locating a waypoint distinct from a terminal for tangent computation.
+_COINCIDENT_POINT_TOLERANCE = 0.01
 
 
 class Curve:
@@ -22,7 +25,12 @@ class Curve:
         is_bezier: bool,
         points: list[complex],
     ) -> None:
-        """Complex numbers for start, end, and list of 4 Bezier control points."""
+        """Build a curve from terminal points and a variable-length point list.
+
+        `points` holds the polyline anchors when the curve is linear, or the
+        quadratic control points (one or more, terminals excluded) consumed by
+        draw.io's implied-midpoint renderer when the curve is a Bézier.
+        """
         self.start: complex = start
         self.end: complex = end
         self.is_bezier: bool = is_bezier
@@ -48,14 +56,14 @@ class Curve:
     def first_interior_point(self) -> complex:
         """Return the first waypoint that is distinct from the source terminal."""
         for point in self.points:
-            if abs(point - self.start) > LINE_ABS_TOLERANCE:
+            if abs(point - self.start) > _COINCIDENT_POINT_TOLERANCE:
                 return point
         return self.end
 
     def last_interior_point(self) -> complex:
         """Return the last waypoint that is distinct from the target terminal."""
         for point in reversed(self.points):
-            if abs(point - self.end) > LINE_ABS_TOLERANCE:
+            if abs(point - self.end) > _COINCIDENT_POINT_TOLERANCE:
                 return point
         return self.start
 
