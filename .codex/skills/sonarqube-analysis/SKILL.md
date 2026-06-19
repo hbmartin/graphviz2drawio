@@ -8,21 +8,20 @@ description: Inspect SonarQube Cloud/SonarCloud findings for this repository usi
 ## Workflow
 
 1. Load Sonar settings from the repo `.env` without printing secrets.
-   This checkout is expected to use SonarCloud project
-   `hbmartin_create-ts-lib` on branch `main`.
+   The script uses the SonarCloud project and branch specified in `.env`.
 2. Prefer the bundled script:
 
    ```bash
-   python3 .agents/skills/sonarqube-analysis/scripts/sonar_report.py --format markdown
+   python3 .codex/skills/sonarqube-analysis/scripts/sonar_report.py --format markdown
    ```
 
 3. If the user asks for a focused slice, pass one or more flags:
 
    ```bash
-   python3 .agents/skills/sonarqube-analysis/scripts/sonar_report.py --bugs --security
-   python3 .agents/skills/sonarqube-analysis/scripts/sonar_report.py --new-code
-   python3 .agents/skills/sonarqube-analysis/scripts/sonar_report.py --branch main --top 20
-   python3 .agents/skills/sonarqube-analysis/scripts/sonar_report.py --project hbmartin_create-ts-lib
+   python3 .codex/skills/sonarqube-analysis/scripts/sonar_report.py --bugs --security
+   python3 .codex/skills/sonarqube-analysis/scripts/sonar_report.py --new-code
+   python3 .codex/skills/sonarqube-analysis/scripts/sonar_report.py --branch main --top 20
+   python3 .codex/skills/sonarqube-analysis/scripts/sonar_report.py --project your-org_your-project
    ```
 
 4. Summarize findings in this order:
@@ -47,8 +46,8 @@ The script expects these keys:
 
 ```bash
 SONAR_HOST_URL=https://sonarcloud.io
-SONAR_ORG=hbmartin
-SONAR_PROJECT_KEY=hbmartin_create-ts-lib
+SONAR_ORG=your-org
+SONAR_PROJECT_KEY=your-org_your-project
 SONAR_BRANCH=main
 SONAR_TOKEN=...
 ```

@@ -8,7 +8,7 @@ usage() {
 }
 
 # Check if the correct number of arguments is provided
-if [ "$#" -lt 2 ] || [ "$#" -gt 3 ]; then
+if [[ "$#" -lt 2 || "$#" -gt 3 ]]; then
     usage
 fi
 
@@ -19,7 +19,7 @@ output_dir="${2%/}"
 platform="${3:-${SPEC_PLATFORM:-}}"
 
 detect_platform() {
-    if [ -n "$platform" ]; then
+    if [[ -n "$platform" ]]; then
         case "$(printf "%s" "$platform" | tr "[:upper:]" "[:lower:]")" in
             mac | macos | darwin)
                 echo "mac"
@@ -54,12 +54,12 @@ detect_platform() {
 spec_platform="$(detect_platform)"
 specs_dir="$repo_root/specs/$spec_platform"
 
-if [ ! -d "$source_dir" ]; then
+if [[ ! -d "$source_dir" ]]; then
     echo "Source directory does not exist: $source_dir" >&2
     exit 1
 fi
 
-if [ ! -d "$specs_dir" ]; then
+if [[ ! -d "$specs_dir" ]]; then
     echo "Spec directory does not exist for platform '$spec_platform': $specs_dir" >&2
     exit 1
 fi
@@ -75,7 +75,7 @@ process_files() {
         source_file="$src_dir/${rel_path%.xml}.gv.txt"
         output_file="$out_dir/$rel_path"
 
-        if [ ! -f "$source_file" ]; then
+        if [[ ! -f "$source_file" ]]; then
             echo "Source file missing for spec: $rel_path" >&2
             return 1
         fi
@@ -115,7 +115,7 @@ while IFS= read -r -d "" file; do
     rel_path="${file#$output_dir/}"
     spec_file="$specs_dir/$rel_path"
 
-    if [ ! -f "$spec_file" ]; then
+    if [[ ! -f "$spec_file" ]]; then
         echo "File missing in specs directory: $rel_path"
         diff_found=true
         continue
@@ -132,13 +132,13 @@ while IFS= read -r -d "" file; do
     rel_path="${file#$specs_dir/}"
     output_file="$output_dir/$rel_path"
 
-    if [ ! -f "$output_file" ]; then
+    if [[ ! -f "$output_file" ]]; then
         echo "Extra file in specs directory: $rel_path"
         diff_found=true
     fi
 done < <(find "$specs_dir" -type f -name "*.xml" -print0)
 
-if [ "$diff_found" = false ]; then
+if [[ "$diff_found" == false ]]; then
     echo "No differences found (ignoring unstable IDs). Test passed."
     exit 0
 else

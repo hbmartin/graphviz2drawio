@@ -7,43 +7,44 @@
 
 usage() {
     echo "Usage: $0 <source_directory> <specs_directory> <output_directory> [--all]"
-    exit 1
+    return 1
 }
 
-if [ "$#" -lt 3 ]; then
+if [[ "$#" -lt 3 ]]; then
     usage
+    exit 1
 fi
 
 source_dir="${1%/}"
 specs_dir="${2%/}"
 output_dir="${3%/}"
 render_all=false
-[ "$4" = "--all" ] && render_all=true
+[[ "${4:-}" == "--all" ]] && render_all=true
 
 # Locate the draw.io CLI
 if command -v drawio > /dev/null 2>&1; then
     drawio="drawio"
-elif [ -x "/Applications/draw.io.app/Contents/MacOS/draw.io" ]; then
+elif [[ -x "/Applications/draw.io.app/Contents/MacOS/draw.io" ]]; then
     drawio="/Applications/draw.io.app/Contents/MacOS/draw.io"
 else
-    echo "Error: draw.io CLI not found. Install with: brew install --cask drawio"
+    echo "Error: draw.io CLI not found. Install with: brew install --cask drawio" >&2
     exit 1
 fi
 
 if ! command -v dot > /dev/null 2>&1; then
-    echo "Error: graphviz (dot) not found. Install with: brew install graphviz"
+    echo "Error: graphviz (dot) not found. Install with: brew install graphviz" >&2
     exit 1
 fi
 
 # Select spec files: changed-in-git by default, all with --all
-if [ "$render_all" = true ]; then
+if [[ "$render_all" == true ]]; then
     spec_files=$(find "$specs_dir" -type f -name "*.xml")
 else
     spec_files=$(git diff --name-only HEAD -- "$specs_dir" | grep '\.xml$')
 fi
 
-if [ -z "$spec_files" ]; then
-    if [ "$render_all" = true ]; then
+if [[ -z "$spec_files" ]]; then
+    if [[ "$render_all" == true ]]; then
         echo "No spec files found in $specs_dir."
     else
         echo "No modified specs found in $specs_dir (use --all to render everything)."
@@ -56,12 +57,12 @@ render_drawio() {
     output_file="$2"
     label="$3"
 
-    if "$drawio" -x -f png -o "$output_file" "$input_file" > /dev/null 2>&1 && [ -s "$output_file" ]; then
+    if "$drawio" -x -f png -o "$output_file" "$input_file" > /dev/null 2>&1 && [[ -s "$output_file" ]]; then
         echo "Rendered: $label -> $output_file"
         return 0
     fi
 
-    echo "Error: draw.io render failed for $label"
+    echo "Error: draw.io render failed for $label" >&2
     return 1
 }
 
@@ -80,29 +81,28 @@ while IFS= read -r spec; do
     # Render the HEAD version when the spec has uncommitted changes
     if ! git diff --quiet HEAD -- "$spec" 2> /dev/null; then
         old_xml="${out_base}_old.xml"
-        if git show "HEAD:$spec" > "$old_xml" 2> /dev/null; then
-            if ! render_drawio "$old_xml" "${out_base}_old.png" "HEAD:$spec"; then
-                status=1
-            fi
+        if git show "HEAD:$spec" > "$old_xml" 2> /dev/null \
+            && ! render_drawio "$old_xml" "${out_base}_old.png" "HEAD:$spec"; then
+            status=1
         fi
         rm -f "$old_xml"
     fi
 
     # Render the graphviz reference from the original source
     src_file="$source_dir/$base.gv.txt"
-    if [ -f "$src_file" ]; then
+    if [[ -f "$src_file" ]]; then
         dot -Tpng "$src_file" -o "${out_base}_reference.png" 2> /dev/null
         echo "Rendered: $src_file -> ${out_base}_reference.png"
     else
-        echo "Warning: no source found for $spec (expected $src_file)"
+        echo "Warning: no source found for $spec (expected $src_file)" >&2
     fi
 done <<EOF
 $spec_files
 EOF
 
-if [ "$status" -eq 0 ]; then
+if [[ "$status" -eq 0 ]]; then
     echo "Done. Compare *_new.png against *_old.png and *_reference.png in $output_dir"
 else
-    echo "Done with errors. Check messages above and outputs in $output_dir"
+    echo "Done with errors. Check messages above and outputs in $output_dir" >&2
 fi
 exit "$status"

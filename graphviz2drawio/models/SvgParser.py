@@ -38,7 +38,7 @@ def parse_nodes_edges_clusters(
     nodes: OrderedDict[str, Node] = OrderedDict()
     edges: OrderedDict[str, Edge] = OrderedDict()
     clusters: OrderedDict[str, Node] = OrderedDict()
-    gradients = dict[str, Gradient]()
+    gradients: dict[str, Gradient] = {}
 
     prev_comment = None
     # pyrefly: ignore  # unknown
