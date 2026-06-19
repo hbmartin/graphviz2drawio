@@ -1,0 +1,4 @@
+interface:
+  display_name: "SonarQube Analysis"
+  short_description: "Inspect SonarCloud findings safely"
+  default_prompt: "Use $sonarqube-analysis to summarize the latest SonarQube Cloud findings for this repo."
