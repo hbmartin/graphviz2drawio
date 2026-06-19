@@ -7,42 +7,45 @@
 usage() {
     echo "Usage: $0 <graphviz_file> [output_directory]"
     echo "  output_directory defaults to tmp_render/"
-    exit 1
+    return 1
 }
 
-if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
+if [[ "$#" -lt 1 || "$#" -gt 2 ]]; then
     usage
+    exit 1
 fi
 
 input_file="$1"
 output_dir="${2:-tmp_render}"
 output_dir="${output_dir%/}"
 
-if [ ! -f "$input_file" ]; then
-    echo "Error: input file not found: $input_file"
+if [[ ! -f "$input_file" ]]; then
+    echo "Error: input file not found: $input_file" >&2
     exit 1
 fi
 
 case "$input_file" in
     *.xml)
-        echo "Error: $input_file looks like a draw.io XML, but this script takes a graphviz source (.gv.txt, .gv, .dot)."
-        echo "To render existing spec XMLs, use: ./scripts/render_specs.sh"
+        echo "Error: $input_file looks like a draw.io XML, but this script takes a graphviz source (.gv.txt, .gv, .dot)." >&2
+        echo "To render existing spec XMLs, use: ./scripts/render_specs.sh" >&2
         exit 1
+        ;;
+    *)
         ;;
 esac
 
 # Locate the draw.io CLI
 if command -v drawio > /dev/null 2>&1; then
     drawio="drawio"
-elif [ -x "/Applications/draw.io.app/Contents/MacOS/draw.io" ]; then
+elif [[ -x "/Applications/draw.io.app/Contents/MacOS/draw.io" ]]; then
     drawio="/Applications/draw.io.app/Contents/MacOS/draw.io"
 else
-    echo "Error: draw.io CLI not found. Install with: brew install --cask drawio"
+    echo "Error: draw.io CLI not found. Install with: brew install --cask drawio" >&2
     exit 1
 fi
 
 if ! command -v dot > /dev/null 2>&1; then
-    echo "Error: graphviz (dot) not found. Install with: brew install graphviz"
+    echo "Error: graphviz (dot) not found. Install with: brew install graphviz" >&2
     exit 1
 fi
 
@@ -58,7 +61,7 @@ drawio_xml="$output_dir/${base}.xml"
 drawio_png="$output_dir/${base}_drawio.png"
 
 if ! dot -Tpng "$input_file" -o "$graphviz_png"; then
-    echo "Error: graphviz could not render $input_file — is it a valid dot file?"
+    echo "Error: graphviz could not render $input_file — is it a valid dot file?" >&2
     exit 1
 fi
 echo "Rendered: $input_file -> $graphviz_png (graphviz)"
@@ -66,13 +69,13 @@ echo "Rendered: $input_file -> $graphviz_png (graphviz)"
 # Run graphviz2drawio in the project environment regardless of cwd
 repo_root="$(cd "$(dirname "$0")/.." && pwd)"
 if ! uv run --project "$repo_root" python -m graphviz2drawio "$input_file" -o "$drawio_xml" > /dev/null; then
-    echo "Error: graphviz2drawio conversion failed for $input_file"
+    echo "Error: graphviz2drawio conversion failed for $input_file" >&2
     exit 1
 fi
 "$drawio" -x -f png -o "$drawio_png" "$drawio_xml" > /dev/null 2>&1
 
-if [ ! -s "$drawio_png" ]; then
-    echo "Error: draw.io export failed for $drawio_xml"
+if [[ ! -s "$drawio_png" ]]; then
+    echo "Error: draw.io export failed for $drawio_xml" >&2
     exit 1
 fi
 echo "Rendered: $input_file -> $drawio_png (graphviz2drawio + draw.io)"

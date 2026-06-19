@@ -81,6 +81,7 @@ def test_message_collecting():
 def icon(node: object, label: str, size=30):
     class Node(node):
         def __init__(self) -> None:
+            # Bypass the diagrams node setup; this helper only needs _load_icon().
             pass
 
     icon_path = Node()._load_icon()  # noqa: SLF001

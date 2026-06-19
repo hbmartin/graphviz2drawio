@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Check if the correct number of arguments is provided
-if [ "$#" -ne 2 ]; then
+if [[ "$#" -ne 2 ]]; then
     echo "Usage: $0 <source_directory> <specs_directory>"
     exit 1
 fi
@@ -15,7 +15,7 @@ generate_spec() {
     local source_file="$1"
     local output_file="$2"
 
-    if [ ! -f "$source_file" ]; then
+    if [[ ! -f "$source_file" ]]; then
         echo "Source file missing for spec: $source_file" >&2
         return 1
     fi
@@ -39,7 +39,7 @@ while IFS= read -r -d "" spec_file; do
     generate_spec "$source_file" "$spec_file"
 done < <(find "$specs_dir" -type f -name "*.xml" -print0)
 
-if [ "$specs_found" = false ]; then
+if [[ "$specs_found" == false ]]; then
     # Bootstrap an empty specs directory by processing every source graph.
     while IFS= read -r -d "" file; do
         rel_path="${file#$source_dir/}"

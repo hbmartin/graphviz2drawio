@@ -11,11 +11,11 @@ jobs:
       matrix:
         python-version: ["3.11", "3.12", "3.13", "3.14"]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       - name: Setup Graphviz
-        uses: ts-graphviz/setup-graphviz@v2
+        uses: ts-graphviz/setup-graphviz@b1de5da23ed0a6d14e0aeee8ed52fdd87af2363c
       - name: Set up uv with Python ${{ matrix.python-version }}
-        uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78
+        uses: astral-sh/setup-uv@fac544c07dec837d0ccb6301d7b5580bf5edae39 # v8.2.0
         with:
           python-version: ${{ matrix.python-version }}
           enable-cache: true
@@ -29,7 +29,7 @@ jobs:
           else
             uv run --with ty ty check graphviz2drawio
           fi
-      - uses: psf/black@stable
+      - uses: psf/black@87928e6d6761a4a6d22250e1fee5601b3998086e
         with:
           options: "--check --verbose"
       - run: uv run pytest --cov
