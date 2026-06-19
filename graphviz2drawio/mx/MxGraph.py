@@ -132,6 +132,14 @@ class MxGraph:
         source: Node | None,
         target: Node | None,
     ) -> bool:
+        """Decide whether the curve runs end->start relative to source/target.
+
+        Broader than a plain ``dir == BACK`` swap: the curve's geometry is
+        scored against both node assignments so that edges whose stored
+        start/end happen to be oriented opposite to the drawio source/target
+        get their terminals (and waypoints) reversed. ``dir == BACK`` is only
+        the tiebreaker when the geometry is ambiguous (e.g. self-loops).
+        """
         if edge.curve is None:
             return False
 
