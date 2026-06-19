@@ -97,6 +97,9 @@ class SonarClient:
         except urllib.error.URLError as error:
             msg = f"Sonar API connection error for {path}: {error.reason}"
             raise SystemExit(msg) from error
+        except json.JSONDecodeError as error:
+            msg = f"Failed to parse JSON response from Sonar API for {path}: {error}"
+            raise SystemExit(msg) from error
 
 
 def issue_path(issue: dict[str, Any]) -> str:
@@ -143,7 +146,10 @@ def fetch_issues(
         if not page_issues:
             return issues
         issues.extend(page_issues)
-        total = data.get("paging", {}).get("total", data.get("total", len(issues)))
+        total = (data.get("paging") or {}).get(
+            "total",
+            data.get("total", len(issues)),
+        )
         if len(issues) >= total:
             return issues
         page += 1
@@ -165,7 +171,7 @@ def fetch_hotspots(
         if not page_hotspots:
             return hotspots
         hotspots.extend(page_hotspots)
-        total = data.get("paging", {}).get("total", len(hotspots))
+        total = (data.get("paging") or {}).get("total", len(hotspots))
         if len(hotspots) >= total:
             return hotspots
         page += 1
