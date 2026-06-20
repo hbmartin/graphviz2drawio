@@ -28,4 +28,5 @@ class CommentedTreeBuilder(ElementTree.TreeBuilder):
             return element
         self.start(COMMENT, {})
         self.data(unescape((text or "").strip()))
-        return self.end(COMMENT)
+        self.end(COMMENT)
+        return element

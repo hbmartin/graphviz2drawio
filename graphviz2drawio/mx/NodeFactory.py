@@ -151,7 +151,8 @@ class NodeFactory:
                     offset = self._extract_text_offset(t, current_text)
                 continue
 
-            current_text = self._flush_text(texts, current_text)
+            self._flush_text(texts, current_text)
+            current_text = None
 
         self._flush_text(texts, current_text)
         return texts, offset
