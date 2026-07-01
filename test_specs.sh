@@ -71,25 +71,34 @@ process_files() {
     local src_dir="$1"
     local out_dir="$2"
     local expected_dir="$3"
+    local status=0
 
     while IFS= read -r -d "" file; do
-        rel_path="${file#$expected_dir/}"
+        rel_path="${file#"$expected_dir"/}"
         source_file="$src_dir/${rel_path%.xml}.gv.txt"
         output_file="$out_dir/$rel_path"
 
         if [[ ! -f "$source_file" ]]; then
             echo "Source file missing for spec: $rel_path" >&2
-            return 1
+            status=1
+            continue
         fi
 
         mkdir -p "$(dirname "$output_file")"
         if ! python3 -m graphviz2drawio "$source_file" -o "$output_file" >/dev/null; then
             echo "Failed to process: $source_file" >&2
-            return 1
+            status=1
+            continue
         fi
         echo "Processed: $source_file -> $output_file"
-        render_drawio_png "$output_file" "${output_file%.xml}.png" "$output_file"
+        if ! render_drawio_png "$output_file" "${output_file%.xml}.png" "$output_file"; then
+            echo "Failed to render PNG for spec: $output_file" >&2
+            status=1
+            continue
+        fi
     done < <(find "$expected_dir" -type f -name "*.xml" -print0)
+
+    return "$status"
 }
 
 # Function to compare files ignoring unstable IDs
@@ -108,14 +117,20 @@ compare_files() {
 echo "Processing files from $source_dir to $output_dir"
 rm -rf "$output_dir"
 mkdir -p "$output_dir"
-process_files "$source_dir" "$output_dir" "$specs_dir"
+process_status=0
+if ! process_files "$source_dir" "$output_dir" "$specs_dir"; then
+    process_status=1
+fi
 
 # Compare output_dir with specs_dir
 echo "Comparing results in $output_dir with $specs_dir ($spec_platform)"
 diff_found=false
+if [[ "$process_status" -ne 0 ]]; then
+    diff_found=true
+fi
 
 while IFS= read -r -d "" file; do
-    rel_path="${file#$output_dir/}"
+    rel_path="${file#"$output_dir"/}"
     spec_file="$specs_dir/$rel_path"
     rel_png="${rel_path%.xml}.png"
     output_png="$output_dir/$rel_png"
@@ -154,7 +169,7 @@ while IFS= read -r -d "" file; do
 done < <(find "$output_dir" -type f -name "*.xml" -print0)
 
 while IFS= read -r -d "" file; do
-    rel_path="${file#$specs_dir/}"
+    rel_path="${file#"$specs_dir"/}"
     output_file="$output_dir/$rel_path"
 
     if [[ ! -f "$output_file" ]]; then
@@ -164,7 +179,7 @@ while IFS= read -r -d "" file; do
 done < <(find "$specs_dir" -type f -name "*.xml" -print0)
 
 while IFS= read -r -d "" file; do
-    rel_path="${file#$specs_dir/}"
+    rel_path="${file#"$specs_dir"/}"
     spec_file="$specs_dir/${rel_path%.png}.xml"
 
     if [[ ! -f "$spec_file" ]]; then

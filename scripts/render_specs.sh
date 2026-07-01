@@ -72,8 +72,12 @@ while IFS= read -r spec; do
     # Render the graphviz reference from the original source
     src_file="$source_dir/$base.gv.txt"
     if [[ -f "$src_file" ]]; then
-        dot -Tpng "$src_file" -o "${out_base}_reference.png" 2> /dev/null
-        echo "Rendered: $src_file -> ${out_base}_reference.png"
+        if dot -Tpng "$src_file" -o "${out_base}_reference.png" 2> /dev/null; then
+            echo "Rendered: $src_file -> ${out_base}_reference.png"
+        else
+            echo "Failed to render graphviz reference: $src_file" >&2
+            status=1
+        fi
     else
         echo "Warning: no source found for $spec (expected $src_file)" >&2
     fi

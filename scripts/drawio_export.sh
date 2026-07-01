@@ -49,6 +49,41 @@ should_use_xvfb() {
     esac
 }
 
+run_with_timeout() {
+    local timeout_seconds="${DRAWIO_TIMEOUT_SECONDS:-120}"
+
+    if command -v timeout > /dev/null 2>&1; then
+        timeout "$timeout_seconds" "$@"
+        return
+    fi
+
+    if command -v gtimeout > /dev/null 2>&1; then
+        gtimeout "$timeout_seconds" "$@"
+        return
+    fi
+
+    if command -v python3 > /dev/null 2>&1; then
+        DRAWIO_TIMEOUT_SECONDS="$timeout_seconds" python3 - "$@" <<'PY'
+import os
+import subprocess
+import sys
+
+timeout = float(os.environ["DRAWIO_TIMEOUT_SECONDS"])
+try:
+    raise SystemExit(subprocess.run(sys.argv[1:], timeout=timeout).returncode)
+except subprocess.TimeoutExpired:
+    print(
+        f"Command timed out after {timeout:g}s: {' '.join(sys.argv[1:])}",
+        file=sys.stderr,
+    )
+    raise SystemExit(124)
+PY
+        return
+    fi
+
+    "$@"
+}
+
 render_drawio_png() {
     local input_file="$1"
     local output_file="$2"
@@ -60,6 +95,7 @@ render_drawio_png() {
 
     drawio="$(resolve_drawio)" || return 1
     mkdir -p "$(dirname "$output_file")"
+    rm -f "$output_file"
     render_log="$(mktemp)"
 
     if should_use_xvfb; then
@@ -74,13 +110,13 @@ render_drawio_png() {
             rm -f "$render_log"
             return 1
         fi
-        if xvfb-run -a "$drawio" -x -f png -o "$output_file" "$input_file" > "$render_log" 2>&1; then
+        if run_with_timeout xvfb-run -a "$drawio" -x -f png -o "$output_file" "$input_file" > "$render_log" 2>&1; then
             render_status=0
         else
             render_status="$?"
         fi
     elif [[ "$xvfb_status" -eq 1 ]]; then
-        if "$drawio" -x -f png -o "$output_file" "$input_file" > "$render_log" 2>&1; then
+        if run_with_timeout "$drawio" -x -f png -o "$output_file" "$input_file" > "$render_log" 2>&1; then
             render_status=0
         else
             render_status="$?"

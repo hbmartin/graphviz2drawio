@@ -25,6 +25,16 @@ def _load_sonar_report() -> object:
 SONAR_REPORT = _load_sonar_report()
 
 
+def test_normalized_total_uses_first_valid_candidate() -> None:
+    assert SONAR_REPORT.normalized_total(None, 3, 5, fallback=1) == 3
+
+
+def test_normalized_total_ignores_bool_and_negative_values() -> None:
+    bool_candidate = True
+
+    assert SONAR_REPORT.normalized_total(bool_candidate, -1, "7", fallback=4) == 4
+
+
 class FakeSonarClient:
     def __init__(self, responses: list[dict[str, Any]]) -> None:
         self.responses = responses

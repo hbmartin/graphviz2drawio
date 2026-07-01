@@ -1,0 +1,32 @@
+rules:
+  - id: python-pillow-disabled-decompression-bomb-limit
+    message: Do not disable Pillow decompression-bomb protection; use a finite MAX_IMAGE_PIXELS value.
+    severity: ERROR
+    languages:
+      - python
+    pattern: Image.MAX_IMAGE_PIXELS = None
+
+  - id: python-unvalidated-path-write
+    message: Resolve and validate a path boundary before creating parent directories and writing output files.
+    severity: WARNING
+    languages:
+      - python
+    patterns:
+      - pattern-either:
+          - pattern: |
+              $PATH.parent.mkdir(...)
+              ...
+              $IMAGE.save($PATH)
+          - pattern: |
+              $PATH.parent.mkdir(...)
+              ...
+              open($PATH, ...)
+      - pattern-not-inside: |
+          $SAFE = $PATH.resolve()
+          ...
+          if not $SAFE.is_relative_to(...):
+              ...
+          ...
+      - pattern-not-inside: |
+          $SAFE = validated_diff_path(...)
+          ...
