@@ -22,3 +22,11 @@ jobs:
           cache-to: type=gha,mode=max
       - name: Run spec tests
         run: docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/work" -w /work graphviz2drawio-spec-env ./scripts/test_specs.sh test/ tmp_out/
+      - name: Upload visual spec artifacts
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: visual-spec-artifacts
+          path: |
+            tmp_out/**/*.png
+            tmp_out/**/*.xml

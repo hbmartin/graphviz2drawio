@@ -122,6 +122,13 @@ def first_impact(issue: dict[str, Any]) -> dict[str, str]:
     return impacts[0] if impacts else {}
 
 
+def normalized_total(*values: object, fallback: int) -> int:
+    for value in values:
+        if isinstance(value, int) and not isinstance(value, bool) and value >= 0:
+            return value
+    return fallback
+
+
 def fetch_issues(
     client: SonarClient,
     project: str,
@@ -146,9 +153,11 @@ def fetch_issues(
         if not page_issues:
             return issues
         issues.extend(page_issues)
-        total = (data.get("paging") or {}).get(
-            "total",
-            data.get("total", len(issues)),
+        paging = data.get("paging") or {}
+        total = normalized_total(
+            paging.get("total"),
+            data.get("total"),
+            fallback=len(issues),
         )
         if len(issues) >= total:
             return issues
@@ -171,7 +180,10 @@ def fetch_hotspots(
         if not page_hotspots:
             return hotspots
         hotspots.extend(page_hotspots)
-        total = (data.get("paging") or {}).get("total", len(hotspots))
+        total = normalized_total(
+            (data.get("paging") or {}).get("total"),
+            fallback=len(hotspots),
+        )
         if len(hotspots) >= total:
             return hotspots
         page += 1

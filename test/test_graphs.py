@@ -179,6 +179,14 @@ def test_datastruct() -> None:
     assert elements[-1].attrib["source"] == "node12"
     assert elements[-1].attrib["target"] == "node2"
 
+    cell_ids = [element.attrib["id"] for element in elements]
+    assert len(cell_ids) == len(set(cell_ids))
+    assert all(
+        not element.attrib["id"].isdecimal()
+        for element in elements
+        if element.attrib.get("edge") == "1"
+    )
+
 
 def test_compound() -> None:
     file = "test/directed/compound.gv.txt"

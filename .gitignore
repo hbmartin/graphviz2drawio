@@ -156,6 +156,7 @@ test/**/*.xml
 test/**/*.svg
 
 *.png
+!specs/**/*.png
 triage_decisions.db
 reviews_triage/
 /tmp*

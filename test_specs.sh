@@ -54,6 +54,8 @@ detect_platform() {
 spec_platform="$(detect_platform)"
 specs_dir="$repo_root/specs/$spec_platform"
 
+source "$repo_root/scripts/drawio_export.sh"
+
 if [[ ! -d "$source_dir" ]]; then
     echo "Source directory does not exist: $source_dir" >&2
     exit 1
@@ -86,6 +88,7 @@ process_files() {
             return 1
         fi
         echo "Processed: $source_file -> $output_file"
+        render_drawio_png "$output_file" "${output_file%.xml}.png" "$output_file"
     done < <(find "$expected_dir" -type f -name "*.xml" -print0)
 }
 
@@ -114,6 +117,10 @@ diff_found=false
 while IFS= read -r -d "" file; do
     rel_path="${file#$output_dir/}"
     spec_file="$specs_dir/$rel_path"
+    rel_png="${rel_path%.xml}.png"
+    output_png="$output_dir/$rel_png"
+    spec_png="$specs_dir/$rel_png"
+    diff_png="$output_dir/${rel_path%.xml}_diff.png"
 
     if [[ ! -f "$spec_file" ]]; then
         echo "File missing in specs directory: $rel_path"
@@ -124,6 +131,24 @@ while IFS= read -r -d "" file; do
     if ! diff_output="$(compare_files "$file" "$spec_file")"; then
         echo "Differences found in file: $rel_path"
         echo "$diff_output"
+        diff_found=true
+    fi
+
+    if [[ ! -f "$output_png" ]]; then
+        echo "PNG missing in output directory: $rel_png"
+        diff_found=true
+        continue
+    fi
+
+    if [[ ! -f "$spec_png" ]]; then
+        echo "PNG missing in specs directory: $rel_png"
+        diff_found=true
+        continue
+    fi
+
+    if ! png_diff="$(python3 "$repo_root/scripts/compare_png.py" "$spec_png" "$output_png" "$diff_png")"; then
+        echo "Differences found in PNG: $rel_png"
+        echo "$png_diff"
         diff_found=true
     fi
 done < <(find "$output_dir" -type f -name "*.xml" -print0)
@@ -138,10 +163,20 @@ while IFS= read -r -d "" file; do
     fi
 done < <(find "$specs_dir" -type f -name "*.xml" -print0)
 
+while IFS= read -r -d "" file; do
+    rel_path="${file#$specs_dir/}"
+    spec_file="$specs_dir/${rel_path%.png}.xml"
+
+    if [[ ! -f "$spec_file" ]]; then
+        echo "Extra PNG in specs directory: $rel_path"
+        diff_found=true
+    fi
+done < <(find "$specs_dir" -type f -name "*.png" -print0)
+
 if [[ "$diff_found" == false ]]; then
-    echo "No differences found (ignoring unstable IDs). Test passed."
+    echo "No XML or PNG differences found (ignoring unstable XML IDs). Test passed."
     exit 0
 else
-    echo "Differences found (ignoring unstable IDs). Test failed."
+    echo "XML or PNG differences found (ignoring unstable XML IDs). Test failed."
     exit 1
 fi
