@@ -49,7 +49,7 @@ Source = "https://github.com/hbmartin/graphviz2drawio/"
 "Bug Reports" = "https://github.com/hbmartin/graphviz2drawio/issues"
 
 [dependency-groups]
-dev = ["pytest", "pytest-cov", "diagrams", "ruff", "black"]
+dev = ["pytest", "pytest-cov", "diagrams", "ruff", "black", "pillow"]
 
 [tool.uv]
 # Hold svg.path at the version previously pinned in requirements.txt;
@@ -94,6 +94,7 @@ line-ending = "auto"
 "doc/source/conf.py" = ["A001", "ERA001", "INP001"]
 "graphviz2drawio/models/commented_tree_builder.py" = ["ANN001", "ANN201", "ANN204"]
 "graphviz2drawio/models/SvgParser.py" = ["C901", "PLR0912"]
+"scripts/compare_png.py" = ["INP001"]
 
 [tool.pytest.ini_options]
 testpaths = "test"

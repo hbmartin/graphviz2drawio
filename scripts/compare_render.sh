@@ -1,4 +1,10 @@
 #!/bin/bash
+set -euo pipefail
+
+script_dir="$(cd "$(dirname "$0")" && pwd)"
+repo_root="$(cd "$script_dir/.." && pwd)"
+
+source "$script_dir/drawio_export.sh"
 
 # Renders a graphviz file two ways for visual comparison:
 #   1. graphviz's own PNG render (dot)
@@ -34,16 +40,6 @@ case "$input_file" in
         ;;
 esac
 
-# Locate the draw.io CLI
-if command -v drawio > /dev/null 2>&1; then
-    drawio="drawio"
-elif [[ -x "/Applications/draw.io.app/Contents/MacOS/draw.io" ]]; then
-    drawio="/Applications/draw.io.app/Contents/MacOS/draw.io"
-else
-    echo "Error: draw.io CLI not found. Install with: brew install --cask drawio" >&2
-    exit 1
-fi
-
 if ! command -v dot > /dev/null 2>&1; then
     echo "Error: graphviz (dot) not found. Install with: brew install graphviz" >&2
     exit 1
@@ -67,18 +63,11 @@ fi
 echo "Rendered: $input_file -> $graphviz_png (graphviz)"
 
 # Run graphviz2drawio in the project environment regardless of cwd
-repo_root="$(cd "$(dirname "$0")/.." && pwd)"
 if ! uv run --project "$repo_root" python -m graphviz2drawio "$input_file" -o "$drawio_xml" > /dev/null; then
     echo "Error: graphviz2drawio conversion failed for $input_file" >&2
     exit 1
 fi
-"$drawio" -x -f png -o "$drawio_png" "$drawio_xml" > /dev/null 2>&1
-
-if [[ ! -s "$drawio_png" ]]; then
-    echo "Error: draw.io export failed for $drawio_xml" >&2
-    exit 1
-fi
-echo "Rendered: $input_file -> $drawio_png (graphviz2drawio + draw.io)"
+render_drawio_png "$drawio_xml" "$drawio_png" "$input_file (graphviz2drawio + draw.io)"
 
 echo ""
 echo "Compare:"

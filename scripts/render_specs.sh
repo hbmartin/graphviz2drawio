@@ -1,4 +1,9 @@
 #!/bin/bash
+set -euo pipefail
+
+script_dir="$(cd "$(dirname "$0")" && pwd)"
+
+source "$script_dir/drawio_export.sh"
 
 # Renders spec XMLs to PNG via the draw.io CLI for visual verification,
 # alongside a graphviz reference render of the original source.
@@ -21,16 +26,6 @@ output_dir="${3%/}"
 render_all=false
 [[ "${4:-}" == "--all" ]] && render_all=true
 
-# Locate the draw.io CLI
-if command -v drawio > /dev/null 2>&1; then
-    drawio="drawio"
-elif [[ -x "/Applications/draw.io.app/Contents/MacOS/draw.io" ]]; then
-    drawio="/Applications/draw.io.app/Contents/MacOS/draw.io"
-else
-    echo "Error: draw.io CLI not found. Install with: brew install --cask drawio" >&2
-    exit 1
-fi
-
 if ! command -v dot > /dev/null 2>&1; then
     echo "Error: graphviz (dot) not found. Install with: brew install graphviz" >&2
     exit 1
@@ -40,7 +35,7 @@ fi
 if [[ "$render_all" == true ]]; then
     spec_files=$(find "$specs_dir" -type f -name "*.xml")
 else
-    spec_files=$(git diff --name-only HEAD -- "$specs_dir" | grep '\.xml$')
+    spec_files=$(git diff --name-only HEAD -- "$specs_dir" | grep '\.xml$' || true)
 fi
 
 if [[ -z "$spec_files" ]]; then
@@ -52,20 +47,6 @@ if [[ -z "$spec_files" ]]; then
     exit 0
 fi
 
-render_drawio() {
-    input_file="$1"
-    output_file="$2"
-    label="$3"
-
-    if "$drawio" -x -f png -o "$output_file" "$input_file" > /dev/null 2>&1 && [[ -s "$output_file" ]]; then
-        echo "Rendered: $label -> $output_file"
-        return 0
-    fi
-
-    echo "Error: draw.io render failed for $label" >&2
-    return 1
-}
-
 status=0
 while IFS= read -r spec; do
     rel_path="${spec#"$specs_dir"/}"
@@ -74,7 +55,7 @@ while IFS= read -r spec; do
     mkdir -p "$(dirname "$out_base")"
 
     # Render the current spec
-    if ! render_drawio "$spec" "${out_base}_new.png" "$spec"; then
+    if ! render_drawio_png "$spec" "${out_base}_new.png" "$spec"; then
         status=1
     fi
 
@@ -82,7 +63,7 @@ while IFS= read -r spec; do
     if ! git diff --quiet HEAD -- "$spec" 2> /dev/null; then
         old_xml="${out_base}_old.xml"
         if git show "HEAD:$spec" > "$old_xml" 2> /dev/null \
-            && ! render_drawio "$old_xml" "${out_base}_old.png" "HEAD:$spec"; then
+            && ! render_drawio_png "$old_xml" "${out_base}_old.png" "HEAD:$spec"; then
             status=1
         fi
         rm -f "$old_xml"

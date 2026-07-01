@@ -52,4 +52,4 @@ jobs:
             --base "$BASE_BRANCH" \
             --head "$PR_BRANCH" \
             --title "Regenerate Linux specs" \
-            --body "Regenerated Linux spec XMLs in the pinned Docker environment."
+            --body "Regenerated Linux spec XMLs and PNG references in the pinned Docker environment."

@@ -236,11 +236,15 @@ uv sync --reinstall-package pygraphviz
 
 Spec XMLs are stored separately for macOS and Linux because graph layout depends
 on platform font metrics. The spec test runner automatically compares against
-`specs/mac/` on macOS and `specs/linux/` on Linux.
+`specs/mac/` on macOS and `specs/linux/` on Linux. Each XML spec also has a
+matching draw.io-rendered PNG reference, and the test runner compares generated
+PNGs pixel by pixel.
 
 The scripts invoke `python3` directly, so run the native (macOS) variants
 through `uv run` so they resolve to the project venv. The `spec_env.sh` variants
-run inside Docker and already have the venv on `PATH`.
+run inside Docker and already have the venv on `PATH`. Native spec testing and
+generation also require the draw.io CLI, for example from
+`brew install --cask drawio` on macOS.
 
 ```bash
 uv run ./scripts/test_specs.sh test/ tmp_out/

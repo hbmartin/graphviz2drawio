@@ -23,10 +23,8 @@ class CommentedTreeBuilder(ElementTree.TreeBuilder):
         return elem
 
     def comment(self, text: str | None, /):
-        element = super().comment(text)
         if not self.was_root_set:
-            return element
+            return super().comment(text)
         self.start(COMMENT, {})
         self.data(unescape((text or "").strip()))
-        self.end(COMMENT)
-        return element
+        return self.end(COMMENT)

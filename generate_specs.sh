@@ -8,8 +8,11 @@ if [[ "$#" -ne 2 ]]; then
 fi
 
 # Assign arguments to variables
+repo_root="$(cd "$(dirname "$0")" && pwd)"
 source_dir="${1%/}"
 specs_dir="${2%/}"
+
+source "$repo_root/scripts/drawio_export.sh"
 
 generate_spec() {
     local source_file="$1"
@@ -27,6 +30,7 @@ generate_spec() {
     python3 -m graphviz2drawio "$source_file" -o "$output_file"
 
     echo "Processed: $source_file -> $output_file"
+    render_drawio_png "$output_file" "${output_file%.xml}.png" "$output_file"
 }
 
 mkdir -p "$specs_dir"
