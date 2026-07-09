@@ -84,12 +84,14 @@ def _cluster_membership(
     DOT allows a node to be referenced by several clusters even though Graphviz
     renders it inside only one of them, so a membership candidate only counts
     when the member's rendered rect actually lies inside the cluster's rect.
-    Names that fail to round-trip through the SVG titles simply leave the
-    member parented further up (ultimately at the page root), which keeps its
-    rendered position intact because child geometry is relativized against
-    whichever parent is chosen.
+    Names that fail to round-trip through the SVG titles, and clusters without
+    rendered rectangles, simply leave the member parented further up (ultimately
+    at the page root), which keeps its rendered position intact because child
+    geometry is relativized against whichever parent is chosen.
     """
-    rendered_cluster_names = set(clusters)
+    parentable_cluster_names = {
+        name for name, cluster in clusters.items() if cluster.rect is not None
+    }
     rendered_node_names = set(nodes)
     node_parents: dict[str, str] = {}
     cluster_parents: dict[str, str] = {}
@@ -100,7 +102,7 @@ def _cluster_membership(
         nodes,
         clusters,
         rendered_node_names,
-        rendered_cluster_names,
+        parentable_cluster_names,
         node_parents,
         cluster_parents,
     )
@@ -113,13 +115,13 @@ def _walk_cluster_membership(
     nodes: Mapping[str, Node],
     clusters: Mapping[str, Node],
     rendered_node_names: set[str],
-    rendered_cluster_names: set[str],
+    parentable_cluster_names: set[str],
     node_parents: dict[str, str],
     cluster_parents: dict[str, str],
 ) -> None:
     for subgraph in subgraphs:
         subgraph_name = str(subgraph.name) if subgraph.name is not None else None
-        if subgraph_name is not None and subgraph_name in rendered_cluster_names:
+        if subgraph_name is not None and subgraph_name in parentable_cluster_names:
             current_cluster = subgraph_name
             if parent_cluster is not None and _is_within_cluster(
                 clusters[subgraph_name].rect,
@@ -144,7 +146,7 @@ def _walk_cluster_membership(
             nodes,
             clusters,
             rendered_node_names,
-            rendered_cluster_names,
+            parentable_cluster_names,
             node_parents,
             cluster_parents,
         )

@@ -68,6 +68,26 @@ should_disable_chromium_sandbox() {
     esac
 }
 
+render_timeout_command() {
+    case "${DRAWIO_RENDER_TIMEOUT:-300s}" in
+        0 | false | no)
+            return 1
+            ;;
+    esac
+
+    if command -v timeout > /dev/null 2>&1; then
+        command -v timeout
+        return 0
+    fi
+
+    if command -v gtimeout > /dev/null 2>&1; then
+        command -v gtimeout
+        return 0
+    fi
+
+    return 1
+}
+
 render_drawio_png() {
     local input_file="$1"
     local output_file="$2"
@@ -76,8 +96,10 @@ render_drawio_png() {
     local sandbox_status
     local render_log
     local render_status
+    local timeout_bin
     local xvfb_status
     local -a drawio_cmd
+    local -a timeout_cmd
 
     drawio="$(resolve_drawio)" || return 1
     drawio_cmd=("$drawio")
@@ -89,9 +111,22 @@ render_drawio_png() {
             return 1
         fi
     fi
+    if [[ "$(uname -s)" == "Linux" ]]; then
+        drawio_cmd+=("--disable-dev-shm-usage" "--disable-gpu")
+    fi
+
+    timeout_cmd=()
+    if timeout_bin="$(render_timeout_command)"; then
+        timeout_cmd=(
+            "$timeout_bin"
+            --kill-after="${DRAWIO_RENDER_TIMEOUT_KILL_AFTER:-30s}"
+            "${DRAWIO_RENDER_TIMEOUT:-300s}"
+        )
+    fi
 
     mkdir -p "$(dirname "$output_file")"
     render_log="$(mktemp)"
+    echo "Rendering: $label -> $output_file"
 
     if should_use_xvfb; then
         xvfb_status=0
@@ -105,16 +140,32 @@ render_drawio_png() {
             rm -f "$render_log"
             return 1
         fi
-        if xvfb-run -a "${drawio_cmd[@]}" -x -f png -o "$output_file" "$input_file" > "$render_log" 2>&1; then
-            render_status=0
+        if [[ "${#timeout_cmd[@]}" -gt 0 ]]; then
+            if "${timeout_cmd[@]}" xvfb-run -a "${drawio_cmd[@]}" -x -f png -o "$output_file" "$input_file" > "$render_log" 2>&1; then
+                render_status=0
+            else
+                render_status="$?"
+            fi
         else
-            render_status="$?"
+            if xvfb-run -a "${drawio_cmd[@]}" -x -f png -o "$output_file" "$input_file" > "$render_log" 2>&1; then
+                render_status=0
+            else
+                render_status="$?"
+            fi
         fi
     elif [[ "$xvfb_status" -eq 1 ]]; then
-        if "${drawio_cmd[@]}" -x -f png -o "$output_file" "$input_file" > "$render_log" 2>&1; then
-            render_status=0
+        if [[ "${#timeout_cmd[@]}" -gt 0 ]]; then
+            if "${timeout_cmd[@]}" "${drawio_cmd[@]}" -x -f png -o "$output_file" "$input_file" > "$render_log" 2>&1; then
+                render_status=0
+            else
+                render_status="$?"
+            fi
         else
-            render_status="$?"
+            if "${drawio_cmd[@]}" -x -f png -o "$output_file" "$input_file" > "$render_log" 2>&1; then
+                render_status=0
+            else
+                render_status="$?"
+            fi
         fi
     else
         rm -f "$render_log"
@@ -128,6 +179,9 @@ render_drawio_png() {
     fi
 
     echo "Error: draw.io render failed for $label" >&2
+    if [[ "$render_status" -eq 124 || "$render_status" -eq 137 ]]; then
+        echo "draw.io render timed out after ${DRAWIO_RENDER_TIMEOUT:-300s}" >&2
+    fi
     if [[ -s "$render_log" ]]; then
         sed -n '1,40p' "$render_log" >&2
     fi
