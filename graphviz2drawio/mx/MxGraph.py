@@ -28,15 +28,19 @@ class MxGraph:
         self.clusters_by_gid = {cluster.gid: cluster for cluster in clusters.values()}
         self.graph = Element(MxConst.GRAPH, attrib={"grid": "0"})
         self.root = SubElement(self.graph, MxConst.ROOT)
-        SubElement(self.root, MxConst.CELL, attrib={"id": "0"})
-        SubElement(self.root, MxConst.CELL, attrib={"id": "1", "parent": "0"})
+        SubElement(self.root, MxConst.CELL, attrib={"id": MxConst.MODEL_ROOT_ID})
+        SubElement(
+            self.root,
+            MxConst.CELL,
+            attrib={"id": MxConst.DEFAULT_PARENT_ID, "parent": MxConst.MODEL_ROOT_ID},
+        )
 
         # Add nodes first so edges are drawn on top
         for cluster in self._clusters_parent_first(clusters.values()):
             parent = self._parent_cluster_for_cluster(cluster)
             self.add_node(
                 cluster,
-                parent_id=parent.sid if parent is not None else "1",
+                parent_id=parent.sid if parent is not None else None,
                 parent_rect=parent.rect if parent is not None else None,
                 connectable=False,
             )
@@ -44,7 +48,7 @@ class MxGraph:
             parent = self._parent_cluster_for_node(node)
             self.add_node(
                 node,
-                parent_id=parent.sid if parent is not None else "1",
+                parent_id=parent.sid if parent is not None else None,
                 parent_rect=parent.rect if parent is not None else None,
             )
         for edge in edges:
@@ -67,7 +71,7 @@ class MxGraph:
         attrib = {
             "id": edge.sid,
             "style": style,
-            "parent": "1",
+            "parent": MxConst.DEFAULT_PARENT_ID,
             "edge": "1",
         }
         if source is not None:
@@ -177,7 +181,7 @@ class MxGraph:
         self,
         node: Node,
         *,
-        parent_id: str = "1",
+        parent_id: str | None = None,
         parent_rect: Rect | None = None,
         connectable: bool = True,
     ) -> None:
@@ -185,7 +189,7 @@ class MxGraph:
             "id": node.sid,
             "value": node.texts_to_mx_value(),
             "style": node.get_node_style(),
-            "parent": parent_id,
+            "parent": parent_id if parent_id is not None else MxConst.DEFAULT_PARENT_ID,
             "vertex": "1",
         }
         if not connectable:
@@ -219,10 +223,13 @@ class MxGraph:
         return ordered
 
     def _parent_cluster_for_cluster(self, cluster: Node) -> Node | None:
-        return self.clusters_by_gid.get(self.cluster_parents.get(cluster.gid, ""))
+        return self._cluster_named(self.cluster_parents.get(cluster.gid))
 
     def _parent_cluster_for_node(self, node: Node) -> Node | None:
-        return self.clusters_by_gid.get(self.node_parents.get(node.gid, ""))
+        return self._cluster_named(self.node_parents.get(node.gid))
+
+    def _cluster_named(self, name: str | None) -> Node | None:
+        return self.clusters_by_gid.get(name) if name is not None else None
 
     @staticmethod
     def _relative_rect(rect: Rect | None, parent_rect: Rect | None) -> Rect | None:

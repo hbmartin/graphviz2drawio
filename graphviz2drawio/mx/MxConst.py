@@ -16,6 +16,11 @@ GRAPH = "mxGraphModel"
 POINT = "mxPoint"
 ROOT = "root"
 
+# Every mxGraph model starts with cell 0 (the model root) and cell 1 (the
+# default layer that top-level vertices and edges are parented to).
+MODEL_ROOT_ID = "0"
+DEFAULT_PARENT_ID = "1"
+
 NONE = "none"
 CURVED = "curved=1;"
 SHARP = "rounded=0;"
