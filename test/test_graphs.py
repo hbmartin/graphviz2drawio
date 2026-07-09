@@ -163,6 +163,66 @@ def test_cluster() -> None:
     assert 0 <= float(node1_geometry["y"]) < float(clust1_geometry["height"])
 
 
+def test_cluster_multi_member() -> None:
+    # A node referenced by two clusters is only rendered inside one of them by
+    # Graphviz; it must be parented to that cluster, not the last one to
+    # mention it.
+    file = "test/directed/cluster_multi_member.gv.txt"
+    xml = graphviz2drawio.convert(file)
+
+    root = ElementTree.fromstring(xml)
+    cells = cell_map(check_xml_top(root))
+
+    check_value(cells["node1"], "x")
+    assert cells["node1"].attrib["parent"] == "clust1"
+    assert cells["node2"].attrib["parent"] == "clust1"
+    assert cells["node3"].attrib["parent"] == "clust2"
+
+    x_geometry = geometry(cells["node1"])
+    clust1_geometry = geometry(cells["clust1"])
+    assert 0 <= float(x_geometry["x"]) < float(clust1_geometry["width"])
+    assert 0 <= float(x_geometry["y"]) < float(clust1_geometry["height"])
+
+
+def test_cluster_special_names() -> None:
+    # Node names that need XML escaping still round-trip from DOT membership
+    # through the SVG titles into cluster parenting.
+    file = "test/directed/cluster_special_names.gv.txt"
+    xml = graphviz2drawio.convert(file)
+
+    root = ElementTree.fromstring(xml)
+    cells = cell_map(check_xml_top(root))
+
+    check_value(cells["node1"], "a & b")
+    check_value(cells["node2"], "c<d>")
+    assert cells["node1"].attrib["parent"] == "clust1"
+    assert cells["node2"].attrib["parent"] == "clust1"
+    assert cells["node3"].attrib["parent"] == "clust1"
+    assert cells["node4"].attrib["parent"] == "1"
+
+
+def test_fdpclust_nested_clusters() -> None:
+    file = "test/undirected/fdpclust.gv.txt"
+    xml = graphviz2drawio.convert(file)
+
+    root = ElementTree.fromstring(xml)
+    cells = cell_map(check_xml_top(root))
+
+    assert cells["clust1"].attrib["parent"] == "1"
+    assert cells["clust2"].attrib["parent"] == "clust1"
+    assert cells["clust3"].attrib["parent"] == "1"
+    assert cells["clust2"].attrib["connectable"] == "0"
+    assert cells["node1"].attrib["parent"] == "clust2"
+    assert cells["node3"].attrib["parent"] == "clust1"
+    assert cells["node5"].attrib["parent"] == "clust3"
+    assert cells["node7"].attrib["parent"] == "1"
+
+    clust2_geometry = geometry(cells["clust2"])
+    clust1_geometry = geometry(cells["clust1"])
+    assert 0 <= float(clust2_geometry["x"]) < float(clust1_geometry["width"])
+    assert 0 <= float(clust2_geometry["y"]) < float(clust1_geometry["height"])
+
+
 def test_convnet() -> None:
     file = "test/directed/convnet.gv.txt"
     xml = graphviz2drawio.convert(file)

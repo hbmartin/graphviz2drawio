@@ -1,0 +1,10 @@
+digraph G {
+
+	subgraph cluster_0 {
+		label = "escaping & <parenting>";
+		"a & b" -> "c<d>";
+		"weird \"name\"";
+	}
+
+	outside -> "a & b";
+}

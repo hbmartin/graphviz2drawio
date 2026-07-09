@@ -1,0 +1,14 @@
+digraph G {
+
+	subgraph cluster_0 {
+		label = "first";
+		x; a;
+	}
+
+	subgraph cluster_1 {
+		label = "second";
+		x; b;
+	}
+
+	a -> b;
+}

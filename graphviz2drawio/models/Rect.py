@@ -1,4 +1,5 @@
 _ANCHOR_EPSILON = 1e-6
+_CONTAINS_EPSILON = 1e-6
 _ZERO_DIRECTION_EPSILON = 1e-12
 
 
@@ -33,6 +34,14 @@ class Rect:
         if search > self.y + self.height:
             return 1
         return (search - self.y) / self.height
+
+    def contains(self, other: "Rect") -> bool:
+        return (
+            self.x - _CONTAINS_EPSILON <= other.x
+            and self.y - _CONTAINS_EPSILON <= other.y
+            and other.right <= self.right + _CONTAINS_EPSILON
+            and other.bottom <= self.bottom + _CONTAINS_EPSILON
+        )
 
     def to_dict_str(self) -> dict[str, str]:
         return {
