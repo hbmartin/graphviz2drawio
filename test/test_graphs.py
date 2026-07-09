@@ -1,12 +1,15 @@
 import html
 import re
 from pathlib import Path
+from types import SimpleNamespace
 from xml.etree import ElementTree
 
 import pytest
+from pygraphviz import AGraph
 
 # pyrefly: ignore  # missing-module-attribute
 from graphviz2drawio import graphviz2drawio
+from graphviz2drawio.models.Rect import Rect
 
 num_cells_offset = 2
 
@@ -37,6 +40,15 @@ def check_edge(edge, source, target) -> None:
 
 def cell_map(elements):
     return {element.attrib["id"]: element for element in elements}
+
+
+def cells_by_plain_label(elements):
+    return {
+        re.sub(r"<[^>]+>", "", html.unescape(element.attrib.get("value", ""))): element
+        for element in elements
+        if element.attrib.get("vertex") == "1"
+        and element.attrib.get("id", "").startswith("node")
+    }
 
 
 def geometry(cell):
@@ -206,21 +218,51 @@ def test_fdpclust_nested_clusters() -> None:
     xml = graphviz2drawio.convert(file)
 
     root = ElementTree.fromstring(xml)
-    cells = cell_map(check_xml_top(root))
+    elements = check_xml_top(root)
+    cells = cell_map(elements)
+    labels = cells_by_plain_label(elements)
 
-    assert cells["clust1"].attrib["parent"] == "1"
-    assert cells["clust2"].attrib["parent"] == "clust1"
-    assert cells["clust3"].attrib["parent"] == "1"
-    assert cells["clust2"].attrib["connectable"] == "0"
-    assert cells["node1"].attrib["parent"] == "clust2"
-    assert cells["node3"].attrib["parent"] == "clust1"
-    assert cells["node5"].attrib["parent"] == "clust3"
-    assert cells["node7"].attrib["parent"] == "1"
+    inner_parent = labels["C"].attrib["parent"]
+    outer_parent = labels["a"].attrib["parent"]
+    sibling_parent = labels["d"].attrib["parent"]
 
-    clust2_geometry = geometry(cells["clust2"])
-    clust1_geometry = geometry(cells["clust1"])
-    assert 0 <= float(clust2_geometry["x"]) < float(clust1_geometry["width"])
-    assert 0 <= float(clust2_geometry["y"]) < float(clust1_geometry["height"])
+    assert inner_parent != "1"
+    assert labels["D"].attrib["parent"] == inner_parent
+    assert cells[inner_parent].attrib["parent"] == outer_parent
+    assert cells[inner_parent].attrib["connectable"] == "0"
+
+    assert outer_parent != "1"
+    assert labels["b"].attrib["parent"] == outer_parent
+    assert cells[outer_parent].attrib["parent"] == "1"
+
+    assert sibling_parent != "1"
+    assert sibling_parent != outer_parent
+    assert labels["f"].attrib["parent"] == sibling_parent
+    assert cells[sibling_parent].attrib["parent"] == "1"
+
+    assert labels["e"].attrib["parent"] == "1"
+    assert labels["clusterB"].attrib["parent"] == "1"
+    assert labels["clusterC"].attrib["parent"] == "1"
+
+    inner_geometry = geometry(cells[inner_parent])
+    outer_geometry = geometry(cells[outer_parent])
+    assert 0 <= float(inner_geometry["x"]) < float(outer_geometry["width"])
+    assert 0 <= float(inner_geometry["y"]) < float(outer_geometry["height"])
+
+
+def test_cluster_membership_skips_cluster_without_rect() -> None:
+    graph = AGraph(string="digraph G { subgraph cluster_0 { a } }")
+    nodes = {"a": SimpleNamespace(rect=Rect(10, 10, 5, 5))}
+    clusters = {"cluster_0": SimpleNamespace(rect=None)}
+
+    node_parents, cluster_parents = graphviz2drawio._cluster_membership(  # noqa: SLF001
+        graph,
+        nodes,
+        clusters,
+    )
+
+    assert node_parents == {}
+    assert cluster_parents == {}
 
 
 def test_convnet() -> None:
@@ -277,13 +319,26 @@ def test_compound() -> None:
     root = ElementTree.fromstring(xml)
     elements = check_xml_top(root)
     cells = cell_map(elements)
-    assert elements[2].attrib["id"] == "clust1"
-    assert elements[3].attrib["id"] == "clust2"
-    assert cells["node1"].attrib["parent"] == "clust1"
-    assert cells["node4"].attrib["parent"] == "clust1"
-    assert cells["node5"].attrib["parent"] == "clust2"
-    assert cells["node7"].attrib["parent"] == "clust2"
-    assert cells["node8"].attrib["parent"] == "1"
+    labels = cells_by_plain_label(elements)
+
+    first_parent = labels["a"].attrib["parent"]
+    second_parent = labels["e"].attrib["parent"]
+
+    assert first_parent != "1"
+    assert labels["b"].attrib["parent"] == first_parent
+    assert labels["c"].attrib["parent"] == first_parent
+    assert labels["d"].attrib["parent"] == first_parent
+    assert cells[first_parent].attrib["parent"] == "1"
+    assert cells[first_parent].attrib["connectable"] == "0"
+
+    assert second_parent != "1"
+    assert second_parent != first_parent
+    assert labels["f"].attrib["parent"] == second_parent
+    assert labels["g"].attrib["parent"] == second_parent
+    assert cells[second_parent].attrib["parent"] == "1"
+    assert cells[second_parent].attrib["connectable"] == "0"
+
+    assert labels["h"].attrib["parent"] == "1"
 
 
 def test_subgraph_and_colors():

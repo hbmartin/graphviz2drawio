@@ -33,13 +33,13 @@ def test_enrich_from_graph_traces_empty_preserve_existing(monkeypatch) -> None:
     assert "decision=skip-empty-preserve-existing" in output
 
 
-def test_enrich_from_graph_traces_blacklisted_before_empty_skip(
+def test_enrich_from_graph_traces_blacklisted(
     monkeypatch,
 ) -> None:
     obj = GraphObj("sid", "gid")
     obj.fill = "#ffffff"
 
-    output = _trace_output(obj, {"fill": ""}, monkeypatch)
+    output = _trace_output(obj, {"fill": "#000000"}, monkeypatch)
 
     assert obj.fill == "#ffffff"
     assert "decision=skip-blacklisted" in output

@@ -49,16 +49,47 @@ should_use_xvfb() {
     esac
 }
 
+should_disable_chromium_sandbox() {
+    case "${DRAWIO_NO_SANDBOX:-auto}" in
+        1 | true | yes)
+            return 0
+            ;;
+        0 | false | no)
+            return 1
+            ;;
+        auto)
+            [[ "$(uname -s)" == "Linux" ]]
+            return
+            ;;
+        *)
+            echo "Error: DRAWIO_NO_SANDBOX must be auto, true, or false" >&2
+            return 2
+            ;;
+    esac
+}
+
 render_drawio_png() {
     local input_file="$1"
     local output_file="$2"
     local label="${3:-$input_file}"
     local drawio
+    local sandbox_status
     local render_log
     local render_status
     local xvfb_status
+    local -a drawio_cmd
 
     drawio="$(resolve_drawio)" || return 1
+    drawio_cmd=("$drawio")
+    if should_disable_chromium_sandbox; then
+        drawio_cmd+=("--no-sandbox")
+    else
+        sandbox_status="$?"
+        if [[ "$sandbox_status" -gt 1 ]]; then
+            return 1
+        fi
+    fi
+
     mkdir -p "$(dirname "$output_file")"
     render_log="$(mktemp)"
 
@@ -74,13 +105,13 @@ render_drawio_png() {
             rm -f "$render_log"
             return 1
         fi
-        if xvfb-run -a "$drawio" -x -f png -o "$output_file" "$input_file" > "$render_log" 2>&1; then
+        if xvfb-run -a "${drawio_cmd[@]}" -x -f png -o "$output_file" "$input_file" > "$render_log" 2>&1; then
             render_status=0
         else
             render_status="$?"
         fi
     elif [[ "$xvfb_status" -eq 1 ]]; then
-        if "$drawio" -x -f png -o "$output_file" "$input_file" > "$render_log" 2>&1; then
+        if "${drawio_cmd[@]}" -x -f png -o "$output_file" "$input_file" > "$render_log" 2>&1; then
             render_status=0
         else
             render_status="$?"
