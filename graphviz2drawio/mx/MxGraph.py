@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from collections.abc import Iterable
 from xml.etree.ElementTree import Element, SubElement, indent, tostring
 
 from ..models import DotAttr
@@ -16,19 +17,36 @@ class MxGraph:
         clusters: OrderedDict[str, Node],
         nodes: OrderedDict[str, Node],
         edges: list[Edge],
+        *,
+        node_parents: dict[str, str] | None = None,
+        cluster_parents: dict[str, str] | None = None,
     ) -> None:
         self.nodes = nodes
         self.edges = edges
+        self.node_parents = node_parents or {}
+        self.cluster_parents = cluster_parents or {}
+        self.clusters_by_gid = {cluster.gid: cluster for cluster in clusters.values()}
         self.graph = Element(MxConst.GRAPH, attrib={"grid": "0"})
         self.root = SubElement(self.graph, MxConst.ROOT)
         SubElement(self.root, MxConst.CELL, attrib={"id": "0"})
         SubElement(self.root, MxConst.CELL, attrib={"id": "1", "parent": "0"})
 
         # Add nodes first so edges are drawn on top
-        for cluster in clusters.values():
-            self.add_node(cluster)
+        for cluster in self._clusters_parent_first(clusters.values()):
+            parent = self._parent_cluster_for_cluster(cluster)
+            self.add_node(
+                cluster,
+                parent_id=parent.sid if parent is not None else "1",
+                parent_rect=parent.rect if parent is not None else None,
+                connectable=False,
+            )
         for node in nodes.values():
-            self.add_node(node)
+            parent = self._parent_cluster_for_node(node)
+            self.add_node(
+                node,
+                parent_id=parent.sid if parent is not None else "1",
+                parent_rect=parent.rect if parent is not None else None,
+            )
         for edge in edges:
             self.add_edge(edge)
 
@@ -155,19 +173,77 @@ class MxGraph:
             return reverse_score < normal_score
         return edge.dir == DotAttr.BACK
 
-    def add_node(self, node: Node) -> None:
+    def add_node(
+        self,
+        node: Node,
+        *,
+        parent_id: str = "1",
+        parent_rect: Rect | None = None,
+        connectable: bool = True,
+    ) -> None:
+        attrib = {
+            "id": node.sid,
+            "value": node.texts_to_mx_value(),
+            "style": node.get_node_style(),
+            "parent": parent_id,
+            "vertex": "1",
+        }
+        if not connectable:
+            attrib["connectable"] = "0"
         node_element = SubElement(
             self.root,
             MxConst.CELL,
-            attrib={
-                "id": node.sid,
-                "value": node.texts_to_mx_value(),
-                "style": node.get_node_style(),
-                "parent": "1",
-                "vertex": "1",
-            },
+            attrib=attrib,
         )
-        self.add_mx_geo(node_element, node.rect, node.text_offset)
+        self.add_mx_geo(
+            node_element,
+            self._relative_rect(node.rect, parent_rect),
+            self._relative_text_offset(node.text_offset, parent_rect),
+        )
+
+    def _clusters_parent_first(self, clusters: Iterable[Node]) -> list[Node]:
+        ordered: list[Node] = []
+        emitted: set[str] = set()
+
+        def emit(cluster: Node) -> None:
+            if cluster.gid in emitted:
+                return
+            parent = self._parent_cluster_for_cluster(cluster)
+            if parent is not None:
+                emit(parent)
+            ordered.append(cluster)
+            emitted.add(cluster.gid)
+
+        for cluster in clusters:
+            emit(cluster)
+        return ordered
+
+    def _parent_cluster_for_cluster(self, cluster: Node) -> Node | None:
+        return self.clusters_by_gid.get(self.cluster_parents.get(cluster.gid, ""))
+
+    def _parent_cluster_for_node(self, node: Node) -> Node | None:
+        return self.clusters_by_gid.get(self.node_parents.get(node.gid, ""))
+
+    @staticmethod
+    def _relative_rect(rect: Rect | None, parent_rect: Rect | None) -> Rect | None:
+        if rect is None or parent_rect is None:
+            return rect
+        return Rect(
+            x=rect.x - parent_rect.x,
+            y=rect.y - parent_rect.y,
+            width=rect.width,
+            height=rect.height,
+            image=rect.image,
+        )
+
+    @staticmethod
+    def _relative_text_offset(
+        text_offset: complex | None,
+        parent_rect: Rect | None,
+    ) -> complex | None:
+        if text_offset is None or parent_rect is None:
+            return text_offset
+        return text_offset - complex(parent_rect.x, parent_rect.y)
 
     @staticmethod
     def add_mx_geo(

@@ -35,6 +35,14 @@ def check_edge(edge, source, target) -> None:
     assert edge.attrib["target"] == target.attrib["id"]
 
 
+def cell_map(elements):
+    return {element.attrib["id"]: element for element in elements}
+
+
+def geometry(cell):
+    return cell.find("mxGeometry").attrib
+
+
 def check_edge_dir(e, dx, dy) -> None:
     style = [e.split("=") for e in e.attrib["style"].split(";")][:-1]
     style = {e[0]: e[1] for e in style if e}
@@ -134,11 +142,25 @@ def test_cluster() -> None:
     root = ElementTree.fromstring(xml)
 
     elements = check_xml_top(root)
+    cells = cell_map(elements)
     contains_cluster = False
     for el in elements:
         if "process" in el.attrib.get("value", ""):
             contains_cluster = True
     assert contains_cluster
+    assert cells["clust1"].attrib["connectable"] == "0"
+    assert cells["clust2"].attrib["connectable"] == "0"
+    assert cells["node1"].attrib["parent"] == "clust1"
+    assert cells["node4"].attrib["parent"] == "clust1"
+    assert cells["node5"].attrib["parent"] == "clust2"
+    assert cells["node8"].attrib["parent"] == "clust2"
+    assert cells["node10"].attrib["parent"] == "1"
+    assert cells["edge1"].attrib["parent"] == "1"
+
+    node1_geometry = geometry(cells["node1"])
+    clust1_geometry = geometry(cells["clust1"])
+    assert 0 <= float(node1_geometry["x"]) < float(clust1_geometry["width"])
+    assert 0 <= float(node1_geometry["y"]) < float(clust1_geometry["height"])
 
 
 def test_convnet() -> None:
@@ -194,8 +216,14 @@ def test_compound() -> None:
 
     root = ElementTree.fromstring(xml)
     elements = check_xml_top(root)
+    cells = cell_map(elements)
     assert elements[2].attrib["id"] == "clust1"
     assert elements[3].attrib["id"] == "clust2"
+    assert cells["node1"].attrib["parent"] == "clust1"
+    assert cells["node4"].attrib["parent"] == "clust1"
+    assert cells["node5"].attrib["parent"] == "clust2"
+    assert cells["node7"].attrib["parent"] == "clust2"
+    assert cells["node8"].attrib["parent"] == "1"
 
 
 def test_subgraph_and_colors():
@@ -203,11 +231,15 @@ def test_subgraph_and_colors():
     xml = graphviz2drawio.convert(file)
 
     root = ElementTree.fromstring(xml)
-    check_xml_top(root)
+    cells = cell_map(check_xml_top(root))
     assert "fillColor=none" in xml
     assert "strokeColor=black" in xml
     assert "clust1" in xml
     assert "clust2" in xml
+    assert cells["node1"].attrib["parent"] == "clust1"
+    assert cells["node2"].attrib["parent"] == "clust1"
+    assert cells["node3"].attrib["parent"] == "clust2"
+    assert cells["node4"].attrib["parent"] == "clust2"
 
 
 def test_title_with_colon():

@@ -3,23 +3,23 @@
   <root>
     <mxCell id="0" />
     <mxCell id="1" parent="0" />
-    <mxCell id="clust1" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;*Frontend*&lt;/font&gt;" style="verticalAlign=top;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=none;strokeWidth=1;dashed=0;" parent="1" vertex="1">
+    <mxCell id="clust1" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;*Frontend*&lt;/font&gt;" style="verticalAlign=top;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=none;strokeWidth=1;dashed=0;" parent="1" vertex="1" connectable="0">
       <mxGeometry x="31.0" y="12.0" width="235.0" height="77.25" as="geometry" />
     </mxCell>
-    <mxCell id="clust2" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;*Backend*&lt;/font&gt;" style="verticalAlign=top;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=none;strokeWidth=1;dashed=0;" parent="1" vertex="1">
+    <mxCell id="clust2" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;*Backend*&lt;/font&gt;" style="verticalAlign=top;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=none;strokeWidth=1;dashed=0;" parent="1" vertex="1" connectable="0">
       <mxGeometry x="12.0" y="97.25" width="134.0" height="149.25" as="geometry" />
     </mxCell>
-    <mxCell id="node1" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;React&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=none;strokeWidth=1;dashed=0;" parent="1" vertex="1">
-      <mxGeometry x="39.37" y="45.25" width="79.26" height="36.0" as="geometry" />
+    <mxCell id="node1" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;React&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=none;strokeWidth=1;dashed=0;" parent="clust1" vertex="1">
+      <mxGeometry x="8.369999999999997" y="33.25" width="79.26" height="36.0" as="geometry" />
     </mxCell>
-    <mxCell id="node3" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;expressjs&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=none;strokeWidth=1;dashed=0;" parent="1" vertex="1">
-      <mxGeometry x="20.43" y="130.5" width="117.14" height="36.0" as="geometry" />
+    <mxCell id="node3" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;expressjs&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=none;strokeWidth=1;dashed=0;" parent="clust2" vertex="1">
+      <mxGeometry x="8.43" y="33.25" width="117.14" height="36.0" as="geometry" />
     </mxCell>
-    <mxCell id="node2" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;Bootstrap&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=none;strokeWidth=1;dashed=0;" parent="1" vertex="1">
-      <mxGeometry x="136.32" y="45.25" width="121.36" height="36.0" as="geometry" />
+    <mxCell id="node2" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;Bootstrap&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=none;strokeWidth=1;dashed=0;" parent="clust1" vertex="1">
+      <mxGeometry x="105.32" y="33.25" width="121.36" height="36.0" as="geometry" />
     </mxCell>
-    <mxCell id="node4" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;aws-sdk&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=none;strokeWidth=1;dashed=0;" parent="1" vertex="1">
-      <mxGeometry x="27.79" y="202.5" width="102.42" height="36.0" as="geometry" />
+    <mxCell id="node4" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;aws-sdk&lt;/font&gt;" style="ellipse;verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=none;strokeWidth=1;dashed=0;" parent="clust2" vertex="1">
+      <mxGeometry x="15.79" y="105.25" width="102.42" height="36.0" as="geometry" />
     </mxCell>
     <mxCell id="edge1" style="html=1;endArrow=block;dashed=0;endFill=1;startArrow=none;startFill=0;fillColor=black;strokeColor=black;strokeWidth=1;rounded=0;exitX=0.500;exitY=1.000;entryX=0.500;entryY=0.000;" parent="1" edge="1" source="node1" target="node3">
       <mxGeometry as="geometry" relative="1">
