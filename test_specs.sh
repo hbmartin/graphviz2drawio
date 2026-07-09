@@ -4,6 +4,7 @@ set -euo pipefail
 # Function to display usage information
 usage() {
     echo "Usage: $0 <source_directory> <output_directory> [mac|linux]"
+    echo "Set SPEC_TEST_EXCLUDES to comma- or whitespace-separated spec paths/globs to skip."
     exit 1
 }
 
@@ -56,6 +57,17 @@ specs_dir="$repo_root/specs/$spec_platform"
 
 source "$repo_root/scripts/drawio_export.sh"
 
+declare -a spec_exclude_patterns=()
+if [[ -n "${SPEC_TEST_EXCLUDES:-}" ]]; then
+    # Split on commas or whitespace. Patterns are matched against paths relative
+    # to specs/<platform>, and against the basename for convenience.
+    spec_excludes="${SPEC_TEST_EXCLUDES//,/ }"
+    spec_excludes="${spec_excludes//$'\n'/ }"
+    spec_excludes="${spec_excludes//$'\t'/ }"
+    read -r -a spec_exclude_patterns <<< "$spec_excludes"
+    echo "Skipping excluded spec patterns: ${spec_exclude_patterns[*]}"
+fi
+
 if [[ ! -d "$source_dir" ]]; then
     echo "Source directory does not exist: $source_dir" >&2
     exit 1
@@ -66,6 +78,20 @@ if [[ ! -d "$specs_dir" ]]; then
     exit 1
 fi
 
+is_excluded_spec() {
+    local rel_path="$1"
+    local basename="${rel_path##*/}"
+    local pattern
+
+    for pattern in "${spec_exclude_patterns[@]}"; do
+        if [[ "$rel_path" == $pattern || "$basename" == $pattern ]]; then
+            return 0
+        fi
+    done
+
+    return 1
+}
+
 # Function to process files
 process_files() {
     local src_dir="$1"
@@ -74,6 +100,11 @@ process_files() {
 
     while IFS= read -r -d "" file; do
         rel_path="${file#$expected_dir/}"
+        if is_excluded_spec "$rel_path"; then
+            echo "Skipping excluded spec: $rel_path"
+            continue
+        fi
+
         source_file="$src_dir/${rel_path%.xml}.gv.txt"
         output_file="$out_dir/$rel_path"
 
@@ -155,6 +186,10 @@ done < <(find "$output_dir" -type f -name "*.xml" -print0)
 
 while IFS= read -r -d "" file; do
     rel_path="${file#$specs_dir/}"
+    if is_excluded_spec "$rel_path"; then
+        continue
+    fi
+
     output_file="$output_dir/$rel_path"
 
     if [[ ! -f "$output_file" ]]; then

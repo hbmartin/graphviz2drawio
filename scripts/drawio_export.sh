@@ -69,11 +69,20 @@ should_disable_chromium_sandbox() {
 }
 
 render_timeout_command() {
-    case "${DRAWIO_RENDER_TIMEOUT:-300s}" in
+    local duration="${DRAWIO_RENDER_TIMEOUT:-300s}"
+    case "$duration" in
         0 | false | no)
             return 1
             ;;
     esac
+
+    # Accept only GNU timeout durations: a number with an optional decimal part
+    # and an optional s/m/h/d suffix. Anything else would make timeout exit 125
+    # and surface as an opaque "render failed", so disable the guard instead.
+    if [[ ! "$duration" =~ ^[0-9]+(\.[0-9]+)?[smhd]?$ ]]; then
+        echo "Warning: ignoring invalid DRAWIO_RENDER_TIMEOUT: $duration" >&2
+        return 1
+    fi
 
     if command -v timeout > /dev/null 2>&1; then
         command -v timeout
@@ -140,32 +149,16 @@ render_drawio_png() {
             rm -f "$render_log"
             return 1
         fi
-        if [[ "${#timeout_cmd[@]}" -gt 0 ]]; then
-            if "${timeout_cmd[@]}" xvfb-run -a "${drawio_cmd[@]}" -x -f png -o "$output_file" "$input_file" > "$render_log" 2>&1; then
-                render_status=0
-            else
-                render_status="$?"
-            fi
+        if "${timeout_cmd[@]}" xvfb-run -a "${drawio_cmd[@]}" -x -f png -o "$output_file" "$input_file" > "$render_log" 2>&1; then
+            render_status=0
         else
-            if xvfb-run -a "${drawio_cmd[@]}" -x -f png -o "$output_file" "$input_file" > "$render_log" 2>&1; then
-                render_status=0
-            else
-                render_status="$?"
-            fi
+            render_status="$?"
         fi
     elif [[ "$xvfb_status" -eq 1 ]]; then
-        if [[ "${#timeout_cmd[@]}" -gt 0 ]]; then
-            if "${timeout_cmd[@]}" "${drawio_cmd[@]}" -x -f png -o "$output_file" "$input_file" > "$render_log" 2>&1; then
-                render_status=0
-            else
-                render_status="$?"
-            fi
+        if "${timeout_cmd[@]}" "${drawio_cmd[@]}" -x -f png -o "$output_file" "$input_file" > "$render_log" 2>&1; then
+            render_status=0
         else
-            if "${drawio_cmd[@]}" -x -f png -o "$output_file" "$input_file" > "$render_log" 2>&1; then
-                render_status=0
-            else
-                render_status="$?"
-            fi
+            render_status="$?"
         fi
     else
         rm -f "$render_log"

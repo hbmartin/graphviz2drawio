@@ -253,6 +253,15 @@ uv run ./scripts/generate_specs.sh test/ specs/mac/
 ./scripts/spec_env.sh ./scripts/generate_specs.sh test/ specs/linux/
 ```
 
+Large or slow spec fixtures can be skipped by setting `SPEC_TEST_EXCLUDES` to
+comma- or whitespace-separated paths/globs. Patterns match paths relative to the
+platform spec directory, and basenames also work for convenience.
+
+```bash
+SPEC_TEST_EXCLUDES="twopi/twopi2.xml" uv run ./scripts/test_specs.sh test/ tmp_out/
+SPEC_TEST_EXCLUDES="twopi2.xml,networkmap_*.xml" ./scripts/spec_env.sh ./scripts/test_specs.sh test/ tmp_out/
+```
+
 ## Roadmap
 * Support compatible [arrows](https://graphviz.org/docs/attr-types/arrowType/)
 * Support [multiple edges](https://graphviz.org/Gallery/directed/switch.html)
