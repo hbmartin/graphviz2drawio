@@ -140,32 +140,16 @@ render_drawio_png() {
             rm -f "$render_log"
             return 1
         fi
-        if [[ "${#timeout_cmd[@]}" -gt 0 ]]; then
-            if "${timeout_cmd[@]}" xvfb-run -a "${drawio_cmd[@]}" -x -f png -o "$output_file" "$input_file" > "$render_log" 2>&1; then
-                render_status=0
-            else
-                render_status="$?"
-            fi
+        if "${timeout_cmd[@]}" xvfb-run -a "${drawio_cmd[@]}" -x -f png -o "$output_file" "$input_file" > "$render_log" 2>&1; then
+            render_status=0
         else
-            if xvfb-run -a "${drawio_cmd[@]}" -x -f png -o "$output_file" "$input_file" > "$render_log" 2>&1; then
-                render_status=0
-            else
-                render_status="$?"
-            fi
+            render_status="$?"
         fi
     elif [[ "$xvfb_status" -eq 1 ]]; then
-        if [[ "${#timeout_cmd[@]}" -gt 0 ]]; then
-            if "${timeout_cmd[@]}" "${drawio_cmd[@]}" -x -f png -o "$output_file" "$input_file" > "$render_log" 2>&1; then
-                render_status=0
-            else
-                render_status="$?"
-            fi
+        if "${timeout_cmd[@]}" "${drawio_cmd[@]}" -x -f png -o "$output_file" "$input_file" > "$render_log" 2>&1; then
+            render_status=0
         else
-            if "${drawio_cmd[@]}" -x -f png -o "$output_file" "$input_file" > "$render_log" 2>&1; then
-                render_status=0
-            else
-                render_status="$?"
-            fi
+            render_status="$?"
         fi
     else
         rm -f "$render_log"
