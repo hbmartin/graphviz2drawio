@@ -94,38 +94,69 @@ def _cluster_membership(
     node_parents: dict[str, str] = {}
     cluster_parents: dict[str, str] = {}
 
-    def is_within(member_rect: Rect | None, cluster_name: str) -> bool:
-        cluster_rect = clusters[cluster_name].rect
-        if member_rect is None or cluster_rect is None:
-            return True
-        return cluster_rect.contains(member_rect)
-
-    def walk(subgraphs: Iterable[AGraph], parent_cluster: str | None) -> None:
-        for subgraph in subgraphs:
-            subgraph_name = str(subgraph.name) if subgraph.name is not None else None
-            if subgraph_name is not None and subgraph_name in rendered_cluster_names:
-                current_cluster = subgraph_name
-                if parent_cluster is not None and is_within(
-                    clusters[subgraph_name].rect,
-                    parent_cluster,
-                ):
-                    cluster_parents[subgraph_name] = parent_cluster
-            else:
-                current_cluster = parent_cluster
-
-            if current_cluster is not None:
-                for node in subgraph.nodes():
-                    node_name = str(node)
-                    if node_name in rendered_node_names and is_within(
-                        nodes[node_name].rect,
-                        current_cluster,
-                    ):
-                        node_parents[node_name] = current_cluster
-
-            walk(subgraph.subgraphs_iter(), current_cluster)
-
-    walk(graph.subgraphs_iter(), None)
+    _walk_cluster_membership(
+        graph.subgraphs_iter(),
+        None,
+        nodes,
+        clusters,
+        rendered_node_names,
+        rendered_cluster_names,
+        node_parents,
+        cluster_parents,
+    )
     return node_parents, cluster_parents
+
+
+def _walk_cluster_membership(
+    subgraphs: Iterable[AGraph],
+    parent_cluster: str | None,
+    nodes: Mapping[str, Node],
+    clusters: Mapping[str, Node],
+    rendered_node_names: set[str],
+    rendered_cluster_names: set[str],
+    node_parents: dict[str, str],
+    cluster_parents: dict[str, str],
+) -> None:
+    for subgraph in subgraphs:
+        subgraph_name = str(subgraph.name) if subgraph.name is not None else None
+        if subgraph_name is not None and subgraph_name in rendered_cluster_names:
+            current_cluster = subgraph_name
+            if parent_cluster is not None and _is_within_cluster(
+                clusters[subgraph_name].rect,
+                clusters[parent_cluster],
+            ):
+                cluster_parents[subgraph_name] = parent_cluster
+        else:
+            current_cluster = parent_cluster
+
+        if current_cluster is not None:
+            for node in subgraph.nodes():
+                node_name = str(node)
+                if node_name in rendered_node_names and _is_within_cluster(
+                    nodes[node_name].rect,
+                    clusters[current_cluster],
+                ):
+                    node_parents[node_name] = current_cluster
+
+        _walk_cluster_membership(
+            subgraph.subgraphs_iter(),
+            current_cluster,
+            nodes,
+            clusters,
+            rendered_node_names,
+            rendered_cluster_names,
+            node_parents,
+            cluster_parents,
+        )
+
+
+def _is_within_cluster(member_rect: Rect | None, cluster: Node) -> bool:
+    cluster_rect = cluster.rect
+    if cluster_rect is None:
+        return False
+    if member_rect is None:
+        return True
+    return cluster_rect.contains(member_rect)
 
 
 def _load_pygraphviz_agraph(  # noqa: PLR0911
