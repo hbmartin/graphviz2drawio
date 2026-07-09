@@ -265,6 +265,79 @@ def test_cluster_membership_skips_cluster_without_rect() -> None:
     assert cluster_parents == {}
 
 
+def test_cluster_membership_uses_rendered_ancestor_for_no_rect_cluster() -> None:
+    graph = AGraph(
+        string=(
+            "digraph G {"
+            "  subgraph cluster_parent {"
+            "    subgraph cluster_missing {"
+            "      subgraph cluster_inner { a }"
+            "      b"
+            "    }"
+            "  }"
+            "}"
+        ),
+    )
+    nodes = {
+        "a": SimpleNamespace(rect=Rect(25, 25, 5, 5)),
+        "b": SimpleNamespace(rect=Rect(50, 50, 5, 5)),
+    }
+    clusters = {
+        "cluster_parent": SimpleNamespace(rect=Rect(0, 0, 100, 100)),
+        "cluster_missing": SimpleNamespace(rect=None),
+        "cluster_inner": SimpleNamespace(rect=Rect(20, 20, 20, 20)),
+    }
+
+    node_parents, cluster_parents = graphviz2drawio._cluster_membership(  # noqa: SLF001
+        graph,
+        nodes,
+        clusters,
+    )
+
+    assert node_parents["a"] == "cluster_inner"
+    assert node_parents["b"] == "cluster_parent"
+    assert cluster_parents == {"cluster_inner": "cluster_parent"}
+
+
+def test_cells_by_plain_label_collapses_duplicate_labels() -> None:
+    """Document a known limitation of the ``cells_by_plain_label`` test helper.
+
+    The helper keys cells by their rendered plain-text label, so two distinct
+    node cells that render the same text collapse to a single dict entry
+    (last-wins on insertion). Membership assertions built on this helper are
+    therefore only reliable for graphs whose visible labels are unique; a graph
+    with duplicate labels would silently drop a node and could mask a
+    regression. This test pins that behavior so the assumption is explicit.
+    """
+    model = ElementTree.fromstring(
+        """
+        <root>
+          <mxCell id="node_first" vertex="1" value="&lt;font&gt;dup&lt;/font&gt;" />
+          <mxCell id="node_second" vertex="1" value="&lt;font&gt;dup&lt;/font&gt;" />
+          <mxCell id="node_unique" vertex="1" value="&lt;font&gt;solo&lt;/font&gt;" />
+        </root>
+        """,
+    )
+    elements = list(model)
+
+    labels = cells_by_plain_label(elements)
+
+    # Both "dup" cells are real, distinct vertices...
+    assert (
+        len(
+            {
+                e.attrib["id"]
+                for e in elements
+                if e.attrib["value"].endswith("dup</font>")
+            },
+        )
+        == 2
+    )
+    # ...but they collapse to one entry, and the last one inserted wins.
+    assert set(labels) == {"dup", "solo"}
+    assert labels["dup"].attrib["id"] == "node_second"
+
+
 def test_convnet() -> None:
     file = "test/directed/convnet.gv.txt"
     xml = graphviz2drawio.convert(file)
