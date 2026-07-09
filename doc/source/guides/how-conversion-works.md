@@ -61,9 +61,10 @@ return mx_graph.value()
 ```
 
 {py:class}`~graphviz2drawio.mx.MxGraph.MxGraph` assembles the final draw.io /
-Lucidchart XML document. Clusters are emitted first so that nodes are drawn in
-front of them. The returned string is ready to be written to a `.xml` file or
-imported directly into draw.io.
+Lucidchart XML document. Rendered clusters are emitted first and member nodes
+are written as mxGraph children of their cluster cells, with child geometry made
+relative to the parent cluster. The returned string is ready to be written to a
+`.xml` file or imported directly into draw.io.
 
 ## Where the work happens
 

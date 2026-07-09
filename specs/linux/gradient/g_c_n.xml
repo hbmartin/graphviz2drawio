@@ -3,11 +3,11 @@
   <root>
     <mxCell id="0" />
     <mxCell id="1" parent="0" />
-    <mxCell id="clust1" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='white'&gt;acluster&lt;/font&gt;" style="verticalAlign=top;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=blue;strokeWidth=1;dashed=0;gradientColor=cyan;gradientDirection=south;" parent="1" vertex="1">
+    <mxCell id="clust1" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='white'&gt;acluster&lt;/font&gt;" style="verticalAlign=top;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=blue;strokeWidth=1;dashed=0;gradientColor=cyan;gradientDirection=south;" parent="1" vertex="1" connectable="0">
       <mxGeometry x="12.0" y="12.0" width="74.0" height="77.25" as="geometry" />
     </mxCell>
-    <mxCell id="node1" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;anode&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=red;strokeWidth=1;dashed=0;gradientColor=yellow;gradientDirection=north;" parent="1" vertex="1">
-      <mxGeometry x="19.619999999999997" y="45.25" width="58.76" height="36.0" as="geometry" />
+    <mxCell id="node1" value="&lt;font style='font-size: 14.0px;' face='Times,serif' color='#000000'&gt;anode&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=red;strokeWidth=1;dashed=0;gradientColor=yellow;gradientDirection=north;" parent="clust1" vertex="1">
+      <mxGeometry x="7.619999999999997" y="33.25" width="58.76" height="36.0" as="geometry" />
     </mxCell>
   </root>
 </mxGraphModel>

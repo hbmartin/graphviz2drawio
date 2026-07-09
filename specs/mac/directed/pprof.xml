@@ -3,11 +3,11 @@
   <root>
     <mxCell id="0" />
     <mxCell id="1" parent="0" />
-    <mxCell id="clust1" value="" style="verticalAlign=top;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=none;strokeWidth=1;dashed=0;" parent="1" vertex="1">
+    <mxCell id="clust1" value="" style="verticalAlign=top;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=none;strokeWidth=1;dashed=0;" parent="1" vertex="1" connectable="0">
       <mxGeometry x="106.38" y="12.0" width="428.0" height="144.5" as="geometry" />
     </mxCell>
-    <mxCell id="node1" value="&lt;font style='font-size: 16.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;File: [stackcollapse]&lt;br/&gt;Showing nodes accounting for 380, 90.48% of 420 total&lt;br/&gt;Dropped 120 nodes (cum &lt;= 2)&lt;br/&gt;Showing top 20 nodes out of 110&lt;br/&gt;See https://git.io/JfYMW for how to read the graph&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=#f8f8f8;strokeWidth=1;dashed=0;" parent="1" vertex="1">
-      <mxGeometry x="114.0" y="20.0" width="412.75" height="128.5" as="geometry" />
+    <mxCell id="node1" value="&lt;font style='font-size: 16.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;File: [stackcollapse]&lt;br/&gt;Showing nodes accounting for 380, 90.48% of 420 total&lt;br/&gt;Dropped 120 nodes (cum &lt;= 2)&lt;br/&gt;Showing top 20 nodes out of 110&lt;br/&gt;See https://git.io/JfYMW for how to read the graph&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=black;fillColor=#f8f8f8;strokeWidth=1;dashed=0;" parent="clust1" vertex="1">
+      <mxGeometry x="7.6200000000000045" y="8.0" width="412.75" height="128.5" as="geometry" />
     </mxCell>
     <mxCell id="node1" value="&lt;font style='font-size: 18.0px;' face='Helvetica,Arial,sans-serif' color='#000000'&gt;deflate&lt;br/&gt;62 (14.76%)&lt;br/&gt;of 384 (91.43%)&lt;/font&gt;" style="verticalAlign=middle;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#b20400;fillColor=#edd6d5;strokeWidth=1;dashed=0;" parent="1" vertex="1">
       <mxGeometry x="514.0" y="460.5" width="142.75" height="64.25" as="geometry" />

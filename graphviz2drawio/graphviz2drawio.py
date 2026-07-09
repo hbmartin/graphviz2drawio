@@ -1,4 +1,5 @@
 import re
+from collections.abc import Iterable
 from io import TextIOBase
 from pathlib import Path
 
@@ -53,9 +54,55 @@ def convert(
     for n in nodes.values():
         n.enrich_from_graph(graph_nodes[n.gid])
 
+    node_parents, cluster_parents = _cluster_membership(graph, nodes, clusters)
+
     # Put clusters first, so that nodes are drawn in front
-    mx_graph = MxGraph(clusters, nodes, edges)
+    mx_graph = MxGraph(
+        clusters,
+        nodes,
+        edges,
+        node_parents=node_parents,
+        cluster_parents=cluster_parents,
+    )
     return mx_graph.value()
+
+
+def _cluster_membership(
+    graph: AGraph,
+    nodes: dict[str, object],
+    clusters: dict[str, object],
+) -> tuple[dict[str, str], dict[str, str]]:
+    """Return nearest rendered cluster parent names for nodes and clusters.
+
+    Graphviz's SVG tells us the rendered cluster rectangles, but not which SVG
+    nodes are children of those rectangles. PyGraphviz still has the DOT
+    subgraph membership, and Graphviz uses the subgraph name as the SVG cluster
+    title, so this bridges the two sources of truth.
+    """
+    rendered_cluster_names = set(clusters)
+    rendered_node_names = set(nodes)
+    node_parents: dict[str, str] = {}
+    cluster_parents: dict[str, str] = {}
+
+    def walk(subgraphs: Iterable[AGraph], parent_cluster: str | None) -> None:
+        for subgraph in subgraphs:
+            subgraph_name = subgraph.name
+            is_rendered_cluster = subgraph_name in rendered_cluster_names
+            current_cluster = subgraph_name if is_rendered_cluster else parent_cluster
+
+            if is_rendered_cluster and parent_cluster is not None:
+                cluster_parents[subgraph_name] = parent_cluster
+
+            if current_cluster is not None:
+                for node in subgraph.nodes():
+                    node_name = str(node)
+                    if node_name in rendered_node_names:
+                        node_parents[node_name] = current_cluster
+
+            walk(subgraph.subgraphs_iter(), current_cluster)
+
+    walk(graph.subgraphs_iter(), None)
+    return node_parents, cluster_parents
 
 
 def _load_pygraphviz_agraph(  # noqa: PLR0911
