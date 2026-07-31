@@ -9,6 +9,7 @@ ENV UV_PROJECT_ENVIRONMENT=/opt/venv \
     UV_PYTHON_INSTALL_DIR=/opt/uv-python \
     UV_PYTHON=3.12 \
     UV_LINK_MODE=copy \
+    UV_NO_SYNC=1 \
     PATH="/opt/venv/bin:${PATH}"
 
 WORKDIR /work

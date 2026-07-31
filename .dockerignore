@@ -1,0 +1,4 @@
+# Keep Docker spec-env builds focused on files used by COPY.
+*
+!pyproject.toml
+!uv.lock
