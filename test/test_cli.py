@@ -33,6 +33,26 @@ def test_main_adds_context_note_on_single_file_failure(
     assert f"output={xml_file.name}" in notes[0]
 
 
+def test_main_extensionless_input_writes_named_xml(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    dot_file = tmp_path / "graph"
+    dot_file.write_text("digraph { good }", encoding="utf-8")
+
+    def fake_convert(_graph: str, _program: str) -> str:
+        return "<mxGraphModel />"
+
+    monkeypatch.setattr(cli, "convert", fake_convert)
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(sys, "argv", ["graphviz2drawio", dot_file.name])
+
+    cli.main()
+
+    assert (tmp_path / "graph.xml").read_text(encoding="utf-8") == "<mxGraphModel />"
+    assert not (tmp_path / ".xml").exists()
+
+
 def test_main_converts_remaining_files_before_exception_group(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,

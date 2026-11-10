@@ -18,7 +18,10 @@ UTF8 = "utf-8"
 
 
 def _gv_filename_to_xml(filename: str) -> str:
-    return ".".join(filename.split(".")[:-1]) + ".xml"
+    stem = ".".join(filename.split(".")[:-1])
+    if not stem:
+        stem = filename
+    return stem + ".xml"
 
 
 def _write_stderr_message(to_convert: str) -> None:
